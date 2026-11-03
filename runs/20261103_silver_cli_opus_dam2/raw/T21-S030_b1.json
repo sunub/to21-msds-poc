@@ -1,0 +1,424 @@
+{
+  "doc_id": "T21-S030",
+  "bundle": "b1",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 55463,
+    "completion_tokens": 3864,
+    "cached_tokens": 11700,
+    "reasoning_tokens": 666,
+    "notional_cost_usd": 0.429716
+  },
+  "seconds": 33.7,
+  "request_usage": [
+    {
+      "prompt_tokens": 55463,
+      "completion_tokens": 3864,
+      "cached_tokens": 11700,
+      "reasoning_tokens": 666,
+      "notional_cost_usd": 0.429716
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "doc": {
+      "language": "ko",
+      "msds_count": 1
+    },
+    "msds": [
+      {
+        "meta": {
+          "msds_no": "AA02419-0000000181",
+          "doc_code": null,
+          "revision_no": 4,
+          "revision_label": "Version: 1.4",
+          "header_product_name": "Ethylene Carbonate [EC]",
+          "source_note": null,
+          "first_issue_date": "2023-10-23",
+          "last_revision_date": "2023-10-26",
+          "page_start": 1,
+          "page_end": 8
+        },
+        "product": {
+          "name": "Ethylene Carbonate [EC]",
+          "code": null,
+          "synonyms": [],
+          "uses": [],
+          "restrictions": [],
+          "use_category_code": null
+        },
+        "companies": [
+          {
+            "seq": 1,
+            "role": "제조자",
+            "name": "그린케미칼",
+            "site": null,
+            "address": "충청남도 서산시 대산읍 독곶2로 103",
+            "postcode": null,
+            "department": null,
+            "contacts": [
+              {
+                "type": "대표",
+                "value": "041-661-5000",
+                "hours": null
+              },
+              {
+                "type": "긴급",
+                "value": "041-661-5000",
+                "hours": null
+              }
+            ]
+          },
+          {
+            "seq": 2,
+            "role": "공급자",
+            "name": "그린케미칼",
+            "site": null,
+            "address": "충청남도 서산시 대산읍 독곶2로 103",
+            "postcode": null,
+            "department": null,
+            "contacts": [
+              {
+                "type": "대표",
+                "value": "041-661-5000",
+                "hours": null
+              },
+              {
+                "type": "긴급",
+                "value": "041-661-5000",
+                "hours": null
+              }
+            ]
+          }
+        ],
+        "hazard": {
+          "classified": true,
+          "classes": [
+            {
+              "seq": 1,
+              "group": "건강",
+              "class_code": "HH_STOT_RE",
+              "category": "2",
+              "route_form": null,
+              "effect": null,
+              "target_organs": [],
+              "raw": "특정표적장기 독성(반복 노출) : 구분2"
+            }
+          ],
+          "signal_word": "경고",
+          "pictograms": [
+            {
+              "code": "GHS08",
+              "detection": "이미지판독"
+            }
+          ],
+          "h_statements": [
+            {
+              "seq": 1,
+              "code": "H373",
+              "system": "GHS",
+              "mark": null,
+              "text": "장기간 또는 반복노출 되면 장기에 손상을 일으킬 수 있음"
+            }
+          ],
+          "p_statements": [
+            {
+              "seq": 1,
+              "code": "P260",
+              "type": "예방",
+              "text": "분진/흄을(를) 흡입하지 마시오."
+            },
+            {
+              "seq": 2,
+              "code": "P314",
+              "type": "대응",
+              "text": "불편함을 느끼면 의학적인 조치/조언을 받으시오."
+            },
+            {
+              "seq": 3,
+              "code": "P501",
+              "type": "폐기",
+              "text": "폐기물 관련 법령에 따라 내용물/용기를 폐기하시오."
+            }
+          ],
+          "other_hazards": [
+            {
+              "seq": 1,
+              "key": null,
+              "value": "자료없음",
+              "text": "- 자료없음"
+            }
+          ],
+          "nfpa": {
+            "health": null,
+            "fire": null,
+            "reactivity": null,
+            "special": null
+          }
+        },
+        "composition": {
+          "type": "단일물질",
+          "no_hazardous_component": false
+        },
+        "components": [
+          {
+            "seq": 1,
+            "name": "1,3-다이옥솔란-2-온",
+            "name_en": null,
+            "synonyms": [
+              "1,3-다이옥솔란-2-온",
+              "다이옥솔론-2",
+              "탄산 에틸렌",
+              "에틸렌 글라이콜 탄산",
+              "탄산 글라이콜",
+              "탄산, 사이클릭 에틸렌 에스터",
+              "사이클릭 에틸렌 탄산",
+              "2-옥소-1,3-다이옥솔란"
+            ],
+            "cas_no": "96-49-1",
+            "ke_no": "KE-12028",
+            "ec_no": null,
+            "other_id": null,
+            "other_id_type": null,
+            "parent_seq": null,
+            "read_across_cas": null,
+            "content": {
+              "raw": "100.0",
+              "status": "값있음",
+              "value": 100,
+              "dp": 1,
+              "unit": "%"
+            },
+            "content_note": null,
+            "content_basis": "미표기",
+            "trade_secret": false,
+            "approval_no": null,
+            "approval_expiry": null
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "meta.msds_no",
+        "page": 1,
+        "source_text": "MSDS 번호: AA02419-0000000181",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.header_product_name",
+        "page": 1,
+        "source_text": "Ethylene Carbonate [EC]",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.revision_label",
+        "page": 1,
+        "source_text": "Version: 1.4",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.revision_no",
+        "page": 8,
+        "source_text": "- 4 회, 2023-10-26",
+        "rules": [],
+        "note": "16항 개정횟수 '4 회'를 사용"
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.first_issue_date",
+        "page": 8,
+        "source_text": "- 2023-10-23",
+        "rules": [
+          "R01"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.last_revision_date",
+        "page": 8,
+        "source_text": "- 4 회, 2023-10-26",
+        "rules": [
+          "R01"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.page_start",
+        "page": 1,
+        "source_text": "1/8",
+        "rules": [
+          "R16"
+        ],
+        "note": "1~8쪽 단일 MSDS"
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.page_end",
+        "page": 8,
+        "source_text": "8/8",
+        "rules": [
+          "R16"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "product.name",
+        "page": 1,
+        "source_text": "- Ethylene Carbonate [EC]",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "product.uses",
+        "page": 1,
+        "source_text": "- 용도 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "용도·사용상의 제한 모두 '자료없음'으로 목록 비움"
+      },
+      {
+        "msds_index": 0,
+        "field": "companies[0]",
+        "page": 1,
+        "source_text": "○ 제조자 정보 - 회사명 : 그린케미칼 - 주소 : 충청남도 서산시 대산읍 독곶2로 103 - 전화번호 : 041-661-5000 - 긴급 전화번호 : 041-661-5000",
+        "rules": [
+          "R12"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "companies[1]",
+        "page": 1,
+        "source_text": "○ 공급자/유통업자 정보 - 회사명 : 그린케미칼 - 주소 : 충청남도 서산시 대산읍 독곶2로 103 - 전화번호 : 041-661-5000 - 긴급 전화번호 : 041-661-5000",
+        "rules": [
+          "R12"
+        ],
+        "note": "공급자/유통업자 정보를 role 공급자로 기록"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classified",
+        "page": 1,
+        "source_text": "- 특정표적장기 독성(반복 노출) : 구분2",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classes[0]",
+        "page": 1,
+        "source_text": "- 특정표적장기 독성(반복 노출) : 구분2",
+        "rules": [
+          "R07"
+        ],
+        "note": "'구분2'에서 '구분' 제거"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.signal_word",
+        "page": 1,
+        "source_text": "○ 신호어 - 경고",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.pictograms[0]",
+        "page": 1,
+        "source_text": "○ 그림문자",
+        "rules": [],
+        "note": "이미지에 건강유해성 그림문자(GHS08) 보임"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.h_statements[0]",
+        "page": 1,
+        "source_text": "- H373 장기간 또는 반복노출 되면 장기에 손상을 일으킬 수 있음",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[0]",
+        "page": 1,
+        "source_text": "- P260 분진/흄을(를) 흡입하지 마시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[1]",
+        "page": 1,
+        "source_text": "- P314 불편함을 느끼면 의학적인 조치/조언을 받으시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[2]",
+        "page": 2,
+        "source_text": "- P501 폐기물 관련 법령에 따라 내용물/용기를 폐기하시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": "저장은 '해당없음'으로 코드 없음"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.other_hazards[0]",
+        "page": 2,
+        "source_text": "- 자료없음",
+        "rules": [
+          "R14"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "composition.type",
+        "page": 2,
+        "source_text": "1,3-다이옥솔란-2-온 | 96-49-1 / KE-12028 | 100.0",
+        "rules": [],
+        "note": "성분 1종 100.0%로 단일물질"
+      },
+      {
+        "msds_index": 0,
+        "field": "components[0]",
+        "page": 2,
+        "source_text": "1,3-다이옥솔란-2-온 | 1,3-다이옥솔란-2-온 ; 다이옥솔론-2 ; 탄산 에틸렌 ; ... | 96-49-1 / KE-12028 | 100.0",
+        "rules": [
+          "R02",
+          "R03",
+          "R04",
+          "R06",
+          "R11"
+        ],
+        "note": "CAS/KE 분리, 100.0을 value 100(dp 1, %)으로, 이명은 ';' 기준 분리(줄바꿈으로 끊긴 '에틸 렌'은 이어붙임)"
+      }
+    ]
+  },
+  "raw_text": "{\"doc\": {\"language\": \"ko\", \"msds_count\": 1}, \"msds\": [{\"meta\": {\"msds_no\": \"AA02419-0000000181\", \"doc_code\": null, \"revision_no\": 4, \"revision_label\": \"Version: 1.4\", \"header_product_name\": \"Ethylene Carbonate [EC]\", \"source_note\": null, \"first_issue_date\": \"2023-10-23\", \"last_revision_date\": \"2023-10-26\", \"page_start\": 1, \"page_end\": 8}, \"product\": {\"name\": \"Ethylene Carbonate [EC]\", \"code\": null, \"synonyms\": [], \"uses\": [], \"restrictions\": [], \"use_category_code\": null}, \"companies\": [{\"seq\": 1, \"role\": \"제조자\", \"name\": \"그린케미칼\", \"site\": null, \"address\": \"충청남도 서산시 대산읍 독곶2로 103\", \"postcode\": null, \"department\": null, \"contacts\": [{\"type\": \"대표\", \"value\": \"041-661-5000\", \"hours\": null}, {\"type\": \"긴급\", \"value\": \"041-661-5000\", \"hours\": null}]}, {\"seq\": 2, \"role\": \"공급자\", \"name\": \"그린케미칼\", \"site\": null, \"address\": \"충청남도 서산시 대산읍 독곶2로 103\", \"postcode\": null, \"department\": null, \"contacts\": [{\"type\": \"대표\", \"value\": \"041-661-5000\", \"hours\": null}, {\"type\": \"긴급\", \"value\": \"041-661-5000\", \"hours\": null}]}], \"hazard\": {\"classified\": true, \"classes\": [{\"seq\": 1, \"group\": \"건강\", \"class_code\": \"HH_STOT_RE\", \"category\": \"2\", \"route_form\": null, \"effect\": null, \"target_organs\": [], \"raw\": \"특정표적장기 독성(반복 노출) : 구분2\"}], \"signal_word\": \"경고\", \"pictograms\": [{\"code\": \"GHS08\", \"detection\": \"이미지판독\"}], \"h_statements\": [{\"seq\": 1, \"code\": \"H373\", \"system\": \"GHS\", \"mark\": null, \"text\": \"장기간 또는 반복노출 되면 장기에 손상을 일으킬 수 있음\"}], \"p_statements\": [{\"seq\": 1, \"code\": \"P260\", \"type\": \"예방\", \"text\": \"분진/흄을(를) 흡입하지 마시오.\"}, {\"seq\": 2, \"code\": \"P314\", \"type\": \"대응\", \"text\": \"불편함을 느끼면 의학적인 조치/조언을 받으시오.\"}, {\"seq\": 3, \"code\": \"P501\", \"type\": \"폐기\", \"text\": \"폐기물 관련 법령에 따라 내용물/용기를 폐기하시오.\"}], \"other_hazards\": [{\"seq\": 1, \"key\": null, \"value\": \"자료없음\", \"text\": \"- 자료없음\"}], \"nfpa\": {\"health\": null, \"fire\": null, \"reactivity\": null, \"special\": null}}, \"composition\": {\"type\": \"단일물질\", \"no_hazardous_component\": false}, \"components\": [{\"seq\": 1, \"name\": \"1,3-다이옥솔란-2-온\", \"name_en\": null, \"synonyms\": [\"1,3-다이옥솔란-2-온\", \"다이옥솔론-2\", \"탄산 에틸렌\", \"에틸렌 글라이콜 탄산\", \"탄산 글라이콜\", \"탄산, 사이클릭 에틸렌 에스터\", \"사이클릭 에틸렌 탄산\", \"2-옥소-1,3-다이옥솔란\"], \"cas_no\": \"96-49-1\", \"ke_no\": \"KE-12028\", \"ec_no\": null, \"other_id\": null, \"other_id_type\": null, \"parent_seq\": null, \"read_across_cas\": null, \"content\": {\"raw\": \"100.0\", \"status\": \"값있음\", \"value\": 100, \"dp\": 1, \"unit\": \"%\"}, \"content_note\": null, \"content_basis\": \"미표기\", \"trade_secret\": false, \"approval_no\": null, \"approval_expiry\": null}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"meta.msds_no\", \"page\": 1, \"source_text\": \"MSDS 번호: AA02419-0000000181\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"meta.header_product_name\", \"page\": 1, \"source_text\": \"Ethylene Carbonate [EC]\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"meta.revision_label\", \"page\": 1, \"source_text\": \"Version: 1.4\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"meta.revision_no\", \"page\": 8, \"source_text\": \"- 4 회, 2023-10-26\", \"rules\": [], \"note\": \"16항 개정횟수 '4 회'를 사용\"}, {\"msds_index\": 0, \"field\": \"meta.first_issue_date\", \"page\": 8, \"source_text\": \"- 2023-10-23\", \"rules\": [\"R01\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"meta.last_revision_date\", \"page\": 8, \"source_text\": \"- 4 회, 2023-10-26\", \"rules\": [\"R01\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"meta.page_start\", \"page\": 1, \"source_text\": \"1/8\", \"rules\": [\"R16\"], \"note\": \"1~8쪽 단일 MSDS\"}, {\"msds_index\": 0, \"field\": \"meta.page_end\", \"page\": 8, \"source_text\": \"8/8\", \"rules\": [\"R16\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"product.name\", \"page\": 1, \"source_text\": \"- Ethylene Carbonate [EC]\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"product.uses\", \"page\": 1, \"source_text\": \"- 용도 : 자료없음\", \"rules\": [\"R15\"], \"note\": \"용도·사용상의 제한 모두 '자료없음'으로 목록 비움\"}, {\"msds_index\": 0, \"field\": \"companies[0]\", \"page\": 1, \"source_text\": \"○ 제조자 정보 - 회사명 : 그린케미칼 - 주소 : 충청남도 서산시 대산읍 독곶2로 103 - 전화번호 : 041-661-5000 - 긴급 전화번호 : 041-661-5000\", \"rules\": [\"R12\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"companies[1]\", \"page\": 1, \"source_text\": \"○ 공급자/유통업자 정보 - 회사명 : 그린케미칼 - 주소 : 충청남도 서산시 대산읍 독곶2로 103 - 전화번호 : 041-661-5000 - 긴급 전화번호 : 041-661-5000\", \"rules\": [\"R12\"], \"note\": \"공급자/유통업자 정보를 role 공급자로 기록\"}, {\"msds_index\": 0, \"field\": \"hazard.classified\", \"page\": 1, \"source_text\": \"- 특정표적장기 독성(반복 노출) : 구분2\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.classes[0]\", \"page\": 1, \"source_text\": \"- 특정표적장기 독성(반복 노출) : 구분2\", \"rules\": [\"R07\"], \"note\": \"'구분2'에서 '구분' 제거\"}, {\"msds_index\": 0, \"field\": \"hazard.signal_word\", \"page\": 1, \"source_text\": \"○ 신호어 - 경고\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.pictograms[0]\", \"page\": 1, \"source_text\": \"○ 그림문자\", \"rules\": [], \"note\": \"이미지에 건강유해성 그림문자(GHS08) 보임\"}, {\"msds_index\": 0, \"field\": \"hazard.h_statements[0]\", \"page\": 1, \"source_text\": \"- H373 장기간 또는 반복노출 되면 장기에 손상을 일으킬 수 있음\", \"rules\": [\"R05\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.p_statements[0]\", \"page\": 1, \"source_text\": \"- P260 분진/흄을(를) 흡입하지 마시오.\", \"rules\": [\"R05\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.p_statements[1]\", \"page\": 1, \"source_text\": \"- P314 불편함을 느끼면 의학적인 조치/조언을 받으시오.\", \"rules\": [\"R05\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.p_statements[2]\", \"page\": 2, \"source_text\": \"- P501 폐기물 관련 법령에 따라 내용물/용기를 폐기하시오.\", \"rules\": [\"R05\"], \"note\": \"저장은 '해당없음'으로 코드 없음\"}, {\"msds_index\": 0, \"field\": \"hazard.other_hazards[0]\", \"page\": 2, \"source_text\": \"- 자료없음\", \"rules\": [\"R14\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"composition.type\", \"page\": 2, \"source_text\": \"1,3-다이옥솔란-2-온 | 96-49-1 / KE-12028 | 100.0\", \"rules\": [], \"note\": \"성분 1종 100.0%로 단일물질\"}, {\"msds_index\": 0, \"field\": \"components[0]\", \"page\": 2, \"source_text\": \"1,3-다이옥솔란-2-온 | 1,3-다이옥솔란-2-온 ; 다이옥솔론-2 ; 탄산 에틸렌 ; ... | 96-49-1 / KE-12028 | 100.0\", \"rules\": [\"R02\", \"R03\", \"R04\", \"R06\", \"R11\"], \"note\": \"CAS/KE 분리, 100.0을 value 100(dp 1, %)으로, 이명은 ';' 기준 분리(줄바꿈으로 끊긴 '에틸 렌'은 이어붙임)\"}]}"
+}

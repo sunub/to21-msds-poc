@@ -1,0 +1,546 @@
+{
+  "doc_id": "T21-024",
+  "bundle": "b2",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 45883,
+    "completion_tokens": 4748,
+    "cached_tokens": 6909,
+    "reasoning_tokens": 973,
+    "notional_cost_usd": 0.4081258
+  },
+  "seconds": 37.9,
+  "request_usage": [
+    {
+      "prompt_tokens": 45883,
+      "completion_tokens": 4748,
+      "cached_tokens": 6909,
+      "reasoning_tokens": 973,
+      "notional_cost_usd": 0.4081258
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "exposure_limits": [
+          {
+            "comp_ref": "1",
+            "standard": "국내",
+            "limit_type": "TWA",
+            "kr_basis": "노출기준",
+            "q": {
+              "raw": "0.5 mg/㎥ (안티몬과 그 화합물)",
+              "status": "값있음",
+              "value": 0.5,
+              "unit": "mg/m3",
+              "dp": 1,
+              "note": "안티몬과 그 화합물"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "1",
+            "standard": "ACGIH",
+            "limit_type": "TWA",
+            "q": {
+              "raw": "0.5 mg/m3, as Sb",
+              "status": "값있음",
+              "value": 0.5,
+              "unit": "mg/m3",
+              "dp": 1,
+              "note": "as Sb"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "1",
+            "standard": "생물학적",
+            "limit_type": "BEI",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            },
+            "notations": []
+          }
+        ],
+        "physchem": [
+          {
+            "prop_code": "APPEARANCE_STATE",
+            "comp_ref": "MIX",
+            "text_value": "고체",
+            "q": null
+          },
+          {
+            "prop_code": "APPEARANCE_COLOR",
+            "comp_ref": "MIX",
+            "text_value": "은백색",
+            "q": null
+          },
+          {
+            "prop_code": "ODOR",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "ODOR_THRESHOLD",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "PH",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            }
+          },
+          {
+            "prop_code": "MELT_FREEZE",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "630 ℃",
+              "status": "값있음",
+              "value": 630,
+              "unit": "C",
+              "dp": 0
+            }
+          },
+          {
+            "prop_code": "BOILING",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "> 600 ℃ (1010 hPa)",
+              "status": "값있음",
+              "lower_op": ">",
+              "lower": 600,
+              "unit": "C",
+              "dp": 0
+            },
+            "cond": {
+              "pressure": 1010,
+              "pressure_unit": "hPa"
+            },
+            "data_source": "ECHA"
+          },
+          {
+            "prop_code": "FLASH_POINT",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "EVAP_RATE",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "FLAMMABILITY",
+            "comp_ref": "MIX",
+            "text_value": "기체 : 인화성",
+            "q": null
+          },
+          {
+            "prop_code": "UEL",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "0.04 %",
+              "status": "값있음",
+              "note": "상한/하한 구분 없이 단일값만 기재되어 분해하지 않음"
+            }
+          },
+          {
+            "prop_code": "LEL",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "0.04 %",
+              "status": "값있음",
+              "note": "상한/하한 구분 없이 단일값만 기재되어 분해하지 않음"
+            }
+          },
+          {
+            "prop_code": "VAPOR_PRESSURE",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "1 ㎜Hg (886℃)",
+              "status": "값있음",
+              "value": 1,
+              "unit": "mmHg",
+              "dp": 0
+            },
+            "cond": {
+              "temp": 886,
+              "temp_unit": "C"
+            }
+          },
+          {
+            "prop_code": "SOLUBILITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "17.1~19.3 ㎎/ℓ (20℃, pH: 4.6)",
+              "status": "값있음",
+              "lower_op": ">=",
+              "lower": 17.1,
+              "upper_op": "<=",
+              "upper": 19.3,
+              "unit": "mg/L",
+              "dp": 1,
+              "note": "pH: 4.6"
+            },
+            "cond": {
+              "temp": 20,
+              "temp_unit": "C"
+            },
+            "data_source": "ECHA"
+          },
+          {
+            "prop_code": "VAPOR_DENSITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "6.68 g/㎤ (20℃)",
+              "status": "값있음",
+              "value": 6.68,
+              "unit": "g/cm3",
+              "dp": 2
+            },
+            "cond": {
+              "temp": 20,
+              "temp_unit": "C"
+            },
+            "data_source": "HSDB"
+          },
+          {
+            "prop_code": "RELATIVE_DENSITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "7.05 (21.8℃, 상대 밀도)",
+              "status": "값있음",
+              "value": 7.05,
+              "dp": 2,
+              "note": "상대 밀도"
+            },
+            "cond": {
+              "temp": 21.8,
+              "temp_unit": "C"
+            },
+            "data_source": "ECHA"
+          },
+          {
+            "prop_code": "LOG_KOW",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "AUTOIGNITION",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "DECOMPOSITION",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "VISCOSITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "MOL_WEIGHT",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "121.8",
+              "status": "값있음",
+              "value": 121.8,
+              "dp": 1
+            }
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[0]",
+        "page": 3,
+        "source_text": "- [안티모니] :  TWA : 0.5 mg/㎥ (안티몬과 그 화합물)",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "국내노출기준 TWA 0.5 mg/m3, 괄호 설명은 note로"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[1]",
+        "page": 3,
+        "source_text": "- [안티모니] :  TWA, 0.5 mg/m3, as Sb",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "ACGIH TWA, 'as Sb'는 note로"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[2]",
+        "page": 3,
+        "source_text": "- [안티모니] :  해당없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": "생물학적 노출기준 해당없음; limit_type은 BEI로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[0]",
+        "page": 4,
+        "source_text": "- 성상 | 고체",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[1]",
+        "page": 4,
+        "source_text": "- 색 | 은백색",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[2]",
+        "page": 4,
+        "source_text": "나. 냄새 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[3]",
+        "page": 4,
+        "source_text": "다. 냄새역치 | 자료없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[4]",
+        "page": 4,
+        "source_text": "라. pH | 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[5]",
+        "page": 4,
+        "source_text": "마. 녹는점/어는점 | 630 ℃",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[6]",
+        "page": 4,
+        "source_text": "바. 초기 끓는점과 끓는점 범위 | > 600 ℃ (1010 hPa) ※출처 : ECHA",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": "하한 >600 C, 압력 조건 cond, 출처 data_source"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[7]",
+        "page": 4,
+        "source_text": "사. 인화점 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[8]",
+        "page": 4,
+        "source_text": "아. 증발 속도 | 자료없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[9]",
+        "page": 4,
+        "source_text": "자. 인화성 (고체, 기체) | 기체 : 인화성",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[10]",
+        "page": 4,
+        "source_text": "차. 인화 또는 폭발 범위의 상한/하한 | 0.04 %",
+        "rules": [
+          "R17",
+          "R25"
+        ],
+        "note": "상한/하한 중 어느 값인지 불명확하여 raw만 남김"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[11]",
+        "page": 4,
+        "source_text": "차. 인화 또는 폭발 범위의 상한/하한 | 0.04 %",
+        "rules": [
+          "R17",
+          "R25"
+        ],
+        "note": "상한/하한 중 어느 값인지 불명확하여 raw만 남김"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[12]",
+        "page": 4,
+        "source_text": "카. 증기압 | 1 ㎜Hg (886℃)",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": "온도 886 C를 cond로"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[13]",
+        "page": 4,
+        "source_text": "타. 용해도 | 17.1~19.3 ㎎/ℓ (20℃, pH: 4.6) ※출처 : ECHA",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": "범위 17.1~19.3 mg/L; COND에 pH 칸이 없어 'pH: 4.6'은 q.note로"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[14]",
+        "page": 4,
+        "source_text": "파. 증기밀도 | 6.68 g/㎤ (20℃) ※출처 : HSDB",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[15]",
+        "page": 4,
+        "source_text": "하. 비중 | 7.05 (21.8℃, 상대 밀도) ※출처 : ECHA",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": "'상대 밀도'는 note로"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[16]",
+        "page": 4,
+        "source_text": "거. N-옥탄올/물 분배계수 | 자료없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[17]",
+        "page": 4,
+        "source_text": "너. 자연발화온도 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[18]",
+        "page": 4,
+        "source_text": "더. 분해온도 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[19]",
+        "page": 4,
+        "source_text": "러. 점도 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[20]",
+        "page": 4,
+        "source_text": "머. 분자량 | 121.8",
+        "rules": [
+          "R06"
+        ],
+        "note": null
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"exposure_limits\": [{\"comp_ref\": \"1\", \"standard\": \"국내\", \"limit_type\": \"TWA\", \"kr_basis\": \"노출기준\", \"q\": {\"raw\": \"0.5 mg/㎥ (안티몬과 그 화합물)\", \"status\": \"값있음\", \"value\": 0.5, \"unit\": \"mg/m3\", \"dp\": 1, \"note\": \"안티몬과 그 화합물\"}, \"notations\": []}, {\"comp_ref\": \"1\", \"standard\": \"ACGIH\", \"limit_type\": \"TWA\", \"q\": {\"raw\": \"0.5 mg/m3, as Sb\", \"status\": \"값있음\", \"value\": 0.5, \"unit\": \"mg/m3\", \"dp\": 1, \"note\": \"as Sb\"}, \"notations\": []}, {\"comp_ref\": \"1\", \"standard\": \"생물학적\", \"limit_type\": \"BEI\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}, \"notations\": []}], \"physchem\": [{\"prop_code\": \"APPEARANCE_STATE\", \"comp_ref\": \"MIX\", \"text_value\": \"고체\", \"q\": null}, {\"prop_code\": \"APPEARANCE_COLOR\", \"comp_ref\": \"MIX\", \"text_value\": \"은백색\", \"q\": null}, {\"prop_code\": \"ODOR\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"ODOR_THRESHOLD\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"PH\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}}, {\"prop_code\": \"MELT_FREEZE\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"630 ℃\", \"status\": \"값있음\", \"value\": 630, \"unit\": \"C\", \"dp\": 0}}, {\"prop_code\": \"BOILING\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"> 600 ℃ (1010 hPa)\", \"status\": \"값있음\", \"lower_op\": \">\", \"lower\": 600, \"unit\": \"C\", \"dp\": 0}, \"cond\": {\"pressure\": 1010, \"pressure_unit\": \"hPa\"}, \"data_source\": \"ECHA\"}, {\"prop_code\": \"FLASH_POINT\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"EVAP_RATE\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"FLAMMABILITY\", \"comp_ref\": \"MIX\", \"text_value\": \"기체 : 인화성\", \"q\": null}, {\"prop_code\": \"UEL\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"0.04 %\", \"status\": \"값있음\", \"note\": \"상한/하한 구분 없이 단일값만 기재되어 분해하지 않음\"}}, {\"prop_code\": \"LEL\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"0.04 %\", \"status\": \"값있음\", \"note\": \"상한/하한 구분 없이 단일값만 기재되어 분해하지 않음\"}}, {\"prop_code\": \"VAPOR_PRESSURE\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"1 ㎜Hg (886℃)\", \"status\": \"값있음\", \"value\": 1, \"unit\": \"mmHg\", \"dp\": 0}, \"cond\": {\"temp\": 886, \"temp_unit\": \"C\"}}, {\"prop_code\": \"SOLUBILITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"17.1~19.3 ㎎/ℓ (20℃, pH: 4.6)\", \"status\": \"값있음\", \"lower_op\": \">=\", \"lower\": 17.1, \"upper_op\": \"<=\", \"upper\": 19.3, \"unit\": \"mg/L\", \"dp\": 1, \"note\": \"pH: 4.6\"}, \"cond\": {\"temp\": 20, \"temp_unit\": \"C\"}, \"data_source\": \"ECHA\"}, {\"prop_code\": \"VAPOR_DENSITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"6.68 g/㎤ (20℃)\", \"status\": \"값있음\", \"value\": 6.68, \"unit\": \"g/cm3\", \"dp\": 2}, \"cond\": {\"temp\": 20, \"temp_unit\": \"C\"}, \"data_source\": \"HSDB\"}, {\"prop_code\": \"RELATIVE_DENSITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"7.05 (21.8℃, 상대 밀도)\", \"status\": \"값있음\", \"value\": 7.05, \"dp\": 2, \"note\": \"상대 밀도\"}, \"cond\": {\"temp\": 21.8, \"temp_unit\": \"C\"}, \"data_source\": \"ECHA\"}, {\"prop_code\": \"LOG_KOW\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"AUTOIGNITION\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"DECOMPOSITION\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"VISCOSITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"MOL_WEIGHT\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"121.8\", \"status\": \"값있음\", \"value\": 121.8, \"dp\": 1}}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"exposure_limits[0]\", \"page\": 3, \"source_text\": \"- [안티모니] :  TWA : 0.5 mg/㎥ (안티몬과 그 화합물)\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": \"국내노출기준 TWA 0.5 mg/m3, 괄호 설명은 note로\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[1]\", \"page\": 3, \"source_text\": \"- [안티모니] :  TWA, 0.5 mg/m3, as Sb\", \"rules\": [\"R04\", \"R10\"], \"note\": \"ACGIH TWA, 'as Sb'는 note로\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[2]\", \"page\": 3, \"source_text\": \"- [안티모니] :  해당없음\", \"rules\": [\"R15\", \"R10\"], \"note\": \"생물학적 노출기준 해당없음; limit_type은 BEI로 둠\"}, {\"msds_index\": 0, \"field\": \"physchem[0]\", \"page\": 4, \"source_text\": \"- 성상 | 고체\", \"rules\": [\"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[1]\", \"page\": 4, \"source_text\": \"- 색 | 은백색\", \"rules\": [\"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[2]\", \"page\": 4, \"source_text\": \"나. 냄새 | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[3]\", \"page\": 4, \"source_text\": \"다. 냄새역치 | 자료없음\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[4]\", \"page\": 4, \"source_text\": \"라. pH | 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[5]\", \"page\": 4, \"source_text\": \"마. 녹는점/어는점 | 630 ℃\", \"rules\": [\"R04\", \"R08\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[6]\", \"page\": 4, \"source_text\": \"바. 초기 끓는점과 끓는점 범위 | > 600 ℃ (1010 hPa) ※출처 : ECHA\", \"rules\": [\"R04\", \"R08\"], \"note\": \"하한 >600 C, 압력 조건 cond, 출처 data_source\"}, {\"msds_index\": 0, \"field\": \"physchem[7]\", \"page\": 4, \"source_text\": \"사. 인화점 | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[8]\", \"page\": 4, \"source_text\": \"아. 증발 속도 | 자료없음\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[9]\", \"page\": 4, \"source_text\": \"자. 인화성 (고체, 기체) | 기체 : 인화성\", \"rules\": [\"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[10]\", \"page\": 4, \"source_text\": \"차. 인화 또는 폭발 범위의 상한/하한 | 0.04 %\", \"rules\": [\"R17\", \"R25\"], \"note\": \"상한/하한 중 어느 값인지 불명확하여 raw만 남김\"}, {\"msds_index\": 0, \"field\": \"physchem[11]\", \"page\": 4, \"source_text\": \"차. 인화 또는 폭발 범위의 상한/하한 | 0.04 %\", \"rules\": [\"R17\", \"R25\"], \"note\": \"상한/하한 중 어느 값인지 불명확하여 raw만 남김\"}, {\"msds_index\": 0, \"field\": \"physchem[12]\", \"page\": 4, \"source_text\": \"카. 증기압 | 1 ㎜Hg (886℃)\", \"rules\": [\"R04\", \"R08\"], \"note\": \"온도 886 C를 cond로\"}, {\"msds_index\": 0, \"field\": \"physchem[13]\", \"page\": 4, \"source_text\": \"타. 용해도 | 17.1~19.3 ㎎/ℓ (20℃, pH: 4.6) ※출처 : ECHA\", \"rules\": [\"R04\", \"R08\"], \"note\": \"범위 17.1~19.3 mg/L; COND에 pH 칸이 없어 'pH: 4.6'은 q.note로\"}, {\"msds_index\": 0, \"field\": \"physchem[14]\", \"page\": 4, \"source_text\": \"파. 증기밀도 | 6.68 g/㎤ (20℃) ※출처 : HSDB\", \"rules\": [\"R04\", \"R08\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[15]\", \"page\": 4, \"source_text\": \"하. 비중 | 7.05 (21.8℃, 상대 밀도) ※출처 : ECHA\", \"rules\": [\"R04\", \"R08\"], \"note\": \"'상대 밀도'는 note로\"}, {\"msds_index\": 0, \"field\": \"physchem[16]\", \"page\": 4, \"source_text\": \"거. N-옥탄올/물 분배계수 | 자료없음\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[17]\", \"page\": 4, \"source_text\": \"너. 자연발화온도 | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[18]\", \"page\": 4, \"source_text\": \"더. 분해온도 | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[19]\", \"page\": 4, \"source_text\": \"러. 점도 | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[20]\", \"page\": 4, \"source_text\": \"머. 분자량 | 121.8\", \"rules\": [\"R06\"], \"note\": null}]}"
+}

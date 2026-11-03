@@ -1,0 +1,1922 @@
+{
+  "doc_id": "T21-M007",
+  "bundle": "b2",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 139238,
+    "completion_tokens": 17349,
+    "cached_tokens": 6909,
+    "reasoning_tokens": 3159,
+    "notional_cost_usd": 1.4069858
+  },
+  "seconds": 120.7,
+  "request_usage": [
+    {
+      "prompt_tokens": 139238,
+      "completion_tokens": 17349,
+      "cached_tokens": 6909,
+      "reasoning_tokens": 3159,
+      "notional_cost_usd": 1.4069858
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "exposure_limits": [
+          {
+            "comp_ref": "1",
+            "standard": "국내",
+            "limit_type": null,
+            "kr_basis": "노출기준",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            }
+          },
+          {
+            "comp_ref": "2",
+            "standard": "국내",
+            "limit_type": null,
+            "kr_basis": "노출기준",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            }
+          },
+          {
+            "comp_ref": "3",
+            "standard": "국내",
+            "limit_type": "TWA",
+            "kr_basis": "노출기준",
+            "q": {
+              "raw": "5000 ppm",
+              "status": "값있음",
+              "value": 5000,
+              "unit": "ppm"
+            }
+          },
+          {
+            "comp_ref": "3",
+            "standard": "국내",
+            "limit_type": "STEL",
+            "kr_basis": "노출기준",
+            "q": {
+              "raw": "30000 ppm",
+              "status": "값있음",
+              "value": 30000,
+              "unit": "ppm"
+            }
+          },
+          {
+            "comp_ref": "4",
+            "standard": "국내",
+            "limit_type": null,
+            "kr_basis": "노출기준",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            }
+          },
+          {
+            "comp_ref": "5",
+            "standard": "국내",
+            "limit_type": null,
+            "kr_basis": "노출기준",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            }
+          },
+          {
+            "comp_ref": "6",
+            "standard": "국내",
+            "limit_type": null,
+            "kr_basis": "노출기준",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            }
+          },
+          {
+            "comp_ref": "7",
+            "standard": "국내",
+            "limit_type": "TWA",
+            "kr_basis": "노출기준",
+            "q": {
+              "raw": "30 ppm",
+              "status": "값있음",
+              "value": 30,
+              "unit": "ppm"
+            }
+          },
+          {
+            "comp_ref": "7",
+            "standard": "국내",
+            "limit_type": "STEL",
+            "kr_basis": "노출기준",
+            "q": {
+              "raw": "200 ppm",
+              "status": "값있음",
+              "value": 200,
+              "unit": "ppm"
+            }
+          },
+          {
+            "comp_ref": "8",
+            "standard": "국내",
+            "limit_type": "TWA",
+            "kr_basis": "노출기준",
+            "q": {
+              "raw": "0.5 ppm",
+              "status": "값있음",
+              "value": 0.5,
+              "unit": "ppm",
+              "dp": 1
+            }
+          },
+          {
+            "comp_ref": "8",
+            "standard": "국내",
+            "limit_type": "STEL",
+            "kr_basis": "노출기준",
+            "q": {
+              "raw": "2.5 ppm",
+              "status": "값있음",
+              "value": 2.5,
+              "unit": "ppm",
+              "dp": 1
+            }
+          },
+          {
+            "comp_ref": "9",
+            "standard": "국내",
+            "limit_type": null,
+            "kr_basis": "노출기준",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            }
+          },
+          {
+            "comp_ref": "10",
+            "standard": "국내",
+            "limit_type": "TWA",
+            "kr_basis": "노출기준",
+            "q": {
+              "raw": "800 ppm",
+              "status": "값있음",
+              "value": 800,
+              "unit": "ppm"
+            }
+          },
+          {
+            "comp_ref": "11",
+            "standard": "국내",
+            "limit_type": null,
+            "kr_basis": "노출기준",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            }
+          },
+          {
+            "comp_ref": "12",
+            "standard": "국내",
+            "limit_type": "TWA",
+            "kr_basis": "노출기준",
+            "q": {
+              "raw": "50 ppm",
+              "status": "값있음",
+              "value": 50,
+              "unit": "ppm"
+            }
+          },
+          {
+            "comp_ref": "12",
+            "standard": "국내",
+            "limit_type": "STEL",
+            "kr_basis": "노출기준",
+            "q": {
+              "raw": "150 ppm",
+              "status": "값있음",
+              "value": 150,
+              "unit": "ppm"
+            }
+          },
+          {
+            "comp_ref": "13",
+            "standard": "국내",
+            "limit_type": "TWA",
+            "kr_basis": "노출기준",
+            "q": {
+              "raw": "100 ppm",
+              "status": "값있음",
+              "value": 100,
+              "unit": "ppm"
+            }
+          },
+          {
+            "comp_ref": "13",
+            "standard": "국내",
+            "limit_type": "STEL",
+            "kr_basis": "노출기준",
+            "q": {
+              "raw": "125 ppm",
+              "status": "값있음",
+              "value": 125,
+              "unit": "ppm"
+            }
+          },
+          {
+            "comp_ref": "14",
+            "standard": "국내",
+            "limit_type": null,
+            "kr_basis": "노출기준",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            }
+          },
+          {
+            "comp_ref": "15",
+            "standard": "국내",
+            "limit_type": null,
+            "kr_basis": "노출기준",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            }
+          },
+          {
+            "comp_ref": "16",
+            "standard": "국내",
+            "limit_type": "TWA",
+            "kr_basis": "노출기준",
+            "q": {
+              "raw": "600 ppm",
+              "status": "값있음",
+              "value": 600,
+              "unit": "ppm"
+            }
+          },
+          {
+            "comp_ref": "16",
+            "standard": "국내",
+            "limit_type": "STEL",
+            "kr_basis": "노출기준",
+            "q": {
+              "raw": "750 ppm",
+              "status": "값있음",
+              "value": 750,
+              "unit": "ppm"
+            }
+          },
+          {
+            "comp_ref": "17",
+            "standard": "국내",
+            "limit_type": "TWA",
+            "kr_basis": "노출기준",
+            "q": {
+              "raw": "50 ppm",
+              "status": "값있음",
+              "value": 50,
+              "unit": "ppm"
+            }
+          },
+          {
+            "comp_ref": "18",
+            "standard": "국내",
+            "limit_type": "TWA",
+            "kr_basis": "노출기준",
+            "q": {
+              "raw": "400 ppm",
+              "status": "값있음",
+              "value": 400,
+              "unit": "ppm"
+            }
+          },
+          {
+            "comp_ref": "18",
+            "standard": "국내",
+            "limit_type": "STEL",
+            "kr_basis": "노출기준",
+            "q": {
+              "raw": "500 ppm",
+              "status": "값있음",
+              "value": 500,
+              "unit": "ppm"
+            }
+          },
+          {
+            "comp_ref": "1",
+            "standard": "ACGIH",
+            "limit_type": "기타",
+            "q": {
+              "raw": "Asphyxia",
+              "status": "해당없음",
+              "note": "Asphyxia"
+            }
+          },
+          {
+            "comp_ref": "2",
+            "standard": "ACGIH",
+            "limit_type": "기타",
+            "q": {
+              "raw": "Asphyxia",
+              "status": "해당없음",
+              "note": "Asphyxia"
+            }
+          },
+          {
+            "comp_ref": "3",
+            "standard": "ACGIH",
+            "limit_type": "TWA",
+            "q": {
+              "raw": "TWA 5000 ppm (Asphyxia)",
+              "status": "값있음",
+              "value": 5000,
+              "unit": "ppm",
+              "note": "Asphyxia"
+            }
+          },
+          {
+            "comp_ref": "3",
+            "standard": "ACGIH",
+            "limit_type": "STEL",
+            "q": {
+              "raw": "STEL 30,000 ppm",
+              "status": "값있음",
+              "value": 30000,
+              "unit": "ppm"
+            }
+          },
+          {
+            "comp_ref": "4",
+            "standard": "ACGIH",
+            "limit_type": "기타",
+            "q": {
+              "raw": "Asphyxia",
+              "status": "해당없음",
+              "note": "Asphyxia"
+            }
+          },
+          {
+            "comp_ref": "5",
+            "standard": "ACGIH",
+            "limit_type": "기타",
+            "q": {
+              "raw": "Asphyxia",
+              "status": "해당없음",
+              "note": "Asphyxia"
+            }
+          },
+          {
+            "comp_ref": "6",
+            "standard": "ACGIH",
+            "limit_type": null,
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            }
+          },
+          {
+            "comp_ref": "7",
+            "standard": "ACGIH",
+            "limit_type": "TWA",
+            "q": {
+              "raw": "25 ppm (29 mg/m3)",
+              "status": "값있음",
+              "value": 25,
+              "unit": "ppm",
+              "note": "29 mg/m3"
+            }
+          },
+          {
+            "comp_ref": "8",
+            "standard": "ACGIH",
+            "limit_type": "TWA",
+            "q": {
+              "raw": "0.5 ppm (1.6 mg/m3)",
+              "status": "값있음",
+              "value": 0.5,
+              "unit": "ppm",
+              "dp": 1,
+              "note": "1.6 mg/m3"
+            }
+          },
+          {
+            "comp_ref": "8",
+            "standard": "ACGIH",
+            "limit_type": "STEL",
+            "q": {
+              "raw": "2.5 ppm (8 mg/m3)",
+              "status": "값있음",
+              "value": 2.5,
+              "unit": "ppm",
+              "dp": 1,
+              "note": "8 mg/m3"
+            }
+          },
+          {
+            "comp_ref": "9",
+            "standard": "ACGIH",
+            "limit_type": "기타",
+            "q": {
+              "raw": "Asphyxia",
+              "status": "해당없음",
+              "note": "Asphyxia"
+            }
+          },
+          {
+            "comp_ref": "10",
+            "standard": "ACGIH",
+            "limit_type": "STEL",
+            "q": {
+              "raw": "STEL 1000 ppm",
+              "status": "값있음",
+              "value": 1000,
+              "unit": "ppm"
+            }
+          },
+          {
+            "comp_ref": "11",
+            "standard": "ACGIH",
+            "limit_type": null,
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            }
+          },
+          {
+            "comp_ref": "12",
+            "standard": "ACGIH",
+            "limit_type": "TWA",
+            "q": {
+              "raw": "TWA 20 ppm (75 mg/m3)",
+              "status": "값있음",
+              "value": 20,
+              "unit": "ppm",
+              "note": "75 mg/m3"
+            }
+          },
+          {
+            "comp_ref": "13",
+            "standard": "ACGIH",
+            "limit_type": "TWA",
+            "q": {
+              "raw": "20 ppm (87 mg/m3)",
+              "status": "값있음",
+              "value": 20,
+              "unit": "ppm",
+              "note": "87 mg/m3"
+            }
+          },
+          {
+            "comp_ref": "14",
+            "standard": "ACGIH",
+            "limit_type": null,
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            }
+          },
+          {
+            "comp_ref": "15",
+            "standard": "ACGIH",
+            "limit_type": "기타",
+            "q": {
+              "raw": "Asphyxia",
+              "status": "해당없음",
+              "note": "Asphyxia"
+            }
+          },
+          {
+            "comp_ref": "16",
+            "standard": "ACGIH",
+            "limit_type": "TWA",
+            "q": {
+              "raw": "1000 ppm (2950 mg/m3)",
+              "status": "값있음",
+              "value": 1000,
+              "unit": "ppm",
+              "note": "2950 mg/m3"
+            }
+          },
+          {
+            "comp_ref": "17",
+            "standard": "ACGIH",
+            "limit_type": "TWA",
+            "q": {
+              "raw": "50 ppm (176 mg/m3)",
+              "status": "값있음",
+              "value": 50,
+              "unit": "ppm",
+              "note": "176 mg/m3"
+            }
+          },
+          {
+            "comp_ref": "18",
+            "standard": "ACGIH",
+            "limit_type": "TWA",
+            "q": {
+              "raw": "400 ppm (1640 mg/m3)",
+              "status": "값있음",
+              "value": 400,
+              "unit": "ppm",
+              "note": "1640 mg/m3"
+            }
+          },
+          {
+            "comp_ref": "18",
+            "standard": "ACGIH",
+            "limit_type": "STEL",
+            "q": {
+              "raw": "500 ppm (2050 mg/m3)",
+              "status": "값있음",
+              "value": 500,
+              "unit": "ppm",
+              "note": "2050 mg/m3"
+            }
+          },
+          {
+            "comp_ref": "1",
+            "standard": "생물학적",
+            "limit_type": null,
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            }
+          },
+          {
+            "comp_ref": "2",
+            "standard": "생물학적",
+            "limit_type": null,
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            }
+          },
+          {
+            "comp_ref": "3",
+            "standard": "생물학적",
+            "limit_type": null,
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            }
+          },
+          {
+            "comp_ref": "4",
+            "standard": "생물학적",
+            "limit_type": null,
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            }
+          },
+          {
+            "comp_ref": "5",
+            "standard": "생물학적",
+            "limit_type": null,
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            }
+          },
+          {
+            "comp_ref": "6",
+            "standard": "생물학적",
+            "limit_type": null,
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            }
+          },
+          {
+            "comp_ref": "7",
+            "standard": "생물학적",
+            "limit_type": "BEI",
+            "bio_medium": "혈액",
+            "bio_determinant": "Carboxyhemoglobin (COHb)",
+            "bio_timing": "작업후",
+            "q": {
+              "raw": "헤모글로빈의 3.5%(작업후)",
+              "status": "값있음",
+              "value": 3.5,
+              "unit": "%",
+              "dp": 1,
+              "note": "헤모글로빈의"
+            }
+          },
+          {
+            "comp_ref": "7",
+            "standard": "생물학적",
+            "limit_type": "BEI",
+            "bio_medium": "최종 날숨(end-exhaled air)",
+            "bio_determinant": "Carbon monoxide",
+            "bio_timing": "작업후",
+            "q": {
+              "raw": "20ppm(작업후)",
+              "status": "값있음",
+              "value": 20,
+              "unit": "ppm"
+            }
+          },
+          {
+            "comp_ref": "8",
+            "standard": "생물학적",
+            "limit_type": "BEI",
+            "bio_medium": "소변",
+            "bio_determinant": "S-Phenylmercapturic acid",
+            "bio_timing": "작업후",
+            "q": {
+              "raw": "25 ㎍/g 크레아티닌(작업후)",
+              "status": "값있음",
+              "value": 25,
+              "unit": "μg/g 크레아티닌"
+            }
+          },
+          {
+            "comp_ref": "8",
+            "standard": "생물학적",
+            "limit_type": "BEI",
+            "bio_medium": "소변",
+            "bio_determinant": "t,t-Muconic acid",
+            "bio_timing": "작업후",
+            "q": {
+              "raw": "500 ㎍/g 크레아티닌(작업후)",
+              "status": "값있음",
+              "value": 500,
+              "unit": "μg/g 크레아티닌"
+            }
+          },
+          {
+            "comp_ref": "9",
+            "standard": "생물학적",
+            "limit_type": null,
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            }
+          },
+          {
+            "comp_ref": "10",
+            "standard": "생물학적",
+            "limit_type": null,
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            }
+          },
+          {
+            "comp_ref": "11",
+            "standard": "생물학적",
+            "limit_type": null,
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            }
+          },
+          {
+            "comp_ref": "12",
+            "standard": "생물학적",
+            "limit_type": "BEI",
+            "bio_medium": "혈액",
+            "bio_determinant": "Toluene",
+            "bio_timing": "주중 최종작업전",
+            "q": {
+              "raw": "0.02 mg/L(주중 최종작업전)",
+              "status": "값있음",
+              "value": 0.02,
+              "unit": "mg/L",
+              "dp": 2
+            }
+          },
+          {
+            "comp_ref": "12",
+            "standard": "생물학적",
+            "limit_type": "BEI",
+            "bio_medium": "소변",
+            "bio_determinant": "Toluene",
+            "bio_timing": "작업후",
+            "q": {
+              "raw": "0.03 mg/L(작업후)",
+              "status": "값있음",
+              "value": 0.03,
+              "unit": "mg/L",
+              "dp": 2
+            }
+          },
+          {
+            "comp_ref": "12",
+            "standard": "생물학적",
+            "limit_type": "BEI",
+            "bio_medium": "소변",
+            "bio_determinant": "(with hydrolysis) o-Cresol",
+            "bio_timing": "작업후",
+            "q": {
+              "raw": "0.3 mg/g 크레아티닌(작업후)",
+              "status": "값있음",
+              "value": 0.3,
+              "unit": "mg/g 크레아티닌",
+              "dp": 1
+            }
+          },
+          {
+            "comp_ref": "13",
+            "standard": "생물학적",
+            "limit_type": "BEI",
+            "bio_medium": "소변",
+            "bio_determinant": "Mandelic acid 및 Phenylglyoxylic acids의 합",
+            "bio_timing": "작업후",
+            "q": {
+              "raw": "0.15 g/g크레아티닌(작업후)",
+              "status": "값있음",
+              "value": 0.15,
+              "unit": "g/g 크레아티닌",
+              "dp": 2
+            }
+          },
+          {
+            "comp_ref": "14",
+            "standard": "생물학적",
+            "limit_type": null,
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            }
+          },
+          {
+            "comp_ref": "15",
+            "standard": "생물학적",
+            "limit_type": null,
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            }
+          },
+          {
+            "comp_ref": "16",
+            "standard": "생물학적",
+            "limit_type": null,
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            }
+          },
+          {
+            "comp_ref": "17",
+            "standard": "생물학적",
+            "limit_type": "BEI",
+            "bio_medium": "소변",
+            "bio_determinant": "2,5-Hexanedione(without hydrolysis)",
+            "bio_timing": "작업후",
+            "q": {
+              "raw": "0.4 mg/L(작업후)",
+              "status": "값있음",
+              "value": 0.4,
+              "unit": "mg/L",
+              "dp": 1
+            }
+          },
+          {
+            "comp_ref": "18",
+            "standard": "생물학적",
+            "limit_type": null,
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            }
+          }
+        ],
+        "physchem": [
+          {
+            "prop_code": "APPEARANCE_STATE",
+            "comp_ref": "MIX",
+            "text_value": "혼합가스",
+            "q": null
+          },
+          {
+            "prop_code": "APPEARANCE_COLOR",
+            "comp_ref": "MIX",
+            "text_value": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "ODOR",
+            "comp_ref": "MIX",
+            "text_value": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "ODOR_THRESHOLD",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "PH",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "MELT_FREEZE",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "BOILING",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "FLASH_POINT",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "EVAP_RATE",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "FLAMMABILITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "UEL",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "42.2 vol%",
+              "status": "값있음",
+              "value": 42.2,
+              "unit": "vol%",
+              "dp": 1,
+              "note": "계산값, KOSHA내 해당 값 및 1vol%이상 함유된 물질만 고려 함."
+            }
+          },
+          {
+            "prop_code": "LEL",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "4.5 vol%",
+              "status": "값있음",
+              "value": 4.5,
+              "unit": "vol%",
+              "dp": 1,
+              "note": "계산값, KOSHA내 해당 값 및 1vol%이상 함유된 물질만 고려 함."
+            }
+          },
+          {
+            "prop_code": "VAPOR_PRESSURE",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "q": {
+              "raw": "드럼 플랜지(flange)의 출구에서의 오프가스 압력 1.35 bar",
+              "status": "값있음",
+              "value": 1.35,
+              "unit": "bar",
+              "dp": 2,
+              "note": "드럼 플랜지(flange)의 출구에서의 오프가스 압력"
+            }
+          },
+          {
+            "prop_code": "VAPOR_PRESSURE",
+            "comp_ref": "MIX",
+            "seq": 2,
+            "q": {
+              "raw": "0.34 kg/㎠ g",
+              "status": "값있음",
+              "value": 0.34,
+              "unit": "kg/cm2 g",
+              "dp": 2,
+              "note": "드럼 플랜지(flange)의 출구에서의 오프가스 압력"
+            }
+          },
+          {
+            "prop_code": "SOLUBILITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "VAPOR_DENSITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "RELATIVE_DENSITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "0.577 kg/m3(0.000577 g/㎤)",
+              "status": "값있음",
+              "value": 0.577,
+              "unit": "kg/m3",
+              "dp": 3,
+              "note": "0.000577 g/cm3"
+            }
+          },
+          {
+            "prop_code": "LOG_KOW",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "AUTOIGNITION",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "DECOMPOSITION",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "VISCOSITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "0.011 mPa.s",
+              "status": "값있음",
+              "value": 0.011,
+              "unit": "mPa.s",
+              "dp": 3
+            }
+          },
+          {
+            "prop_code": "MOL_WEIGHT",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "10.735 g/mol (계산값)",
+              "status": "값있음",
+              "value": 10.735,
+              "unit": "g/mol",
+              "dp": 3,
+              "note": "계산값"
+            }
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[0]",
+        "page": 4,
+        "source_text": "- [수소] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "국내노출기준 해당없음; 기준 종류 표시 없어 limit_type null"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[1]",
+        "page": 4,
+        "source_text": "- [메테인] : 해당없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": "메테인=메탄(comp 2)"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[2]",
+        "page": 4,
+        "source_text": "- [이산화 탄소] : TWA : 5000 ppm, STEL : 30000 ppm",
+        "rules": [
+          "R04"
+        ],
+        "note": "TWA·STEL 행 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[3]",
+        "page": 4,
+        "source_text": "- [이산화 탄소] : TWA : 5000 ppm, STEL : 30000 ppm",
+        "rules": [
+          "R04"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[4]",
+        "page": 4,
+        "source_text": "- [질소] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[5]",
+        "page": 4,
+        "source_text": "- [에탄] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[6]",
+        "page": 4,
+        "source_text": "- [황, 침전된, 승화된 혹은 콜로이드] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[7]",
+        "page": 4,
+        "source_text": "- [일산화 탄소] : TWA : 30 ppm, STEL : 200 ppm",
+        "rules": [
+          "R04"
+        ],
+        "note": "TWA·STEL 행 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[8]",
+        "page": 4,
+        "source_text": "- [일산화 탄소] : TWA : 30 ppm, STEL : 200 ppm",
+        "rules": [
+          "R04"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[9]",
+        "page": 4,
+        "source_text": "- [벤젠] : TWA : 0.5 ppm, STEL : 2.5 ppm",
+        "rules": [
+          "R04",
+          "R06"
+        ],
+        "note": "TWA·STEL 행 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[10]",
+        "page": 4,
+        "source_text": "- [벤젠] : TWA : 0.5 ppm, STEL : 2.5 ppm",
+        "rules": [
+          "R04",
+          "R06"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[11]",
+        "page": 4,
+        "source_text": "- [프로페인] : 해당없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": "프로페인=프로판(comp 9)"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[12]",
+        "page": 4,
+        "source_text": "- [뷰테인] : TWA : 800 ppm",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "뷰테인=부탄(comp 10)"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[13]",
+        "page": 4,
+        "source_text": "- [산소] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[14]",
+        "page": 4,
+        "source_text": "- [톨루엔] : TWA : 50 ppm, STEL : 150 ppm",
+        "rules": [
+          "R04"
+        ],
+        "note": "TWA·STEL 행 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[15]",
+        "page": 4,
+        "source_text": "- [톨루엔] : TWA : 50 ppm, STEL : 150 ppm",
+        "rules": [
+          "R04"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[16]",
+        "page": 4,
+        "source_text": "- [에틸벤젠] : TWA : 100 ppm, STEL : 125 ppm",
+        "rules": [
+          "R04"
+        ],
+        "note": "TWA·STEL 행 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[17]",
+        "page": 4,
+        "source_text": "- [에틸벤젠] : TWA : 100 ppm, STEL : 125 ppm",
+        "rules": [
+          "R04"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[18]",
+        "page": 4,
+        "source_text": "- [물] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[19]",
+        "page": 4,
+        "source_text": "- [아르곤] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[20]",
+        "page": 4,
+        "source_text": "- [펜테인] : TWA : 600 ppm, STEL : 750 ppm",
+        "rules": [
+          "R04"
+        ],
+        "note": "TWA·STEL 행 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[21]",
+        "page": 4,
+        "source_text": "- [펜테인] : TWA : 600 ppm, STEL : 750 ppm",
+        "rules": [
+          "R04"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[22]",
+        "page": 4,
+        "source_text": "- [n-헥세인] : TWA : 50 ppm",
+        "rules": [
+          "R04"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[23]",
+        "page": 4,
+        "source_text": "- [n-헵테인] : TWA : 400 ppm, STEL : 500 ppm",
+        "rules": [
+          "R04"
+        ],
+        "note": "TWA·STEL 행 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[24]",
+        "page": 4,
+        "source_text": "- [n-헵테인] : TWA : 400 ppm, STEL : 500 ppm",
+        "rules": [
+          "R04"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[25]",
+        "page": 4,
+        "source_text": "- [수소] : Asphyxia",
+        "rules": [],
+        "note": "성질 표기(Asphyxia)만 있어 팀 임시 규칙대로 limit_type 기타, status 해당없음, note에 원문"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[26]",
+        "page": 4,
+        "source_text": "- [메테인] : Asphyxia",
+        "rules": [
+          "R10"
+        ],
+        "note": "팀 임시 규칙: 성질 표기만 있음"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[27]",
+        "page": 4,
+        "source_text": "- [이산화 탄소] : TWA 5000 ppm (Asphyxia), STEL 30,000 ppm",
+        "rules": [
+          "R04"
+        ],
+        "note": "괄호 Asphyxia는 note로"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[28]",
+        "page": 4,
+        "source_text": "- [이산화 탄소] : TWA 5000 ppm (Asphyxia), STEL 30,000 ppm",
+        "rules": [
+          "R04",
+          "R06"
+        ],
+        "note": "천단위 콤마 제거"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[29]",
+        "page": 4,
+        "source_text": "- [질소] : Asphyxia",
+        "rules": [],
+        "note": "팀 임시 규칙: 성질 표기만 있음"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[30]",
+        "page": 4,
+        "source_text": "- [에탄] : Asphyxia",
+        "rules": [],
+        "note": "팀 임시 규칙: 성질 표기만 있음"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[31]",
+        "page": 4,
+        "source_text": "- [황, 침전된, 승화된 혹은 콜로이드] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[32]",
+        "page": 4,
+        "source_text": "- [일산화 탄소] : TWA, 25 ppm (29 mg/m3)",
+        "rules": [
+          "R04"
+        ],
+        "note": "괄호 mg/m3 환산값은 note에 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[33]",
+        "page": 4,
+        "source_text": "- [벤젠] : TWA, 0.5 ppm (1.6 mg/m3) STEL, 2.5 ppm (8 mg/m3)",
+        "rules": [
+          "R04",
+          "R06"
+        ],
+        "note": "TWA·STEL 행 분리, 환산값 note"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[34]",
+        "page": 4,
+        "source_text": "- [벤젠] : TWA, 0.5 ppm (1.6 mg/m3) STEL, 2.5 ppm (8 mg/m3)",
+        "rules": [
+          "R04",
+          "R06"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[35]",
+        "page": 4,
+        "source_text": "- [프로페인] : Asphyxia",
+        "rules": [
+          "R10"
+        ],
+        "note": "팀 임시 규칙: 성질 표기만 있음"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[36]",
+        "page": 4,
+        "source_text": "- [뷰테인] : STEL 1000 ppm",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[37]",
+        "page": 4,
+        "source_text": "- [산소] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[38]",
+        "page": 4,
+        "source_text": "- [톨루엔] : TWA 20 ppm (75 mg/m3)",
+        "rules": [
+          "R04"
+        ],
+        "note": "환산값 note"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[39]",
+        "page": 4,
+        "source_text": "- [에틸벤젠] : TWA, 20 ppm (87 mg/m3)",
+        "rules": [
+          "R04"
+        ],
+        "note": "환산값 note"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[40]",
+        "page": 4,
+        "source_text": "- [물] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[41]",
+        "page": 4,
+        "source_text": "- [아르곤] : Asphyxia",
+        "rules": [],
+        "note": "팀 임시 규칙: 성질 표기만 있음"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[42]",
+        "page": 4,
+        "source_text": "- [펜테인] : TWA, 1000 ppm (2950 mg/m3)",
+        "rules": [
+          "R04"
+        ],
+        "note": "환산값 note"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[43]",
+        "page": 4,
+        "source_text": "- [n-헥세인] : TWA, 50 ppm (176 mg/m3)",
+        "rules": [
+          "R04"
+        ],
+        "note": "환산값 note"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[44]",
+        "page": 4,
+        "source_text": "- [n-헵테인] : TWA, 400 ppm (1640 mg/m3) STEL, 500 ppm (2050 mg/m3)",
+        "rules": [
+          "R04"
+        ],
+        "note": "TWA·STEL 행 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[45]",
+        "page": 4,
+        "source_text": "- [n-헵테인] : TWA, 400 ppm (1640 mg/m3) STEL, 500 ppm (2050 mg/m3)",
+        "rules": [
+          "R04"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[46]",
+        "page": 4,
+        "source_text": "- [수소] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "생물학적 노출기준"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[47]",
+        "page": 4,
+        "source_text": "- [메테인] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "생물학적 노출기준"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[48]",
+        "page": 4,
+        "source_text": "- [이산화 탄소] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "생물학적 노출기준"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[49]",
+        "page": 5,
+        "source_text": "- [질소] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[50]",
+        "page": 5,
+        "source_text": "- [에탄] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[51]",
+        "page": 5,
+        "source_text": "- [황, 침전된, 승화된 혹은 콜로이드] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[52]",
+        "page": 5,
+        "source_text": "- [일산화 탄소] : 혈액 중 Carboxyhemoglobin (COHb) : 헤모글로빈의 3.5%(작업후)",
+        "rules": [
+          "R04"
+        ],
+        "note": "매체·지표·시기 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[53]",
+        "page": 5,
+        "source_text": "최종 날숨(end-exhaled air) 중 Carbon monoxide : 20ppm(작업후)",
+        "rules": [
+          "R04"
+        ],
+        "note": "매체·지표·시기 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[54]",
+        "page": 5,
+        "source_text": "- [벤젠] : 소변 중 S-Phenylmercapturic acid : 25 ㎍/g 크레아티닌(작업후)",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": "㎍→μg"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[55]",
+        "page": 5,
+        "source_text": "소변 중 t,t-Muconic acid : 500 ㎍/g 크레아티닌 (작업후)",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": "㎍→μg"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[56]",
+        "page": 5,
+        "source_text": "- [프로페인] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[57]",
+        "page": 5,
+        "source_text": "- [뷰테인] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[58]",
+        "page": 5,
+        "source_text": "- [산소] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[59]",
+        "page": 5,
+        "source_text": "- [톨루엔] : 혈액 중 Toluene : 0.02 mg/L(주중 최종작업전)",
+        "rules": [
+          "R04"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[60]",
+        "page": 5,
+        "source_text": "소변 중 Toluene : 0.03 mg/L(작업후)",
+        "rules": [
+          "R04"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[61]",
+        "page": 5,
+        "source_text": "소변 중(with hydrolysis) o-Cresol : 0.3 mg/g 크레아티닌(작업후)",
+        "rules": [
+          "R04"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[62]",
+        "page": 5,
+        "source_text": "- [에틸벤젠] : 소변 중 (Mandelic acid 및 Phenylglyoxylic acids의 합) : 0.15 g/g크레아티닌(작업후)",
+        "rules": [
+          "R04"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[63]",
+        "page": 5,
+        "source_text": "- [물] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[64]",
+        "page": 5,
+        "source_text": "- [아르곤] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[65]",
+        "page": 5,
+        "source_text": "- [펜테인] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[66]",
+        "page": 5,
+        "source_text": "- [n-헥세인] : 소변 중 2,5-Hexanedione(without hydrolysis) : 0.4 mg/L(작업후)",
+        "rules": [
+          "R04"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[67]",
+        "page": 5,
+        "source_text": "- [n-헵테인] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[0]",
+        "page": 5,
+        "source_text": "- 성상 | 혼합가스",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[1]",
+        "page": 5,
+        "source_text": "- 색 | 자료없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[2]",
+        "page": 5,
+        "source_text": "나. 냄새 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[3]",
+        "page": 5,
+        "source_text": "다. 냄새역치 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[4]",
+        "page": 5,
+        "source_text": "라. pH | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[5]",
+        "page": 5,
+        "source_text": "마. 녹는점/어는점 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[6]",
+        "page": 5,
+        "source_text": "바. 초기 끓는점과 끓는점 범위 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[7]",
+        "page": 5,
+        "source_text": "사. 인화점 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[8]",
+        "page": 5,
+        "source_text": "아. 증발 속도 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[9]",
+        "page": 5,
+        "source_text": "자. 인화성 (고체, 기체) | 자료없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[10]",
+        "page": 6,
+        "source_text": "차. 인화 또는 폭발 범위의 상한/하한 | 42.2 vol%/4.5 vol% (계산값, KOSHA내 해당 값 및 1vol%이상 함유된 물질만 고려 함.)",
+        "rules": [
+          "R04",
+          "R25"
+        ],
+        "note": "상한/하한을 UEL·LEL 행으로 나누고 괄호 설명은 note"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[11]",
+        "page": 6,
+        "source_text": "차. 인화 또는 폭발 범위의 상한/하한 | 42.2 vol%/4.5 vol% (계산값, KOSHA내 해당 값 및 1vol%이상 함유된 물질만 고려 함.)",
+        "rules": [
+          "R04",
+          "R25"
+        ],
+        "note": "LEL 4.5 vol%"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[12]",
+        "page": 6,
+        "source_text": "카. 증기압 | 드럼 플랜지(flange)의 출구에서의 오프가스 압력 1.35 bar, 0.34 kg/㎠ g",
+        "rules": [
+          "R04"
+        ],
+        "note": "두 값을 seq 1·2로 나누고 설명은 note"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[13]",
+        "page": 6,
+        "source_text": "카. 증기압 | 드럼 플랜지(flange)의 출구에서의 오프가스 압력 1.35 bar, 0.34 kg/㎠ g",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": "㎠→cm2"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[14]",
+        "page": 6,
+        "source_text": "타. 용해도 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[15]",
+        "page": 6,
+        "source_text": "파. 증기밀도 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[16]",
+        "page": 6,
+        "source_text": "하. 비중 | 0.577 kg/m3(0.000577 g/㎤)",
+        "rules": [
+          "R04",
+          "R06",
+          "R08"
+        ],
+        "note": "괄호 환산값은 note"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[17]",
+        "page": 6,
+        "source_text": "거. N-옥탄올/물 분배계수 | 자료없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[18]",
+        "page": 6,
+        "source_text": "너. 자연발화온도 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[19]",
+        "page": 6,
+        "source_text": "더. 분해온도 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[20]",
+        "page": 6,
+        "source_text": "러. 점도 | 0.011 mPa.s",
+        "rules": [
+          "R04",
+          "R06"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[21]",
+        "page": 6,
+        "source_text": "머. 분자량 | 10.735 g/mol (계산값)",
+        "rules": [
+          "R04",
+          "R06"
+        ],
+        "note": "(계산값)은 note"
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"exposure_limits\": [{\"comp_ref\": \"1\", \"standard\": \"국내\", \"limit_type\": null, \"kr_basis\": \"노출기준\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}}, {\"comp_ref\": \"2\", \"standard\": \"국내\", \"limit_type\": null, \"kr_basis\": \"노출기준\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}}, {\"comp_ref\": \"3\", \"standard\": \"국내\", \"limit_type\": \"TWA\", \"kr_basis\": \"노출기준\", \"q\": {\"raw\": \"5000 ppm\", \"status\": \"값있음\", \"value\": 5000, \"unit\": \"ppm\"}}, {\"comp_ref\": \"3\", \"standard\": \"국내\", \"limit_type\": \"STEL\", \"kr_basis\": \"노출기준\", \"q\": {\"raw\": \"30000 ppm\", \"status\": \"값있음\", \"value\": 30000, \"unit\": \"ppm\"}}, {\"comp_ref\": \"4\", \"standard\": \"국내\", \"limit_type\": null, \"kr_basis\": \"노출기준\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}}, {\"comp_ref\": \"5\", \"standard\": \"국내\", \"limit_type\": null, \"kr_basis\": \"노출기준\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}}, {\"comp_ref\": \"6\", \"standard\": \"국내\", \"limit_type\": null, \"kr_basis\": \"노출기준\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}}, {\"comp_ref\": \"7\", \"standard\": \"국내\", \"limit_type\": \"TWA\", \"kr_basis\": \"노출기준\", \"q\": {\"raw\": \"30 ppm\", \"status\": \"값있음\", \"value\": 30, \"unit\": \"ppm\"}}, {\"comp_ref\": \"7\", \"standard\": \"국내\", \"limit_type\": \"STEL\", \"kr_basis\": \"노출기준\", \"q\": {\"raw\": \"200 ppm\", \"status\": \"값있음\", \"value\": 200, \"unit\": \"ppm\"}}, {\"comp_ref\": \"8\", \"standard\": \"국내\", \"limit_type\": \"TWA\", \"kr_basis\": \"노출기준\", \"q\": {\"raw\": \"0.5 ppm\", \"status\": \"값있음\", \"value\": 0.5, \"unit\": \"ppm\", \"dp\": 1}}, {\"comp_ref\": \"8\", \"standard\": \"국내\", \"limit_type\": \"STEL\", \"kr_basis\": \"노출기준\", \"q\": {\"raw\": \"2.5 ppm\", \"status\": \"값있음\", \"value\": 2.5, \"unit\": \"ppm\", \"dp\": 1}}, {\"comp_ref\": \"9\", \"standard\": \"국내\", \"limit_type\": null, \"kr_basis\": \"노출기준\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}}, {\"comp_ref\": \"10\", \"standard\": \"국내\", \"limit_type\": \"TWA\", \"kr_basis\": \"노출기준\", \"q\": {\"raw\": \"800 ppm\", \"status\": \"값있음\", \"value\": 800, \"unit\": \"ppm\"}}, {\"comp_ref\": \"11\", \"standard\": \"국내\", \"limit_type\": null, \"kr_basis\": \"노출기준\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}}, {\"comp_ref\": \"12\", \"standard\": \"국내\", \"limit_type\": \"TWA\", \"kr_basis\": \"노출기준\", \"q\": {\"raw\": \"50 ppm\", \"status\": \"값있음\", \"value\": 50, \"unit\": \"ppm\"}}, {\"comp_ref\": \"12\", \"standard\": \"국내\", \"limit_type\": \"STEL\", \"kr_basis\": \"노출기준\", \"q\": {\"raw\": \"150 ppm\", \"status\": \"값있음\", \"value\": 150, \"unit\": \"ppm\"}}, {\"comp_ref\": \"13\", \"standard\": \"국내\", \"limit_type\": \"TWA\", \"kr_basis\": \"노출기준\", \"q\": {\"raw\": \"100 ppm\", \"status\": \"값있음\", \"value\": 100, \"unit\": \"ppm\"}}, {\"comp_ref\": \"13\", \"standard\": \"국내\", \"limit_type\": \"STEL\", \"kr_basis\": \"노출기준\", \"q\": {\"raw\": \"125 ppm\", \"status\": \"값있음\", \"value\": 125, \"unit\": \"ppm\"}}, {\"comp_ref\": \"14\", \"standard\": \"국내\", \"limit_type\": null, \"kr_basis\": \"노출기준\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}}, {\"comp_ref\": \"15\", \"standard\": \"국내\", \"limit_type\": null, \"kr_basis\": \"노출기준\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}}, {\"comp_ref\": \"16\", \"standard\": \"국내\", \"limit_type\": \"TWA\", \"kr_basis\": \"노출기준\", \"q\": {\"raw\": \"600 ppm\", \"status\": \"값있음\", \"value\": 600, \"unit\": \"ppm\"}}, {\"comp_ref\": \"16\", \"standard\": \"국내\", \"limit_type\": \"STEL\", \"kr_basis\": \"노출기준\", \"q\": {\"raw\": \"750 ppm\", \"status\": \"값있음\", \"value\": 750, \"unit\": \"ppm\"}}, {\"comp_ref\": \"17\", \"standard\": \"국내\", \"limit_type\": \"TWA\", \"kr_basis\": \"노출기준\", \"q\": {\"raw\": \"50 ppm\", \"status\": \"값있음\", \"value\": 50, \"unit\": \"ppm\"}}, {\"comp_ref\": \"18\", \"standard\": \"국내\", \"limit_type\": \"TWA\", \"kr_basis\": \"노출기준\", \"q\": {\"raw\": \"400 ppm\", \"status\": \"값있음\", \"value\": 400, \"unit\": \"ppm\"}}, {\"comp_ref\": \"18\", \"standard\": \"국내\", \"limit_type\": \"STEL\", \"kr_basis\": \"노출기준\", \"q\": {\"raw\": \"500 ppm\", \"status\": \"값있음\", \"value\": 500, \"unit\": \"ppm\"}}, {\"comp_ref\": \"1\", \"standard\": \"ACGIH\", \"limit_type\": \"기타\", \"q\": {\"raw\": \"Asphyxia\", \"status\": \"해당없음\", \"note\": \"Asphyxia\"}}, {\"comp_ref\": \"2\", \"standard\": \"ACGIH\", \"limit_type\": \"기타\", \"q\": {\"raw\": \"Asphyxia\", \"status\": \"해당없음\", \"note\": \"Asphyxia\"}}, {\"comp_ref\": \"3\", \"standard\": \"ACGIH\", \"limit_type\": \"TWA\", \"q\": {\"raw\": \"TWA 5000 ppm (Asphyxia)\", \"status\": \"값있음\", \"value\": 5000, \"unit\": \"ppm\", \"note\": \"Asphyxia\"}}, {\"comp_ref\": \"3\", \"standard\": \"ACGIH\", \"limit_type\": \"STEL\", \"q\": {\"raw\": \"STEL 30,000 ppm\", \"status\": \"값있음\", \"value\": 30000, \"unit\": \"ppm\"}}, {\"comp_ref\": \"4\", \"standard\": \"ACGIH\", \"limit_type\": \"기타\", \"q\": {\"raw\": \"Asphyxia\", \"status\": \"해당없음\", \"note\": \"Asphyxia\"}}, {\"comp_ref\": \"5\", \"standard\": \"ACGIH\", \"limit_type\": \"기타\", \"q\": {\"raw\": \"Asphyxia\", \"status\": \"해당없음\", \"note\": \"Asphyxia\"}}, {\"comp_ref\": \"6\", \"standard\": \"ACGIH\", \"limit_type\": null, \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}}, {\"comp_ref\": \"7\", \"standard\": \"ACGIH\", \"limit_type\": \"TWA\", \"q\": {\"raw\": \"25 ppm (29 mg/m3)\", \"status\": \"값있음\", \"value\": 25, \"unit\": \"ppm\", \"note\": \"29 mg/m3\"}}, {\"comp_ref\": \"8\", \"standard\": \"ACGIH\", \"limit_type\": \"TWA\", \"q\": {\"raw\": \"0.5 ppm (1.6 mg/m3)\", \"status\": \"값있음\", \"value\": 0.5, \"unit\": \"ppm\", \"dp\": 1, \"note\": \"1.6 mg/m3\"}}, {\"comp_ref\": \"8\", \"standard\": \"ACGIH\", \"limit_type\": \"STEL\", \"q\": {\"raw\": \"2.5 ppm (8 mg/m3)\", \"status\": \"값있음\", \"value\": 2.5, \"unit\": \"ppm\", \"dp\": 1, \"note\": \"8 mg/m3\"}}, {\"comp_ref\": \"9\", \"standard\": \"ACGIH\", \"limit_type\": \"기타\", \"q\": {\"raw\": \"Asphyxia\", \"status\": \"해당없음\", \"note\": \"Asphyxia\"}}, {\"comp_ref\": \"10\", \"standard\": \"ACGIH\", \"limit_type\": \"STEL\", \"q\": {\"raw\": \"STEL 1000 ppm\", \"status\": \"값있음\", \"value\": 1000, \"unit\": \"ppm\"}}, {\"comp_ref\": \"11\", \"standard\": \"ACGIH\", \"limit_type\": null, \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}}, {\"comp_ref\": \"12\", \"standard\": \"ACGIH\", \"limit_type\": \"TWA\", \"q\": {\"raw\": \"TWA 20 ppm (75 mg/m3)\", \"status\": \"값있음\", \"value\": 20, \"unit\": \"ppm\", \"note\": \"75 mg/m3\"}}, {\"comp_ref\": \"13\", \"standard\": \"ACGIH\", \"limit_type\": \"TWA\", \"q\": {\"raw\": \"20 ppm (87 mg/m3)\", \"status\": \"값있음\", \"value\": 20, \"unit\": \"ppm\", \"note\": \"87 mg/m3\"}}, {\"comp_ref\": \"14\", \"standard\": \"ACGIH\", \"limit_type\": null, \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}}, {\"comp_ref\": \"15\", \"standard\": \"ACGIH\", \"limit_type\": \"기타\", \"q\": {\"raw\": \"Asphyxia\", \"status\": \"해당없음\", \"note\": \"Asphyxia\"}}, {\"comp_ref\": \"16\", \"standard\": \"ACGIH\", \"limit_type\": \"TWA\", \"q\": {\"raw\": \"1000 ppm (2950 mg/m3)\", \"status\": \"값있음\", \"value\": 1000, \"unit\": \"ppm\", \"note\": \"2950 mg/m3\"}}, {\"comp_ref\": \"17\", \"standard\": \"ACGIH\", \"limit_type\": \"TWA\", \"q\": {\"raw\": \"50 ppm (176 mg/m3)\", \"status\": \"값있음\", \"value\": 50, \"unit\": \"ppm\", \"note\": \"176 mg/m3\"}}, {\"comp_ref\": \"18\", \"standard\": \"ACGIH\", \"limit_type\": \"TWA\", \"q\": {\"raw\": \"400 ppm (1640 mg/m3)\", \"status\": \"값있음\", \"value\": 400, \"unit\": \"ppm\", \"note\": \"1640 mg/m3\"}}, {\"comp_ref\": \"18\", \"standard\": \"ACGIH\", \"limit_type\": \"STEL\", \"q\": {\"raw\": \"500 ppm (2050 mg/m3)\", \"status\": \"값있음\", \"value\": 500, \"unit\": \"ppm\", \"note\": \"2050 mg/m3\"}}, {\"comp_ref\": \"1\", \"standard\": \"생물학적\", \"limit_type\": null, \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}}, {\"comp_ref\": \"2\", \"standard\": \"생물학적\", \"limit_type\": null, \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}}, {\"comp_ref\": \"3\", \"standard\": \"생물학적\", \"limit_type\": null, \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}}, {\"comp_ref\": \"4\", \"standard\": \"생물학적\", \"limit_type\": null, \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}}, {\"comp_ref\": \"5\", \"standard\": \"생물학적\", \"limit_type\": null, \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}}, {\"comp_ref\": \"6\", \"standard\": \"생물학적\", \"limit_type\": null, \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}}, {\"comp_ref\": \"7\", \"standard\": \"생물학적\", \"limit_type\": \"BEI\", \"bio_medium\": \"혈액\", \"bio_determinant\": \"Carboxyhemoglobin (COHb)\", \"bio_timing\": \"작업후\", \"q\": {\"raw\": \"헤모글로빈의 3.5%(작업후)\", \"status\": \"값있음\", \"value\": 3.5, \"unit\": \"%\", \"dp\": 1, \"note\": \"헤모글로빈의\"}}, {\"comp_ref\": \"7\", \"standard\": \"생물학적\", \"limit_type\": \"BEI\", \"bio_medium\": \"최종 날숨(end-exhaled air)\", \"bio_determinant\": \"Carbon monoxide\", \"bio_timing\": \"작업후\", \"q\": {\"raw\": \"20ppm(작업후)\", \"status\": \"값있음\", \"value\": 20, \"unit\": \"ppm\"}}, {\"comp_ref\": \"8\", \"standard\": \"생물학적\", \"limit_type\": \"BEI\", \"bio_medium\": \"소변\", \"bio_determinant\": \"S-Phenylmercapturic acid\", \"bio_timing\": \"작업후\", \"q\": {\"raw\": \"25 ㎍/g 크레아티닌(작업후)\", \"status\": \"값있음\", \"value\": 25, \"unit\": \"μg/g 크레아티닌\"}}, {\"comp_ref\": \"8\", \"standard\": \"생물학적\", \"limit_type\": \"BEI\", \"bio_medium\": \"소변\", \"bio_determinant\": \"t,t-Muconic acid\", \"bio_timing\": \"작업후\", \"q\": {\"raw\": \"500 ㎍/g 크레아티닌(작업후)\", \"status\": \"값있음\", \"value\": 500, \"unit\": \"μg/g 크레아티닌\"}}, {\"comp_ref\": \"9\", \"standard\": \"생물학적\", \"limit_type\": null, \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}}, {\"comp_ref\": \"10\", \"standard\": \"생물학적\", \"limit_type\": null, \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}}, {\"comp_ref\": \"11\", \"standard\": \"생물학적\", \"limit_type\": null, \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}}, {\"comp_ref\": \"12\", \"standard\": \"생물학적\", \"limit_type\": \"BEI\", \"bio_medium\": \"혈액\", \"bio_determinant\": \"Toluene\", \"bio_timing\": \"주중 최종작업전\", \"q\": {\"raw\": \"0.02 mg/L(주중 최종작업전)\", \"status\": \"값있음\", \"value\": 0.02, \"unit\": \"mg/L\", \"dp\": 2}}, {\"comp_ref\": \"12\", \"standard\": \"생물학적\", \"limit_type\": \"BEI\", \"bio_medium\": \"소변\", \"bio_determinant\": \"Toluene\", \"bio_timing\": \"작업후\", \"q\": {\"raw\": \"0.03 mg/L(작업후)\", \"status\": \"값있음\", \"value\": 0.03, \"unit\": \"mg/L\", \"dp\": 2}}, {\"comp_ref\": \"12\", \"standard\": \"생물학적\", \"limit_type\": \"BEI\", \"bio_medium\": \"소변\", \"bio_determinant\": \"(with hydrolysis) o-Cresol\", \"bio_timing\": \"작업후\", \"q\": {\"raw\": \"0.3 mg/g 크레아티닌(작업후)\", \"status\": \"값있음\", \"value\": 0.3, \"unit\": \"mg/g 크레아티닌\", \"dp\": 1}}, {\"comp_ref\": \"13\", \"standard\": \"생물학적\", \"limit_type\": \"BEI\", \"bio_medium\": \"소변\", \"bio_determinant\": \"Mandelic acid 및 Phenylglyoxylic acids의 합\", \"bio_timing\": \"작업후\", \"q\": {\"raw\": \"0.15 g/g크레아티닌(작업후)\", \"status\": \"값있음\", \"value\": 0.15, \"unit\": \"g/g 크레아티닌\", \"dp\": 2}}, {\"comp_ref\": \"14\", \"standard\": \"생물학적\", \"limit_type\": null, \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}}, {\"comp_ref\": \"15\", \"standard\": \"생물학적\", \"limit_type\": null, \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}}, {\"comp_ref\": \"16\", \"standard\": \"생물학적\", \"limit_type\": null, \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}}, {\"comp_ref\": \"17\", \"standard\": \"생물학적\", \"limit_type\": \"BEI\", \"bio_medium\": \"소변\", \"bio_determinant\": \"2,5-Hexanedione(without hydrolysis)\", \"bio_timing\": \"작업후\", \"q\": {\"raw\": \"0.4 mg/L(작업후)\", \"status\": \"값있음\", \"value\": 0.4, \"unit\": \"mg/L\", \"dp\": 1}}, {\"comp_ref\": \"18\", \"standard\": \"생물학적\", \"limit_type\": null, \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}}], \"physchem\": [{\"prop_code\": \"APPEARANCE_STATE\", \"comp_ref\": \"MIX\", \"text_value\": \"혼합가스\", \"q\": null}, {\"prop_code\": \"APPEARANCE_COLOR\", \"comp_ref\": \"MIX\", \"text_value\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"ODOR\", \"comp_ref\": \"MIX\", \"text_value\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"ODOR_THRESHOLD\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"PH\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"MELT_FREEZE\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"BOILING\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"FLASH_POINT\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"EVAP_RATE\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"FLAMMABILITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"UEL\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"42.2 vol%\", \"status\": \"값있음\", \"value\": 42.2, \"unit\": \"vol%\", \"dp\": 1, \"note\": \"계산값, KOSHA내 해당 값 및 1vol%이상 함유된 물질만 고려 함.\"}}, {\"prop_code\": \"LEL\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"4.5 vol%\", \"status\": \"값있음\", \"value\": 4.5, \"unit\": \"vol%\", \"dp\": 1, \"note\": \"계산값, KOSHA내 해당 값 및 1vol%이상 함유된 물질만 고려 함.\"}}, {\"prop_code\": \"VAPOR_PRESSURE\", \"comp_ref\": \"MIX\", \"seq\": 1, \"q\": {\"raw\": \"드럼 플랜지(flange)의 출구에서의 오프가스 압력 1.35 bar\", \"status\": \"값있음\", \"value\": 1.35, \"unit\": \"bar\", \"dp\": 2, \"note\": \"드럼 플랜지(flange)의 출구에서의 오프가스 압력\"}}, {\"prop_code\": \"VAPOR_PRESSURE\", \"comp_ref\": \"MIX\", \"seq\": 2, \"q\": {\"raw\": \"0.34 kg/㎠ g\", \"status\": \"값있음\", \"value\": 0.34, \"unit\": \"kg/cm2 g\", \"dp\": 2, \"note\": \"드럼 플랜지(flange)의 출구에서의 오프가스 압력\"}}, {\"prop_code\": \"SOLUBILITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"VAPOR_DENSITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"RELATIVE_DENSITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"0.577 kg/m3(0.000577 g/㎤)\", \"status\": \"값있음\", \"value\": 0.577, \"unit\": \"kg/m3\", \"dp\": 3, \"note\": \"0.000577 g/cm3\"}}, {\"prop_code\": \"LOG_KOW\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"AUTOIGNITION\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"DECOMPOSITION\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"VISCOSITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"0.011 mPa.s\", \"status\": \"값있음\", \"value\": 0.011, \"unit\": \"mPa.s\", \"dp\": 3}}, {\"prop_code\": \"MOL_WEIGHT\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"10.735 g/mol (계산값)\", \"status\": \"값있음\", \"value\": 10.735, \"unit\": \"g/mol\", \"dp\": 3, \"note\": \"계산값\"}}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"exposure_limits[0]\", \"page\": 4, \"source_text\": \"- [수소] : 해당없음\", \"rules\": [\"R15\"], \"note\": \"국내노출기준 해당없음; 기준 종류 표시 없어 limit_type null\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[1]\", \"page\": 4, \"source_text\": \"- [메테인] : 해당없음\", \"rules\": [\"R15\", \"R10\"], \"note\": \"메테인=메탄(comp 2)\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[2]\", \"page\": 4, \"source_text\": \"- [이산화 탄소] : TWA : 5000 ppm, STEL : 30000 ppm\", \"rules\": [\"R04\"], \"note\": \"TWA·STEL 행 분리\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[3]\", \"page\": 4, \"source_text\": \"- [이산화 탄소] : TWA : 5000 ppm, STEL : 30000 ppm\", \"rules\": [\"R04\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"exposure_limits[4]\", \"page\": 4, \"source_text\": \"- [질소] : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"exposure_limits[5]\", \"page\": 4, \"source_text\": \"- [에탄] : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"exposure_limits[6]\", \"page\": 4, \"source_text\": \"- [황, 침전된, 승화된 혹은 콜로이드] : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"exposure_limits[7]\", \"page\": 4, \"source_text\": \"- [일산화 탄소] : TWA : 30 ppm, STEL : 200 ppm\", \"rules\": [\"R04\"], \"note\": \"TWA·STEL 행 분리\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[8]\", \"page\": 4, \"source_text\": \"- [일산화 탄소] : TWA : 30 ppm, STEL : 200 ppm\", \"rules\": [\"R04\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"exposure_limits[9]\", \"page\": 4, \"source_text\": \"- [벤젠] : TWA : 0.5 ppm, STEL : 2.5 ppm\", \"rules\": [\"R04\", \"R06\"], \"note\": \"TWA·STEL 행 분리\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[10]\", \"page\": 4, \"source_text\": \"- [벤젠] : TWA : 0.5 ppm, STEL : 2.5 ppm\", \"rules\": [\"R04\", \"R06\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"exposure_limits[11]\", \"page\": 4, \"source_text\": \"- [프로페인] : 해당없음\", \"rules\": [\"R15\", \"R10\"], \"note\": \"프로페인=프로판(comp 9)\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[12]\", \"page\": 4, \"source_text\": \"- [뷰테인] : TWA : 800 ppm\", \"rules\": [\"R04\", \"R10\"], \"note\": \"뷰테인=부탄(comp 10)\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[13]\", \"page\": 4, \"source_text\": \"- [산소] : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"exposure_limits[14]\", \"page\": 4, \"source_text\": \"- [톨루엔] : TWA : 50 ppm, STEL : 150 ppm\", \"rules\": [\"R04\"], \"note\": \"TWA·STEL 행 분리\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[15]\", \"page\": 4, \"source_text\": \"- [톨루엔] : TWA : 50 ppm, STEL : 150 ppm\", \"rules\": [\"R04\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"exposure_limits[16]\", \"page\": 4, \"source_text\": \"- [에틸벤젠] : TWA : 100 ppm, STEL : 125 ppm\", \"rules\": [\"R04\"], \"note\": \"TWA·STEL 행 분리\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[17]\", \"page\": 4, \"source_text\": \"- [에틸벤젠] : TWA : 100 ppm, STEL : 125 ppm\", \"rules\": [\"R04\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"exposure_limits[18]\", \"page\": 4, \"source_text\": \"- [물] : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"exposure_limits[19]\", \"page\": 4, \"source_text\": \"- [아르곤] : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"exposure_limits[20]\", \"page\": 4, \"source_text\": \"- [펜테인] : TWA : 600 ppm, STEL : 750 ppm\", \"rules\": [\"R04\"], \"note\": \"TWA·STEL 행 분리\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[21]\", \"page\": 4, \"source_text\": \"- [펜테인] : TWA : 600 ppm, STEL : 750 ppm\", \"rules\": [\"R04\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"exposure_limits[22]\", \"page\": 4, \"source_text\": \"- [n-헥세인] : TWA : 50 ppm\", \"rules\": [\"R04\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"exposure_limits[23]\", \"page\": 4, \"source_text\": \"- [n-헵테인] : TWA : 400 ppm, STEL : 500 ppm\", \"rules\": [\"R04\"], \"note\": \"TWA·STEL 행 분리\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[24]\", \"page\": 4, \"source_text\": \"- [n-헵테인] : TWA : 400 ppm, STEL : 500 ppm\", \"rules\": [\"R04\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"exposure_limits[25]\", \"page\": 4, \"source_text\": \"- [수소] : Asphyxia\", \"rules\": [], \"note\": \"성질 표기(Asphyxia)만 있어 팀 임시 규칙대로 limit_type 기타, status 해당없음, note에 원문\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[26]\", \"page\": 4, \"source_text\": \"- [메테인] : Asphyxia\", \"rules\": [\"R10\"], \"note\": \"팀 임시 규칙: 성질 표기만 있음\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[27]\", \"page\": 4, \"source_text\": \"- [이산화 탄소] : TWA 5000 ppm (Asphyxia), STEL 30,000 ppm\", \"rules\": [\"R04\"], \"note\": \"괄호 Asphyxia는 note로\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[28]\", \"page\": 4, \"source_text\": \"- [이산화 탄소] : TWA 5000 ppm (Asphyxia), STEL 30,000 ppm\", \"rules\": [\"R04\", \"R06\"], \"note\": \"천단위 콤마 제거\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[29]\", \"page\": 4, \"source_text\": \"- [질소] : Asphyxia\", \"rules\": [], \"note\": \"팀 임시 규칙: 성질 표기만 있음\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[30]\", \"page\": 4, \"source_text\": \"- [에탄] : Asphyxia\", \"rules\": [], \"note\": \"팀 임시 규칙: 성질 표기만 있음\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[31]\", \"page\": 4, \"source_text\": \"- [황, 침전된, 승화된 혹은 콜로이드] : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"exposure_limits[32]\", \"page\": 4, \"source_text\": \"- [일산화 탄소] : TWA, 25 ppm (29 mg/m3)\", \"rules\": [\"R04\"], \"note\": \"괄호 mg/m3 환산값은 note에 둠\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[33]\", \"page\": 4, \"source_text\": \"- [벤젠] : TWA, 0.5 ppm (1.6 mg/m3) STEL, 2.5 ppm (8 mg/m3)\", \"rules\": [\"R04\", \"R06\"], \"note\": \"TWA·STEL 행 분리, 환산값 note\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[34]\", \"page\": 4, \"source_text\": \"- [벤젠] : TWA, 0.5 ppm (1.6 mg/m3) STEL, 2.5 ppm (8 mg/m3)\", \"rules\": [\"R04\", \"R06\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"exposure_limits[35]\", \"page\": 4, \"source_text\": \"- [프로페인] : Asphyxia\", \"rules\": [\"R10\"], \"note\": \"팀 임시 규칙: 성질 표기만 있음\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[36]\", \"page\": 4, \"source_text\": \"- [뷰테인] : STEL 1000 ppm\", \"rules\": [\"R04\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"exposure_limits[37]\", \"page\": 4, \"source_text\": \"- [산소] : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"exposure_limits[38]\", \"page\": 4, \"source_text\": \"- [톨루엔] : TWA 20 ppm (75 mg/m3)\", \"rules\": [\"R04\"], \"note\": \"환산값 note\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[39]\", \"page\": 4, \"source_text\": \"- [에틸벤젠] : TWA, 20 ppm (87 mg/m3)\", \"rules\": [\"R04\"], \"note\": \"환산값 note\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[40]\", \"page\": 4, \"source_text\": \"- [물] : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"exposure_limits[41]\", \"page\": 4, \"source_text\": \"- [아르곤] : Asphyxia\", \"rules\": [], \"note\": \"팀 임시 규칙: 성질 표기만 있음\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[42]\", \"page\": 4, \"source_text\": \"- [펜테인] : TWA, 1000 ppm (2950 mg/m3)\", \"rules\": [\"R04\"], \"note\": \"환산값 note\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[43]\", \"page\": 4, \"source_text\": \"- [n-헥세인] : TWA, 50 ppm (176 mg/m3)\", \"rules\": [\"R04\"], \"note\": \"환산값 note\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[44]\", \"page\": 4, \"source_text\": \"- [n-헵테인] : TWA, 400 ppm (1640 mg/m3) STEL, 500 ppm (2050 mg/m3)\", \"rules\": [\"R04\"], \"note\": \"TWA·STEL 행 분리\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[45]\", \"page\": 4, \"source_text\": \"- [n-헵테인] : TWA, 400 ppm (1640 mg/m3) STEL, 500 ppm (2050 mg/m3)\", \"rules\": [\"R04\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"exposure_limits[46]\", \"page\": 4, \"source_text\": \"- [수소] : 해당없음\", \"rules\": [\"R15\"], \"note\": \"생물학적 노출기준\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[47]\", \"page\": 4, \"source_text\": \"- [메테인] : 해당없음\", \"rules\": [\"R15\"], \"note\": \"생물학적 노출기준\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[48]\", \"page\": 4, \"source_text\": \"- [이산화 탄소] : 해당없음\", \"rules\": [\"R15\"], \"note\": \"생물학적 노출기준\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[49]\", \"page\": 5, \"source_text\": \"- [질소] : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"exposure_limits[50]\", \"page\": 5, \"source_text\": \"- [에탄] : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"exposure_limits[51]\", \"page\": 5, \"source_text\": \"- [황, 침전된, 승화된 혹은 콜로이드] : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"exposure_limits[52]\", \"page\": 5, \"source_text\": \"- [일산화 탄소] : 혈액 중 Carboxyhemoglobin (COHb) : 헤모글로빈의 3.5%(작업후)\", \"rules\": [\"R04\"], \"note\": \"매체·지표·시기 분리\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[53]\", \"page\": 5, \"source_text\": \"최종 날숨(end-exhaled air) 중 Carbon monoxide : 20ppm(작업후)\", \"rules\": [\"R04\"], \"note\": \"매체·지표·시기 분리\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[54]\", \"page\": 5, \"source_text\": \"- [벤젠] : 소변 중 S-Phenylmercapturic acid : 25 ㎍/g 크레아티닌(작업후)\", \"rules\": [\"R04\", \"R08\"], \"note\": \"㎍→μg\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[55]\", \"page\": 5, \"source_text\": \"소변 중 t,t-Muconic acid : 500 ㎍/g 크레아티닌 (작업후)\", \"rules\": [\"R04\", \"R08\"], \"note\": \"㎍→μg\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[56]\", \"page\": 5, \"source_text\": \"- [프로페인] : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"exposure_limits[57]\", \"page\": 5, \"source_text\": \"- [뷰테인] : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"exposure_limits[58]\", \"page\": 5, \"source_text\": \"- [산소] : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"exposure_limits[59]\", \"page\": 5, \"source_text\": \"- [톨루엔] : 혈액 중 Toluene : 0.02 mg/L(주중 최종작업전)\", \"rules\": [\"R04\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"exposure_limits[60]\", \"page\": 5, \"source_text\": \"소변 중 Toluene : 0.03 mg/L(작업후)\", \"rules\": [\"R04\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"exposure_limits[61]\", \"page\": 5, \"source_text\": \"소변 중(with hydrolysis) o-Cresol : 0.3 mg/g 크레아티닌(작업후)\", \"rules\": [\"R04\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"exposure_limits[62]\", \"page\": 5, \"source_text\": \"- [에틸벤젠] : 소변 중 (Mandelic acid 및 Phenylglyoxylic acids의 합) : 0.15 g/g크레아티닌(작업후)\", \"rules\": [\"R04\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"exposure_limits[63]\", \"page\": 5, \"source_text\": \"- [물] : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"exposure_limits[64]\", \"page\": 5, \"source_text\": \"- [아르곤] : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"exposure_limits[65]\", \"page\": 5, \"source_text\": \"- [펜테인] : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"exposure_limits[66]\", \"page\": 5, \"source_text\": \"- [n-헥세인] : 소변 중 2,5-Hexanedione(without hydrolysis) : 0.4 mg/L(작업후)\", \"rules\": [\"R04\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"exposure_limits[67]\", \"page\": 5, \"source_text\": \"- [n-헵테인] : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[0]\", \"page\": 5, \"source_text\": \"- 성상 | 혼합가스\", \"rules\": [\"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[1]\", \"page\": 5, \"source_text\": \"- 색 | 자료없음\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[2]\", \"page\": 5, \"source_text\": \"나. 냄새 | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[3]\", \"page\": 5, \"source_text\": \"다. 냄새역치 | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[4]\", \"page\": 5, \"source_text\": \"라. pH | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[5]\", \"page\": 5, \"source_text\": \"마. 녹는점/어는점 | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[6]\", \"page\": 5, \"source_text\": \"바. 초기 끓는점과 끓는점 범위 | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[7]\", \"page\": 5, \"source_text\": \"사. 인화점 | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[8]\", \"page\": 5, \"source_text\": \"아. 증발 속도 | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[9]\", \"page\": 5, \"source_text\": \"자. 인화성 (고체, 기체) | 자료없음\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[10]\", \"page\": 6, \"source_text\": \"차. 인화 또는 폭발 범위의 상한/하한 | 42.2 vol%/4.5 vol% (계산값, KOSHA내 해당 값 및 1vol%이상 함유된 물질만 고려 함.)\", \"rules\": [\"R04\", \"R25\"], \"note\": \"상한/하한을 UEL·LEL 행으로 나누고 괄호 설명은 note\"}, {\"msds_index\": 0, \"field\": \"physchem[11]\", \"page\": 6, \"source_text\": \"차. 인화 또는 폭발 범위의 상한/하한 | 42.2 vol%/4.5 vol% (계산값, KOSHA내 해당 값 및 1vol%이상 함유된 물질만 고려 함.)\", \"rules\": [\"R04\", \"R25\"], \"note\": \"LEL 4.5 vol%\"}, {\"msds_index\": 0, \"field\": \"physchem[12]\", \"page\": 6, \"source_text\": \"카. 증기압 | 드럼 플랜지(flange)의 출구에서의 오프가스 압력 1.35 bar, 0.34 kg/㎠ g\", \"rules\": [\"R04\"], \"note\": \"두 값을 seq 1·2로 나누고 설명은 note\"}, {\"msds_index\": 0, \"field\": \"physchem[13]\", \"page\": 6, \"source_text\": \"카. 증기압 | 드럼 플랜지(flange)의 출구에서의 오프가스 압력 1.35 bar, 0.34 kg/㎠ g\", \"rules\": [\"R04\", \"R08\"], \"note\": \"㎠→cm2\"}, {\"msds_index\": 0, \"field\": \"physchem[14]\", \"page\": 6, \"source_text\": \"타. 용해도 | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[15]\", \"page\": 6, \"source_text\": \"파. 증기밀도 | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[16]\", \"page\": 6, \"source_text\": \"하. 비중 | 0.577 kg/m3(0.000577 g/㎤)\", \"rules\": [\"R04\", \"R06\", \"R08\"], \"note\": \"괄호 환산값은 note\"}, {\"msds_index\": 0, \"field\": \"physchem[17]\", \"page\": 6, \"source_text\": \"거. N-옥탄올/물 분배계수 | 자료없음\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[18]\", \"page\": 6, \"source_text\": \"너. 자연발화온도 | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[19]\", \"page\": 6, \"source_text\": \"더. 분해온도 | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[20]\", \"page\": 6, \"source_text\": \"러. 점도 | 0.011 mPa.s\", \"rules\": [\"R04\", \"R06\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[21]\", \"page\": 6, \"source_text\": \"머. 분자량 | 10.735 g/mol (계산값)\", \"rules\": [\"R04\", \"R06\"], \"note\": \"(계산값)은 note\"}]}"
+}

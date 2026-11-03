@@ -1,0 +1,733 @@
+{
+  "doc_id": "T21-044",
+  "bundle": "b3",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 45746,
+    "completion_tokens": 7404,
+    "cached_tokens": 8451,
+    "reasoning_tokens": 1246,
+    "notional_cost_usd": 0.4481222
+  },
+  "seconds": 53.9,
+  "request_usage": [
+    {
+      "prompt_tokens": 45746,
+      "completion_tokens": 7404,
+      "cached_tokens": 8451,
+      "reasoning_tokens": 1246,
+      "notional_cost_usd": 0.4481222
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "toxicity": [
+          {
+            "comp_ref": "MIX",
+            "endpoint": null,
+            "descriptor": null,
+            "q": null,
+            "status": "자료없음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "급성독성",
+                "value": "자료없음",
+                "text": "급성독성 : 자료없음"
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_ORAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "2000 mg/Kg(Rat)",
+              "value": 2000,
+              "unit": "mg/kg",
+              "status": "값있음"
+            },
+            "species": "Rat",
+            "sex": "미표기",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_DERMAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "2000mg/Kg(Rat)",
+              "value": 2000,
+              "unit": "mg/kg",
+              "status": "값있음"
+            },
+            "species": "Rat",
+            "sex": "미표기",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_INHAL",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "4.75mg/l",
+              "value": 4.75,
+              "dp": 2,
+              "unit": "mg/L",
+              "status": "값있음"
+            },
+            "duration_value": 4,
+            "duration_unit": "hr",
+            "physical_form": null,
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_ORAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "2000 mg/Kg(Rat)",
+              "value": 2000,
+              "unit": "mg/kg",
+              "status": "값있음"
+            },
+            "species": "Rat",
+            "sex": "미표기",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_DERMAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "2000mg/Kg(Rat)",
+              "value": 2000,
+              "unit": "mg/kg",
+              "status": "값있음"
+            },
+            "species": "Rat",
+            "sex": "미표기",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_INHAL",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "5.05mg/l",
+              "value": 5.05,
+              "dp": 2,
+              "unit": "mg/L",
+              "status": "값있음"
+            },
+            "duration_value": 4,
+            "duration_unit": "hr",
+            "physical_form": null,
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN",
+            "descriptor": "결과기술",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "자극성 없음(ECHA)",
+                "text": "피부 부식성 또는 자극성 : 자극성 없음(ECHA)"
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_EYE",
+            "descriptor": "결과기술",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "자극성 없음(ECHA)",
+                "text": "심한 눈 손상 또는 자극성 : 자극성 없음(ECHA)"
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_RESP_SENS",
+            "descriptor": null,
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN_SENS",
+            "descriptor": "결과기술",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "관민성 없음(ECHA)",
+                "text": "피부 과민성 : 관민성 없음(ECHA)"
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_CARC",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "특별관리물질",
+                "text": "발암성 : 특별관리물질"
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_MUTA",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "in vitro 염색체 이상시험(Chinese hamster ovary cells), Comet assay(mouse) : 음성",
+                "text": "생식세포 변이원성 : in vitro 염색체 이상시험(Chinese hamster ovary cells), Comet assay(mouse) : 음성"
+              },
+              {
+                "seq": 2,
+                "value": "in vivo 염색체 이상시험(Chinese hamster overy cells) : 양성",
+                "text": "in vivo 염색체 이상시험(Chinese hamster overy cells) : 양성"
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_REPRO",
+            "descriptor": "결과기술",
+            "classification": "구분1A",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "납의 급성, 만성 노출시험에서 랫드 및 마우스에 생식 및 발달에 영향을 일으킴",
+                "refs": [
+                  "2"
+                ],
+                "text": "생식독성 : 납의 급성, 만성 노출시험에서 랫드 및 마우스에 생식 및 발달에 영향을 일으킴"
+              },
+              {
+                "seq": 2,
+                "value": "생식독성 구분1A(H360), 수유독성(H362)에 해당",
+                "text": "생식독성 구분1A(H360), 수유독성(H362)에 해당"
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_REPRO",
+            "descriptor": null,
+            "q": {
+              "raw": "NOEL > 1,000 mg/kg/day",
+              "lower_op": ">",
+              "lower": 1000,
+              "unit": "mg/kg/day",
+              "status": "값있음"
+            },
+            "species": "랫드",
+            "exposure_type": "경구생식독성",
+            "guideline": "OECD TG 421",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "주석 랫드를 이용한 경구생식독성 시험 결과, NOEL > 1,000 mg/kg/day(OECD TG 421)",
+                "refs": [
+                  "1"
+                ],
+                "text": "주석 랫드를 이용한 경구생식독성 시험 결과, NOEL > 1,000 mg/kg/day(OECD TG 421)"
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_STOT_SE",
+            "descriptor": "결과기술",
+            "classification": "구분3",
+            "data_source": "ICSC",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "흡입노출시 호흡기계 자극을 일으킨다는 보고가 있으므로 구분3으로 분류(ICSC)",
+                "text": "흡입노출시 호흡기계 자극을 일으킨다는 보고가 있으므로 구분3으로 분류(ICSC)"
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_STOT_RE",
+            "descriptor": "결과기술",
+            "classification": "구분1",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "금속 주석을 취급하는 노동자에게 폐손상(Stannosis) 이 나타났다는 역학적 보고가 있으므로 구분1에 해당함",
+                "refs": [
+                  "1"
+                ],
+                "text": "금속 주석을 취급하는 노동자에게 폐손상(Stannosis) 이 나타났다는 역학적 보고가 있으므로 구분1에 해당함"
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ASP",
+            "descriptor": null,
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": null,
+            "descriptor": null,
+            "status": "자료없음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "기타 유해성 영향",
+                "value": "자료없음",
+                "text": "기타 유해성 영향 : 자료없음"
+              }
+            ]
+          }
+        ],
+        "cmr": [
+          {
+            "comp_ref": "MIX",
+            "hazard": "생식독성",
+            "agency": null,
+            "class": "1A",
+            "status": "값있음",
+            "note": "수유독성(H362)에 해당"
+          }
+        ],
+        "ecotox": [
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_FISH",
+            "descriptor": null,
+            "q": {
+              "raw": "0.0124 ㎎/l",
+              "value": 0.0124,
+              "dp": 4,
+              "unit": "mg/L",
+              "status": "값있음"
+            },
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_CRUST",
+            "descriptor": "LC50",
+            "duration_value": 48,
+            "duration_unit": "hr",
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_ALGAE",
+            "descriptor": "EC50",
+            "q": {
+              "raw": "0.0192 ㎎/l",
+              "value": 0.0192,
+              "dp": 4,
+              "unit": "mg/L",
+              "status": "값있음"
+            },
+            "duration_value": 72,
+            "duration_unit": "hr",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_FISH",
+            "descriptor": null,
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_CRUST",
+            "descriptor": "LC50",
+            "duration_value": 48,
+            "duration_unit": "hr",
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_ALGAE",
+            "descriptor": "EC50",
+            "duration_value": 72,
+            "duration_unit": "hr",
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_PERSIST",
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_BIOACC",
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_SOIL",
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_OTHER",
+            "status": "자료없음",
+            "statements": []
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "toxicity[0]",
+        "page": 6,
+        "source_text": "급성독성 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "맞는 값 없음: 급성독성 전체(경로 미지정)에 대한 기재라 endpoint는 null로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[1]",
+        "page": 6,
+        "source_text": "Sn | 2000 mg/Kg(Rat) | 2000mg/Kg(Rat) | 4.75mg/l",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "경구 LD50 2000, 단위 mg/Kg를 mg/kg로 표기 통일"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[2]",
+        "page": 6,
+        "source_text": "Sn | 2000 mg/Kg(Rat) | 2000mg/Kg(Rat) | 4.75mg/l",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "경피 LD50 2000 mg/kg"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[3]",
+        "page": 6,
+        "source_text": "흡입(LC50) 4hr | Sn | 4.75mg/l",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "흡입 LC50 4.75 mg/L, 열 제목의 4hr를 노출 시간으로. 흡입 형태는 원문에 없어 null"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[4]",
+        "page": 6,
+        "source_text": "Pb | 2000 mg/Kg(Rat) | 2000mg/Kg(Rat) | 5.05mg/l",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "경구 LD50 2000 mg/kg"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[5]",
+        "page": 6,
+        "source_text": "Pb | 2000 mg/Kg(Rat) | 2000mg/Kg(Rat) | 5.05mg/l",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "경피 LD50 2000 mg/kg"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[6]",
+        "page": 6,
+        "source_text": "흡입(LC50) 4hr | Pb | 5.05mg/l",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "흡입 LC50 5.05 mg/L, 4hr"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[7]",
+        "page": 6,
+        "source_text": "피부 부식성 또는 자극성 : 자극성 없음(ECHA)",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[8]",
+        "page": 6,
+        "source_text": "심한 눈 손상 또는 자극성 : 자극성 없음(ECHA)",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[9]",
+        "page": 6,
+        "source_text": "호흡기 과민성 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[10]",
+        "page": 6,
+        "source_text": "피부 과민성 : 관민성 없음(ECHA)",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[11]",
+        "page": 6,
+        "source_text": "발암성 : 특별관리물질",
+        "rules": [],
+        "note": "기관 분류 등급이 아니어서 cmr 행은 만들지 않음"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[12]",
+        "page": 6,
+        "source_text": "생식세포 변이원성 : in vitro 염색체 이상시험(Chinese hamster ovary cells), Comet assay(mouse) : 음성 in vivo 염색체 이상시험(Chinese hamster overy cells) : 양성",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[13]",
+        "page": 6,
+        "source_text": "생식독성 : 납의 급성, 만성 노출시험에서 랫드 및 마우스에 생식 및 발달에 영향을 일으킴 생식독성 구분1A(H360), 수유독성(H362)에 해당",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[14]",
+        "page": 6,
+        "source_text": "주석 랫드를 이용한 경구생식독성 시험 결과, NOEL > 1,000 mg/kg/day(OECD TG 421)",
+        "rules": [
+          "R04",
+          "R06",
+          "R10"
+        ],
+        "note": "맞는 값 없음: 지표 NOEL은 descriptor 목록에 없어 null. 하한 >1000으로 분해"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[15]",
+        "page": 6,
+        "source_text": "흡입노출시 호흡기계 자극을 일으킨다는 보고가 있으므로 구분3으로 분류(ICSC)",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[16]",
+        "page": 6,
+        "source_text": "금속 주석을 취급하는 노동자에게 폐손상(Stannosis) 이 나타났다는 역학적 보고가 있으므로 구분1에 해당함",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[17]",
+        "page": 6,
+        "source_text": "흡인유해성 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[18]",
+        "page": 6,
+        "source_text": "기타 유해성 영향 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "맞는 값 없음: 기타 유해성 영향에 맞는 endpoint 코드가 없어 null"
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[0]",
+        "page": 6,
+        "source_text": "생식독성 구분1A(H360), 수유독성(H362)에 해당",
+        "rules": [],
+        "note": "분류 기관이 원문에 없어 agency는 null"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[0]",
+        "page": 6,
+        "source_text": "어류(LD50) 96hr | Sn | 0.0124 ㎎/l",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "맞는 값 없음: 지표 LD50은 ecotox descriptor 목록에 없어 null"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[1]",
+        "page": 6,
+        "source_text": "갑각류(LC50) 48hr | Sn | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[2]",
+        "page": 6,
+        "source_text": "조류(EC50) 72hr | Sn | 0.0192 ㎎/l",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[3]",
+        "page": 6,
+        "source_text": "어류(LD50) 96hr | Pb | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "맞는 값 없음: 지표 LD50은 목록에 없어 null"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[4]",
+        "page": 6,
+        "source_text": "갑각류(LC50) 48hr | Pb | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[5]",
+        "page": 6,
+        "source_text": "조류(EC50) 72hr | Pb | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[6]",
+        "page": 6,
+        "source_text": "나. 잔류성 및 분해성 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[7]",
+        "page": 6,
+        "source_text": "다. 생물농축성 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[8]",
+        "page": 6,
+        "source_text": "라. 토양이동성 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[9]",
+        "page": 6,
+        "source_text": "마. 기타 유해 영향 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"toxicity\": [{\"comp_ref\": \"MIX\", \"endpoint\": null, \"descriptor\": null, \"q\": null, \"status\": \"자료없음\", \"statements\": [{\"seq\": 1, \"key\": \"급성독성\", \"value\": \"자료없음\", \"text\": \"급성독성 : 자료없음\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_ORAL\", \"descriptor\": \"LD50\", \"q\": {\"raw\": \"2000 mg/Kg(Rat)\", \"value\": 2000, \"unit\": \"mg/kg\", \"status\": \"값있음\"}, \"species\": \"Rat\", \"sex\": \"미표기\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_DERMAL\", \"descriptor\": \"LD50\", \"q\": {\"raw\": \"2000mg/Kg(Rat)\", \"value\": 2000, \"unit\": \"mg/kg\", \"status\": \"값있음\"}, \"species\": \"Rat\", \"sex\": \"미표기\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_INHAL\", \"descriptor\": \"LC50\", \"q\": {\"raw\": \"4.75mg/l\", \"value\": 4.75, \"dp\": 2, \"unit\": \"mg/L\", \"status\": \"값있음\"}, \"duration_value\": 4, \"duration_unit\": \"hr\", \"physical_form\": null, \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"2\", \"endpoint\": \"TX_ORAL\", \"descriptor\": \"LD50\", \"q\": {\"raw\": \"2000 mg/Kg(Rat)\", \"value\": 2000, \"unit\": \"mg/kg\", \"status\": \"값있음\"}, \"species\": \"Rat\", \"sex\": \"미표기\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"2\", \"endpoint\": \"TX_DERMAL\", \"descriptor\": \"LD50\", \"q\": {\"raw\": \"2000mg/Kg(Rat)\", \"value\": 2000, \"unit\": \"mg/kg\", \"status\": \"값있음\"}, \"species\": \"Rat\", \"sex\": \"미표기\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"2\", \"endpoint\": \"TX_INHAL\", \"descriptor\": \"LC50\", \"q\": {\"raw\": \"5.05mg/l\", \"value\": 5.05, \"dp\": 2, \"unit\": \"mg/L\", \"status\": \"값있음\"}, \"duration_value\": 4, \"duration_unit\": \"hr\", \"physical_form\": null, \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_SKIN\", \"descriptor\": \"결과기술\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"자극성 없음(ECHA)\", \"text\": \"피부 부식성 또는 자극성 : 자극성 없음(ECHA)\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_EYE\", \"descriptor\": \"결과기술\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"자극성 없음(ECHA)\", \"text\": \"심한 눈 손상 또는 자극성 : 자극성 없음(ECHA)\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_RESP_SENS\", \"descriptor\": null, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_SKIN_SENS\", \"descriptor\": \"결과기술\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"관민성 없음(ECHA)\", \"text\": \"피부 과민성 : 관민성 없음(ECHA)\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_CARC\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"특별관리물질\", \"text\": \"발암성 : 특별관리물질\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_MUTA\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"in vitro 염색체 이상시험(Chinese hamster ovary cells), Comet assay(mouse) : 음성\", \"text\": \"생식세포 변이원성 : in vitro 염색체 이상시험(Chinese hamster ovary cells), Comet assay(mouse) : 음성\"}, {\"seq\": 2, \"value\": \"in vivo 염색체 이상시험(Chinese hamster overy cells) : 양성\", \"text\": \"in vivo 염색체 이상시험(Chinese hamster overy cells) : 양성\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_REPRO\", \"descriptor\": \"결과기술\", \"classification\": \"구분1A\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"납의 급성, 만성 노출시험에서 랫드 및 마우스에 생식 및 발달에 영향을 일으킴\", \"refs\": [\"2\"], \"text\": \"생식독성 : 납의 급성, 만성 노출시험에서 랫드 및 마우스에 생식 및 발달에 영향을 일으킴\"}, {\"seq\": 2, \"value\": \"생식독성 구분1A(H360), 수유독성(H362)에 해당\", \"text\": \"생식독성 구분1A(H360), 수유독성(H362)에 해당\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_REPRO\", \"descriptor\": null, \"q\": {\"raw\": \"NOEL > 1,000 mg/kg/day\", \"lower_op\": \">\", \"lower\": 1000, \"unit\": \"mg/kg/day\", \"status\": \"값있음\"}, \"species\": \"랫드\", \"exposure_type\": \"경구생식독성\", \"guideline\": \"OECD TG 421\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"주석 랫드를 이용한 경구생식독성 시험 결과, NOEL > 1,000 mg/kg/day(OECD TG 421)\", \"refs\": [\"1\"], \"text\": \"주석 랫드를 이용한 경구생식독성 시험 결과, NOEL > 1,000 mg/kg/day(OECD TG 421)\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_STOT_SE\", \"descriptor\": \"결과기술\", \"classification\": \"구분3\", \"data_source\": \"ICSC\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"흡입노출시 호흡기계 자극을 일으킨다는 보고가 있으므로 구분3으로 분류(ICSC)\", \"text\": \"흡입노출시 호흡기계 자극을 일으킨다는 보고가 있으므로 구분3으로 분류(ICSC)\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_STOT_RE\", \"descriptor\": \"결과기술\", \"classification\": \"구분1\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"금속 주석을 취급하는 노동자에게 폐손상(Stannosis) 이 나타났다는 역학적 보고가 있으므로 구분1에 해당함\", \"refs\": [\"1\"], \"text\": \"금속 주석을 취급하는 노동자에게 폐손상(Stannosis) 이 나타났다는 역학적 보고가 있으므로 구분1에 해당함\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_ASP\", \"descriptor\": null, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": null, \"descriptor\": null, \"status\": \"자료없음\", \"statements\": [{\"seq\": 1, \"key\": \"기타 유해성 영향\", \"value\": \"자료없음\", \"text\": \"기타 유해성 영향 : 자료없음\"}]}], \"cmr\": [{\"comp_ref\": \"MIX\", \"hazard\": \"생식독성\", \"agency\": null, \"class\": \"1A\", \"status\": \"값있음\", \"note\": \"수유독성(H362)에 해당\"}], \"ecotox\": [{\"comp_ref\": \"1\", \"endpoint\": \"ECO_FISH\", \"descriptor\": null, \"q\": {\"raw\": \"0.0124 ㎎/l\", \"value\": 0.0124, \"dp\": 4, \"unit\": \"mg/L\", \"status\": \"값있음\"}, \"duration_value\": 96, \"duration_unit\": \"hr\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_CRUST\", \"descriptor\": \"LC50\", \"duration_value\": 48, \"duration_unit\": \"hr\", \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_ALGAE\", \"descriptor\": \"EC50\", \"q\": {\"raw\": \"0.0192 ㎎/l\", \"value\": 0.0192, \"dp\": 4, \"unit\": \"mg/L\", \"status\": \"값있음\"}, \"duration_value\": 72, \"duration_unit\": \"hr\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"2\", \"endpoint\": \"ECO_FISH\", \"descriptor\": null, \"duration_value\": 96, \"duration_unit\": \"hr\", \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"2\", \"endpoint\": \"ECO_CRUST\", \"descriptor\": \"LC50\", \"duration_value\": 48, \"duration_unit\": \"hr\", \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"2\", \"endpoint\": \"ECO_ALGAE\", \"descriptor\": \"EC50\", \"duration_value\": 72, \"duration_unit\": \"hr\", \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_PERSIST\", \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_BIOACC\", \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_SOIL\", \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_OTHER\", \"status\": \"자료없음\", \"statements\": []}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"toxicity[0]\", \"page\": 6, \"source_text\": \"급성독성 : 자료없음\", \"rules\": [\"R15\"], \"note\": \"맞는 값 없음: 급성독성 전체(경로 미지정)에 대한 기재라 endpoint는 null로 둠\"}, {\"msds_index\": 0, \"field\": \"toxicity[1]\", \"page\": 6, \"source_text\": \"Sn | 2000 mg/Kg(Rat) | 2000mg/Kg(Rat) | 4.75mg/l\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": \"경구 LD50 2000, 단위 mg/Kg를 mg/kg로 표기 통일\"}, {\"msds_index\": 0, \"field\": \"toxicity[2]\", \"page\": 6, \"source_text\": \"Sn | 2000 mg/Kg(Rat) | 2000mg/Kg(Rat) | 4.75mg/l\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": \"경피 LD50 2000 mg/kg\"}, {\"msds_index\": 0, \"field\": \"toxicity[3]\", \"page\": 6, \"source_text\": \"흡입(LC50) 4hr | Sn | 4.75mg/l\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": \"흡입 LC50 4.75 mg/L, 열 제목의 4hr를 노출 시간으로. 흡입 형태는 원문에 없어 null\"}, {\"msds_index\": 0, \"field\": \"toxicity[4]\", \"page\": 6, \"source_text\": \"Pb | 2000 mg/Kg(Rat) | 2000mg/Kg(Rat) | 5.05mg/l\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": \"경구 LD50 2000 mg/kg\"}, {\"msds_index\": 0, \"field\": \"toxicity[5]\", \"page\": 6, \"source_text\": \"Pb | 2000 mg/Kg(Rat) | 2000mg/Kg(Rat) | 5.05mg/l\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": \"경피 LD50 2000 mg/kg\"}, {\"msds_index\": 0, \"field\": \"toxicity[6]\", \"page\": 6, \"source_text\": \"흡입(LC50) 4hr | Pb | 5.05mg/l\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": \"흡입 LC50 5.05 mg/L, 4hr\"}, {\"msds_index\": 0, \"field\": \"toxicity[7]\", \"page\": 6, \"source_text\": \"피부 부식성 또는 자극성 : 자극성 없음(ECHA)\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[8]\", \"page\": 6, \"source_text\": \"심한 눈 손상 또는 자극성 : 자극성 없음(ECHA)\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[9]\", \"page\": 6, \"source_text\": \"호흡기 과민성 : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[10]\", \"page\": 6, \"source_text\": \"피부 과민성 : 관민성 없음(ECHA)\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[11]\", \"page\": 6, \"source_text\": \"발암성 : 특별관리물질\", \"rules\": [], \"note\": \"기관 분류 등급이 아니어서 cmr 행은 만들지 않음\"}, {\"msds_index\": 0, \"field\": \"toxicity[12]\", \"page\": 6, \"source_text\": \"생식세포 변이원성 : in vitro 염색체 이상시험(Chinese hamster ovary cells), Comet assay(mouse) : 음성 in vivo 염색체 이상시험(Chinese hamster overy cells) : 양성\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[13]\", \"page\": 6, \"source_text\": \"생식독성 : 납의 급성, 만성 노출시험에서 랫드 및 마우스에 생식 및 발달에 영향을 일으킴 생식독성 구분1A(H360), 수유독성(H362)에 해당\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[14]\", \"page\": 6, \"source_text\": \"주석 랫드를 이용한 경구생식독성 시험 결과, NOEL > 1,000 mg/kg/day(OECD TG 421)\", \"rules\": [\"R04\", \"R06\", \"R10\"], \"note\": \"맞는 값 없음: 지표 NOEL은 descriptor 목록에 없어 null. 하한 >1000으로 분해\"}, {\"msds_index\": 0, \"field\": \"toxicity[15]\", \"page\": 6, \"source_text\": \"흡입노출시 호흡기계 자극을 일으킨다는 보고가 있으므로 구분3으로 분류(ICSC)\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[16]\", \"page\": 6, \"source_text\": \"금속 주석을 취급하는 노동자에게 폐손상(Stannosis) 이 나타났다는 역학적 보고가 있으므로 구분1에 해당함\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[17]\", \"page\": 6, \"source_text\": \"흡인유해성 : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[18]\", \"page\": 6, \"source_text\": \"기타 유해성 영향 : 자료없음\", \"rules\": [\"R15\"], \"note\": \"맞는 값 없음: 기타 유해성 영향에 맞는 endpoint 코드가 없어 null\"}, {\"msds_index\": 0, \"field\": \"cmr[0]\", \"page\": 6, \"source_text\": \"생식독성 구분1A(H360), 수유독성(H362)에 해당\", \"rules\": [], \"note\": \"분류 기관이 원문에 없어 agency는 null\"}, {\"msds_index\": 0, \"field\": \"ecotox[0]\", \"page\": 6, \"source_text\": \"어류(LD50) 96hr | Sn | 0.0124 ㎎/l\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": \"맞는 값 없음: 지표 LD50은 ecotox descriptor 목록에 없어 null\"}, {\"msds_index\": 0, \"field\": \"ecotox[1]\", \"page\": 6, \"source_text\": \"갑각류(LC50) 48hr | Sn | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[2]\", \"page\": 6, \"source_text\": \"조류(EC50) 72hr | Sn | 0.0192 ㎎/l\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[3]\", \"page\": 6, \"source_text\": \"어류(LD50) 96hr | Pb | 자료없음\", \"rules\": [\"R15\"], \"note\": \"맞는 값 없음: 지표 LD50은 목록에 없어 null\"}, {\"msds_index\": 0, \"field\": \"ecotox[4]\", \"page\": 6, \"source_text\": \"갑각류(LC50) 48hr | Pb | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[5]\", \"page\": 6, \"source_text\": \"조류(EC50) 72hr | Pb | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[6]\", \"page\": 6, \"source_text\": \"나. 잔류성 및 분해성 : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[7]\", \"page\": 6, \"source_text\": \"다. 생물농축성 : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[8]\", \"page\": 6, \"source_text\": \"라. 토양이동성 : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[9]\", \"page\": 6, \"source_text\": \"마. 기타 유해 영향 : 자료없음\", \"rules\": [\"R15\"], \"note\": null}]}"
+}

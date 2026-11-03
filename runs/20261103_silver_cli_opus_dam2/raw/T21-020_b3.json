@@ -1,0 +1,1214 @@
+{
+  "doc_id": "T21-020",
+  "bundle": "b3",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 54129,
+    "completion_tokens": 12964,
+    "cached_tokens": 8451,
+    "reasoning_tokens": 1804,
+    "notional_cost_usd": 0.6263862
+  },
+  "seconds": 90.2,
+  "request_usage": [
+    {
+      "prompt_tokens": 54129,
+      "completion_tokens": 12964,
+      "cached_tokens": 8451,
+      "reasoning_tokens": 1804,
+      "notional_cost_usd": 0.6263862
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "toxicity": [
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_ORAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "자료 없음 (시험기관의 분석의뢰 거절)",
+              "status": "자료없음",
+              "note": "시험기관의 분석의뢰 거절"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_DERMAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "자료 없음 (시험기관의 분석의뢰 거절)",
+              "status": "자료없음",
+              "note": "시험기관의 분석의뢰 거절"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_INHAL",
+            "descriptor": null,
+            "q": {
+              "raw": "Rat LCLo > 800,000 ppm/4h (gas)",
+              "status": "값있음",
+              "lower_op": ">",
+              "lower": 800000,
+              "unit": "ppm",
+              "note": "LCLo"
+            },
+            "species": "Rat",
+            "sex": "미표기",
+            "duration_value": 4,
+            "duration_unit": "hr",
+            "physical_form": "가스",
+            "guideline": "OECD Guideline 403, GLP",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_ORAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "자료 없음 (시험기관의 분석의뢰 거절)",
+              "status": "자료없음",
+              "note": "시험기관의 분석의뢰 거절"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_DERMAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "자료 없음 (시험기관의 분석의뢰 거절)",
+              "status": "자료없음",
+              "note": "시험기관의 분석의뢰 거절"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_INHAL",
+            "descriptor": null,
+            "q": {
+              "raw": "Rat LC0 > 520,000 ppm/4h (gas)",
+              "status": "값있음",
+              "lower_op": ">",
+              "lower": 520000,
+              "unit": "ppm",
+              "note": "LC0"
+            },
+            "species": "Rat",
+            "sex": "미표기",
+            "duration_value": 4,
+            "duration_unit": "hr",
+            "physical_form": "가스",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN",
+            "descriptor": null,
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_EYE",
+            "descriptor": null,
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_RESP_SENS",
+            "descriptor": null,
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN_SENS",
+            "descriptor": null,
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_CARC",
+            "descriptor": null,
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_MUTA",
+            "descriptor": "결과기술",
+            "classification": "분류되지 않음",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "분류되지 않음",
+                "text": "○ 생식세포 변이원성 : 분류되지 않음"
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_MUTA",
+            "descriptor": "결과기술",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "In Vivo",
+                "value": "[음성] ; 포유류 적혈구소핵시험(OECD Guideline 474, GLP) (ECHA)",
+                "text": "- In Vivo : [음성] ; 포유류 적혈구소핵시험(OECD Guideline 474, GLP) (ECHA)",
+                "refs": [
+                  "1"
+                ]
+              },
+              {
+                "seq": 2,
+                "key": "In Vitro",
+                "value": "[애매한] ; 포유류 염색체 이상시험 (OECD Guideline 473, GLP) (ECHA)",
+                "text": "- In Vitro : [애매한] ; 포유류 염색체 이상시험 (OECD Guideline 473, GLP) (ECHA)",
+                "refs": [
+                  "1"
+                ]
+              }
+            ]
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_MUTA",
+            "descriptor": "결과기술",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "In Vivo",
+                "value": "[음성] ; 포유류 적혈구소핵시험(OECD Guideline 474, GLP) (ECHA)",
+                "text": "- In Vivo : [음성] ; 포유류 적혈구소핵시험(OECD Guideline 474, GLP) (ECHA)",
+                "refs": [
+                  "2"
+                ]
+              },
+              {
+                "seq": 2,
+                "key": "In Vitro",
+                "value": "[음성] ; 박테리아를 이용한 복귀돌연변이시험 (OECD Guideline 472, GLP) (ECHA)",
+                "text": "- In Vitro : [음성] ; 박테리아를 이용한 복귀돌연변이시험 (OECD Guideline 472, GLP) (ECHA)",
+                "refs": [
+                  "2"
+                ]
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_REPRO",
+            "descriptor": "결과기술",
+            "classification": "분류되지 않음",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "분류되지 않음",
+                "text": "○ 생식독성 : 분류되지 않음"
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_REPRO",
+            "descriptor": "결과기술",
+            "species": "랫드",
+            "guideline": "OECD Guideline 415, GLP; OECD Guideline 414, GLP",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "랫드를 이용한 생식독성(Read-across) 및 발달독성 시험결과 부정적인 영향은 나타나지 않음 (OECD Guideline 415, GLP), (OECD Guideline 414, GLP) (ECHA)",
+                "text": "- 랫드를 이용한 생식독성(Read-across) 및 발달독성 시험결과 부정적인 영향은 나타나지 않음 (OECD Guideline 415, GLP), (OECD Guideline 414, GLP) (ECHA)",
+                "refs": [
+                  "1"
+                ]
+              }
+            ]
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_REPRO",
+            "descriptor": "결과기술",
+            "species": "랫드",
+            "guideline": "OECD Guideline 416, GLP; OECD Guideline 414, GLP",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "랫드를 이용한 생식독성 및 발달독성 시험결과 분류할 정도의 부정적인 영향은 나타나지 않음 (OECD Guideline 416, GLP) (OECD Guideline 414, GLP) (ECHA)",
+                "text": "- 랫드를 이용한 생식독성 및 발달독성 시험결과 분류할 정도의 부정적인 영향은 나타나지 않음 (OECD Guideline 416, GLP) (OECD Guideline 414, GLP) (ECHA)",
+                "refs": [
+                  "2"
+                ]
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_STOT_SE",
+            "descriptor": "결과기술",
+            "classification": "구분3(호흡기 자극), 구분3(마취 영향)",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "구분3(호흡기 자극), 구분3(마취 영향)",
+                "text": ": 구분3(호흡기 자극), 구분3(마취 영향)"
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_STOT_SE",
+            "descriptor": "결과기술",
+            "species": "랫드",
+            "exposure_type": "흡입",
+            "guideline": "OECD Guideline 403, GLP",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "랫드를 이용한 흡입 노출에 대한 급성독성시험결과 부정적인 영향이 나타남 (부정적인 영향 : 운동실조, 비정상적인 호흡) (OECD Guideline 403, GLP) (ECHA)",
+                "text": "- 랫드를 이용한 흡입 노출에 대한 급성독성시험결과 부정적인 영향이 나타남 (부정적인 영향 : 운동실조, 비정상적인 호흡) (OECD Guideline 403, GLP) (ECHA)",
+                "refs": [
+                  "1"
+                ]
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_STOT_RE",
+            "descriptor": "결과기술",
+            "classification": "분류되지 않음",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "분류되지 않음",
+                "text": ": 분류되지 않음"
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_STOT_RE",
+            "descriptor": "결과기술",
+            "species": "랫드",
+            "exposure_type": "반복 흡입 90일",
+            "duration_value": 90,
+            "duration_unit": "day",
+            "guideline": "OECD Guideline 413, GLP",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "랫드를 이용한 90일 간의 흡입 노출 반복독성시험결과 분류할 정도의 부정적인 영향은 나타나지 않음 (OECD Guideline 413, GLP) (ECHA)",
+                "text": "- 랫드를 이용한 90일 간의 흡입 노출 반복독성시험결과 분류할 정도의 부정적인 영향은 나타나지 않음 (OECD Guideline 413, GLP) (ECHA)",
+                "refs": [
+                  "1"
+                ]
+              }
+            ]
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_STOT_RE",
+            "descriptor": "결과기술",
+            "species": "랫드",
+            "exposure_type": "반복 흡입 90일",
+            "duration_value": 90,
+            "duration_unit": "day",
+            "guideline": "OECD Guideline 413, GLP",
+            "data_source": "ECHA",
+            "classification": "분류되지 않음",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "랫드를 이용한 90일 간의 흡입 노출에 대한 반복독성시험결과 부정적인 영향은 나타나지 않음 (분류되지 않음) (OECD Guideline 413, GLP) (ECHA)",
+                "text": "- 랫드를 이용한 90일 간의 흡입 노출에 대한 반복독성시험결과 부정적인 영향은 나타나지 않음 (분류되지 않음) (OECD Guideline 413, GLP) (ECHA)",
+                "refs": [
+                  "2"
+                ]
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ASP",
+            "descriptor": null,
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          }
+        ],
+        "cmr": [
+          {
+            "comp_ref": "MIX",
+            "hazard": "발암성",
+            "agency": "IARC",
+            "class": null,
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "hazard": "발암성",
+            "agency": "ACGIH",
+            "class": null,
+            "status": "자료없음"
+          }
+        ],
+        "ecotox": [
+          {
+            "comp_ref": "MIX",
+            "endpoint": null,
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "급성 수생 독성",
+                "value": "분류되지 않음",
+                "text": "급성 수생 독성 : 분류되지 않음"
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": null,
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "만성 수생 독성",
+                "value": "분류되지 않음",
+                "text": "만성 수생 독성 : 분류되지 않음"
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_FISH",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "> 81.8 mg/L",
+              "status": "값있음",
+              "lower_op": ">",
+              "lower": 81.8,
+              "unit": "mg/L",
+              "dp": 1,
+              "note": "Read-across"
+            },
+            "species": "Oncorhynchus mykiss",
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "guideline": "OECD Guideline 203, GLP",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_CRUST",
+            "descriptor": "EC50",
+            "q": {
+              "raw": "> 97.9 mg/L",
+              "status": "값있음",
+              "lower_op": ">",
+              "lower": 97.9,
+              "unit": "mg/L",
+              "dp": 1,
+              "note": "Read-across"
+            },
+            "species": "Daphnia magna",
+            "duration_value": 48,
+            "duration_unit": "hr",
+            "guideline": "OECD Guideline 202, GLP",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_ALGAE",
+            "descriptor": "EC50",
+            "q": {
+              "raw": "＞ 114 mg/L",
+              "status": "값있음",
+              "lower_op": ">",
+              "lower": 114,
+              "unit": "mg/L",
+              "note": "Read-across"
+            },
+            "species": "Pseudokirchneriella subcapitata",
+            "duration_value": 72,
+            "duration_unit": "hr",
+            "guideline": "OECD Guideline 201, GLP",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_ALGAE",
+            "descriptor": "NOEC",
+            "q": {
+              "raw": "= ca. 13.2 mg/L",
+              "status": "값있음",
+              "value": 13.2,
+              "approx": true,
+              "unit": "mg/L",
+              "dp": 1,
+              "note": "Read-across"
+            },
+            "species": "Selenastrum capricornutum",
+            "duration_value": 72,
+            "duration_unit": "hr",
+            "guideline": "OECD Guideline 201, GLP",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_FISH",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "= 1,731 mg/L",
+              "status": "값있음",
+              "value": 1731,
+              "unit": "mg/L",
+              "note": "QSAR"
+            },
+            "species": "freshwater fish",
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_CRUST",
+            "descriptor": "EC50",
+            "q": {
+              "raw": "= 652 mg/L",
+              "status": "값있음",
+              "value": 652,
+              "unit": "mg/L",
+              "note": "QSAR"
+            },
+            "species": "daphnid",
+            "duration_value": 48,
+            "duration_unit": "hr",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_ALGAE",
+            "descriptor": "EC50",
+            "q": {
+              "raw": "= 313 mg/L",
+              "status": "값있음",
+              "value": 313,
+              "unit": "mg/L",
+              "note": "QSAR"
+            },
+            "species": "green algae",
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "logKow",
+            "q": {
+              "raw": "log Pow = 1.48 (25 °C, pH = ca. 6.4)",
+              "status": "값있음",
+              "value": 1.48,
+              "dp": 2
+            },
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "logKow",
+            "q": {
+              "raw": "log Pow = 0.21 (25 °C, pH = 6.1 ~ 6.4)",
+              "status": "값있음",
+              "value": 0.21,
+              "dp": 2
+            },
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": null,
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "분해성",
+                "value": "자료 없음",
+                "text": "분해성 : 자료 없음"
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": null,
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "농축성",
+                "value": "자료 없음",
+                "text": "농축성 : 자료 없음"
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": "분해율",
+            "q": {
+              "raw": "ca. 5% degradation (O2 consumption)",
+              "status": "값있음",
+              "value": 5,
+              "approx": true,
+              "unit": "%",
+              "note": "O2 consumption"
+            },
+            "duration_value": 28,
+            "duration_unit": "day",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "생분해성",
+                "value": "쉽게 분해되지 않는 물질임",
+                "text": "쉽게 분해되지 않는 물질임",
+                "refs": [
+                  "1"
+                ]
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_SOIL",
+            "descriptor": "Koc",
+            "q": {
+              "raw": "Koc = 20 L/kg calculation (if not (Q)SAR)",
+              "status": "값있음",
+              "value": 20,
+              "unit": "L/kg",
+              "note": "calculation (if not (Q)SAR)"
+            },
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_SOIL",
+            "descriptor": "기타",
+            "q": {
+              "raw": "log Koc = 0.17 ~ 1.34 (QSAR)",
+              "status": "값있음",
+              "lower_op": ">=",
+              "lower": 0.17,
+              "upper_op": "<=",
+              "upper": 1.34,
+              "dp": 2,
+              "note": "log Koc, QSAR"
+            },
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_OTHER",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "오존층 유해성('오존층 보호 등을 위한 특정물질의 관리에 관한 법률' 제2조 제1호에 따른 제2종 특정물질 Ⅹ군 109호)",
+                "text": "오존층 유해성('오존층 보호 등을 위한 특정물질의 관리에 관한 법률' 제2조 제1호에 따른 제2종 특정물질 Ⅹ군 109호)",
+                "refs": [
+                  "1"
+                ]
+              },
+              {
+                "seq": 2,
+                "value": "펜타플루오로에탄(HFC-125), 지구온난화 지수(GWP) 3,500",
+                "text": "- 펜타플루오로에탄(HFC-125), 지구온난화 지수(GWP) 3,500",
+                "refs": [
+                  "1"
+                ],
+                "cond": {
+                  "raw": "3,500",
+                  "status": "값있음",
+                  "value": 3500
+                }
+              }
+            ]
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_OTHER",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "오존층 유해성('오존층 보호 등을 위한 특정물질의 관리에 관한 법률' 제2조 제1호에 따른 제2종 특정물질 Ⅹ군 108호)",
+                "text": "오존층 유해성('오존층 보호 등을 위한 특정물질의 관리에 관한 법률' 제2조 제1호에 따른 제2종 특정물질 Ⅹ군 108호)",
+                "refs": [
+                  "2"
+                ]
+              },
+              {
+                "seq": 2,
+                "value": "디플루오로메탄(HFC-32), 지구온난화 지수(GWP) 675",
+                "text": "- 디플루오로메탄(HFC-32), 지구온난화 지수(GWP) 675",
+                "refs": [
+                  "2"
+                ],
+                "cond": {
+                  "raw": "675",
+                  "status": "값있음",
+                  "value": 675
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "toxicity[0]",
+        "page": 6,
+        "source_text": "R-125 경구(LD50) : 자료 없음 (시험기관의 분석의뢰 거절)",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "괄호 설명을 q.note로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[1]",
+        "page": 6,
+        "source_text": "경피(LD50) : 자료 없음 (시험기관의 분석의뢰 거절)",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[2]",
+        "page": 6,
+        "source_text": "흡입(LC50) : - Rat LCLo > 800,000 ppm/4h (gas) (OECD Guideline 403, GLP) (ECHA)",
+        "rules": [
+          "R04",
+          "R06",
+          "R10"
+        ],
+        "note": "맞는 값 없음: LCLo — descriptor null, 원문 raw 유지"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[3]",
+        "page": 6,
+        "source_text": "R-32 경구(LD50) : 자료 없음 (시험기관의 분석의뢰 거절)",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[4]",
+        "page": 6,
+        "source_text": "경피(LD50) : 자료 없음 (시험기관의 분석의뢰 거절)",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[5]",
+        "page": 6,
+        "source_text": "흡입(LC50) : - Rat LC0 > 520,000 ppm/4h (gas) (ECHA)",
+        "rules": [
+          "R04",
+          "R06",
+          "R10"
+        ],
+        "note": "맞는 값 없음: LC0 — descriptor null, 원문 raw 유지"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[6]",
+        "page": 6,
+        "source_text": "○ 피부 부식성 또는 자극성 : 자료 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[7]",
+        "page": 6,
+        "source_text": "○ 심한 눈 손상 또는 자극성 : 자료 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[8]",
+        "page": 6,
+        "source_text": "○ 호흡기 과민성 : 자료 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[9]",
+        "page": 6,
+        "source_text": "○ 피부 과민성 : 자료 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[10]",
+        "page": 6,
+        "source_text": "○ 발암성 : 자료 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[11]",
+        "page": 6,
+        "source_text": "○ 생식세포 변이원성 : 분류되지 않음",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[12]",
+        "page": 6,
+        "source_text": "R-125 : - In Vivo : [음성] ; 포유류 적혈구소핵시험(OECD Guideline 474, GLP) (ECHA) - In Vitro : [애매한] ; 포유류 염색체 이상시험",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[13]",
+        "page": 6,
+        "source_text": "R-32 : - In Vivo : [음성] ; 포유류 적혈구소핵시험(OECD Guideline 474, GLP) (ECHA) - In Vitro : [음성] ; 박테리아를 이용한 복귀돌연변이시험",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[14]",
+        "page": 7,
+        "source_text": "○ 생식독성 : 분류되지 않음",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[15]",
+        "page": 7,
+        "source_text": "R-125 : - 랫드를 이용한 생식독성(Read-across) 및 발달독성 시험결과 부정적인 영향은 나타나지 않음 (OECD Guideline 415, GLP),",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[16]",
+        "page": 7,
+        "source_text": "R-32 : - 랫드를 이용한 생식독성 및 발달독성 시험결과 분류할 정도의 부정적인 영향은 나타나지 않음 (OECD Guideline 416, GLP)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[17]",
+        "page": 7,
+        "source_text": "○ 특정 표적장기 독성 (1회 노출) : 구분3(호흡기 자극), 구분3(마취 영향)",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[18]",
+        "page": 7,
+        "source_text": "R-125 : - 랫드를 이용한 흡입 노출에 대한 급성독성시험결과 부정적인 영향이 나타남 (부정적인 영향 : 운동실조, 비정상적인 호흡)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[19]",
+        "page": 7,
+        "source_text": "○ 특정 표적장기 독성 (반복 노출) : 분류되지 않음",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[20]",
+        "page": 7,
+        "source_text": "R-125 : - 랫드를 이용한 90일 간의 흡입 노출 반복독성시험결과 분류할 정도의 부정적인 영향은 나타나지 않음 (OECD Guideline 413, GLP) (ECHA)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[21]",
+        "page": 7,
+        "source_text": "R-32 : - 랫드를 이용한 90일 간의 흡입 노출에 대한 반복독성시험결과 부정적인 영향은 나타나지 않음 (분류되지 않음) (OECD Guideline 413, GLP) (ECHA)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[22]",
+        "page": 7,
+        "source_text": "○ 흡인 유해성 : 자료 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[0]",
+        "page": 6,
+        "source_text": "IARC : 자료 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[1]",
+        "page": 6,
+        "source_text": "ACGIH : 자료 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[0]",
+        "page": 7,
+        "source_text": "급성 수생 독성 : 분류되지 않음",
+        "rules": [],
+        "note": "맞는 값 없음: 급성 수생 독성 분류 — endpoint null"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[1]",
+        "page": 7,
+        "source_text": "만성 수생 독성 : 분류되지 않음",
+        "rules": [],
+        "note": "맞는 값 없음: 만성 수생 독성 분류 — endpoint null"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[2]",
+        "page": 7,
+        "source_text": "- 96hr-LC50(Oncorhynchus mykiss) > 81.8 mg/L (Read-across) (OECD Guideline 203, GLP) (ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[3]",
+        "page": 7,
+        "source_text": "- 48hr-EC50(Daphnia magna) > 97.9 mg/L (Read-across) (OECD Guideline 202, GLP) (ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[4]",
+        "page": 7,
+        "source_text": "- 72hr-EC50(Pseudokirchneriella subcapitata) ＞ 114 mg/L (Read-across) (OECD Guideline 201, GLP) (ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "전각 '＞'를 >로 분해"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[5]",
+        "page": 7,
+        "source_text": "- 72hr-NOEC(Selenastrum capricornutum) = ca. 13.2 mg/L (Read-across)",
+        "rules": [
+          "R04",
+          "R06",
+          "R10"
+        ],
+        "note": "'ca.'를 approx=true로"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[6]",
+        "page": 7,
+        "source_text": "- 96hr-LC50(freshwater fish) = 1,731 mg/L (QSAR) (ECHA)",
+        "rules": [
+          "R04",
+          "R06",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[7]",
+        "page": 7,
+        "source_text": "- 48hr-EC50(daphnid) = 652 mg/L (QSAR) (ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[8]",
+        "page": 7,
+        "source_text": "- 96hr-EC50(green algae) = 313 mg/L (QSAR) (ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[9]",
+        "page": 8,
+        "source_text": "R-125 : log Pow = 1.48 (25 °C, pH = ca. 6.4) (ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "잔류성 소제목 아래 값이라 ECO_PERSIST로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[10]",
+        "page": 8,
+        "source_text": "R-32 : log Pow = 0.21 (25 °C, pH = 6.1 ~ 6.4) (ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[11]",
+        "page": 8,
+        "source_text": "분해성 : 자료 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[12]",
+        "page": 8,
+        "source_text": "농축성 : 자료 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[13]",
+        "page": 8,
+        "source_text": "R-125 : 쉽게 분해되지 않는 물질임 (28 day, ca. 5% degradation (O2 consumption)) (ECHA)",
+        "rules": [
+          "R04",
+          "R06",
+          "R10"
+        ],
+        "note": "'다. 생물 농축성' 아래 생분해성 항목이라 원문 위치대로 ECO_BIOACC로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[14]",
+        "page": 8,
+        "source_text": "R-125 : Koc = 20 L/kg calculation (if not (Q)SAR) (ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[15]",
+        "page": 8,
+        "source_text": "R-32 : log Koc = 0.17 ~ 1.34 (QSAR) (ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "맞는 값 없음: log Koc — descriptor 기타로 두고 raw 유지"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[16]",
+        "page": 8,
+        "source_text": "R-125 : 오존층 유해성('오존층 보호 등을 위한 특정물질의 관리에 관한 법률' 제2조 제1호에 따른 제2종 특정물질 Ⅹ군 109호) - 펜타플루오로에탄(HFC-125), 지구온난화 지수(GWP) 3,500",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[17]",
+        "page": 8,
+        "source_text": "R-32 : 오존층 유해성('오존층 보호 등을 위한 특정물질의 관리에 관한 법률' 제2조 제1호에 따른 제2종 특정물질 Ⅹ군 108호) - 디플루오로메탄(HFC-32), 지구온난화 지수(GWP) 675",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"toxicity\": [{\"comp_ref\": \"1\", \"endpoint\": \"TX_ORAL\", \"descriptor\": \"LD50\", \"q\": {\"raw\": \"자료 없음 (시험기관의 분석의뢰 거절)\", \"status\": \"자료없음\", \"note\": \"시험기관의 분석의뢰 거절\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_DERMAL\", \"descriptor\": \"LD50\", \"q\": {\"raw\": \"자료 없음 (시험기관의 분석의뢰 거절)\", \"status\": \"자료없음\", \"note\": \"시험기관의 분석의뢰 거절\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_INHAL\", \"descriptor\": null, \"q\": {\"raw\": \"Rat LCLo > 800,000 ppm/4h (gas)\", \"status\": \"값있음\", \"lower_op\": \">\", \"lower\": 800000, \"unit\": \"ppm\", \"note\": \"LCLo\"}, \"species\": \"Rat\", \"sex\": \"미표기\", \"duration_value\": 4, \"duration_unit\": \"hr\", \"physical_form\": \"가스\", \"guideline\": \"OECD Guideline 403, GLP\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"2\", \"endpoint\": \"TX_ORAL\", \"descriptor\": \"LD50\", \"q\": {\"raw\": \"자료 없음 (시험기관의 분석의뢰 거절)\", \"status\": \"자료없음\", \"note\": \"시험기관의 분석의뢰 거절\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"2\", \"endpoint\": \"TX_DERMAL\", \"descriptor\": \"LD50\", \"q\": {\"raw\": \"자료 없음 (시험기관의 분석의뢰 거절)\", \"status\": \"자료없음\", \"note\": \"시험기관의 분석의뢰 거절\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"2\", \"endpoint\": \"TX_INHAL\", \"descriptor\": null, \"q\": {\"raw\": \"Rat LC0 > 520,000 ppm/4h (gas)\", \"status\": \"값있음\", \"lower_op\": \">\", \"lower\": 520000, \"unit\": \"ppm\", \"note\": \"LC0\"}, \"species\": \"Rat\", \"sex\": \"미표기\", \"duration_value\": 4, \"duration_unit\": \"hr\", \"physical_form\": \"가스\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_SKIN\", \"descriptor\": null, \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_EYE\", \"descriptor\": null, \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_RESP_SENS\", \"descriptor\": null, \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_SKIN_SENS\", \"descriptor\": null, \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_CARC\", \"descriptor\": null, \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_MUTA\", \"descriptor\": \"결과기술\", \"classification\": \"분류되지 않음\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"분류되지 않음\", \"text\": \"○ 생식세포 변이원성 : 분류되지 않음\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_MUTA\", \"descriptor\": \"결과기술\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"In Vivo\", \"value\": \"[음성] ; 포유류 적혈구소핵시험(OECD Guideline 474, GLP) (ECHA)\", \"text\": \"- In Vivo : [음성] ; 포유류 적혈구소핵시험(OECD Guideline 474, GLP) (ECHA)\", \"refs\": [\"1\"]}, {\"seq\": 2, \"key\": \"In Vitro\", \"value\": \"[애매한] ; 포유류 염색체 이상시험 (OECD Guideline 473, GLP) (ECHA)\", \"text\": \"- In Vitro : [애매한] ; 포유류 염색체 이상시험 (OECD Guideline 473, GLP) (ECHA)\", \"refs\": [\"1\"]}]}, {\"comp_ref\": \"2\", \"endpoint\": \"TX_MUTA\", \"descriptor\": \"결과기술\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"In Vivo\", \"value\": \"[음성] ; 포유류 적혈구소핵시험(OECD Guideline 474, GLP) (ECHA)\", \"text\": \"- In Vivo : [음성] ; 포유류 적혈구소핵시험(OECD Guideline 474, GLP) (ECHA)\", \"refs\": [\"2\"]}, {\"seq\": 2, \"key\": \"In Vitro\", \"value\": \"[음성] ; 박테리아를 이용한 복귀돌연변이시험 (OECD Guideline 472, GLP) (ECHA)\", \"text\": \"- In Vitro : [음성] ; 박테리아를 이용한 복귀돌연변이시험 (OECD Guideline 472, GLP) (ECHA)\", \"refs\": [\"2\"]}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_REPRO\", \"descriptor\": \"결과기술\", \"classification\": \"분류되지 않음\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"분류되지 않음\", \"text\": \"○ 생식독성 : 분류되지 않음\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_REPRO\", \"descriptor\": \"결과기술\", \"species\": \"랫드\", \"guideline\": \"OECD Guideline 415, GLP; OECD Guideline 414, GLP\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"랫드를 이용한 생식독성(Read-across) 및 발달독성 시험결과 부정적인 영향은 나타나지 않음 (OECD Guideline 415, GLP), (OECD Guideline 414, GLP) (ECHA)\", \"text\": \"- 랫드를 이용한 생식독성(Read-across) 및 발달독성 시험결과 부정적인 영향은 나타나지 않음 (OECD Guideline 415, GLP), (OECD Guideline 414, GLP) (ECHA)\", \"refs\": [\"1\"]}]}, {\"comp_ref\": \"2\", \"endpoint\": \"TX_REPRO\", \"descriptor\": \"결과기술\", \"species\": \"랫드\", \"guideline\": \"OECD Guideline 416, GLP; OECD Guideline 414, GLP\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"랫드를 이용한 생식독성 및 발달독성 시험결과 분류할 정도의 부정적인 영향은 나타나지 않음 (OECD Guideline 416, GLP) (OECD Guideline 414, GLP) (ECHA)\", \"text\": \"- 랫드를 이용한 생식독성 및 발달독성 시험결과 분류할 정도의 부정적인 영향은 나타나지 않음 (OECD Guideline 416, GLP) (OECD Guideline 414, GLP) (ECHA)\", \"refs\": [\"2\"]}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_STOT_SE\", \"descriptor\": \"결과기술\", \"classification\": \"구분3(호흡기 자극), 구분3(마취 영향)\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"구분3(호흡기 자극), 구분3(마취 영향)\", \"text\": \": 구분3(호흡기 자극), 구분3(마취 영향)\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_STOT_SE\", \"descriptor\": \"결과기술\", \"species\": \"랫드\", \"exposure_type\": \"흡입\", \"guideline\": \"OECD Guideline 403, GLP\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"랫드를 이용한 흡입 노출에 대한 급성독성시험결과 부정적인 영향이 나타남 (부정적인 영향 : 운동실조, 비정상적인 호흡) (OECD Guideline 403, GLP) (ECHA)\", \"text\": \"- 랫드를 이용한 흡입 노출에 대한 급성독성시험결과 부정적인 영향이 나타남 (부정적인 영향 : 운동실조, 비정상적인 호흡) (OECD Guideline 403, GLP) (ECHA)\", \"refs\": [\"1\"]}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_STOT_RE\", \"descriptor\": \"결과기술\", \"classification\": \"분류되지 않음\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"분류되지 않음\", \"text\": \": 분류되지 않음\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_STOT_RE\", \"descriptor\": \"결과기술\", \"species\": \"랫드\", \"exposure_type\": \"반복 흡입 90일\", \"duration_value\": 90, \"duration_unit\": \"day\", \"guideline\": \"OECD Guideline 413, GLP\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"랫드를 이용한 90일 간의 흡입 노출 반복독성시험결과 분류할 정도의 부정적인 영향은 나타나지 않음 (OECD Guideline 413, GLP) (ECHA)\", \"text\": \"- 랫드를 이용한 90일 간의 흡입 노출 반복독성시험결과 분류할 정도의 부정적인 영향은 나타나지 않음 (OECD Guideline 413, GLP) (ECHA)\", \"refs\": [\"1\"]}]}, {\"comp_ref\": \"2\", \"endpoint\": \"TX_STOT_RE\", \"descriptor\": \"결과기술\", \"species\": \"랫드\", \"exposure_type\": \"반복 흡입 90일\", \"duration_value\": 90, \"duration_unit\": \"day\", \"guideline\": \"OECD Guideline 413, GLP\", \"data_source\": \"ECHA\", \"classification\": \"분류되지 않음\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"랫드를 이용한 90일 간의 흡입 노출에 대한 반복독성시험결과 부정적인 영향은 나타나지 않음 (분류되지 않음) (OECD Guideline 413, GLP) (ECHA)\", \"text\": \"- 랫드를 이용한 90일 간의 흡입 노출에 대한 반복독성시험결과 부정적인 영향은 나타나지 않음 (분류되지 않음) (OECD Guideline 413, GLP) (ECHA)\", \"refs\": [\"2\"]}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_ASP\", \"descriptor\": null, \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}], \"cmr\": [{\"comp_ref\": \"MIX\", \"hazard\": \"발암성\", \"agency\": \"IARC\", \"class\": null, \"status\": \"자료없음\"}, {\"comp_ref\": \"MIX\", \"hazard\": \"발암성\", \"agency\": \"ACGIH\", \"class\": null, \"status\": \"자료없음\"}], \"ecotox\": [{\"comp_ref\": \"MIX\", \"endpoint\": null, \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"급성 수생 독성\", \"value\": \"분류되지 않음\", \"text\": \"급성 수생 독성 : 분류되지 않음\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": null, \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"만성 수생 독성\", \"value\": \"분류되지 않음\", \"text\": \"만성 수생 독성 : 분류되지 않음\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_FISH\", \"descriptor\": \"LC50\", \"q\": {\"raw\": \"> 81.8 mg/L\", \"status\": \"값있음\", \"lower_op\": \">\", \"lower\": 81.8, \"unit\": \"mg/L\", \"dp\": 1, \"note\": \"Read-across\"}, \"species\": \"Oncorhynchus mykiss\", \"duration_value\": 96, \"duration_unit\": \"hr\", \"guideline\": \"OECD Guideline 203, GLP\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_CRUST\", \"descriptor\": \"EC50\", \"q\": {\"raw\": \"> 97.9 mg/L\", \"status\": \"값있음\", \"lower_op\": \">\", \"lower\": 97.9, \"unit\": \"mg/L\", \"dp\": 1, \"note\": \"Read-across\"}, \"species\": \"Daphnia magna\", \"duration_value\": 48, \"duration_unit\": \"hr\", \"guideline\": \"OECD Guideline 202, GLP\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_ALGAE\", \"descriptor\": \"EC50\", \"q\": {\"raw\": \"＞ 114 mg/L\", \"status\": \"값있음\", \"lower_op\": \">\", \"lower\": 114, \"unit\": \"mg/L\", \"note\": \"Read-across\"}, \"species\": \"Pseudokirchneriella subcapitata\", \"duration_value\": 72, \"duration_unit\": \"hr\", \"guideline\": \"OECD Guideline 201, GLP\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_ALGAE\", \"descriptor\": \"NOEC\", \"q\": {\"raw\": \"= ca. 13.2 mg/L\", \"status\": \"값있음\", \"value\": 13.2, \"approx\": true, \"unit\": \"mg/L\", \"dp\": 1, \"note\": \"Read-across\"}, \"species\": \"Selenastrum capricornutum\", \"duration_value\": 72, \"duration_unit\": \"hr\", \"guideline\": \"OECD Guideline 201, GLP\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"2\", \"endpoint\": \"ECO_FISH\", \"descriptor\": \"LC50\", \"q\": {\"raw\": \"= 1,731 mg/L\", \"status\": \"값있음\", \"value\": 1731, \"unit\": \"mg/L\", \"note\": \"QSAR\"}, \"species\": \"freshwater fish\", \"duration_value\": 96, \"duration_unit\": \"hr\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"2\", \"endpoint\": \"ECO_CRUST\", \"descriptor\": \"EC50\", \"q\": {\"raw\": \"= 652 mg/L\", \"status\": \"값있음\", \"value\": 652, \"unit\": \"mg/L\", \"note\": \"QSAR\"}, \"species\": \"daphnid\", \"duration_value\": 48, \"duration_unit\": \"hr\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"2\", \"endpoint\": \"ECO_ALGAE\", \"descriptor\": \"EC50\", \"q\": {\"raw\": \"= 313 mg/L\", \"status\": \"값있음\", \"value\": 313, \"unit\": \"mg/L\", \"note\": \"QSAR\"}, \"species\": \"green algae\", \"duration_value\": 96, \"duration_unit\": \"hr\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": \"logKow\", \"q\": {\"raw\": \"log Pow = 1.48 (25 °C, pH = ca. 6.4)\", \"status\": \"값있음\", \"value\": 1.48, \"dp\": 2}, \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"2\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": \"logKow\", \"q\": {\"raw\": \"log Pow = 0.21 (25 °C, pH = 6.1 ~ 6.4)\", \"status\": \"값있음\", \"value\": 0.21, \"dp\": 2}, \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": null, \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": [{\"seq\": 1, \"key\": \"분해성\", \"value\": \"자료 없음\", \"text\": \"분해성 : 자료 없음\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_BIOACC\", \"descriptor\": null, \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": [{\"seq\": 1, \"key\": \"농축성\", \"value\": \"자료 없음\", \"text\": \"농축성 : 자료 없음\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_BIOACC\", \"descriptor\": \"분해율\", \"q\": {\"raw\": \"ca. 5% degradation (O2 consumption)\", \"status\": \"값있음\", \"value\": 5, \"approx\": true, \"unit\": \"%\", \"note\": \"O2 consumption\"}, \"duration_value\": 28, \"duration_unit\": \"day\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"생분해성\", \"value\": \"쉽게 분해되지 않는 물질임\", \"text\": \"쉽게 분해되지 않는 물질임\", \"refs\": [\"1\"]}]}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_SOIL\", \"descriptor\": \"Koc\", \"q\": {\"raw\": \"Koc = 20 L/kg calculation (if not (Q)SAR)\", \"status\": \"값있음\", \"value\": 20, \"unit\": \"L/kg\", \"note\": \"calculation (if not (Q)SAR)\"}, \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"2\", \"endpoint\": \"ECO_SOIL\", \"descriptor\": \"기타\", \"q\": {\"raw\": \"log Koc = 0.17 ~ 1.34 (QSAR)\", \"status\": \"값있음\", \"lower_op\": \">=\", \"lower\": 0.17, \"upper_op\": \"<=\", \"upper\": 1.34, \"dp\": 2, \"note\": \"log Koc, QSAR\"}, \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_OTHER\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"오존층 유해성('오존층 보호 등을 위한 특정물질의 관리에 관한 법률' 제2조 제1호에 따른 제2종 특정물질 Ⅹ군 109호)\", \"text\": \"오존층 유해성('오존층 보호 등을 위한 특정물질의 관리에 관한 법률' 제2조 제1호에 따른 제2종 특정물질 Ⅹ군 109호)\", \"refs\": [\"1\"]}, {\"seq\": 2, \"value\": \"펜타플루오로에탄(HFC-125), 지구온난화 지수(GWP) 3,500\", \"text\": \"- 펜타플루오로에탄(HFC-125), 지구온난화 지수(GWP) 3,500\", \"refs\": [\"1\"], \"cond\": {\"raw\": \"3,500\", \"status\": \"값있음\", \"value\": 3500}}]}, {\"comp_ref\": \"2\", \"endpoint\": \"ECO_OTHER\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"오존층 유해성('오존층 보호 등을 위한 특정물질의 관리에 관한 법률' 제2조 제1호에 따른 제2종 특정물질 Ⅹ군 108호)\", \"text\": \"오존층 유해성('오존층 보호 등을 위한 특정물질의 관리에 관한 법률' 제2조 제1호에 따른 제2종 특정물질 Ⅹ군 108호)\", \"refs\": [\"2\"]}, {\"seq\": 2, \"value\": \"디플루오로메탄(HFC-32), 지구온난화 지수(GWP) 675\", \"text\": \"- 디플루오로메탄(HFC-32), 지구온난화 지수(GWP) 675\", \"refs\": [\"2\"], \"cond\": {\"raw\": \"675\", \"status\": \"값있음\", \"value\": 675}}]}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"toxicity[0]\", \"page\": 6, \"source_text\": \"R-125 경구(LD50) : 자료 없음 (시험기관의 분석의뢰 거절)\", \"rules\": [\"R10\", \"R15\"], \"note\": \"괄호 설명을 q.note로 둠\"}, {\"msds_index\": 0, \"field\": \"toxicity[1]\", \"page\": 6, \"source_text\": \"경피(LD50) : 자료 없음 (시험기관의 분석의뢰 거절)\", \"rules\": [\"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[2]\", \"page\": 6, \"source_text\": \"흡입(LC50) : - Rat LCLo > 800,000 ppm/4h (gas) (OECD Guideline 403, GLP) (ECHA)\", \"rules\": [\"R04\", \"R06\", \"R10\"], \"note\": \"맞는 값 없음: LCLo — descriptor null, 원문 raw 유지\"}, {\"msds_index\": 0, \"field\": \"toxicity[3]\", \"page\": 6, \"source_text\": \"R-32 경구(LD50) : 자료 없음 (시험기관의 분석의뢰 거절)\", \"rules\": [\"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[4]\", \"page\": 6, \"source_text\": \"경피(LD50) : 자료 없음 (시험기관의 분석의뢰 거절)\", \"rules\": [\"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[5]\", \"page\": 6, \"source_text\": \"흡입(LC50) : - Rat LC0 > 520,000 ppm/4h (gas) (ECHA)\", \"rules\": [\"R04\", \"R06\", \"R10\"], \"note\": \"맞는 값 없음: LC0 — descriptor null, 원문 raw 유지\"}, {\"msds_index\": 0, \"field\": \"toxicity[6]\", \"page\": 6, \"source_text\": \"○ 피부 부식성 또는 자극성 : 자료 없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[7]\", \"page\": 6, \"source_text\": \"○ 심한 눈 손상 또는 자극성 : 자료 없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[8]\", \"page\": 6, \"source_text\": \"○ 호흡기 과민성 : 자료 없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[9]\", \"page\": 6, \"source_text\": \"○ 피부 과민성 : 자료 없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[10]\", \"page\": 6, \"source_text\": \"○ 발암성 : 자료 없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[11]\", \"page\": 6, \"source_text\": \"○ 생식세포 변이원성 : 분류되지 않음\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[12]\", \"page\": 6, \"source_text\": \"R-125 : - In Vivo : [음성] ; 포유류 적혈구소핵시험(OECD Guideline 474, GLP) (ECHA) - In Vitro : [애매한] ; 포유류 염색체 이상시험\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[13]\", \"page\": 6, \"source_text\": \"R-32 : - In Vivo : [음성] ; 포유류 적혈구소핵시험(OECD Guideline 474, GLP) (ECHA) - In Vitro : [음성] ; 박테리아를 이용한 복귀돌연변이시험\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[14]\", \"page\": 7, \"source_text\": \"○ 생식독성 : 분류되지 않음\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[15]\", \"page\": 7, \"source_text\": \"R-125 : - 랫드를 이용한 생식독성(Read-across) 및 발달독성 시험결과 부정적인 영향은 나타나지 않음 (OECD Guideline 415, GLP),\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[16]\", \"page\": 7, \"source_text\": \"R-32 : - 랫드를 이용한 생식독성 및 발달독성 시험결과 분류할 정도의 부정적인 영향은 나타나지 않음 (OECD Guideline 416, GLP)\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[17]\", \"page\": 7, \"source_text\": \"○ 특정 표적장기 독성 (1회 노출) : 구분3(호흡기 자극), 구분3(마취 영향)\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[18]\", \"page\": 7, \"source_text\": \"R-125 : - 랫드를 이용한 흡입 노출에 대한 급성독성시험결과 부정적인 영향이 나타남 (부정적인 영향 : 운동실조, 비정상적인 호흡)\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[19]\", \"page\": 7, \"source_text\": \"○ 특정 표적장기 독성 (반복 노출) : 분류되지 않음\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[20]\", \"page\": 7, \"source_text\": \"R-125 : - 랫드를 이용한 90일 간의 흡입 노출 반복독성시험결과 분류할 정도의 부정적인 영향은 나타나지 않음 (OECD Guideline 413, GLP) (ECHA)\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[21]\", \"page\": 7, \"source_text\": \"R-32 : - 랫드를 이용한 90일 간의 흡입 노출에 대한 반복독성시험결과 부정적인 영향은 나타나지 않음 (분류되지 않음) (OECD Guideline 413, GLP) (ECHA)\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[22]\", \"page\": 7, \"source_text\": \"○ 흡인 유해성 : 자료 없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[0]\", \"page\": 6, \"source_text\": \"IARC : 자료 없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[1]\", \"page\": 6, \"source_text\": \"ACGIH : 자료 없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[0]\", \"page\": 7, \"source_text\": \"급성 수생 독성 : 분류되지 않음\", \"rules\": [], \"note\": \"맞는 값 없음: 급성 수생 독성 분류 — endpoint null\"}, {\"msds_index\": 0, \"field\": \"ecotox[1]\", \"page\": 7, \"source_text\": \"만성 수생 독성 : 분류되지 않음\", \"rules\": [], \"note\": \"맞는 값 없음: 만성 수생 독성 분류 — endpoint null\"}, {\"msds_index\": 0, \"field\": \"ecotox[2]\", \"page\": 7, \"source_text\": \"- 96hr-LC50(Oncorhynchus mykiss) > 81.8 mg/L (Read-across) (OECD Guideline 203, GLP) (ECHA)\", \"rules\": [\"R04\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[3]\", \"page\": 7, \"source_text\": \"- 48hr-EC50(Daphnia magna) > 97.9 mg/L (Read-across) (OECD Guideline 202, GLP) (ECHA)\", \"rules\": [\"R04\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[4]\", \"page\": 7, \"source_text\": \"- 72hr-EC50(Pseudokirchneriella subcapitata) ＞ 114 mg/L (Read-across) (OECD Guideline 201, GLP) (ECHA)\", \"rules\": [\"R04\", \"R10\"], \"note\": \"전각 '＞'를 >로 분해\"}, {\"msds_index\": 0, \"field\": \"ecotox[5]\", \"page\": 7, \"source_text\": \"- 72hr-NOEC(Selenastrum capricornutum) = ca. 13.2 mg/L (Read-across)\", \"rules\": [\"R04\", \"R06\", \"R10\"], \"note\": \"'ca.'를 approx=true로\"}, {\"msds_index\": 0, \"field\": \"ecotox[6]\", \"page\": 7, \"source_text\": \"- 96hr-LC50(freshwater fish) = 1,731 mg/L (QSAR) (ECHA)\", \"rules\": [\"R04\", \"R06\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[7]\", \"page\": 7, \"source_text\": \"- 48hr-EC50(daphnid) = 652 mg/L (QSAR) (ECHA)\", \"rules\": [\"R04\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[8]\", \"page\": 7, \"source_text\": \"- 96hr-EC50(green algae) = 313 mg/L (QSAR) (ECHA)\", \"rules\": [\"R04\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[9]\", \"page\": 8, \"source_text\": \"R-125 : log Pow = 1.48 (25 °C, pH = ca. 6.4) (ECHA)\", \"rules\": [\"R04\", \"R10\"], \"note\": \"잔류성 소제목 아래 값이라 ECO_PERSIST로 둠\"}, {\"msds_index\": 0, \"field\": \"ecotox[10]\", \"page\": 8, \"source_text\": \"R-32 : log Pow = 0.21 (25 °C, pH = 6.1 ~ 6.4) (ECHA)\", \"rules\": [\"R04\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[11]\", \"page\": 8, \"source_text\": \"분해성 : 자료 없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[12]\", \"page\": 8, \"source_text\": \"농축성 : 자료 없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[13]\", \"page\": 8, \"source_text\": \"R-125 : 쉽게 분해되지 않는 물질임 (28 day, ca. 5% degradation (O2 consumption)) (ECHA)\", \"rules\": [\"R04\", \"R06\", \"R10\"], \"note\": \"'다. 생물 농축성' 아래 생분해성 항목이라 원문 위치대로 ECO_BIOACC로 둠\"}, {\"msds_index\": 0, \"field\": \"ecotox[14]\", \"page\": 8, \"source_text\": \"R-125 : Koc = 20 L/kg calculation (if not (Q)SAR) (ECHA)\", \"rules\": [\"R04\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[15]\", \"page\": 8, \"source_text\": \"R-32 : log Koc = 0.17 ~ 1.34 (QSAR) (ECHA)\", \"rules\": [\"R04\", \"R10\"], \"note\": \"맞는 값 없음: log Koc — descriptor 기타로 두고 raw 유지\"}, {\"msds_index\": 0, \"field\": \"ecotox[16]\", \"page\": 8, \"source_text\": \"R-125 : 오존층 유해성('오존층 보호 등을 위한 특정물질의 관리에 관한 법률' 제2조 제1호에 따른 제2종 특정물질 Ⅹ군 109호) - 펜타플루오로에탄(HFC-125), 지구온난화 지수(GWP) 3,500\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[17]\", \"page\": 8, \"source_text\": \"R-32 : 오존층 유해성('오존층 보호 등을 위한 특정물질의 관리에 관한 법률' 제2조 제1호에 따른 제2종 특정물질 Ⅹ군 108호) - 디플루오로메탄(HFC-32), 지구온난화 지수(GWP) 675\", \"rules\": [\"R10\"], \"note\": null}]}"
+}

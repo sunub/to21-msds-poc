@@ -1,0 +1,417 @@
+{
+  "doc_id": "T21-022",
+  "bundle": "b4",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 38896,
+    "completion_tokens": 4808,
+    "cached_tokens": 8949,
+    "reasoning_tokens": 962,
+    "notional_cost_usd": 0.3375178
+  },
+  "seconds": 36.9,
+  "request_usage": [
+    {
+      "prompt_tokens": 38896,
+      "completion_tokens": 4808,
+      "cached_tokens": 8949,
+      "reasoning_tokens": 962,
+      "notional_cost_usd": 0.3375178
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "transport": [
+          {
+            "mode": "공통",
+            "basis_raw": null,
+            "regulated": false,
+            "un_no": null,
+            "shipping_name": null,
+            "hazard_class": null,
+            "sub_risk": null,
+            "packing_group": "해당없음",
+            "marine_pollutant": "비해당",
+            "ems_fire": "F-A",
+            "ems_spill": null
+          }
+        ],
+        "regulations": [
+          {
+            "seq": 1,
+            "law": "OSH",
+            "item_code": null,
+            "item_raw": "GHS",
+            "comp_ref": "MIX",
+            "applicable": null,
+            "value_raw": "눈 자극성 - 구분 2"
+          },
+          {
+            "seq": 2,
+            "law": "OSH",
+            "item_code": "OSH_EXPOSURE_STD",
+            "item_raw": "노출기준설정물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 3,
+            "law": "OSH",
+            "item_code": "OSH_MANAGED",
+            "item_raw": "관리대상물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 4,
+            "law": "OSH",
+            "item_code": "OSH_MEASURE",
+            "item_raw": "작업환경측정 대상물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 5,
+            "law": "OSH",
+            "item_code": "OSH_HEALTH_EXAM",
+            "item_raw": "특수건강검진 대상물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 6,
+            "law": "OSH",
+            "item_code": "OSH_PROHIBIT",
+            "item_raw": "제조금지물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 7,
+            "law": "OSH",
+            "item_code": "OSH_PERMIT",
+            "item_raw": "허가대상 유해물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 8,
+            "law": "OSH",
+            "item_code": "OSH_PERMISSIBLE",
+            "item_raw": "허용기준이하 유지대상물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 9,
+            "law": "CCA",
+            "item_code": "CCA_TOXIC",
+            "item_raw": "유독물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 10,
+            "law": "CCA",
+            "item_code": "CCA_RESTRICT",
+            "item_raw": "제한금지물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 11,
+            "law": "CCA",
+            "item_code": "CCA_PROHIBIT",
+            "item_raw": "제한금지물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 12,
+            "law": "CCA",
+            "item_code": "CCA_ACCIDENT",
+            "item_raw": "사고대비물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 13,
+            "law": "KREACH",
+            "item_code": null,
+            "item_raw": null,
+            "comp_ref": "MIX",
+            "applicable": "미기재"
+          },
+          {
+            "seq": 14,
+            "law": "DG",
+            "item_code": "DG_HAZMAT",
+            "item_raw": "위험물안전관리법",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "value_raw": "비위험물"
+          },
+          {
+            "seq": 15,
+            "law": "WASTE",
+            "item_code": "WASTE_DESIG",
+            "item_raw": "폐기물관리법",
+            "comp_ref": "MIX",
+            "applicable": null,
+            "value_raw": "환경관련규정에 따름"
+          },
+          {
+            "seq": 16,
+            "law": "POPS",
+            "item_code": "POPS",
+            "item_raw": "국내 잔류성 유기오염물질관리법",
+            "comp_ref": "MIX",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 17,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "US OSHA hazards(GHS)",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "country": "US",
+            "value_raw": "눈 자극성"
+          }
+        ],
+        "dangerous_goods": [
+          {
+            "comp_ref": "MIX",
+            "class": "해당없음",
+            "item": null,
+            "water_soluble": null,
+            "grade": null,
+            "designated_qty": null
+          }
+        ],
+        "waste": [],
+        "intl_class": []
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "transport[0]",
+        "page": 5,
+        "source_text": "1) 유엔 번호: Not dangerous goods 2) 유엔 적정 선적명: Not dangerous goods 3) 운송에서의 위험성 등급: Not dangerous goods 4) 용기등급(해당하는 경우): Not dangerous goods 5) 해양오염물질(해당 또는 비해당으로 표기): 비해당",
+        "rules": [
+          "R15"
+        ],
+        "note": "'Not dangerous goods'에 따라 regulated=false, 유엔번호·선적명·등급은 null, 용기등급은 해당없음으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "transport[0].ems_fire",
+        "page": 5,
+        "source_text": "- 화재 시 비상조치: F-A",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "transport[0].ems_spill",
+        "page": 5,
+        "source_text": "- 유출 시 비상조치: Not dangerous goods",
+        "rules": [],
+        "note": "EmS 코드가 아니므로 null로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[0]",
+        "page": 5,
+        "source_text": "- GHS: 눈 자극성 - 구분 2",
+        "rules": [],
+        "note": "맞는 값 없음: GHS 분류 줄은 C6 항목 코드에 해당하지 않아 item_code·applicable을 null로 두고 value_raw에 원문을 남김"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[1]",
+        "page": 5,
+        "source_text": "- 노출기준설정물질, 관리대상물질, 작업환경측정 대상물질, 특수건강검진 대상물질: 해당 없음",
+        "rules": [
+          "R25",
+          "R15"
+        ],
+        "note": "'해당 없음'이라 비해당으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[2]",
+        "page": 5,
+        "source_text": "- 노출기준설정물질, 관리대상물질, 작업환경측정 대상물질, 특수건강검진 대상물질: 해당 없음",
+        "rules": [
+          "R25",
+          "R15"
+        ],
+        "note": "'해당 없음'이라 비해당으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[3]",
+        "page": 5,
+        "source_text": "- 노출기준설정물질, 관리대상물질, 작업환경측정 대상물질, 특수건강검진 대상물질: 해당 없음",
+        "rules": [
+          "R25",
+          "R15"
+        ],
+        "note": "'해당 없음'이라 비해당으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[4]",
+        "page": 5,
+        "source_text": "- 노출기준설정물질, 관리대상물질, 작업환경측정 대상물질, 특수건강검진 대상물질: 해당 없음",
+        "rules": [
+          "R25",
+          "R15"
+        ],
+        "note": "'특수건강검진 대상물질'을 동의어 사전으로 OSH_HEALTH_EXAM에 매핑함"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[5]",
+        "page": 5,
+        "source_text": "- 제조금지물질, 허가대상 유해물질, 허용기준이하 유지대상물질: 해당 없음",
+        "rules": [
+          "R25",
+          "R15"
+        ],
+        "note": "'제조금지물질'을 OSH_PROHIBIT에 매핑함"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[6]",
+        "page": 5,
+        "source_text": "- 제조금지물질, 허가대상 유해물질, 허용기준이하 유지대상물질: 해당 없음",
+        "rules": [
+          "R25",
+          "R15"
+        ],
+        "note": "'허가대상 유해물질'을 OSH_PERMIT에 매핑함"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[7]",
+        "page": 5,
+        "source_text": "- 제조금지물질, 허가대상 유해물질, 허용기준이하 유지대상물질: 해당 없음",
+        "rules": [
+          "R25",
+          "R15"
+        ],
+        "note": "'허용기준이하 유지대상물질'을 OSH_PERMISSIBLE에 매핑함"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[8]",
+        "page": 5,
+        "source_text": "- 유독물질, 제한금지물질, 사고대비물질: 해당 없음",
+        "rules": [
+          "R25",
+          "R15"
+        ],
+        "note": "'해당 없음'이라 비해당으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[9]",
+        "page": 5,
+        "source_text": "- 유독물질, 제한금지물질, 사고대비물질: 해당 없음",
+        "rules": [
+          "R25",
+          "R15"
+        ],
+        "note": "'제한금지물질'을 제한물질(CCA_RESTRICT)과 금지물질(CCA_PROHIBIT) 두 행으로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[10]",
+        "page": 5,
+        "source_text": "- 유독물질, 제한금지물질, 사고대비물질: 해당 없음",
+        "rules": [
+          "R25",
+          "R15"
+        ],
+        "note": "'제한금지물질'을 제한물질(CCA_RESTRICT)과 금지물질(CCA_PROHIBIT) 두 행으로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[11]",
+        "page": 5,
+        "source_text": "- 유독물질, 제한금지물질, 사고대비물질: 해당 없음",
+        "rules": [
+          "R25",
+          "R15"
+        ],
+        "note": "'해당 없음'이라 비해당으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[12]",
+        "page": 5,
+        "source_text": null,
+        "rules": [
+          "R18"
+        ],
+        "note": "구양식 문서라 15항에 화평법 항목이 없어 미기재로 둠. 맞는 값 없음: 항목 코드를 정할 수 없어 item_code를 null로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[13]",
+        "page": 5,
+        "source_text": "3) 위험물안전관리법: 비위험물",
+        "rules": [],
+        "note": "'비위험물'이라 비해당으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "dangerous_goods[0]",
+        "page": 5,
+        "source_text": "3) 위험물안전관리법: 비위험물",
+        "rules": [],
+        "note": "'비위험물'이라 류별을 해당없음으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[14]",
+        "page": 5,
+        "source_text": "4) 폐기물관리법: 환경관련규정에 따름",
+        "rules": [
+          "R17"
+        ],
+        "note": "맞는 값 없음: 지정폐기물 해당 여부가 적혀 있지 않아 applicable은 null로 두고, waste 행은 만들지 않음"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[15]",
+        "page": 5,
+        "source_text": "- 국내 잔류성 유기오염물질관리법: 해당 없음",
+        "rules": [
+          "R25",
+          "R15"
+        ],
+        "note": "'해당 없음'이라 비해당으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[16]",
+        "page": 5,
+        "source_text": "- US OSHA hazards(GHS): 눈 자극성",
+        "rules": [
+          "R25"
+        ],
+        "note": "미국 OSHA 규정이라 INTL_US, 국가 US로 둠. 값이 적혀 있어 해당으로 둠"
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"transport\": [{\"mode\": \"공통\", \"basis_raw\": null, \"regulated\": false, \"un_no\": null, \"shipping_name\": null, \"hazard_class\": null, \"sub_risk\": null, \"packing_group\": \"해당없음\", \"marine_pollutant\": \"비해당\", \"ems_fire\": \"F-A\", \"ems_spill\": null}], \"regulations\": [{\"seq\": 1, \"law\": \"OSH\", \"item_code\": null, \"item_raw\": \"GHS\", \"comp_ref\": \"MIX\", \"applicable\": null, \"value_raw\": \"눈 자극성 - 구분 2\"}, {\"seq\": 2, \"law\": \"OSH\", \"item_code\": \"OSH_EXPOSURE_STD\", \"item_raw\": \"노출기준설정물질\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\"}, {\"seq\": 3, \"law\": \"OSH\", \"item_code\": \"OSH_MANAGED\", \"item_raw\": \"관리대상물질\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\"}, {\"seq\": 4, \"law\": \"OSH\", \"item_code\": \"OSH_MEASURE\", \"item_raw\": \"작업환경측정 대상물질\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\"}, {\"seq\": 5, \"law\": \"OSH\", \"item_code\": \"OSH_HEALTH_EXAM\", \"item_raw\": \"특수건강검진 대상물질\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\"}, {\"seq\": 6, \"law\": \"OSH\", \"item_code\": \"OSH_PROHIBIT\", \"item_raw\": \"제조금지물질\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\"}, {\"seq\": 7, \"law\": \"OSH\", \"item_code\": \"OSH_PERMIT\", \"item_raw\": \"허가대상 유해물질\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\"}, {\"seq\": 8, \"law\": \"OSH\", \"item_code\": \"OSH_PERMISSIBLE\", \"item_raw\": \"허용기준이하 유지대상물질\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\"}, {\"seq\": 9, \"law\": \"CCA\", \"item_code\": \"CCA_TOXIC\", \"item_raw\": \"유독물질\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\"}, {\"seq\": 10, \"law\": \"CCA\", \"item_code\": \"CCA_RESTRICT\", \"item_raw\": \"제한금지물질\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\"}, {\"seq\": 11, \"law\": \"CCA\", \"item_code\": \"CCA_PROHIBIT\", \"item_raw\": \"제한금지물질\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\"}, {\"seq\": 12, \"law\": \"CCA\", \"item_code\": \"CCA_ACCIDENT\", \"item_raw\": \"사고대비물질\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\"}, {\"seq\": 13, \"law\": \"KREACH\", \"item_code\": null, \"item_raw\": null, \"comp_ref\": \"MIX\", \"applicable\": \"미기재\"}, {\"seq\": 14, \"law\": \"DG\", \"item_code\": \"DG_HAZMAT\", \"item_raw\": \"위험물안전관리법\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"value_raw\": \"비위험물\"}, {\"seq\": 15, \"law\": \"WASTE\", \"item_code\": \"WASTE_DESIG\", \"item_raw\": \"폐기물관리법\", \"comp_ref\": \"MIX\", \"applicable\": null, \"value_raw\": \"환경관련규정에 따름\"}, {\"seq\": 16, \"law\": \"POPS\", \"item_code\": \"POPS\", \"item_raw\": \"국내 잔류성 유기오염물질관리법\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\"}, {\"seq\": 17, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"US OSHA hazards(GHS)\", \"comp_ref\": \"MIX\", \"applicable\": \"해당\", \"country\": \"US\", \"value_raw\": \"눈 자극성\"}], \"dangerous_goods\": [{\"comp_ref\": \"MIX\", \"class\": \"해당없음\", \"item\": null, \"water_soluble\": null, \"grade\": null, \"designated_qty\": null}], \"waste\": [], \"intl_class\": []}], \"evidence\": [{\"msds_index\": 0, \"field\": \"transport[0]\", \"page\": 5, \"source_text\": \"1) 유엔 번호: Not dangerous goods 2) 유엔 적정 선적명: Not dangerous goods 3) 운송에서의 위험성 등급: Not dangerous goods 4) 용기등급(해당하는 경우): Not dangerous goods 5) 해양오염물질(해당 또는 비해당으로 표기): 비해당\", \"rules\": [\"R15\"], \"note\": \"'Not dangerous goods'에 따라 regulated=false, 유엔번호·선적명·등급은 null, 용기등급은 해당없음으로 둠\"}, {\"msds_index\": 0, \"field\": \"transport[0].ems_fire\", \"page\": 5, \"source_text\": \"- 화재 시 비상조치: F-A\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"transport[0].ems_spill\", \"page\": 5, \"source_text\": \"- 유출 시 비상조치: Not dangerous goods\", \"rules\": [], \"note\": \"EmS 코드가 아니므로 null로 둠\"}, {\"msds_index\": 0, \"field\": \"regulations[0]\", \"page\": 5, \"source_text\": \"- GHS: 눈 자극성 - 구분 2\", \"rules\": [], \"note\": \"맞는 값 없음: GHS 분류 줄은 C6 항목 코드에 해당하지 않아 item_code·applicable을 null로 두고 value_raw에 원문을 남김\"}, {\"msds_index\": 0, \"field\": \"regulations[1]\", \"page\": 5, \"source_text\": \"- 노출기준설정물질, 관리대상물질, 작업환경측정 대상물질, 특수건강검진 대상물질: 해당 없음\", \"rules\": [\"R25\", \"R15\"], \"note\": \"'해당 없음'이라 비해당으로 둠\"}, {\"msds_index\": 0, \"field\": \"regulations[2]\", \"page\": 5, \"source_text\": \"- 노출기준설정물질, 관리대상물질, 작업환경측정 대상물질, 특수건강검진 대상물질: 해당 없음\", \"rules\": [\"R25\", \"R15\"], \"note\": \"'해당 없음'이라 비해당으로 둠\"}, {\"msds_index\": 0, \"field\": \"regulations[3]\", \"page\": 5, \"source_text\": \"- 노출기준설정물질, 관리대상물질, 작업환경측정 대상물질, 특수건강검진 대상물질: 해당 없음\", \"rules\": [\"R25\", \"R15\"], \"note\": \"'해당 없음'이라 비해당으로 둠\"}, {\"msds_index\": 0, \"field\": \"regulations[4]\", \"page\": 5, \"source_text\": \"- 노출기준설정물질, 관리대상물질, 작업환경측정 대상물질, 특수건강검진 대상물질: 해당 없음\", \"rules\": [\"R25\", \"R15\"], \"note\": \"'특수건강검진 대상물질'을 동의어 사전으로 OSH_HEALTH_EXAM에 매핑함\"}, {\"msds_index\": 0, \"field\": \"regulations[5]\", \"page\": 5, \"source_text\": \"- 제조금지물질, 허가대상 유해물질, 허용기준이하 유지대상물질: 해당 없음\", \"rules\": [\"R25\", \"R15\"], \"note\": \"'제조금지물질'을 OSH_PROHIBIT에 매핑함\"}, {\"msds_index\": 0, \"field\": \"regulations[6]\", \"page\": 5, \"source_text\": \"- 제조금지물질, 허가대상 유해물질, 허용기준이하 유지대상물질: 해당 없음\", \"rules\": [\"R25\", \"R15\"], \"note\": \"'허가대상 유해물질'을 OSH_PERMIT에 매핑함\"}, {\"msds_index\": 0, \"field\": \"regulations[7]\", \"page\": 5, \"source_text\": \"- 제조금지물질, 허가대상 유해물질, 허용기준이하 유지대상물질: 해당 없음\", \"rules\": [\"R25\", \"R15\"], \"note\": \"'허용기준이하 유지대상물질'을 OSH_PERMISSIBLE에 매핑함\"}, {\"msds_index\": 0, \"field\": \"regulations[8]\", \"page\": 5, \"source_text\": \"- 유독물질, 제한금지물질, 사고대비물질: 해당 없음\", \"rules\": [\"R25\", \"R15\"], \"note\": \"'해당 없음'이라 비해당으로 둠\"}, {\"msds_index\": 0, \"field\": \"regulations[9]\", \"page\": 5, \"source_text\": \"- 유독물질, 제한금지물질, 사고대비물질: 해당 없음\", \"rules\": [\"R25\", \"R15\"], \"note\": \"'제한금지물질'을 제한물질(CCA_RESTRICT)과 금지물질(CCA_PROHIBIT) 두 행으로 나눔\"}, {\"msds_index\": 0, \"field\": \"regulations[10]\", \"page\": 5, \"source_text\": \"- 유독물질, 제한금지물질, 사고대비물질: 해당 없음\", \"rules\": [\"R25\", \"R15\"], \"note\": \"'제한금지물질'을 제한물질(CCA_RESTRICT)과 금지물질(CCA_PROHIBIT) 두 행으로 나눔\"}, {\"msds_index\": 0, \"field\": \"regulations[11]\", \"page\": 5, \"source_text\": \"- 유독물질, 제한금지물질, 사고대비물질: 해당 없음\", \"rules\": [\"R25\", \"R15\"], \"note\": \"'해당 없음'이라 비해당으로 둠\"}, {\"msds_index\": 0, \"field\": \"regulations[12]\", \"page\": 5, \"source_text\": null, \"rules\": [\"R18\"], \"note\": \"구양식 문서라 15항에 화평법 항목이 없어 미기재로 둠. 맞는 값 없음: 항목 코드를 정할 수 없어 item_code를 null로 둠\"}, {\"msds_index\": 0, \"field\": \"regulations[13]\", \"page\": 5, \"source_text\": \"3) 위험물안전관리법: 비위험물\", \"rules\": [], \"note\": \"'비위험물'이라 비해당으로 둠\"}, {\"msds_index\": 0, \"field\": \"dangerous_goods[0]\", \"page\": 5, \"source_text\": \"3) 위험물안전관리법: 비위험물\", \"rules\": [], \"note\": \"'비위험물'이라 류별을 해당없음으로 둠\"}, {\"msds_index\": 0, \"field\": \"regulations[14]\", \"page\": 5, \"source_text\": \"4) 폐기물관리법: 환경관련규정에 따름\", \"rules\": [\"R17\"], \"note\": \"맞는 값 없음: 지정폐기물 해당 여부가 적혀 있지 않아 applicable은 null로 두고, waste 행은 만들지 않음\"}, {\"msds_index\": 0, \"field\": \"regulations[15]\", \"page\": 5, \"source_text\": \"- 국내 잔류성 유기오염물질관리법: 해당 없음\", \"rules\": [\"R25\", \"R15\"], \"note\": \"'해당 없음'이라 비해당으로 둠\"}, {\"msds_index\": 0, \"field\": \"regulations[16]\", \"page\": 5, \"source_text\": \"- US OSHA hazards(GHS): 눈 자극성\", \"rules\": [\"R25\"], \"note\": \"미국 OSHA 규정이라 INTL_US, 국가 US로 둠. 값이 적혀 있어 해당으로 둠\"}]}"
+}

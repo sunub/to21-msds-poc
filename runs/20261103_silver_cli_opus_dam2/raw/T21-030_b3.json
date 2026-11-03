@@ -1,0 +1,541 @@
+{
+  "doc_id": "T21-030",
+  "bundle": "b3",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 42412,
+    "completion_tokens": 3857,
+    "cached_tokens": 8451,
+    "reasoning_tokens": 492,
+    "notional_cost_usd": 0.3505102
+  },
+  "seconds": 32.4,
+  "request_usage": [
+    {
+      "prompt_tokens": 42412,
+      "completion_tokens": 3857,
+      "cached_tokens": 8451,
+      "reasoning_tokens": 492,
+      "notional_cost_usd": 0.3505102
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "toxicity": [
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ORAL",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_DERMAL",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_INHAL",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN",
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_EYE",
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_RESP_SENS",
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN_SENS",
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_MUTA",
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_REPRO",
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_STOT_SE",
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_STOT_RE",
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ASP",
+            "status": "자료없음",
+            "statements": []
+          }
+        ],
+        "cmr": [
+          {
+            "comp_ref": "MIX",
+            "hazard": "발암성",
+            "agency": "KR_CCA",
+            "class": null,
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "hazard": "발암성",
+            "agency": "IARC",
+            "class": null,
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "hazard": "발암성",
+            "agency": "OSHA",
+            "class": null,
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "hazard": "발암성",
+            "agency": "ACGIH",
+            "class": null,
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "hazard": "발암성",
+            "agency": "NTP",
+            "class": null,
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "hazard": "발암성",
+            "agency": "EU_CLP",
+            "class": null,
+            "status": "자료없음"
+          }
+        ],
+        "ecotox": [
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_FISH",
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_CRUST",
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_ALGAE",
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_PERSIST",
+            "status": "자료없음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "잔류성",
+                "value": "자료없음",
+                "text": "○ 잔류성 - 자료없음"
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_PERSIST",
+            "status": "자료없음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "분해성",
+                "value": "자료없음",
+                "text": "○ 분해성 - 자료없음"
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_BIOACC",
+            "status": "자료없음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "생물 농축성",
+                "value": "자료없음",
+                "text": "○ 생물 농축성 - 자료없음"
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_PERSIST",
+            "status": "자료없음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "생분해성",
+                "value": "자료없음",
+                "text": "○ 생분해성 - 자료없음"
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_SOIL",
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_OZONE",
+            "status": "해당없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_OTHER",
+            "status": "자료없음",
+            "statements": []
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "toxicity[0]",
+        "page": 4,
+        "source_text": "* 경구 독성 - 자료없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": "성분 지정 없어 MIX로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[1]",
+        "page": 4,
+        "source_text": "* 경피 독성 - 자료없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[2]",
+        "page": 4,
+        "source_text": "* 흡입 독성 - 자료없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": "흡입 형태·시간 기재 없음"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[3]",
+        "page": 4,
+        "source_text": "○ 피부 부식성 또는 자극성 - 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[4]",
+        "page": 4,
+        "source_text": "○ 심한 눈 손상 또는 자극성 - 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[5]",
+        "page": 4,
+        "source_text": "○ 호흡기 과민성 - 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[6]",
+        "page": 4,
+        "source_text": "○ 피부 과민성 - 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[7]",
+        "page": 4,
+        "source_text": "○ 생식세포 변이원성 - 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[8]",
+        "page": 4,
+        "source_text": "○ 생식독성 - 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[9]",
+        "page": 4,
+        "source_text": "○ 특정 표적장기 독성 (1회 노출) - 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[10]",
+        "page": 4,
+        "source_text": "○ 특정 표적장기 독성 (반복 노출) - 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[11]",
+        "page": 4,
+        "source_text": "○ 흡인 유해성 - 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[0]",
+        "page": 4,
+        "source_text": "* 화학물질관리법 - 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "화학물질관리법을 KR_CCA로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[1]",
+        "page": 4,
+        "source_text": "* IARC - 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[2]",
+        "page": 4,
+        "source_text": "* OSHA - 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[3]",
+        "page": 4,
+        "source_text": "* ACGIH - 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[4]",
+        "page": 4,
+        "source_text": "* NTP - 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[5]",
+        "page": 4,
+        "source_text": "* EU CLP - 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[0]",
+        "page": 5,
+        "source_text": "○ 어류 - 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[1]",
+        "page": 5,
+        "source_text": "○ 갑각류 - 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[2]",
+        "page": 5,
+        "source_text": "○ 조류 - 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[3]",
+        "page": 5,
+        "source_text": "○ 잔류성 - 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[4]",
+        "page": 5,
+        "source_text": "○ 분해성 - 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[5]",
+        "page": 5,
+        "source_text": "○ 생물 농축성 - 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[6]",
+        "page": 5,
+        "source_text": "○ 생분해성 - 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "생물 농축성 아래 생분해성 소항목을 ECO_PERSIST로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[7]",
+        "page": 5,
+        "source_text": "라. 토양 이동성 - 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[8]",
+        "page": 5,
+        "source_text": "마. 오존층 유해성 - 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[9]",
+        "page": 5,
+        "source_text": "바. 기타 유해 영향 - 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"toxicity\": [{\"comp_ref\": \"MIX\", \"endpoint\": \"TX_ORAL\", \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_DERMAL\", \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_INHAL\", \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_SKIN\", \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_EYE\", \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_RESP_SENS\", \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_SKIN_SENS\", \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_MUTA\", \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_REPRO\", \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_STOT_SE\", \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_STOT_RE\", \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_ASP\", \"status\": \"자료없음\", \"statements\": []}], \"cmr\": [{\"comp_ref\": \"MIX\", \"hazard\": \"발암성\", \"agency\": \"KR_CCA\", \"class\": null, \"status\": \"자료없음\"}, {\"comp_ref\": \"MIX\", \"hazard\": \"발암성\", \"agency\": \"IARC\", \"class\": null, \"status\": \"자료없음\"}, {\"comp_ref\": \"MIX\", \"hazard\": \"발암성\", \"agency\": \"OSHA\", \"class\": null, \"status\": \"자료없음\"}, {\"comp_ref\": \"MIX\", \"hazard\": \"발암성\", \"agency\": \"ACGIH\", \"class\": null, \"status\": \"자료없음\"}, {\"comp_ref\": \"MIX\", \"hazard\": \"발암성\", \"agency\": \"NTP\", \"class\": null, \"status\": \"자료없음\"}, {\"comp_ref\": \"MIX\", \"hazard\": \"발암성\", \"agency\": \"EU_CLP\", \"class\": null, \"status\": \"자료없음\"}], \"ecotox\": [{\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_FISH\", \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_CRUST\", \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_ALGAE\", \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_PERSIST\", \"status\": \"자료없음\", \"statements\": [{\"seq\": 1, \"key\": \"잔류성\", \"value\": \"자료없음\", \"text\": \"○ 잔류성 - 자료없음\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_PERSIST\", \"status\": \"자료없음\", \"statements\": [{\"seq\": 1, \"key\": \"분해성\", \"value\": \"자료없음\", \"text\": \"○ 분해성 - 자료없음\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_BIOACC\", \"status\": \"자료없음\", \"statements\": [{\"seq\": 1, \"key\": \"생물 농축성\", \"value\": \"자료없음\", \"text\": \"○ 생물 농축성 - 자료없음\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_PERSIST\", \"status\": \"자료없음\", \"statements\": [{\"seq\": 1, \"key\": \"생분해성\", \"value\": \"자료없음\", \"text\": \"○ 생분해성 - 자료없음\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_SOIL\", \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_OZONE\", \"status\": \"해당없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_OTHER\", \"status\": \"자료없음\", \"statements\": []}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"toxicity[0]\", \"page\": 4, \"source_text\": \"* 경구 독성 - 자료없음\", \"rules\": [\"R15\", \"R10\"], \"note\": \"성분 지정 없어 MIX로 둠\"}, {\"msds_index\": 0, \"field\": \"toxicity[1]\", \"page\": 4, \"source_text\": \"* 경피 독성 - 자료없음\", \"rules\": [\"R15\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[2]\", \"page\": 4, \"source_text\": \"* 흡입 독성 - 자료없음\", \"rules\": [\"R15\", \"R10\"], \"note\": \"흡입 형태·시간 기재 없음\"}, {\"msds_index\": 0, \"field\": \"toxicity[3]\", \"page\": 4, \"source_text\": \"○ 피부 부식성 또는 자극성 - 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[4]\", \"page\": 4, \"source_text\": \"○ 심한 눈 손상 또는 자극성 - 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[5]\", \"page\": 4, \"source_text\": \"○ 호흡기 과민성 - 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[6]\", \"page\": 4, \"source_text\": \"○ 피부 과민성 - 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[7]\", \"page\": 4, \"source_text\": \"○ 생식세포 변이원성 - 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[8]\", \"page\": 4, \"source_text\": \"○ 생식독성 - 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[9]\", \"page\": 4, \"source_text\": \"○ 특정 표적장기 독성 (1회 노출) - 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[10]\", \"page\": 4, \"source_text\": \"○ 특정 표적장기 독성 (반복 노출) - 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[11]\", \"page\": 4, \"source_text\": \"○ 흡인 유해성 - 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[0]\", \"page\": 4, \"source_text\": \"* 화학물질관리법 - 자료없음\", \"rules\": [\"R15\"], \"note\": \"화학물질관리법을 KR_CCA로 둠\"}, {\"msds_index\": 0, \"field\": \"cmr[1]\", \"page\": 4, \"source_text\": \"* IARC - 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[2]\", \"page\": 4, \"source_text\": \"* OSHA - 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[3]\", \"page\": 4, \"source_text\": \"* ACGIH - 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[4]\", \"page\": 4, \"source_text\": \"* NTP - 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[5]\", \"page\": 4, \"source_text\": \"* EU CLP - 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[0]\", \"page\": 5, \"source_text\": \"○ 어류 - 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[1]\", \"page\": 5, \"source_text\": \"○ 갑각류 - 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[2]\", \"page\": 5, \"source_text\": \"○ 조류 - 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[3]\", \"page\": 5, \"source_text\": \"○ 잔류성 - 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[4]\", \"page\": 5, \"source_text\": \"○ 분해성 - 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[5]\", \"page\": 5, \"source_text\": \"○ 생물 농축성 - 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[6]\", \"page\": 5, \"source_text\": \"○ 생분해성 - 자료없음\", \"rules\": [\"R15\"], \"note\": \"생물 농축성 아래 생분해성 소항목을 ECO_PERSIST로 둠\"}, {\"msds_index\": 0, \"field\": \"ecotox[7]\", \"page\": 5, \"source_text\": \"라. 토양 이동성 - 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[8]\", \"page\": 5, \"source_text\": \"마. 오존층 유해성 - 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[9]\", \"page\": 5, \"source_text\": \"바. 기타 유해 영향 - 자료없음\", \"rules\": [\"R15\"], \"note\": null}]}"
+}
