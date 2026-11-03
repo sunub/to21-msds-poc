@@ -785,7 +785,8 @@ def test_15항_경계_줄에_방향을_말하면_검사에_걸린다(section, ve
     exp = {"applicable": "경계"} if section == "15" else {}
     req = {"finding": {"section": section, "kind": "regulation" if section == "15" else "class", "verdict": verdict,
                        "msds": {"applicable": "해당"} if section == "15" else {}, "expected": exp}}
-    assert any(p.startswith("경계 줄에 방향") for p in ex.claim_problems({"summary": text}, req)) is bad
+    # 15항 경계 요약은 문장틀로 덮어쓰므로(_fixed_summary) 모델 글인 이유 문장에서 본다
+    assert any(p.startswith("경계 줄에 방향") for p in ex.claim_problems({"summary": "확인이 필요합니다.", "reasons": [text]}, req)) is bad
 
 
 def test_설명_모델은_문법_강제_없이_받는다(monkeypatch):
@@ -842,7 +843,8 @@ def test_문장틀_설명은_검사에_걸리지_않는다(svc, put, gold25, adm
 def test_문장틀로_덮은_과대분류_요약은_모델_글로_검사하지_않는다():
     req = {"finding": {"section": "2", "kind": "class", "verdict": "불일치", "msds": {"category": "1"}, "expected": {}}}
     req["finding"]["type"] = next(iter(ex.engine._DIRECTION_TYPES))
-    fixed = {"summary": "두 값이 일치합니다.", "reasons": [], "basis": []}
+    # 이유가 비면 '이유에 글이 없음'으로 걸리므로(요약을 고정한 줄은 이유가 모델 글의 전부) 정상 이유를 둔다
+    fixed = {"summary": "두 값이 일치합니다.", "reasons": ["MSDS는 구분 1로 적었습니다."], "basis": []}
     assert ex.claim_problems(fixed, req) == []
     req["finding"]["type"] = "기준 불일치"  # 덮어쓰지 않는 줄은 모델이 무엇을 붙여 보내도 요약을 본다
     assert ex.claim_problems({**fixed, "llm_summary": "x"}, req)
@@ -860,6 +862,33 @@ def test_일치하지_않는다는_설명은_검사를_지나간다():
 def test_15항_해당_비해당을_엔진과_대조한다(text, bad):
     req = {"finding": {"section": "15", "kind": "regulation", "verdict": "불일치", "msds": {"applicable": "비해당"}, "expected": {"applicable": "해당"}}}
     assert bool(ex.claim_problems({"summary": text}, req)) is bad
+
+
+@pytest.mark.parametrize("section, verdict, fixed", [("15", "경계", True), ("15", "불일치", False), ("2", "경계", False)])
+def test_15항_경계_줄의_요약은_문장틀로_고정한다(section, verdict, fixed):
+    # 실제 모델이 15항 경계 요약에서 "MSDS가 더 강하게 적었다"고 방향을 단정했다(T21-M005). 요약만 문장틀로 두고 이유는 모델 글을 쓴다
+    finding = {"id": "x", "section": section, "kind": "regulation" if section == "15" else "class", "item": "a", "item_name": "유독물질",
+               "component": "2", "verdict": verdict, "type": verdict,
+               "msds": {"applicable": "해당"} if section == "15" else {}, "expected": {"applicable": verdict} if section == "15" else {}}
+    req = {"finding": finding, "causes": [], "trace": {"inputs": [{"name": "1,3-Butadiene"}]}, "evidence": []}
+    said = "유독물질은 MSDS가 해당으로 더 강하게 적었습니다."
+    reason = "결과를 가장 크게 좌우한 성분은 1,3-Butadiene입니다."
+    body = ex.generate(req, lambda s, u: ({"summary": said, "reasons": [reason], "basis": []}, {"model": "m"}), retries=0)
+    assert (body["summary"] == ex.engine._summary(req)) is fixed
+    if fixed:
+        assert body["by"] == "llm" and body["reasons"] == [reason] and "사람 확인" in body["summary"]
+
+
+@pytest.mark.parametrize("reasons, by", [([], "template"), ([":", "basis"], "template"),
+                                         (["MSDS는 PRTR물질에 해당한다고 기재되어 있습니다.", ":"], "template"),
+                                         (["MSDS는 해당, 계산 결과는 경계입니다."], "llm")])
+def test_요약을_고정한_줄은_이유에_글이_없으면_문장틀로_간다(reasons, by):
+    # 실제 기록(T21-M005 PRTR): 요약 ':'와 이유 ':'·'basis'가 요약 고정 뒤 'AI 설명 · 검사 ✓'로 나갈 뻔했다
+    finding = {"id": "x", "section": "15", "kind": "regulation", "item": "a", "item_name": "PRTR물질", "component": "2",
+               "verdict": "경계", "type": None, "msds": {"applicable": "해당"}, "expected": {"applicable": "경계"}}
+    req = {"finding": finding, "causes": [], "trace": {"inputs": [{"name": "1,3-Butadiene"}]}, "evidence": []}
+    body = ex.generate(req, lambda s, u: ({"summary": ":", "reasons": reasons, "basis": []}, {"model": "m"}), retries=0)
+    assert body["by"] == by
 
 
 def test_실패_이유의_서버_주소는_저장하지_않는다():
