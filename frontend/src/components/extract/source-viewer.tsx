@@ -1,7 +1,7 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { pageImageUrl, pageLinesQuery } from "@/api/documents";
 import type { DocumentDetail } from "@/api/schemas";
 import { Pane } from "@/components/shell/layout";
@@ -19,6 +19,7 @@ export function SourceViewer({
   highlight,
   panelHeight,
   className,
+  children,
 }: {
   doc: DocumentDetail;
   page: number;
@@ -28,15 +29,20 @@ export function SourceViewer({
   /** 옆 작업 카드의 높이. 원문은 이 영역 안에서 스크롤한다. */
   panelHeight?: number;
   className?: string;
+  /** 제목과 원문 사이에 넣을 쪽 이동, 안내. 카드 안에 넣어야 옆 카드와 위아래가 맞는다 */
+  children?: ReactNode;
 }) {
   const total = doc.page_count ?? doc.preprocess.total ?? 0;
   const ready = page <= doc.preprocess.done;
+  const fitted = panelHeight !== undefined;
+  // 기다리는 안내는 잘리면 뜻이 없다. 옆 카드가 짧으면(항 목록이 오기 전 등) 고정하지 않고 안내만큼 늘린다
+  const paneHeight = !fitted ? undefined : ready ? { height: panelHeight } : { minHeight: panelHeight };
 
   return (
     <Pane
       title="원문"
-      className={cn("basis-115 print:hidden", panelHeight !== undefined && "min-h-0", className)}
-      style={panelHeight === undefined ? undefined : { height: panelHeight }}
+      className={cn("basis-115 print:hidden", fitted && "min-h-0", className)}
+      style={paneHeight}
       aside={
         total > 0 && (
           <div className="flex items-center gap-2">
@@ -53,17 +59,18 @@ export function SourceViewer({
         )
       }
     >
-      <div className={panelHeight === undefined ? undefined : "min-h-0 flex-1 overflow-y-auto"}>
+      {children}
+      <div className={fitted ? "flex min-h-0 flex-1 flex-col overflow-y-auto" : undefined}>
         {ready ? (
           doc.text_layer === "정상" ? (
-            <Paper>
+            <Paper fill={fitted}>
               <PageLines id={doc.id} page={page} highlight={highlight} />
             </Paper>
           ) : (
-            <PageImage key={`${doc.id}-${page}`} id={doc.id} page={page} />
+            <PageImage key={`${doc.id}-${page}`} id={doc.id} page={page} fill={fitted} />
           )
         ) : (
-          <Paper className="items-center justify-center gap-4">
+          <Paper fill={fitted} className="items-center justify-center gap-4">
             <Spinner label="쪽 이미지를 만드는 중" />
             <span className="text-base">
               {doc.status === "queued" ? "차례를 기다리고 있습니다" : "쪽 이미지를 만드는 중입니다"}
@@ -113,11 +120,11 @@ function PageLines({ id, page, highlight }: { id: string; page: number; highligh
   ));
 }
 
-function PageImage({ id, page }: { id: string; page: number }) {
+function PageImage({ id, page, fill }: { id: string; page: number; fill: boolean }) {
   const [failed, setFailed] = useState(false);
   if (failed) {
     return (
-      <Paper className="items-center justify-center">
+      <Paper fill={fill} className="items-center justify-center">
         <p className="text-mut">이 쪽의 이미지를 불러오지 못했습니다.</p>
       </Paper>
     );
