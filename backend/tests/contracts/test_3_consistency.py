@@ -177,6 +177,15 @@ def test_함량이_기준과_정확히_같을_때(op, expected):
     assert _expected(content, {"threshold_op": op, "threshold_value": 10.0, "threshold_unit": "%"})[0] == expected
 
 
+@pytest.mark.parametrize("ref,expected", [((">=", 0.0), "해당"), ((">", 0.0), "경계"), ((">=", 0.5), "경계"), ((">=", 1.0), "비해당")])
+def test_함량_하한이_없으면_0으로_본다(ref, expected):
+    """'1% 미만'처럼 하한이 없으면 0~1%. 함유하면 해당(>=0)인 기준에는 해당이다 (탈크 보정 FX-02·03)."""
+    from msds.compliance.sec15 import _expected
+
+    content = {"raw": "<1", "upper": 1.0, "upper_op": "<", "status": "값있음", "unit": "%"}
+    assert _expected(content, {"threshold_op": ref[0], "threshold_value": ref[1], "threshold_unit": "%"})[0] == expected
+
+
 def _single_acid(gold25, msds_form="분진·미스트", state="액체"):
     doc = copy.deepcopy(gold25)
     m = doc["msds"][0]

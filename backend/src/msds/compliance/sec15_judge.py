@@ -268,17 +268,21 @@ def _flash_range(physchem) -> dict | None:
     return None
 
 
-def _class4(physchem):
-    """9항 값으로 제4류 품명. (품명|None, 경계 여부, 설명, 액체·값이 불확실해서 생긴 경계인가)."""
+def _class4(physchem, mixture=True):
+    """9항 값으로 제4류 품명. (품명|None, 경계 여부, 설명, 액체·값이 불확실해서 생긴 경계인가).
+
+    가연성 액체량·도료류 예외(rules/dg_class4.yaml edge)는 혼합물 규정이라 순물질(mixture=False)에는 붙이지 않는다.
+    """
     states = [p.get("text_value") for p in (physchem or {}).get("APPEARANCE_STATE") or [] if p.get("text_value")]
     state = " / ".join(states)
     if _DG_GAS.search(state):  # '액체가스'(액화가스)는 고압가스 — 제4류 아님
         return None, False, f"성상 '{state}' — 가스·액화가스는 제4류가 아님(11/02 F)", False
-    liquid, solid = bool(_DG_LIQUID.search(state)), bool(_DG_SOLID.search(state))
+    liquid = bool(_DG_LIQUID.search(state))
+    solid = any(not _DG_NEGATED.match(state, m.end()) for m in _DG_SOLID.finditer(state))  # '입자가 없는 액체'의 입자는 빼고
     fp, fp_status = _prop(physchem, "FLASH_POINT")
     if solid and not liquid:
         if fp is not None and fp < 40:  # 인화성고체(제2류)는 인화점 40℃ 미만 고체 (시행령 별표 1)
-            return None, True, f"성상 '{state}', 인화점 {fp:g}℃ — 인화성고체(제2류)일 수 있어 사람 확인 → 경계", True
+            return None, True, f"성상 '{state}', 인화점 {fp:g}℃ — 인화성고체(제2류)일 수 있음", True
         return None, False, f"성상 '{state}' — 제4류는 액체만", False
     sure_liquid = liquid and not solid
     bp, _ = _prop(physchem, "BOILING")
@@ -286,7 +290,7 @@ def _class4(physchem):
     if fp is None:
         rng = _flash_range(physchem)
         if rng and (rng.get("upper") is not None or rng["lower"] < 250):
-            return None, True, f"9항 인화점 '{rng.get('raw') or '범위'}' — 값이 하나가 아니라 품명을 못 정함 → 경계", True
+            return None, True, f"9항 인화점 '{rng.get('raw') or '범위'}' — 값이 하나가 아니라 품명을 못 정함", True
         return None, False, f"9항 인화점 {fp_status or '없음'} — 제4류 품명 없음", False
     table = _dg_table()
     # 자연발화온도·끓는점이 없으면 아주 높은 값으로 둔다(특수인화물 조건을 만족하지 않는 쪽, 전과 같은 처리)
@@ -298,10 +302,10 @@ def _class4(physchem):
         return None, False, f"인화점 {fp:g}℃ — 제4류 품명 없음({tr['category']})", False
     rule = next(r for r in table["rules"] if r["id"] == tr["rule_id"])
     # 제2석유류 제외는 가연성 액체량 40중량% 이하이면서 인화점 40℃ 이상일 때만이다 (시행령 별표 1 비고)
-    edge = rule.get("edge") if rule["id"] != "DG4-2" or fp >= 40 else None
+    edge = rule.get("edge") if mixture and (rule["id"] != "DG4-2" or fp >= 40) else None
     if not sure_liquid:
         edge = f"성상 '{state or '모름'}'이 액체인지 불확실"
-    return rule["item"], bool(edge), f"인화점 {fp:g}℃ ({rule['id']}" + (f", {edge} → 경계" if edge else "") + ")", not sure_liquid
+    return rule["item"], bool(edge), f"인화점 {fp:g}℃ ({rule['id']}" + (f", 경계 조건: {edge}" if edge else "") + ")", not sure_liquid
 
 
 _DG_ITEM = re.compile(r"특수인화물|알코올류|제[1-4]석유류|동식물유류")
@@ -309,6 +313,7 @@ _DG_NOT_BY_FLASH = ("특수인화물", "알코올류", "동식물유류")  # 성
 _DG_LITER = ("L", "ℓ", "리터", "l")
 _DG_GAS = re.compile(r"가스|기체|\bgas\b|liquefied|compressed", re.I)
 _DG_LIQUID = re.compile(r"액체|액상|용액|오일|유상|liquid|solution|\boil\b", re.I)
+_DG_NEGATED = re.compile(r"\s*[가이은는도]?\s*(?:없[는음이고다]|않[은는]|아닌|아님|아니[다고])")  # 고체 단어 바로 뒤의 부정
 _DG_SOLID = re.compile(r"고체|고상|분말|가루|파우더|과립|펠[렛릿]|결정|입자|플레이크|solid|powder|pellet|granul|crystal|flake", re.I)
 _C1_C3_ALCOHOL = {"67-56-1", "64-17-5", "71-23-8", "67-63-0"}  # 탄소 1~3개 포화1가 알코올
 _WATER = "7732-18-5"
@@ -409,10 +414,10 @@ def _dg(inputs, sup, know_all, sec15_read=True):
     written_class = (re.search(r"제\s*\d\s*류", str(cls or "")) or [None])[0]
     db = sorted({(r["regulate_item_id"], r["db_item_name"], r.get("group_name"))
                  for k in know_all for r in k.get("rows") or [] if r["kind"] == "dg"})
-    item, edge, basis, unsure = _class4(inputs.get("physchem"))
+    is_single = (inputs.get("composition") or {}).get("type") == "단일물질"
+    item, edge, basis, unsure = _class4(inputs.get("physchem"), mixture=not is_single)
     db_names = {_dg_db_name(g) for _, _, g in db} - {(None, None)}
     db_item, db_water = next(iter(db_names)) if len(db_names) == 1 else (None, None)
-    is_single = (inputs.get("composition") or {}).get("type") == "단일물질"
     # 인화점이 없으면 DB 품명으로 비교한다 (설계서 29장 6단계). 혼합물의 DB 품명은 성분 것이라 제품 품명이 아니다
     db_item, db_water = (db_item, db_water) if is_single else (None, None)
     db_classes = {n for _, n, _ in db}
@@ -425,7 +430,7 @@ def _dg(inputs, sup, know_all, sec15_read=True):
     if alcohol == "미만":
         # 비고 14호는 알코올류에서 빼는 단서라 인화점 품명까지 없애지는 않는다. 공식 해석을 못 찾았고 실제 MSDS는
         # 비위험물로 적으므로(하이콜 59 등), 규제 누락으로 단정하지 않고 사람이 확인한다
-        edge, basis = True, f"{basis}, 알코올 60중량% 미만 수용액은 알코올류에서 제외(비고 14호) — 인화점 품명 적용 여부는 사람 확인 → 경계"
+        edge, basis = True, f"{basis}, 알코올 60중량% 미만 수용액은 알코올류에서 제외(비고 14호) — 인화점 품명 적용 여부가 정해지지 않음"
     elif alcohol == "이상":
         item, want_item, basis = "알코올류", "알코올류", f"{basis}, 탄소 1~3개 알코올 60중량% 이상 수용액 → 알코올류(비고 14호)"
     only_component = False
