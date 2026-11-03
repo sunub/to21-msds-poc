@@ -4,6 +4,7 @@ import json
 from fastapi.testclient import TestClient
 
 from msds.api.extract_app import create_app
+from msds.api import judge_app
 from msds.service.store import DocumentStore
 
 
@@ -22,6 +23,19 @@ class QueuedStore(DocumentStore):
     def queue_info(self, doc_id, *, workers=1):
         assert self.get(doc_id) is not None
         return {"queue_position": 2, "estimated_wait_seconds": 120, "estimated_completion_seconds": None}
+
+
+def test_embedded_judge_router_follows_extract_app_lifespan(tmp_path, monkeypatch):
+    calls = []
+    monkeypatch.setenv('MSDS_JUDGE_IN_EXTRACT_APP', '1')
+    monkeypatch.setattr(judge_app, 'attach', lambda app: (calls.append('attach'), setattr(app.state, 'judge_workers', object())))
+    monkeypatch.setattr(judge_app, 'detach', lambda app: calls.append('detach'))
+    app = create_app(store=DocumentStore(tmp_path), worker=Worker(), static_dir=None)
+    with TestClient(app) as client:
+        response = client.get('/api/judgments/summary')
+        assert response.status_code == 422  # router is mounted; required job_ids is absent
+        assert calls == ['attach']
+    assert calls == ['attach', 'detach']
 
 
 def test_queue_fields_are_exposed_in_upload_list_and_detail(tmp_path):
