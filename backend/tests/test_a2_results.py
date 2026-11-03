@@ -102,10 +102,9 @@ def test_review_events_survive_restart_and_retry_without_changing_extraction(sto
     assert count == 1
 
 
-def test_identical_pdf_and_settings_reuse_extraction_without_reusing_reviews(stores):
+def prepare_reuse_candidate(jobs, results, issue=None):
     import yaml
 
-    jobs, results, _ = stores
     first, claimed = start_extraction(jobs)
     sections = [{'msds_index': 0, 'section': no, 'title': str(no), 'pages': [1]}
                 for no in (1, 2, 3, 8, 9, 11, 12, 14, 15)]
@@ -115,6 +114,20 @@ def test_identical_pdf_and_settings_reuse_extraction_without_reusing_reviews(sto
     doc = {'doc': {'doc_id': first['id'], 'source_file': 'one.pdf',
                    'extraction': {'extracted_at': '2026-11-03T12:00:00+09:00'}},
            'msds': [{}]}
+    if issue == 'failed_section':
+        checks['sections'][0].update(ok=False, errors=['TimeoutError'])
+    elif issue == 'schema_error':
+        checks['schema_errors'] = ['missing product name']
+    elif issue in ('validator_error', 'validator_exception'):
+        checks['to21_validator'] = [{'level': '오류' if issue == 'validator_error' else '예외',
+                                    'message': '검증 실패'}]
+    elif issue == 'missing_section':
+        # Keep the old plan and checks equally incomplete: a length comparison
+        # alone cannot establish that all required extraction sections exist.
+        sections.pop()
+        checks['sections'].pop()
+    elif issue == 'missing_validator':
+        checks.pop('to21_validator')
     jobs.bind(first['id'], claimed['lease_token']).apply(first['id'],
         {'type': 'plan', 'msds_count': 1, 'page_count': 1, 'sections': sections})
     for row in sections:
@@ -135,6 +148,14 @@ def test_identical_pdf_and_settings_reuse_extraction_without_reusing_reviews(sto
         raw.parent.mkdir(parents=True, exist_ok=True)
         raw.write_text(json.dumps({'doc_id': first['id'], 'msds_index': 0,
                                    'section': row['section']}), encoding='utf-8')
+    return first, info
+
+
+def test_identical_pdf_and_settings_reuse_extraction_without_reusing_reviews(stores):
+    import yaml
+
+    jobs, results, _ = stores
+    first, info = prepare_reuse_candidate(jobs, results)
     jobs.update_review(first['id'], lambda record: review.set_field(
         record, {'msds': [{'product': {'name': '원본'}}]}, 0, 'product.name',
         'edit', '수정', '검토자', '2026-11-03T13:00:00+09:00'))
@@ -158,6 +179,77 @@ def test_identical_pdf_and_settings_reuse_extraction_without_reusing_reviews(sto
                            today='20261103', reuse=False)
     assert worker._reuse_completed(jobs, no_reuse,
         {'runs_dir': jobs.root / 'unused'}, lambda event: None) is None
+
+
+def fresh_extraction_steps(info, calls):
+    import yaml
+
+    def save_info(path, tag, pages_dir):
+        path.mkdir(parents=True, exist_ok=True)
+        (path / 'run_info.yaml').write_text(yaml.safe_dump(info), encoding='utf-8')
+
+    def extract(doc_id, model_tag, run_name, *, pages_dir, sections_dir, runs_dir, on_event):
+        calls.append(doc_id)
+        doc = {'doc': {'doc_id': doc_id, 'extraction': {'extracted_at': '2026-11-03T14:00:00+09:00'}},
+               'msds': [{'product': {'name': '새 추출'}}]}
+        checks = {'schema_errors': [], 'to21_validator': [], 'sections': [
+            {'msds_index': 0, 'section': no, 'ok': True}
+            for no in (1, 2, 3, 8, 9, 11, 12, 14, 15)
+        ]}
+        for directory, payload in (('outputs', doc), ('checks', checks)):
+            target = runs_dir / doc_id / directory / f'{doc_id}.json'
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_text(json.dumps(payload), encoding='utf-8')
+        return {'sections_ok': 9}
+
+    return SimpleNamespace(save_run_info=save_info, extract=extract)
+
+
+@pytest.mark.parametrize('issue', ['failed_section', 'schema_error', 'validator_error',
+                                  'validator_exception', 'missing_section', 'missing_validator'])
+def test_invalid_completed_result_falls_back_to_fresh_extraction(stores, issue):
+    jobs, results, _ = stores
+    previous, info = prepare_reuse_candidate(jobs, results, issue)
+    job, claim = start_extraction(jobs)
+    assert previous['id'] in job['duplicate_of']
+    calls = []
+    worker = PostgresWorker(jobs, steps=fresh_extraction_steps(info, calls), result_store=results)
+    worker._extract(jobs.bind(job['id'], claim['lease_token']), job['id'],
+                    jobs.attempt_paths(job['id'], claim['lease_token']), claim['lease_token'])
+    jobs.complete(job['id'], claim['lease_token'])
+    assert calls == [job['id']]
+    assert jobs.get(job['id']).get('reused_from') is None
+    assert results.get_active(job['id'])['extraction']['msds'][0]['product']['name'] == '새 추출'
+
+
+def test_manual_retry_uses_fresh_extraction_even_with_valid_duplicate(stores):
+    jobs, results, _ = stores
+    previous, info = prepare_reuse_candidate(jobs, results)
+    job, claim = start_extraction(jobs)
+    bound = jobs.bind(job['id'], claim['lease_token'])
+    bound.apply(job['id'], {'type': 'plan', 'msds_count': 1,
+                           'sections': [{'msds_index': 0, 'section': 1}]})
+    bound.apply(job['id'], {'type': 'section_done', 'msds_index': 0, 'section': 1,
+                           'ok': False, 'needs_review': True, 'reextracted': True,
+                           'errors': ['TimeoutError']})
+    bound.apply(job['id'], {'type': 'reused', 'job_id': previous['id']})
+    finish(jobs, job, claim)
+
+    retried = jobs.requeue(job['id'])
+    assert retried['reuse_requested'] is False
+    assert previous['id'] in retried['duplicate_of']
+    assert 'reused_from' not in retried
+    pre = jobs.claim(stage='preprocess')
+    jobs.queue_next(job['id'], pre['lease_token'])
+    claim = jobs.claim(stage='extract')
+    calls = []
+    worker = PostgresWorker(jobs, steps=fresh_extraction_steps(info, calls), result_store=results)
+    worker._extract(jobs.bind(job['id'], claim['lease_token']), job['id'],
+                    jobs.attempt_paths(job['id'], claim['lease_token']), claim['lease_token'])
+    jobs.complete(job['id'], claim['lease_token'])
+    assert calls == [job['id']]
+    assert jobs.get(job['id']).get('reused_from') is None
+    assert results.get_active(job['id'])['extraction']['msds'][0]['product']['name'] == '새 추출'
 
 
 def test_atomic_pair_is_idempotent_and_visible_only_after_completion(stores):

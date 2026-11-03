@@ -11,9 +11,11 @@ def test_final_validator_error_retries_once_and_keeps_improved_result(tmp_path, 
                                                                      retry_name, accepted):
     cfg = {'model': 'fake', 'rows_sections': [], 'concurrency': 1}
     first = {'ok': True, 'parsed': {'name': '원본'}, 'raw_text': '원본', 'mode': 'json_object',
-             'finish_reason': 'stop', 'usage': {}, 'attempts': 1, 'errors': [], 'requests': [],
+             'finish_reason': 'stop', 'usage': {'prompt_tokens': 10, 'completion_tokens': 5},
+             'attempts': 1, 'errors': [], 'requests': [],
              'seconds': .1, 'check_problems': []}
-    retry = {**first, 'parsed': {'name': retry_name}, 'raw_text': retry_name}
+    retry = {**first, 'parsed': {'name': retry_name}, 'raw_text': retry_name, 'seconds': .2,
+             'usage': {'prompt_tokens': 20, 'completion_tokens': 7}}
     calls = []
     document = SimpleNamespace(doc_id='U-20261103-001', msds=[SimpleNamespace(index=0)],
                                lines=[], warnings=[], sections_method='test')
@@ -28,7 +30,7 @@ def test_final_validator_error_retries_once_and_keeps_improved_result(tmp_path, 
     monkeypatch.setattr(runner, 'model_lines', lambda *args: [])
     monkeypatch.setattr(runner, 'section_lines', lambda *args, **kwargs: [])
     monkeypatch.setattr(runner, '_run_section', lambda *args: (
-        runner.SectionResult(0, 1, first['parsed'], True, [], .1, {}, 1, False), first, None))
+        runner.SectionResult(0, 1, first['parsed'], True, [], .1, first['usage'], 1, False), first, None))
     monkeypatch.setattr(runner, '_attempt', lambda *args: (calls.append(args), retry)[1])
     monkeypatch.setattr(runner, 'to_to21', lambda row, parts, lines, model: (
         {'msds': [{'product': {'name': parts[0][1]['name']}}]}, []))
@@ -38,10 +40,17 @@ def test_final_validator_error_retries_once_and_keeps_improved_result(tmp_path, 
             {'level': '오류', 'field': 'msds[0].product.name', 'message': '값 확인'}]))
     monkeypatch.setattr(runner, 'load_hazard_map', lambda: {})
     monkeypatch.setattr(runner, 'check_msds', lambda msds, hazard_map: {'ok': True})
-    events = []
+    events, visible_raw = [], []
+    raw_path = runner.raw_path(tmp_path / document.doc_id, document.doc_id, 0, 1)
+
+    def observe_event(event):
+        events.append(event)
+        if event['type'] == 'section_done':
+            visible_raw.append(json.loads(raw_path.read_text()))
+
     summary = runner.run_document(document.doc_id, 'fake', document.doc_id, client=object(),
                                   pages_dir=tmp_path, sections_dir=tmp_path, runs_dir=tmp_path,
-                                  on_event=events.append)
+                                  on_event=observe_event)
     checks = json.loads((tmp_path / document.doc_id / 'checks' / f'{document.doc_id}.json').read_text())
     raw = json.loads(runner.raw_path(tmp_path / document.doc_id, document.doc_id, 0, 1).read_text())
     assert len(calls) == 1
@@ -50,3 +59,15 @@ def test_final_validator_error_retries_once_and_keeps_improved_result(tmp_path, 
     assert raw['parsed'] == {'name': '수정' if accepted else '원본'}
     assert 'final_validation_attempt' in raw
     assert any(e['type'] == 'section_done' and e['reextracted'] for e in events) == accepted
+    # Rejected output still consumed a second call; totals must include both.
+    section = checks['sections'][0]
+    assert section['attempts'] == 2
+    assert section['seconds'] == .3
+    assert section['usage'] == {'prompt_tokens': 30, 'completion_tokens': 12}
+    timing = [json.loads(line) for line in (tmp_path / document.doc_id / 'timing.jsonl').read_text().splitlines()]
+    total = next(row for row in timing if row['stage'] == 'total')
+    assert (total['prompt_tokens'], total['completion_tokens']) == (30, 12)
+    # Consumers must see the chosen raw output as soon as completion is emitted.
+    assert len(visible_raw) == 2
+    assert visible_raw[-1] == raw
+    assert events[-1]['seconds'] == .3
