@@ -1,8 +1,8 @@
 # HTODB 로컬 PostgreSQL 설정 가이드
 
-이 문서는 Windows의 WSL2에서 이 저장소의 HTODB 데이터와 추출·판정 테이블을 Docker PostgreSQL에 준비하고 DBeaver로 확인하는 방법을 설명합니다. 명령은 별도 안내가 없으면 **저장소 루트** `~/to21-msds-poc`에서 실행합니다.
+이 문서는 Windows의 WSL2에서 이 저장소의 HTODB 데이터와 추출 테이블을 Docker PostgreSQL에 준비하고 DBeaver로 확인하는 방법을 설명합니다. 명령은 별도 안내가 없으면 **저장소 루트** `~/to21-msds-poc`에서 실행합니다.
 
-완료되면 `kdb` 데이터베이스에 `htodb`의 지식DB 원본 16개 테이블, `htodb_map`의 매핑 테이블, `extract`의 추출 테이블 5개, `judge`의 판정 테이블 6개가 준비됩니다. 두 적재 스키마에는 각각 적재 이력을 기록하는 `load_log`도 생성됩니다. `to21_erd_control.migration_history`에는 서비스 테이블 생성 이력이 기록됩니다. 지식DB를 같은 내용으로 채우려면 팀원이 **같은 버전의 HTODB ZIP과 명세서**를 받아야 합니다. 추출·판정 테이블은 구조만 만들어지므로 다른 사람의 PDF, 작업과 결과 데이터는 복사되지 않습니다.
+완료되면 `kdb` 데이터베이스에 `htodb`의 지식DB 원본 16개 테이블, `htodb_map`의 매핑 테이블, `extract`의 추출 테이블 5개가 준비됩니다. B2 판정 테이블은 B 담당자의 `b2_001`·`judge.judgment` 구현과 별도 설치 안내를 기준으로 준비합니다. 두 적재 스키마에는 각각 적재 이력을 기록하는 `load_log`도 생성됩니다. `to21_erd_control.migration_history`에는 서비스 테이블 생성 이력이 기록됩니다. 지식DB를 같은 내용으로 채우려면 팀원이 **같은 버전의 HTODB ZIP과 명세서**를 받아야 합니다. 추출 테이블은 구조만 만들어지므로 다른 사람의 PDF, 작업과 결과 데이터는 복사되지 않습니다.
 
 전달받은 ZIP의 ERD와 설정 자료는 참고용이며, 실행에는 백엔드 코드를 포함한 전체 프로젝트가 필요합니다. 기존 ERD 구축 문서에 나온 `.env.erd`와 `55433`은 해당 문서의 별도 구축 예시입니다. 이 가이드의 HTODB 연결은 `deploy/htodb/.env`와 각자 설정한 포트를 사용합니다.
 
@@ -17,7 +17,7 @@
 
 ### 프로젝트 버전 준비
 
-이 문서와 A1·A2·B2 SQL이 모두 포함된 버전을 사용합니다. 아직 `main`에 반영되기 전이라면 팀에서 공유한 `a2/one-pdf` 브랜치를 받아 사용합니다. 새로 받는 예시입니다. 저장소 접근 권한이 필요합니다.
+이 문서와 A1·A2 SQL과 넘김 읽기 권한 SQL이 모두 포함된 버전을 사용합니다. 아직 `main`에 반영되기 전이라면 팀에서 공유한 `a2/one-pdf` 브랜치를 받아 사용합니다. 새로 받는 예시입니다. 저장소 접근 권한이 필요합니다.
 
 ```bash
 cd ~
@@ -31,9 +31,6 @@ cd to21-msds-poc
 ls backend/migrations/a1_0001_extract_jobs.sql \
   backend/migrations/a2_0002_extract_results_reviews_artifacts.sql \
   backend/migrations/a2_0003_extract_handoff.sql \
-  backend/migrations/b2_0004_judge_runs_versions.sql \
-  backend/migrations/b2_0005_judge_explanations_reviews.sql \
-  backend/migrations/b2_0006_judge_snapshots_artifacts.sql \
   backend/migrations/0007_service_grants.sql \
   backend/scripts/apply_erd_migrations.py
 ```
@@ -130,19 +127,21 @@ ZIP을 다른 위치에 뒀다면 그 실제 경로를 지정합니다. 스크�
 
 현재 팀에서 확인한 원본 버전은 `htodb-94f8b6ff7f24`, 매핑 버전은 `map13-e934f60e5e39`입니다. 같은 데이터가 필요한 경우 완료 메시지의 두 값을 비교하세요. 값이 다르면 전달받은 원본 ZIP과 명세서의 버전을 팀에 확인합니다.
 
-## 6. 추출·판정 테이블과 적용 이력 만들기
+## 6. 추출 테이블과 넘김 읽기 권한 만들기
 
-앞 단계는 `htodb`와 `htodb_map`을 채웁니다. 다음 마이그레이션 실행기는 `extract`·`judge` 테이블과 `to21_erd_control.migration_history`를 만들고, SQL 적용 이력 및 서비스 역할 권한을 기록합니다. **신규 DB를 대상으로 실행**하세요. 이미 수동으로 만든 테이블이 있고 적용 이력이 없거나 기존 구조가 다르면 실행기가 멈춥니다. 기존 테이블을 삭제하거나 이력을 임의로 만들지 말고 팀에 확인하세요.
+앞 단계는 `htodb`와 `htodb_map`을 채웁니다. 다음 마이그레이션 실행기는 `extract` 테이블과 `to21_erd_control.migration_history`를 만들고, A의 추출 권한과 B의 `extract.handoff` 읽기 권한을 기록합니다. `judge` 스키마·테이블·권한은 B가 별도로 관리하므로 B2 설치 전후 어느 쪽에서도 실행할 수 있습니다. **아직 A 테이블을 설치하지 않은 DB를 대상으로 실행**하세요. 이미 수동으로 만든 `extract` 테이블이 있고 적용 이력이 없거나 기존 구조가 다르면 실행기가 멈춥니다. 기존 테이블을 삭제하거나 이력을 임의로 만들지 말고 팀에 확인하세요.
 
-먼저 현재 테이블을 확인합니다. 목록이 비어 있는 신규 DB라면 다음 단계로 진행합니다.
+이전 가이드의 B2 SQL까지 적용한 DB는 이 절차의 신규 설치 대상이 아닙니다. 기존 이력의 B2 항목, 권한 SQL 체크섬 또는 스키마 기록이 현재 구성과 달라 실행기가 중단합니다. 기존 데이터와 적용 이력을 보존한 채 A·B 담당자가 별도 전환 절차를 먼저 정해야 합니다. 이 실행기는 기존 테이블을 삭제하거나 이력을 자동 변경하지 않습니다.
+
+먼저 A 테이블과 적용 이력을 확인합니다. 목록이 비어 있다면 다음 단계로 진행합니다. 별도로 설치한 B의 `judge` 테이블은 이 확인 대상에 포함되지 않습니다.
 
 ```bash
 docker compose --env-file deploy/htodb/.env -f deploy/htodb/compose.yaml exec -T pg \
   psql -v ON_ERROR_STOP=1 -U kdb -d kdb \
-  -c "SELECT schemaname, tablename FROM pg_catalog.pg_tables WHERE schemaname IN ('extract', 'judge', 'to21_erd_control') ORDER BY schemaname, tablename;"
+  -c "SELECT schemaname, tablename FROM pg_catalog.pg_tables WHERE schemaname IN ('extract', 'to21_erd_control') ORDER BY schemaname, tablename;"
 ```
 
-추출·판정 서비스용 DB 역할을 준비합니다. 아래 역할은 로그인할 수 없는 권한 그룹입니다. 이미 같은 이름의 역할이 있으면 변경하지 않으며, 실행기가 권한이 적절한지 검사합니다.
+추출 서비스와 넘김을 읽을 B 서비스의 DB 역할을 준비합니다. 아래 역할은 로그인할 수 없는 권한 그룹입니다. 이미 같은 이름의 역할이 있으면 변경하지 않으며, 실행기가 권한이 적절한지 검사합니다.
 
 ```bash
 docker compose --env-file deploy/htodb/.env -f deploy/htodb/compose.yaml exec -T pg \
@@ -174,7 +173,7 @@ SQL
 )
 ```
 
-실행기는 A1 → A2 → B2 테이블 SQL 여섯 개와 권한 SQL `0007`을 순서대로 적용합니다. 각 단계는 별도 트랜잭션으로 기록되므로 중간에 실패하면 메시지를 확인하고 같은 명령으로 다시 실행합니다. 기록된 파일의 내용이나 DB 구조가 달라진 경우는 자동으로 바꾸지 않고 중단합니다. 역할은 서비스 계정이 사용할 권한 그룹이며, 이 단계만으로 로그인 계정이 추가되거나 API 설정이 바뀌지는 않습니다.
+실행기는 A1 → A2 테이블 SQL 세 개와 권한 SQL `0007`을 순서대로 적용합니다. `0007`은 `judge` 내부 권한을 부여하지 않으며, B에는 `extract.handoff`의 `payload_json`을 읽을 SELECT 권한만 부여합니다. 각 단계는 별도 트랜잭션으로 기록되므로 중간에 실패하면 메시지를 확인하고 같은 명령으로 다시 실행합니다. 기록된 파일의 내용이나 DB 구조가 달라진 경우는 자동으로 바꾸지 않고 중단합니다. 역할은 서비스 계정이 사용할 권한 그룹이며, 이 단계만으로 로그인 계정이 추가되거나 API 설정이 바뀌지는 않습니다.
 
 완료 후에는 다음을 확인합니다.
 
@@ -182,12 +181,10 @@ SQL
 docker compose --env-file deploy/htodb/.env -f deploy/htodb/compose.yaml exec -T pg \
   psql -U kdb -d kdb -c '\dt extract.*'
 docker compose --env-file deploy/htodb/.env -f deploy/htodb/compose.yaml exec -T pg \
-  psql -U kdb -d kdb -c '\dt judge.*'
-docker compose --env-file deploy/htodb/.env -f deploy/htodb/compose.yaml exec -T pg \
   psql -U kdb -d kdb -c 'SELECT name FROM to21_erd_control.migration_history ORDER BY name;'
 ```
 
-`extract` 테이블 5개, `judge` 테이블 6개와 적용 이력 7건을 확인합니다. 추출·판정 테이블은 빈 구조입니다. 다른 팀원의 PDF와 추출 결과는 복사되지 않으며, `judge` 테이블이 있다고 판정 API가 완성된 것은 아닙니다.
+`extract` 테이블 5개와 적용 이력 4건을 확인합니다. 추출 테이블은 빈 구조입니다. 다른 팀원의 PDF와 추출 결과는 복사되지 않습니다. B2 서비스와 판정 테이블은 [B2 연결 기준](../../docs/B2_판정_테이블_준비.md)을 확인합니다.
 
 추출 API를 DB 대기열 모드로 실행하는 방법은 [A1 실행 안내](../../docs/A1_작업_흐름_실행.md), 추출 결과 저장과 전달은 [A2 연결 안내](../../docs/A2_단일_PDF_연결.md)를 확인합니다.
 
@@ -203,7 +200,7 @@ DBeaver에서 **새 연결 → PostgreSQL**을 선택하고 다음을 입력합�
 | Username | `kdb` |
 | Password | `.env`의 `HTODB_PG_PASSWORD` 값 |
 
-**Test Connection**을 누르고 처음에 드라이버 다운로드를 요청하면 설치한 뒤 **Finish**를 누릅니다. 왼쪽에서 `kdb → Schemas`를 우클릭해 **Refresh**하고 `htodb`, `htodb_map`, `extract`, `judge`, `to21_erd_control`의 **Tables**를 각각 펼칩니다.
+**Test Connection**을 누르고 처음에 드라이버 다운로드를 요청하면 설치한 뒤 **Finish**를 누릅니다. 왼쪽에서 `kdb → Schemas`를 우클릭해 **Refresh**하고 `htodb`, `htodb_map`, `extract`, `to21_erd_control`의 **Tables**를 각각 펼칩니다. B2를 별도로 설치했다면 `judge`도 확인할 수 있습니다.
 
 터미널에서 확인할 수도 있습니다.
 
@@ -218,7 +215,6 @@ SELECT version();
 \dt htodb.*
 \dt htodb_map.*
 \dt extract.*
-\dt judge.*
 \dt to21_erd_control.*
 \q
 ```
