@@ -33,6 +33,13 @@ _USER_HOST = re.compile(r"^[A-Za-z0-9_.-]+@[A-Za-z0-9.-]+$")
 _ANSI = re.compile(r"\x1b\[[0-9;]*[A-Za-z]")
 LOCAL_HOSTS = ("127.0.0.1", "localhost")
 
+# 태그의 server 설정 (configs/models.yaml). 없으면 A100 80GB에서 쓰던 값 그대로 띄운다.
+# 값은 셸 변수로 Pod에 넘어가므로 형식을 여기서 확인한다.
+SERVER_DEFAULTS = {"max_model_len": 40960, "max_num_seqs": 64, "gpu_memory_utilization": 0.85,
+                   "batch_invariant": False, "prefix_caching": True}
+SETTINGS_FILE = "/workspace/serve_settings"
+MIN_FREE_GB = 60             # FP8 35B 모델 약 36GB + vLLM 환경 약 10GB + 여유. 이보다 적으면 설치 전에 알린다
+
 STOP_SCRIPT = """pkill -f '[v]llm serve'
 for i in $(seq 1 30); do pgrep -f '[v]llm serve' >/dev/null || break; sleep 1; done
 """
@@ -86,10 +93,53 @@ def parse_ssh(text: str) -> Target:
     return Target(user_host, port, identity)
 
 
+def free_gb(text: str) -> float | None:
+    """df -h의 남은 자리('50G', '1.5T')를 GB로. 못 읽으면 None."""
+    m = re.fullmatch(r"\s*([\d.]+)\s*([KMGT])i?B?\s*", text or "")
+    if not m:
+        return None
+    return float(m[1]) * {"K": 1 / 1024 ** 2, "M": 1 / 1024, "G": 1, "T": 1024}[m[2]]
+
+
+def team_url(pod_id: str | None) -> str | None:
+    """팀원이 SSH 없이 붙는 RunPod 프록시 주소. Pod 설정에서 HTTP 8000을 공개해야 열린다. Pod를 바꾸면 이 주소도 바뀐다."""
+    return f"https://{pod_id}-8000.proxy.runpod.net/v1" if pod_id else None
+
+
 def tunnel_port(base_url: str) -> int | None:
     """주소가 이 컴퓨터를 가리키면 터널 포트. RunPod 프록시 주소처럼 바로 닿으면 None."""
     url = urlparse(base_url)
     return url.port if url.hostname in LOCAL_HOSTS else None
+
+
+def server_settings(cfg: dict) -> dict:
+    """모델 설정의 server 묶음을 기본값과 합치고 형식을 확인한다. 모르는 이름은 오타로 보고 멈춘다."""
+    given = dict(cfg.get("server") or {})
+    unknown = sorted(set(given) - set(SERVER_DEFAULTS))
+    if unknown:
+        raise PodError(f"server 설정에 모르는 이름이 있습니다: {', '.join(unknown)} (쓸 수 있는 이름: {', '.join(SERVER_DEFAULTS)})")
+    s = {**SERVER_DEFAULTS, **given}
+    for name in ("max_model_len", "max_num_seqs"):
+        if type(s[name]) is not int or s[name] < 1:
+            raise PodError(f"server.{name}는 1 이상의 정수여야 합니다: {s[name]!r}")
+    g = s["gpu_memory_utilization"]
+    if type(g) not in (int, float) or not 0 < g <= 1:
+        raise PodError(f"server.gpu_memory_utilization는 0보다 크고 1 이하여야 합니다: {g!r}")
+    for name in ("batch_invariant", "prefix_caching"):
+        if type(s[name]) is not bool:
+            raise PodError(f"server.{name}는 true 또는 false여야 합니다: {s[name]!r}")
+    return s
+
+
+def settings_line(s: dict) -> str:
+    """Pod에 남겨 두고 다음 실행에서 비교하는 한 줄."""
+    return ",".join(f"{k}={str(s[k]).lower() if isinstance(s[k], bool) else s[k]}" for k in SERVER_DEFAULTS)
+
+
+def _serve_env(s: dict) -> str:
+    return (f"MAX_MODEL_LEN={s['max_model_len']} MAX_NUM_SEQS={s['max_num_seqs']} "
+            f"GPU_UTIL={s['gpu_memory_utilization']} BATCH_INVARIANT={int(s['batch_invariant'])} "
+            f"PREFIX_CACHING={int(s['prefix_caching'])}")
 
 
 def _marker(model: str) -> str:
@@ -98,22 +148,28 @@ def _marker(model: str) -> str:
 
 def probe_script(model: str) -> str:
     return f"""echo gpu=$(nvidia-smi --query-gpu=name --format=csv,noheader 2>/dev/null | head -1)
+echo cap=$(nvidia-smi --query-gpu=compute_cap --format=csv,noheader 2>/dev/null | head -1)
+echo pod_id=$(tr '\\0' '\\n' < /proc/1/environ 2>/dev/null | sed -n 's/^RUNPOD_POD_ID=//p')
 echo free=$(df -h /workspace 2>/dev/null | tail -1 | awk '{{print $4}}')
 echo health=$(curl -s -m 5 -o /dev/null -w '%{{http_code}}' localhost:8000/health)
 echo setup_running=$(pgrep -f '[s]etup_vllm.sh' | head -1)
 echo serving=$(pgrep -f '[v]llm serve' | head -1)
+echo settings=$(cat {SETTINGS_FILE} 2>/dev/null)
 [ -f {shlex.quote(_marker(model))} ] && [ -x /workspace/venv/bin/vllm ] && echo installed=1
 log=$(ls -t /workspace/setup.log /workspace/vllm.log 2>/dev/null | head -1)
 [ -n "$log" ] && echo last=$(tail -c 400 "$log" | tr '\\r' '\\n' | grep -v '^ *$' | tail -1)
 """
 
 
-def start_script(model: str, action: str) -> str:
-    """설치와 서버를 Pod 안의 새 세션으로 띄운다. 접속이 끊겨도 계속 돈다."""
+def start_script(model: str, action: str, settings: dict | None = None) -> str:
+    """설치와 서버를 Pod 안의 새 세션으로 띄운다. 접속이 끊겨도 계속 돈다. 띄운 설정은 SETTINGS_FILE에 남긴다."""
     m = shlex.quote(model)
-    serve = f"exec ./serve_vllm.sh {m} > vllm.log 2>&1"
+    s = settings or SERVER_DEFAULTS
+    serve = f"echo {settings_line(s)} > {SETTINGS_FILE} && {_serve_env(s)} exec ./serve_vllm.sh {m} > vllm.log 2>&1"
     job = f"./setup_vllm.sh {m} > setup.log 2>&1 && {serve}" if action == "setup" else serve
-    return f"cd /workspace && rm -f vllm.log && setsid nohup bash -c {shlex.quote(job)} > /dev/null 2>&1 < /dev/null &\n"
+    # setsid -f: 한 번 더 갈라 띄워 이 ssh 셸이 부모로 남지 않게 한다. '&'로만 뒤로 보내면 일부 Pod(11/3 A6000)의 sshd가
+    # 그 작업이 끝날 때까지 접속을 닫지 않아 설치 내내 명령이 돌아오지 않았다
+    return f"cd /workspace && rm -f vllm.log && setsid -f nohup bash -c {shlex.quote(job)} > /dev/null 2>&1 < /dev/null\n"
 
 
 def parse_state(text: str) -> dict:
@@ -169,11 +225,11 @@ def _probe(run, model: str) -> dict:
     return parse_state(run(probe_script(model), timeout=60))
 
 
-def _upload_and_start(run, model: str, key: str, action: str) -> None:
+def _upload_and_start(run, model: str, key: str, action: str, settings: dict | None = None) -> None:
     for path in REMOTE_SCRIPTS:
         run(f"umask 077; cat > /workspace/{path.name}; chmod 700 /workspace/{path.name}", stdin=path.read_text())
     run("umask 077; cat > /workspace/vllm_api_key", stdin=key)   # 명령 줄에 넣으면 ps와 로그에 남는다
-    run(start_script(model, action))
+    run(start_script(model, action, settings))
 
 
 def _wait(run, model: str, mask: _Mask, sleep, timeout: int) -> None:
@@ -229,8 +285,11 @@ def open_ssh_tunnel(target: Target, port: int) -> None:
     print(f"터널: 포트 {port} → Pod 8000 연결")
 
 
+USER_AGENT = "to21-msds/1.0"   # RunPod 프록시 앞단이 파이썬 기본 User-Agent(Python-urllib)를 403으로 막는다 (11/3)
+
+
 def _request(url: str, key: str, body: dict | None = None, timeout: int = 15):
-    headers = {"Authorization": f"Bearer {key}", "Content-Type": "application/json"}
+    headers = {"Authorization": f"Bearer {key}", "Content-Type": "application/json", "User-Agent": USER_AGENT}
     req = urllib.request.Request(url, data=json.dumps(body).encode() if body else None, headers=headers)
     opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))
     with opener.open(req, timeout=timeout) as r:
@@ -264,15 +323,18 @@ def verify_model(base_url: str, key: str, model: str) -> None:
 
 
 def up(target: Target, model: str, key: str, base_url: str, *, restart: bool = False, timeout: int = WAIT_SECONDS,
-       run=None, sleep=time.sleep, open_tunnel=open_ssh_tunnel, verify=verify_model) -> None:
+       settings: dict | None = None, run=None, sleep=time.sleep, open_tunnel=open_ssh_tunnel, verify=verify_model) -> None:
     run = run or ssh_runner(target)
     mask = _Mask(key)
     try:
         state = _probe(run, model)
     except PodError as e:
         raise _connect_error(e) from None
-    print(f"Pod: GPU {state.get('gpu') or '없음'}, 디스크 여유 {state.get('free') or '?'}, "
+    cap = f" (compute capability {state['cap']})" if state.get("cap") else ""
+    print(f"Pod: {state.get('pod_id') or '번호 모름'}, GPU {state.get('gpu') or '없음'}{cap}, 남은 자리 {state.get('free') or '?'}, "
           f"서버 {'응답함' if state.get('health') == '200' else '응답 없음'}", flush=True)
+    if team_url(state.get("pod_id")):
+        print(f"팀원용 주소 (Pod 설정에서 HTTP 8000을 공개했을 때): {team_url(state['pod_id'])}", flush=True)
 
     if restart and state.get("gpu") and state.get("serving"):
         print("서버를 내립니다.", flush=True)
@@ -280,11 +342,18 @@ def up(target: Target, model: str, key: str, base_url: str, *, restart: bool = F
         state = _probe(run, model)
 
     action = decide(state)
+    if settings and action in ("ready", "wait") and state.get("settings") != settings_line(settings):
+        # 다른 설정(예: 결정적 모드 꺼짐)으로 뜬 서버를 그대로 쓰면 시험 결과가 엉뚱한 조건의 것이 된다
+        raise PodError(f"서버가 다른 설정으로 떠 있습니다.\n  지금: {state.get('settings') or '기록 없음'}\n"
+                       f"  원하는 설정: {settings_line(settings)}\n--restart를 붙여 다시 실행해 주세요.")
     if action == "no_gpu":
         raise PodError("이 Pod에서 GPU를 찾지 못했습니다. 설치하지 않고 멈춥니다.")
+    if action == "setup" and (free_gb(state.get("free", "")) or MIN_FREE_GB) < MIN_FREE_GB:
+        print(f"주의: 디스크 남은 자리 {state['free']}. 모델과 vLLM 환경이 들어가면 거의 찹니다 (권장 {MIN_FREE_GB}GB 이상). "
+              "설치가 'No space left'로 멈추면 디스크가 큰 Pod로 바꿔 주세요.", flush=True)
     if action in ("setup", "serve"):
         print("설치부터 시작합니다. 15~25분 걸립니다." if action == "setup" else "설치되어 있어 서버만 띄웁니다.", flush=True)
-        _upload_and_start(run, model, key, action)
+        _upload_and_start(run, model, key, action, settings)
     if action != "ready":
         _wait(run, model, mask, sleep, timeout)
     print("vLLM 서버 준비됨", flush=True)
@@ -311,7 +380,10 @@ def main(argv=None) -> int:
                            "만들기 예: python3 -c 'import secrets; print(secrets.token_urlsafe(32))'")
         if not base_url:
             raise PodError(f".env의 {cfg['base_url_env']}가 비어 있습니다. 예: http://127.0.0.1:18000/v1")
-        up(parse_ssh(args.ssh), cfg["model"], key, base_url, restart=args.restart, timeout=args.timeout)
+        settings = server_settings(cfg)
+        print(f"서버 설정: {settings_line(settings)}", flush=True)
+        up(parse_ssh(args.ssh), cfg["model"], key, base_url, restart=args.restart, timeout=args.timeout,
+           settings=settings)
     except PodError as e:
         print(f"실패: {e}", file=sys.stderr)
         return 1
