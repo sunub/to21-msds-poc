@@ -115,3 +115,18 @@ def test_real_module_survives_empty_title_with_extras():
     sec8 = next(s for s in regenerated.regenerate_sections(doc, regen)[0]["sections"] if s["section"] == 8)
     assert any(line["text"] == regenerated._standard_titles()[target["item_code"]] for line in sec8["lines"])
     assert not any("None" in line["text"] for line in sec8["lines"])
+
+
+def test_main에만_3_12_문법이_있는_TO21_스크립트도_읽는다(tmp_path, monkeypatch):
+    """TO21 재생성 스크립트 514행(main 안, f-string 속 백슬래시)은 3.11에서 못 읽는다. 쓰는 함수는 main 앞에 있다(B-15)."""
+    from msds.checks import validator
+
+    script = tmp_path / "regen.py"
+    script.write_text('def to_db(doc, path):\n    return "db"\n\n\ndef main():\n'
+                      '    tb = "t"\n    print(f"{tb}: {f\'SELECT \\"{tb}\\"\'}")\n', encoding="utf-8")
+    monkeypatch.setattr(validator, "to21_file", lambda kind: script)
+    load_to21_module.cache_clear()  # 앞 시험이 읽은 실제 스크립트가 캐시에 있다
+    try:
+        assert load_to21_module("regen").to_db({}, "x") == "db"
+    finally:
+        load_to21_module.cache_clear()
