@@ -155,7 +155,7 @@ def _section_checks(checks: dict, run_dir: Path, job_id: str, msds_count: int) -
             if not isinstance(errors, list) or not errors:
                 raise HandoffNotReady('실패한 항의 오류 기록이 없습니다')
             failed.append({'msds_index': index, 'section': section, 'error': '; '.join(map(str, errors))})
-        if 'first_attempt' in raw or 'reextract_attempt' in raw:
+        if 'first_attempt' in raw or 'reextract_attempt' in raw or 'final_validation_attempt' in raw:
             reextracted.append({'msds_index': index, 'section': section})
     expected = {(index, section) for index in range(msds_count) for section in _SECTIONS}
     if not expected or seen != expected:
@@ -242,7 +242,8 @@ def build_handoff(*, job_id: str, handoff_seq: int, reason: str, created_at: str
                    'page_count': state.get('page_count'), 'text_layer': state.get('text_layer')},
         'extraction_settings': {'model_tag': state.get('model_tag'), 'model_config_sha256': cfg_hash,
                                 'code_commit': commit, 'schema_version': doc['schema_version'],
-                                'dictionary_version': doc['dictionary_version'], 'reused_from': None},
+                                'dictionary_version': doc['dictionary_version'],
+                                'reused_from': state.get('reused_from')},
         'extraction': edited, 'extraction_sha256': canonical_sha256(edited),
         'checks': {'validator': {'version': 'v0.6', 'errors': errors, 'warnings': warnings},
                    'failed_sections': failed, 'reextracted_sections': retried,
