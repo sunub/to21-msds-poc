@@ -13,6 +13,7 @@
  *   demo-savefail   저장이 500 으로 실패한다
  *   demo-pdffail    PDF 리포트가 422(글이 빠진 PDF)로 거절된다
  *   demo-single     단일물질(수소) / demo-unknown  단일·혼합을 판별하지 못함
+ *   demo-none       아직 판정이 없다: status 는 판정 없음, 판정·저장 개요는 404 (넘김을 보내면 3초 뒤 첫 판정)
  * 상태가 바뀌는 일(판정 중 → 판정 있음, 설명 작성 중 → 완료)은 시각으로 정한다: 모든 호출이 먼저 tick() 으로 지금 상태를 맞춘다.
  */
 import type {
@@ -302,7 +303,7 @@ const labelOf = (s: Spec) =>
           ? "위험물"
           : "단일·혼합 판별";
 
-const catText = (category: string | null | undefined) => (category ? `구분 ${category}` : "분류되지 않음");
+const catText = (category: string | null | undefined) => (category == null || category === "" ? "기재 없음" : /^\d/.test(category) ? `구분 ${category}` : category);
 const withForm = (text: string, form: string | null | undefined) => (form ? `${text} (${form})` : text);
 const applicableText = (value: string | null | undefined, threshold: { raw?: string | null } | null | undefined) => {
   if (!value) return "기재 없음";
@@ -432,9 +433,9 @@ function build(specs: Spec[], opts: { productType: "단일물질" | "혼합물" 
 
 const template = (text: string): ExplanationEntry => ({ status: "완료", by: "template", checked: true, summary: text, reasons: [], basis: [] });
 
-export type Scenario = "plain" | "states" | "conflict" | "savefail" | "pdffail" | "single" | "unknown";
+export type Scenario = "plain" | "states" | "conflict" | "savefail" | "pdffail" | "single" | "unknown" | "none";
 export const scenarioOf = (job: string): Scenario =>
-  job.startsWith("demo-states") ? "states" : job.startsWith("demo-conflict") ? "conflict" : job.startsWith("demo-savefail") ? "savefail" : job.startsWith("demo-pdffail") ? "pdffail" : job.startsWith("demo-single") ? "single" : job.startsWith("demo-unknown") ? "unknown" : "plain";
+  job.startsWith("demo-states") ? "states" : job.startsWith("demo-conflict") ? "conflict" : job.startsWith("demo-savefail") ? "savefail" : job.startsWith("demo-pdffail") ? "pdffail" : job.startsWith("demo-single") ? "single" : job.startsWith("demo-unknown") ? "unknown" : job.startsWith("demo-none") ? "none" : "plain";
 
 /** 상황별 기본 판정 한 벌 (검토·버전은 아직 없다) */
 function viewFor(scen: Scenario, variantArg: DemoVariant) {
@@ -510,8 +511,9 @@ const kst = (ms: number) => `${new Date(ms + 9 * 3600_000).toISOString().slice(0
 export function newStore(job: string, now = Date.now()): Store {
   const scen = scenarioOf(job);
   const states = scen === "states";
+  const none = scen === "none";
   const st: Store = {
-    scen, latest: 1, handoff: states ? 2 : 1, pending: states ? 2 : null, judgeAt: null, startedAt: now, v2At: null, v2Handoff: 2,
+    scen, latest: none ? 0 : 1, handoff: none ? 0 : states ? 2 : 1, pending: states ? 2 : null, judgeAt: null, startedAt: now, v2At: null, v2Handoff: 2,
     armConflict: scen === "conflict", events: [], snapshots: [],
   };
   if (states) {
@@ -528,8 +530,10 @@ export function newStore(job: string, now = Date.now()): Store {
 function tick(st: Store, now: number) {
   if (st.pending !== null && st.judgeAt !== null && now >= st.judgeAt) {
     st.latest += 1;
-    st.v2At = st.judgeAt;
-    st.v2Handoff = st.pending;
+    if (st.latest >= 2) {
+      st.v2At = st.judgeAt;
+      st.v2Handoff = st.pending;
+    }
     st.pending = null;
     st.judgeAt = null;
     st.startedAt = 0; // 새 판정의 설명은 처음부터 완료
@@ -545,7 +549,7 @@ const fingerprint = (f: Finding) => {
 export function viewOf(job: string, st: Store, version?: number, variant?: DemoVariant, now = Date.now()): JudgmentView {
   tick(st, now);
   const v = version ?? st.latest;
-  if (!Number.isInteger(v) || v < 1 || v > st.latest) throw fail(404, `없는 판정 버전: ${version}`);
+  if (st.latest === 0 || !Number.isInteger(v) || v < 1 || v > st.latest) throw fail(404, `판정이 없음: ${job}${version ? ` 버전 ${version}` : ""}`);
   const base = viewFor(st.scen, variant);
   const r = base.consistency.results[0];
   if (v >= 2) {
@@ -615,6 +619,11 @@ const countBy = (findings: Finding[]) =>
   ({ 일치: 0, 불일치: 0, 경계: 0, 근거부족: 0, 경고: 0, 참고: 0, "범위 외": 0, ...Object.fromEntries(["일치", "불일치", "경계", "근거부족", "경고", "참고", "범위 외"].map((v) => [v, findings.filter((f) => f.verdict === v).length])) }) as SaveOverview["verdicts"]["total"];
 
 export function statusOf(job: string, st: Store, now = Date.now()): JudgmentStatus {
+  tick(st, now);
+  if (st.latest === 0) {
+    // 판정이 아직 없다: 넘김도 없으면 판정 없음, 넘겼으면 판정 중 (서버는 모르는 작업에도 404 가 아니라 판정 없음으로 답한다)
+    return { job_id: /^U-/.test(job) ? job : JOB, state: st.pending !== null ? "판정 중" : "판정 없음", latest_version: null, pending_handoff: st.pending, explanations: { done: 0, total: 0 }, saved_snapshot: null, error: null, unreviewed: 0 };
+  }
   const view = viewOf(job, st, undefined, undefined, now);
   const exps = Object.values(view.explanations);
   return {
@@ -626,6 +635,7 @@ export function statusOf(job: string, st: Store, now = Date.now()): JudgmentStat
 
 export function versionsOf(job: string, st: Store, now = Date.now()): VersionListItem[] {
   tick(st, now);
+  if (st.latest === 0) throw fail(404, `판정이 없음: ${job}`);
   const list: VersionListItem[] = [];
   for (let n = st.latest; n >= 1; n -= 1) {
     const v = viewOf(job, st, n, undefined, now);
@@ -637,7 +647,7 @@ export function versionsOf(job: string, st: Store, now = Date.now()): VersionLis
 /** 옛 화면을 보고 확정하거나, 고친 값을 판정하기 전에 저장해 추출값과 판정이 어긋나는 일을 막는다 */
 function checkCurrent(st: Store, seenVersion: number) {
   if (st.pending !== null) throw fail(409, { message: `넘김 기록 ${st.pending}을 아직 판정하지 않음`, latest_version: st.latest, pending_handoff: st.pending });
-  if (seenVersion !== st.latest) throw fail(409, { message: `더 새로운 판정 버전이 있습니다 (최신 ${st.latest}, 본 것 ${seenVersion})`, latest_version: st.latest, pending_handoff: null });
+  if (seenVersion !== st.latest) throw fail(409, { message: `최신 판정 버전은 ${st.latest}`, latest_version: st.latest, pending_handoff: null });
 }
 
 /** demo-conflict: 화면이 버전 1 을 읽은 뒤 더 새 판정(버전 2)이 생긴 것으로 한다. 첫 쓰기 요청 때 일어난다 */
@@ -652,6 +662,7 @@ function armConflict(st: Store, now: number) {
 
 export function postReviewTo(job: string, st: Store, req: ReviewEventRequest, now = Date.now()): ReviewEvent {
   tick(st, now);
+  if (st.latest === 0) throw fail(404, `판정이 없음: ${job}`);
   armConflict(st, now);
   checkCurrent(st, req.seen_version);
   const view = viewOf(job, st, undefined, undefined, now);
@@ -675,6 +686,7 @@ export function postReviewTo(job: string, st: Store, req: ReviewEventRequest, no
 
 export function postSnapshotTo(job: string, st: Store, req: SaveRequest, now = Date.now()): Snapshot {
   tick(st, now);
+  if (st.latest === 0) throw fail(404, `판정이 없음: ${job}`);
   if (st.scen === "savefail") throw fail(500, "서버가 저장을 마치지 못했습니다.");
   armConflict(st, now);
   checkCurrent(st, req.seen_version);
@@ -702,7 +714,14 @@ export function toJudgmentTo(job: string, st: Store, now = Date.now()) {
   return { job_id: /^U-/.test(job) ? job : JOB, handoff_seq: st.handoff };
 }
 
+/** 서버 구현의 넘김 응답 (POST /api/documents/{id}/handoffs, 201): 화면은 job_id·handoff_seq 만 쓴다 */
+export function handoffTo(job: string, st: Store, now = Date.now()) {
+  const base = toJudgmentTo(job, st, now);
+  return { ...base, as_of: "2026-11-02", extraction_sha256: "0".repeat(64), validator: { version: "v0.6", errors: 0, warnings: 0 } };
+}
+
 export function historyOf(job: string, st: Store, now = Date.now()): HistoryEntry[] {
+  if (st.latest === 0) return [];
   const view = viewOf(job, st, undefined, undefined, now);
   const byId = new Map(view.consistency.results[0].findings.map((f) => [f.id, f]));
   const current = new Set(byId.keys());
@@ -736,6 +755,7 @@ export function saveOverviewOf(job: string, st: Store, now = Date.now()): SaveOv
 
 export function summaryItemOf(job: string, st: Store, now = Date.now()): JudgmentBatchItem {
   const s = statusOf(job, st, now);
+  if (st.latest === 0) return { job_id: s.job_id, state: s.state, latest_version: null, unreviewed: 0, saved_snapshot: null, saved_at: null, data_grade: "실버" };
   const view = viewOf(job, st, undefined, undefined, now);
   const last = st.snapshots[0];
   const c = counts(st, view);
@@ -751,11 +771,12 @@ const escapeHtml = (s: string) => s.replace(/[&<>"]/g, (ch) => ({ "&": "&amp;", 
 
 /** 리포트 파일 (개발용 내용: 판정 표만 담은 간단한 문서). pdffail 은 글이 빠진 PDF 를 흉내 내 422 */
 export function reportOf(job: string, st: Store, req: ReportRequest, now = Date.now()): { contentType: string; filename: string; body: string } {
-  if (req.format === "pdf" && st.scen === "pdffail") throw fail(422, "글이 빠진 PDF는 내보내지 않습니다 (재생성 MSDS 2항 글이 비어 있음)");
+  if (req.format === "pdf" && st.scen === "pdffail") throw fail(422, "PDF에 글이 빠짐, 리포트를 내보내지 않음: '재생성 MSDS 2항 글이 비어 있음'");
   if (req.snapshot_no != null && !st.snapshots.some((s) => s.snapshot_no === req.snapshot_no)) throw fail(404, `저장본이 없음: ${job} ${req.snapshot_no}`);
   const view = viewOf(job, st, undefined, undefined, now);
   const r = view.consistency.results[0];
-  const base = `${view.job_id}_MSDS_검토결과${req.snapshot_no ? `_저장본${req.snapshot_no}` : ""}`;
+  // 서버(reports.filename): 제품명_MSDS_검토결과.확장자 (저장본 번호는 파일 이름에 넣지 않는다)
+  const base = `${st.scen === "single" ? "수소" : "황산"}_MSDS_검토결과`;
   const include = req.include;
   if (req.format === "json") {
     const body = { contract: "report/1", job_id: view.job_id, snapshot: st.snapshots.find((s) => s.snapshot_no === req.snapshot_no) ?? null, version: view.version, extraction: { doc: { doc_id: r.msds_index === 0 ? "KZ-A-S004" : "" }, msds: [] }, field_status: view.field_status, consistency: view.consistency, reviews: view.reviews, events: st.events.map(({ sha, ...e }) => (void sha, e)) };

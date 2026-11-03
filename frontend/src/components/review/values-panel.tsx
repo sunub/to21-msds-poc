@@ -148,7 +148,7 @@ function Values({ doc }: { doc: DocumentDetail }) {
         <div className="flex flex-wrap items-center gap-2">
           {handoff.isError && (
             <span role="alert" className="text-sm text-red">
-              판정으로 넘기지 못했습니다. 잠시 뒤 다시 시도해 주세요.
+              {handoff.error instanceof ApiRequestError ? `판정으로 넘기지 못했습니다. ${handoff.error.message}` : "판정으로 넘기지 못했습니다. 잠시 뒤 다시 시도해 주세요."}
             </span>
           )}
           <Link href={routes.review(doc.id, "hazard")} className={buttonStyles({ size: "lg" })}>

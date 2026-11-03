@@ -3,7 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
 import { judgmentStatusQuery } from "@/api/judgments";
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { DocSummaryLine } from "@/components/review/doc-summary-line";
 import { JudgmentMetaLine } from "@/components/review/judgment-meta-line";
 import { HistoryPanel } from "@/components/review/history/history-panel";
@@ -22,9 +22,14 @@ function ReviewBody({ doc }: { doc: string }) {
   const param = useSearchParams().get("tab");
   const tab: ReviewTab = isReviewTab(param) ? param : "hazard";
   const [guardOpen, setGuardOpen] = useState(false);
-  const { unresolvedCount, conflict, refresh, version } = useReviewState();
+  const { unresolvedCount, conflict, conflictMessage, refresh, version, ready } = useReviewState();
   // 추출값 탭은 판정이 필요 없다: 판정 서버가 없을 때 불필요한 요청과 오류를 만들지 않는다
   const status = useQuery({ ...judgmentStatusQuery(doc), enabled: tab !== "values" }).data;
+  // 아직 판정이 없다가(404) 판정이 생기면 바로 다시 읽는다. 이미 판정을 보고 있으면 건드리지 않고 아래 안내만 한다
+  const latestVersion = status?.latest_version ?? null;
+  useEffect(() => {
+    if (!ready && latestVersion !== null && tab !== "values") refresh();
+  }, [ready, latestVersion, tab, refresh]);
   // 판정이 새로 나와 화면의 판정보다 최신이면 409 와 같은 안내를 미리 한다
   const outdated = conflict || (status?.latest_version != null && version !== null && status.latest_version > version);
   // 처리하지 않은 판정이 없으면 경고 없이 바로 저장 화면으로 간다
@@ -45,7 +50,7 @@ function ReviewBody({ doc }: { doc: string }) {
 
       {outdated && (
         <Callout tone="danger" role="alert" className="flex flex-wrap items-center gap-2">
-          <span>더 새로운 판정 버전이 있습니다. 새로고침해 주세요.</span>
+          <span>{conflictMessage || "더 새로운 판정 버전이 있습니다. 새로고침해 주세요."}</span>
           <Button onClick={refresh}>새로고침</Button>
         </Callout>
       )}

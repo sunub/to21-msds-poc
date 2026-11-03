@@ -7,7 +7,7 @@ import { useState } from "react";
 import { documentDetailQuery } from "@/api/documents";
 import type { ReportRequest } from "@/api/contract/api";
 import type { Verdict } from "@/api/findings-schemas";
-import { isConflict, judgmentErrorText, judgmentKeys, postReport, postSnapshot, saveOverviewQuery } from "@/api/judgments";
+import { conflictText, isConflict, judgmentErrorText, judgmentKeys, postReport, postSnapshot, saveOverviewQuery } from "@/api/judgments";
 import { VERDICT_TONE } from "@/components/review/hazard/verdict";
 import { Foot, Row } from "@/components/shell/layout";
 import { Button, Callout, Checkbox, Skeleton, Spinner, StatusLabel, buttonStyles } from "@/components/ui";
@@ -78,7 +78,7 @@ export function SaveView({ docId }: { docId: string }) {
       const format = kind === "preview" ? "html" : kind;
       // 미리 보기는 저장하지 않은 최신 판정(snapshot_no null)으로, 나머지는 가장 최근 저장본으로 만든다
       const request: ReportRequest = { format, snapshot_no: kind === "preview" ? null : (lastSnapshot?.snapshot_no ?? null), include };
-      const file = await postReport(docId, request);
+      const file = await postReport(docId, request, doc?.product_name ?? (doc ? stem(doc.filename) : docId));
       if (kind === "preview") {
         if (!openBlob(file.blob)) throw new Error("새 탭이 막혀 미리 보기를 열지 못했습니다. 팝업을 허용해 주세요.");
       } else downloadBlob(file.blob, file.filename);
@@ -219,7 +219,7 @@ export function SaveView({ docId }: { docId: string }) {
           )}
           {saveConflict && !saving && (
             <Callout tone="danger" role="alert" className="flex flex-wrap items-center gap-2">
-              <span>더 새로운 판정 버전이 있습니다. 새로고침해 주세요.</span>
+              <span>{conflictText(save.error)}</span>
               <Button
                 onClick={() => {
                   save.reset();

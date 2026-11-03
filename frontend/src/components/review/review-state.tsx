@@ -15,7 +15,7 @@ import { createContext, useCallback, useContext, useMemo, useState, type ReactNo
 import { screenReview } from "@/api/adapt/maps";
 import { findingsQuery } from "@/api/findings";
 import type { ReviewState, Verdict } from "@/api/findings-schemas";
-import { isConflict, judgmentKeys, judgmentViewQuery, postReview } from "@/api/judgments";
+import { conflictText, isConflict, judgmentKeys, judgmentViewQuery, postReview } from "@/api/judgments";
 import { useReviewer } from "@/lib/reviewer";
 import { isActionable } from "./hazard/verdict";
 import { useValidationId } from "./shared/use-validation-id";
@@ -52,6 +52,8 @@ type ReviewStateValue = {
   version: number | null;
   /** 검토 요청이 409 로 막혔다: 더 새로운 판정 버전이 있거나 다른 검토자가 먼저 처리했다 */
   conflict: boolean;
+  /** 409 의 이유를 사용자 말로 (conflict 가 켜졌을 때) */
+  conflictMessage: string;
   /** 판정을 다시 읽는다 (409 안내의 새로고침) */
   refresh: () => void;
 };
@@ -72,7 +74,7 @@ export function ReviewStateProvider({ docId, enabled = true, children }: { docId
   const findings = useMemo(() => [...(hazard?.items ?? []), ...(regulation?.items ?? [])], [hazard, regulation]);
   const byId = useMemo(() => new Map(findings.map((f) => [f.finding_id, f])), [findings]);
 
-  const [conflict, setConflict] = useState(false);
+  const [conflictMessage, setConflictMessage] = useState<string | null>(null);
   const version = view.data?.version ?? null;
 
   const getState = useCallback(
@@ -103,13 +105,13 @@ export function ReviewStateProvider({ docId, enabled = true, children }: { docId
     },
     // 판정과 상태·이력·저장 요약을 다시 읽는다. 읽기가 끝날 때까지 기다려 다음 쓰기가 최신 값을 보게 한다
     onSuccess: async () => {
-      setConflict(false);
+      setConflictMessage(null);
       await queryClient.invalidateQueries({ queryKey: [...judgmentKeys.all, docId] });
     },
     onError: async (error) => {
       if (!isConflict(error)) return;
       // 409 본문(conflict_response)이 말하는 대로 판정 상태를 다시 읽는다
-      setConflict(true);
+      setConflictMessage(conflictText(error));
       await queryClient.invalidateQueries({ queryKey: judgmentKeys.status(docId) });
     },
   });
@@ -162,14 +164,14 @@ export function ReviewStateProvider({ docId, enabled = true, children }: { docId
   );
 
   const refresh = useCallback(() => {
-    setConflict(false);
+    setConflictMessage(null);
     void queryClient.invalidateQueries({ queryKey: [...judgmentKeys.all, docId] });
   }, [queryClient, docId]);
 
   const ready = view.isSuccess;
   const value = useMemo<ReviewStateValue>(
-    () => ({ ready, getState, confirm, approveException, undo, unresolvedCount, unresolvedByVerdict, version, conflict, refresh }),
-    [ready, getState, confirm, approveException, undo, unresolvedCount, unresolvedByVerdict, version, conflict, refresh],
+    () => ({ ready, getState, confirm, approveException, undo, unresolvedCount, unresolvedByVerdict, version, conflict: conflictMessage !== null, conflictMessage: conflictMessage ?? "", refresh }),
+    [ready, getState, confirm, approveException, undo, unresolvedCount, unresolvedByVerdict, version, conflictMessage, refresh],
   );
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;

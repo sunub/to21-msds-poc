@@ -13,10 +13,12 @@
  *   GET  /api/judgments/summary?job_ids=a,b,c
  *   POST /api/judgments/{job}/reviews            201 review_event. 낡은 seen_version·seen_event_id 409, 확인·확정 대상이 아닌 판정 422
  *   POST /api/judgments/{job}/snapshots          201 snapshot. 낡은 판정 409. 저장할 때마다 snapshot_no 증가
- *   POST /api/judgments/{job}/reports            html·xlsx·pdf·json 파일 (개발용 내용)
+ *   POST /api/judgments/{job}/reports            html·xlsx·pdf·json 파일 (개발용 내용). 파일 이름 헤더는 filename* 만, html 은 헤더 없음, CORS 로 노출하지 않음 (실제 서버와 같다)
  * 추출 서버 (A) 쪽 신규 칸 — demo 문서만
- *   POST /api/documents/{id}/to-judgment         200 {job_id, handoff_seq}. 3초 뒤 새 판정 버전(2)이 생긴다
- *   GET  /api/documents/{id}/review/log          추출값 검수 기록 (history_entry[])
+ *   POST /api/documents/{id}/handoffs            201 {job_id, handoff_seq, as_of, extraction_sha256, validator}. 실제 서버의 넘김 경로. 3초 뒤 새 판정이 생긴다
+ *   POST /api/documents/{id}/to-judgment         200 {job_id, handoff_seq}. 계약의 이름 (실제 서버에는 없다)
+ *   GET  /api/documents/{id}/review/log          추출값 검수 기록 (history_entry[]). 계약의 A2 경로 (실제 서버에는 아직 없다)
+ *   MOCK_NO_A2=1 이면 위 두 계약 경로를 404 로 답한다
  *   GET  /api/documents, GET /api/documents/{id} queue_fields·document_extras 가 붙은 문서 목록·상세
  *
  * 응답 데이터와 상태 규칙은 src/api/demo-judgment.ts 의 핵심 함수를 그대로 쓴다 (브라우저 데모와 같은 코드, 두 번 쓰지 않는다).
@@ -29,6 +31,7 @@
  *   demo-conflict   읽어 간 판정(버전 1)이 낡는다: 첫 검토·저장 요청은 409, 다시 읽으면 버전 2
  *   demo-savefail   저장이 500 으로 실패한다
  *   demo-pdffail    PDF 리포트가 422(글이 빠진 PDF)로 거절된다
+ *   demo-none       아직 판정이 없다 (판정 없음 → 넘김 → 판정 중 → 판정 있음). 판정·저장 개요는 그 전까지 404 "판정이 없음"
  *   demo-single / demo-unknown  단일물질(수소) / 단일·혼합을 판별하지 못함
  * 상태는 서버 메모리에만 있다 (서버를 다시 켜면 사라진다).
  */
@@ -41,6 +44,8 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(HERE, "..");
 const PORT = Number(process.env.PORT ?? 8021);
+/** MOCK_NO_A2=1: 추출 서버에 아직 없는 계약 경로(review/log, to-judgment)를 404 로 답한다 */
+const NO_A2 = process.env.MOCK_NO_A2 === "1";
 
 /* ── 프론트의 TypeScript 를 읽을 수 있게 옮긴다 ── */
 const ts = createRequire(path.join(ROOT, "package.json"))("typescript");
@@ -82,7 +87,7 @@ function cors(req, res) {
   }
   res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type,Accept");
-  res.setHeader("Access-Control-Expose-Headers", "Content-Disposition");
+  // 실제 서버는 Content-Disposition 을 노출하지 않는다 (다른 출처의 화면은 파일 이름 헤더를 읽지 못한다)
 }
 
 /** JSON 응답. schema 가 있으면 계약으로 확인하고 어긋나면 500 */
@@ -142,7 +147,8 @@ async function withBody(req, res, schema, what, fn) {
   }
 }
 
-const contentDisposition = (filename) => `attachment; filename="download"; filename*=UTF-8''${encodeURIComponent(filename)}`;
+/** 서버(reports.content_disposition): filename* 만 준다. html 은 헤더가 없다 */
+const contentDisposition = (filename) => `attachment; filename*=UTF-8''${encodeURIComponent(filename)}`;
 
 async function judgments(req, res, url, job, sub) {
   const st = storeOf(job);
@@ -209,13 +215,25 @@ const server = http.createServer(async (req, res) => {
     } else if ((m = p.match(/^\/api\/judgments\/([^/]+)(?:\/(status|versions|history|save-overview|reviews|snapshots|reports))?$/))) {
       const job = decodeURIComponent(m[1]);
       status = validJob(job) ? await judgments(req, res, url, job, m[2]) : fail(res, 404, `없는 판정: ${job}`);
+    } else if (req.method === "POST" && (m = p.match(/^\/api\/documents\/([^/]+)\/handoffs$/))) {
+      // 서버 구현의 넘김: 본문이 없고 201. (실제 서버는 PostgreSQL 작업에서만 되고, 아니면 409 에 이유 문장)
+      const id = decodeURIComponent(m[1]);
+      for await (const _ of req); // 본문을 읽지 않고 흘려 보낸다
+      status = validJob(id) ? send(res, 201, D.handoffTo(id, storeOf(id))) : fail(res, 404, `없는 문서: ${id}`);
     } else if (req.method === "POST" && (m = p.match(/^\/api\/documents\/([^/]+)\/to-judgment$/))) {
+      // 계약의 이름. 실제 서버에는 없다 (MOCK_NO_A2=1 이면 이 경로도 404)
+      if (NO_A2) {
+        status = fail(res, 404, "Not Found");
+        log(`${req.method} ${url.pathname} → ${status}`);
+        return;
+      }
       const id = decodeURIComponent(m[1]);
       status = validJob(id)
         ? await withBody(req, res, A.toJudgmentRequest, "to-judgment", () => send(res, 200, D.toJudgmentTo(id, storeOf(id)), A.toJudgmentResponse, "to_judgment_response"))
         : fail(res, 404, `없는 문서: ${id}`);
     } else if (req.method === "GET" && (m = p.match(/^\/api\/documents\/([^/]+)\/review\/log$/))) {
-      status = send(res, 200, D.reviewLogOf(), A.historyEntry.array(), "review/log");
+      // 계약의 A2 경로. 실제 서버에는 아직 없다 (MOCK_NO_A2=1 이면 404 로 답해 없는 서버를 흉내 낸다)
+      status = NO_A2 ? fail(res, 404, "Not Found") : send(res, 200, D.reviewLogOf(), A.historyEntry.array(), "review/log");
     } else if (req.method === "GET" && p === "/api/documents") {
       const filter = url.searchParams.get("status") ?? "all";
       status = send(res, 200, DOCS.demoList(filter), S.documentListResponseSchema, "documents");
