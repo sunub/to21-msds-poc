@@ -20,6 +20,7 @@ from psycopg_pool import ConnectionPool
 
 from msds.api.judge_app import router
 from msds.compliance.htodb.config import pg_kwargs
+from msds.compliance.explain import engine_basis
 from msds.compliance.htodb.csv_repo import CsvRepo
 from msds.judge import explain as ex
 from msds.judge import reports
@@ -297,7 +298,9 @@ def test_검사를_통과한_모델_설명은_그대로_저장하고_창구를_�
             return ex._SemaphoreGate(1).slot_sync(kind)
 
     def good(system, user):
-        return {"summary": "흡입 형태가 다릅니다.", "reasons": ["MSDS와 계산의 형태가 다릅니다."], "basis": [], "used_numbers": []}, {"model": "fake-1", "errors": []}
+        # 근거는 원문에 없는 쪽·항 번호를 지어낸다. 저장본 근거는 엔진이 요청에서 만든 것이어야 한다 (우진 결정 14)
+        return {"summary": "흡입 형태가 다릅니다.", "reasons": ["MSDS와 계산의 형태가 다릅니다."],
+                "basis": ["MSDS 9쪽 2항 기재"], "used_numbers": []}, {"model": "fake-1", "errors": []}
 
     fake = JudgeService(pool=pool, provider=svc.provider, llm=good, gate=Gate())
     put(handoff(gold25))
@@ -309,6 +312,7 @@ def test_검사를_통과한_모델_설명은_그대로_저장하고_창구를_�
     assert contract_errors("4-explanation.schema.json#/$defs/stored", stored) == []
     request = admin.execute("SELECT request FROM judge.explanation WHERE finding_id=%s", (FID,)).fetchone()[0]
     assert contract_errors("4-explanation.schema.json#/$defs/request", request) == []
+    assert stored["basis"] == engine_basis(request) and stored["basis"] and "9쪽" not in " ".join(stored["basis"])
 
 
 def test_모델이_응답하지_않아도_저장_흐름은_멈추지_않는다(svc, put, gold25, pool):

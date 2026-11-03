@@ -205,7 +205,7 @@ def _judge_component(key, s_row, comp, know, db_rows, covered, ph=None, sec15_re
                         **common)
         if s != "해당" and state:
             return _row(ref_no, cas, law, item, BORDER, RULE_IDS["border"], expected=exp,
-                        reason=f"함량상 해당이지만 조문에 성상 조건('{state}')이 있어 사람 확인: {basis} (11/02 F 결정 11)",
+                        reason=f"함량상 해당이지만 조문에 적용 조건('{state}')이 있어 사람 확인: {basis} (11/02 F 결정 11)",
                         cause="CONDITION_CHECK", **common)
         if s != "해당" and ph_max is not None and ph is None:
             return _row(ref_no, cas, law, item, BORDER, RULE_IDS["border"], expected=exp,
@@ -217,6 +217,9 @@ def _judge_component(key, s_row, comp, know, db_rows, covered, ph=None, sec15_re
                         reason=f"함량상 해당인데 MSDS는 {s or '행 없음'}: {basis}",
                         cause_text=f"함량상 해당인데 {said}: {basis}", **common)
         if mt and best and (mt[0] != best["threshold_op"] or abs(float(mt[1]) - best["threshold_value"]) > 1e-9):
+            if state and re.search(rf"(?<![\d.]){float(mt[1]):g}\s*%", state):  # MSDS '1%'는 조건 '석면이 1% 이상 함유된 탈크'의 숫자 (결정 B-43)
+                asm.append(f"MSDS 기준 {_fmt(*mt)}는 조문 적용 조건('{state}')의 함량으로 봄")
+                return _row(ref_no, cas, law, item, MATCH, RULE_IDS["match"], expected=exp, reason=basis, **common)
             return _row(ref_no, cas, law, item, MISMATCH, RULE_IDS[THRESHOLD], type_=THRESHOLD, expected=exp,
                         reason=f"둘 다 해당이지만 기준 농도 표기가 다름: MSDS {_fmt(*mt)}, 지식DB {dbt}", **common)
         return _row(ref_no, cas, law, item, MATCH, RULE_IDS["match"], expected=exp, reason=basis, **common)
