@@ -16,10 +16,10 @@ def _same(item, derived, msds):
 def _h_codes(derived, msds, cmp, optional):
     d, m = set(derived), set(msds)
     missing, extra, out = d - m, m - d, []
-    for opt in optional:  # 생략 가능한 H코드만 없는 경우는 불일치가 아니라 참고
-        if missing == {opt["optional"]} and opt["if_present"] in d:
-            out.append(_finding("h_codes", opt, derived, msds, missing=missing))
-            missing = set()
+    for opt in optional:  # 생략 가능한 H코드는 다른 코드가 함께 빠져도 불일치 사유가 아니라 참고다 (H314 있으면 H318 생략)
+        if opt["optional"] in missing and opt["if_present"] in m:  # MSDS가 H314를 적었으면 H318 생략은 참고
+            out.append(_finding("h_codes", opt, derived, msds, missing={opt["optional"]}))
+            missing = missing - {opt["optional"]}
     if missing:
         out.append(_finding("h_codes", cmp["missing_h"], derived, msds, missing=missing))
     if extra:

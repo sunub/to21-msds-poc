@@ -447,7 +447,7 @@ def _regulation(row, ctx):
     f = _base(ctx["i"], key, "15", "dangerous_goods" if dg else "regulation", "DG" if dg else f"{law}.{code}",
               "위험물" if dg else _reg_name(code), msds, expected, verdict, row.get("reason"), rule=row.get("rule_id"),
               type_=row.get("type"), severity=row.get("severity"), causes=row.get("causes") or (),
-              comp=_comp(ref, comp), law=LAW_LABEL.get(law, law), method="인화점 판정" if dg else "규제DB 대조")
+              comp=_comp(ref, comp), law=LAW_LABEL.get(law, law), method="인화점 판정" if dg else "15항 기재 확인" if code == "KREACH_SECTION" else "규제DB 대조")
     return f, _trace(raw, row, ctx["kv"], None, None, exp, exp, status, basis, calc,
                      kind="dg_check" if dg else "regulation_check")
 
@@ -618,7 +618,8 @@ def _evidence_targets(row, item):
     code = row.get("class_code")
     if row.get("section") == "15":
         out = [f"regulations[{i}]" for i, r in enumerate(item.get("regulations") or [])
-               if str(r.get("comp_ref")) == str(row.get("comp_ref")) and r.get("item_code") == row.get("item_code")]
+               if str(r.get("comp_ref")) == str(row.get("comp_ref")) and (r.get("item_code") == row.get("item_code") or (
+                   row.get("item_code") == "OSH_SPECIAL" and r.get("item_code") == "OSH_MANAGED" and "특별관리" in str(r.get("remark")) + str(r.get("value_raw"))))]
         return out + [f"components[{i}]" for i, c in enumerate(item.get("components") or [])
                       if str(c.get("seq")) == str(row.get("comp_ref"))]
     if code in _LABEL_FIELD:
