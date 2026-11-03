@@ -38,6 +38,7 @@ dev = [
 ocr = [
   "docling>=2.144.0",
   "paddleocr==3.2.0",
+  "pillow==13.0.0",          # preprocess/unit_fidelity 가 함수 안에서 쓴다 (paddleocr 경로에서만 실행)
   "onnxruntime-gpu>=1.31.1; sys_platform == 'linux'",
   "paddlepaddle-gpu==3.2.0; sys_platform == 'linux'",
 ]
