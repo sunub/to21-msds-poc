@@ -64,6 +64,32 @@ _SAID_DB_APPLICABLE = re.compile(r"(?:규제\s*DB|지식\s*DB|DB|계산|검증)(
 _SAID_MSDS_APPLICABLE = re.compile(r"MSDS[^.,]{0,14}?" + _APPLICABLE)
 _SAID_NOT_REGULATED = re.compile(r"규제 대상이 아닙|규제되지 않|대상에서 제외|적용되지 않")
 _SAID_REGULATED = re.compile(r"규제 대상입니다|법 적용을 받")
+# 15항 경계는 함량에 따라 해당 여부가 갈린다는 뜻이라 방향이 없다. 실제 모델이 "MSDS가 더 강하게 적었다"고 과기재처럼 썼다 (2026-11-04 측정)
+# "더 높게 걸쳐", "과기재인지 확정할 수 없다", "과대분류 여부는", "더 강하게 적었는지", "기준이 더 엄격하게 정해져", "높게 기재되어"는
+# 경계를 바르게 설명한 말이라 걸지 않는다. 예외는 바로 뒤 몇 글자만 본다. 쉼표·다음 절까지 보면 "과기재했으며, 해당 여부는"을 놓친다
+# shortcut: 단정하는 흔한 모양만 본다. "강하게 적었"("더" 없음), "과다 기재", "더 엄격하게 적용했다"는 지나간다
+_UNDECIDED = r"(?![^.,]{0,5}?(?:인지|는지|여부|단정|수 없|어렵))"
+_SAID_DIRECTION = re.compile(r"(?:더 (?:강하게|약하게|엄격하게|느슨하게)(?! 정해| 적용)|(?:높게|낮게) (?:적었|적은|적어|기재(?!되))"
+                             r"|과기재|과소 ?기재|과대 ?분류|과소 ?분류)" + _UNDECIDED)
+
+
+def _split_names(text: str, req: dict) -> list[str]:
+    """쉼표가 든 성분 이름을 쉼표에서 나눠 '앞부분와 뒷부분'처럼 두 성분으로 쓴 이름들.
+
+    원인 글이 성분 이름을 ", "로 이어 붙여(이름 안에도 쉼표가 있다) 실제 모델이 '포름알데히드, polymers with …' 한 성분을
+    '포름알데히드와 polymers with …' 두 성분으로 썼다 (2026-11-04 측정). 앞부분 바로 뒤에 접속사와 뒷부분 첫 낱말이 이어질 때만 본다.
+    앞부분이 다른 이름의 일부('파라포름알데히드와')이거나 그 자체로 다른 성분 이름이면 보지 않는다.
+    shortcut: 요청의 성분 목록(compact trace, 최대 8개)만 본다. 잘린 성분은 검사하지 않는다.
+    """
+    names = {i["name"] for i in ((req.get("trace") or {}).get("inputs") or []) if isinstance(i, dict) and isinstance(i.get("name"), str)}
+    out = []
+    for n in names:
+        head, _, tail = n.partition(", ")
+        first = tail.split()[0] if tail.split() else ""
+        if first and head not in names and re.search(
+                r"(?<![\w-])" + re.escape(head) + r"\s*(?:와|과|및|이나|또는)\s+" + re.escape(first), text):
+            out.append(n)
+    return sorted(out)
 
 
 def _applicable_word(said: str) -> str:
@@ -97,6 +123,9 @@ def claim_problems(resp: dict, req: dict) -> list[str]:
             out.append("규제DB 결과를 '비해당'(으)로 말함")
         if exp.get("applicable") == "비해당" and _SAID_REGULATED.search(text):
             out.append("규제DB 결과를 '해당'(으)로 말함")
+        if f["verdict"] == "경계" and (m := _SAID_DIRECTION.search(text)):
+            out.append(f"경계 줄에 방향('{m[0]}')을 말함")
+    out += [f"성분 이름 '{n}'을 둘로 나눠 씀" for n in _split_names(text, req)]
     if f.get("kind") == "class":  # 값이 없는 칸은 요청에서 빠지므로 칸 유무로 판단하면 검사를 건너뛴다
         allowed = _categories(exp.get("low"), exp.get("high"))
         said = [next(filter(None, groups)) for groups in _SAID_EXPECTED.findall(text)]
