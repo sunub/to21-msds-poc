@@ -1583,7 +1583,8 @@ def test_아주_긴_글자도_오래_걸리지_않는다():
 
     start = time.monotonic()
     lines = reports._wrap("W" * 40000, 10.0)
-    assert time.monotonic() - start < 3 and "".join(lines) == "W" * 40000
+    # 지금 약 2초(글자마다 폭을 재는 pymupdf 비용). 통째로 재던 제곱 시간은 수십 초라 10초로 가른다. 3초는 부하에서 흔들렸다
+    assert time.monotonic() - start < 10 and "".join(lines) == "W" * 40000
 
 
 def test_HTML도_긴_글자가_폭을_넘지_않게_한다():
