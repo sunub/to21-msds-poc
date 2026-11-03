@@ -68,8 +68,10 @@ def parse_acute(text: str, primary_value: Optional[str], div_code: str, mw: Opti
             factor = pv / big if big else None
             # 범위는 최솟값을 쓴다 (D-12). 숫자 칸은 대부분 상한이고(735행), 노출시간·단위 환산을 상한에만 한 행도 있어
             # 같은 배율을 하한에 곱한다. 배율이 알려진 환산이 아니면(기하평균 등) 숫자 칸을 그대로 둔다
-            if factor is not None and any(abs(factor - k) <= 0.01 * k for k in _RANGE_FACTORS) and (head_unit in ("", target) or factor != 1):
-                value, value_max, basis = small * factor, pv, "PRIMARY_VALUE · 범위 최솟값"
+            # 단위가 다르면 숫자 칸은 시간만 환산한 값일 수 있다(말로노니트릴 ㎎/㎥). ㎎/㎥만 단위까지 맞추고 나머지는 그대로 둔다
+            scale = 1.0 if head_unit in ("", target) else 0.001 if (head_unit, target) == ("mg/m3", "mg/L") else None
+            if scale and factor is not None and any(abs(factor - k) <= 0.01 * k for k in _RANGE_FACTORS):
+                value, value_max, basis = small * factor * scale, pv * scale, "PRIMARY_VALUE · 범위 최솟값"
         return {"descriptor": m.group(1) if m else "", "sign": raw_sign, "value": value, "value_max": value_max,
                 "unit": target, "species": species, "basis": basis}
     if not m:

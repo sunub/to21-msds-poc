@@ -244,10 +244,13 @@ def _celsius(v, unit):
 
 
 def _prop(physchem, code):
-    for p in _product_rows(physchem, code):
+    rows = _product_rows(physchem, code)
+    for p in rows:  # 값이 있는 행을 먼저 본다 ('자료없음' 행 뒤에 값이 오기도 한다)
         q = p.get("q") or {}
         if q.get("value") is not None:
             return _celsius(q["value"], q.get("unit")), q.get("status")
+    for p in rows:
+        q = p.get("q") or {}
         if q.get("status"):
             return None, q.get("status")
     return None, None
@@ -266,7 +269,7 @@ def _class4(physchem):
     """9항 값으로 제4류 품명. (품명|None, 경계 여부, 설명, 액체·값이 불확실해서 생긴 경계인가)."""
     states = [p.get("text_value") for p in (physchem or {}).get("APPEARANCE_STATE") or [] if p.get("text_value")]
     state = " / ".join(states)
-    if re.search(r"가스|기체|\bgas\b|liquefied|compressed", state, re.I):  # '액체가스'(액화가스)는 고압가스 — 제4류 아님
+    if _DG_GAS.search(state):  # '액체가스'(액화가스)는 고압가스 — 제4류 아님
         return None, False, f"성상 '{state}' — 가스·액화가스는 제4류가 아님(11/02 F)", False
     liquid, solid = bool(_DG_LIQUID.search(state)), bool(_DG_SOLID.search(state))
     fp, fp_status = _prop(physchem, "FLASH_POINT")
@@ -301,6 +304,7 @@ def _class4(physchem):
 _DG_ITEM = re.compile(r"특수인화물|알코올류|제[1-4]석유류|동식물유류")
 _DG_NOT_BY_FLASH = ("특수인화물", "알코올류", "동식물유류")  # 성분 정보나 끓는점·발화점이 있어야 정한다
 _DG_LITER = ("L", "ℓ", "리터", "l")
+_DG_GAS = re.compile(r"가스|기체|\bgas\b|liquefied|compressed", re.I)
 _DG_LIQUID = re.compile(r"액체|액상|용액|오일|유상|liquid|solution|\boil\b", re.I)
 _DG_SOLID = re.compile(r"고체|고상|분말|가루|파우더|과립|펠[렛릿]|결정|입자|플레이크|solid|powder|pellet|granul|crystal|flake", re.I)
 _C1_C3_ALCOHOL = {"67-56-1", "64-17-5", "71-23-8", "67-63-0"}  # 탄소 1~3개 포화1가 알코올
@@ -397,7 +401,8 @@ def _dg(inputs, sup, know_all, sec15_read=True):
     dg = inputs.get("dangerous_goods") or []
     cls = next((d.get("class") for d in dg if d.get("class")), None)
     if s is None and cls is not None:
-        s = "비해당" if re.search(r"해당\s*없|비\s*해당|미해당|비위험물|아님", cls) else "자료없음" if "자료" in cls else "해당"
+        s = ("비해당" if re.search(r"해당\s*없|해당\s*사항\s*없|해당\s*되지\s*않|규제\s*되지\s*않|비\s*해당|미해당|비위험물|아님", cls)
+             else "자료없음" if "자료" in cls else "해당")
     written_class = (re.search(r"제\s*\d\s*류", str(cls or "")) or [None])[0]
     db = sorted({(r["regulate_item_id"], r["db_item_name"], r.get("group_name"))
                  for k in know_all for r in k.get("rows") or [] if r["kind"] == "dg"})
@@ -440,7 +445,9 @@ def _dg(inputs, sup, know_all, sec15_read=True):
     common = dict(supplier=s, source=src, version=version, as_of=inputs.get("as_of_date"), extra_asm=asm,
                   db_threshold=want_item)
     fp_value, fp_status = _prop(inputs.get("physchem"), "FLASH_POINT")
-    if exp == "비해당" and s in ("해당", "자료없음") and not db and fp_value is None and fp_status in (None, "자료없음"):
+    gas = bool(_DG_GAS.search(" ".join(str(p.get("text_value") or "") for p in (inputs.get("physchem") or {}).get("APPEARANCE_STATE") or [])))
+    # 가스는 어느 류의 위험물도 아니다(시행령 별표 1은 고체·액체). 인화점이 없어도 판단할 수 있다
+    if exp == "비해당" and s in ("해당", "자료없음") and not db and not gas and fp_value is None and fp_status in (None, "자료없음"):
         return _row("MIX", None, "DG", "DG_HAZMAT", LACK, RULE_IDS["lack"], expected=None,
                     reason=f"MSDS는 위험물 {s}인데 인화점이 없어 확인할 수 없음: {reason}", **common)
     if exp == "비해당" and s == "해당" and not db and written_class not in (None, "제4류"):
@@ -571,7 +578,8 @@ def judge_sec15(inputs: dict, provider, *, non_toxic_cas=None) -> dict:
             excluded.append(_excl(ref_no, cas, law, item, "참고",
                                   "화평법 규제현황을 기타 법규 칸에 글로 적어 항목별로 비교하지 못함 (고시 부칙 제2025-50호 제3조)", s, src))
             continue
-        if law == "KREACH" and not kreach_rows and not kreach_due and "status_only" not in kinds:
+        # 시행일 전 문서는 화평법 항목을 적을 의무가 없다. 다른 화평법 행을 적었어도 적지 않은 항목은 비교하지 않는다
+        if law == "KREACH" and not kreach_due and "status_only" not in kinds and (item_row or {}).get("applicable") in (None, "", "미기재"):
             status = "구버전" if revised else "참고"
             excluded.append(_excl(ref_no, cas, law, item, status,
                                   f"화평법 기재 의무({KREACH_LINE_FROM}) 전 작성분이거나 작성일을 몰라 비교하지 않음 (고시 부칙 제2025-50호 제2조)", s, src))
