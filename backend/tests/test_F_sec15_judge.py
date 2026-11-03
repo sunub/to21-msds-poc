@@ -429,8 +429,11 @@ def test_시행일_전_문서의_화평법_행_없음은_규제_누락이_아니
     assert ex(out, "KREACH_CMR")["status"] == "구버전"
     after = judge_sec15(_dated(READ, "2026-01-01"), Fake(table))  # 화평법을 통째로 안 적음: 항목 누락 한 줄, 성분 줄은 판단 못 함
     assert one(after, "KREACH_CMR")["verdict"] == "근거부족" and one(after, "KREACH_SECTION", "MIX")["type"] == "화평법 항목 누락"
+    # 시행일 전 문서가 다른 화평법 행을 적었어도, 적지 않은 항목은 구버전이다 (T21-050). 적은 항목은 비교한다
     stated = judge_sec15(_dated(READ + [sup("KREACH_REG", "KREACH", "비해당")], "2025-05-08"), Fake(table))
-    assert one(stated, "KREACH_CMR")["type"] == "규제 누락"
+    assert ex(stated, "KREACH_CMR")["status"] == "구버전"
+    wrote = judge_sec15(_dated(READ + [sup("KREACH_CMR", "KREACH", "비해당")], "2025-05-08"), Fake(table))
+    assert one(wrote, "KREACH_CMR")["type"] == "규제 누락"
 
 
 @pytest.mark.parametrize("raw,want", [("2025.08.07", "2025-08-07"), ("2025-8-7", "2025-08-07"), ("2025년 8월 7일", "2025-08-07"),
