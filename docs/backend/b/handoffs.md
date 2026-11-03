@@ -11,7 +11,7 @@ B1·B2는 main에 들어갔다(#143, #145). 아래 코드 위치는 main 기준�
 | 우진(F) | 판정 변경 공유, 바꾼 시험 | 브랜치 올리기 전 | 2026-11-03 전달 |
 | A1 | 라우터·`attach` 연결, 창구 한 줄 | 전체 흐름에 필요 | **완료** (#144, 2026-11-03). `MSDS_JUDGE_IN_EXTRACT_APP=1`이면 추출 앱에 판정 API가 붙는다. 내장 모드로 띄워 판정·설명까지 확인 |
 | A2 | `extract.handoff` 표, 재생성 스크립트 | **가장 큰 병목** | 2026-11-03 일부 전달: 판정 테이블·`payload_json`·`fields_total`(#142로 반영됨), `db/htodb-*` 브랜치는 머지하지 않기로 함(nnieun 답: main은 #142 기준, 나중에 쓰면 `b2_0004~0006`과 설치 스크립트·문서 참조를 함께 정리). 재생성 스크립트는 B가 해결(2026-11-04) |
-| 화면 | "판정으로 넘기기" 경로 하나로 맞추기 | **main 화면에서 버튼이 404** | 판정 탭은 main에 들어감(#138, 2026-11-03). 실제 응답 검사 통과. 경로는 nnieun·sunub이 정할 일 |
+| 화면 | 저장 개요·요약 연결, 시간 기준 시험 | 시연 전 | "판정으로 넘기기" 404는 **해결** (nnieun #158, 2026-11-04: 서버에 `to-judgment` 추가, Pillow도 함께). 남은 것은 sunub 몫 2건 |
 | `b_app` 시험 담당 | 한국어 시각 시험 실패 | — | **보낼 필요 없음** (2026-11-04). 프로젝트 기준 Node 24에서는 통과. 이 환경의 Node 22.23만 `AM` |
 | 지식DB 담당 | 값 수정 11건, 문서 문장 5건 | 시연을 막지 않음 | **보낼 필요 없음** (2026-11-04). 원본 DB는 고치지 않고(B-43) 문서 5건은 B가 고침(`deploy/htodb/ERD.md`·`API.md`). 11건 중 B가 엔진에서 처리 8건(읽을 때 고침 4, 보정표 3, 이미 처리 1), 필요 없음·안 고침 2, 못 고침 1(5번) |
 | TO21 (멘토링) | 우리가 정한 결정 확인 | — | **보내지 않음** (2026-11-03). 기업 미팅이 더 없어 직접 정한 결정으로 확정 |
@@ -63,14 +63,14 @@ B1·B2는 main에 들어갔다(#143, #145). 아래 코드 위치는 main 기준�
 | 내용 | 상태 |
 |---|---|
 | main 판정 API의 실제 응답(25·39·50·S013·10번: 상태·판정 보기·검토·이력, 409 충돌, 지식DB 장애 상태)을 #138의 zod로 검사 | **통과**. 리포트 요청 모양도 계약과 같다. 화면 타입 검사·시험 33개 통과 |
-| **"판정으로 넘기기" 경로가 둘** | main 화면(`frontend/src/api/judgment.ts` `postToJudgment`)은 계약대로 `POST /api/documents/{id}/to-judgment`에 `{reviewer}`를 보낸다. main 서버(`extract_app.py`)에는 `/handoffs`(본문 없음)만 있다. 그래서 **실제 서버에서는 버튼이 404**다. azeroo0의 `e/frontend-review`는 `/handoffs`를 먼저 부르고 없으면 `to-judgment`로 다시 부른다 |
+| "판정으로 넘기기" 경로 | **해결** (#158, 2026-11-04). 서버에 계약대로 `POST /api/documents/{id}/to-judgment`가 생겨 main 화면 `postToJudgment`와 맞는다. `/handoffs`도 남아 있다 |
+| 저장 개요·요약 | 화면이 `GET /api/judgments/{job_id}/save-overview`와 `GET /api/judgments/summary`를 아직 부르지 않는다. 서버에는 둘 다 있다 (open-issues 10번) |
+| 시간 기준 시험 | `tests/test_B_client_gate.py::test_recovers_after_one_failure`가 컴퓨터가 바쁠 때 실패한다(0.063초 > 기준 0.05초). `make()`의 대기가 0.01초라 실제로 기다리는 버그도 0.05초 기준을 통과한다 |
 | `consistency/1` → `/2` | **해결.** #138은 계약 버전을 검사하지 않고, `e/frontend-review`도 `9a44cfa`에서 `/2`로 바꿨다 |
 | `mismatch_type`의 `내부 불일치`, `화평법 항목 누락` | #138 목록에 있다. 시험 문서에 나오지 않아 화면 표시는 못 봤다 |
 | 브라우저로 끝까지 눌러 보기 | 못 했다. 판정 탭은 추출이 끝난 문서(`extract.jobs` done)가 있어야 열리는데 로컬 DB에 없다. 실제 추출(모델) 한 번이 필요하다 |
 
-> **nnieun 님:** main 화면(#138)이 "판정으로 넘기기"를 계약대로 `POST /api/documents/{id}/to-judgment`에 `{"reviewer": "..."}`로 보내고, 응답은 `job_id`, `handoff_seq`만 씁니다. 서버에는 `/handoffs`만 있어 지금은 404예요. 서버 경로를 계약 이름으로 맞출지, 화면을 `/handoffs`로 바꿀지 sunub 님과 정해 주세요.
->
-> **sunub 님:** main 판정 API의 실제 응답으로 `judgment.ts`·`history.ts` 스키마를 검사했어요. 5개 문서의 상태, 판정 보기, 검토, 이력이 모두 통과하고, 409 충돌과 리포트 요청 모양도 맞습니다. 남은 건 "판정으로 넘기기"인데, 서버에는 `/handoffs`만 있어 nnieun 님과 경로를 맞춰야 해요.
+> **sunub 님:** 판정 탭 연결 확인했어요. 실제 응답으로 `judgment.ts`·`history.ts` 스키마 검사가 모두 통과했고, "판정으로 넘기기"는 nnieun 님이 서버에 `to-judgment`를 추가해서(#158) 이제 맞습니다. 남은 게 두 가지예요. ① 저장 화면이 `GET /api/judgments/{job_id}/save-overview`를, 목록 요약이 `GET /api/judgments/summary`를 아직 부르지 않아요(서버에는 둘 다 있습니다). ② `tests/test_B_client_gate.py::test_recovers_after_one_failure`가 컴퓨터가 바쁠 때 실패해요. `make([...], first_delay=0.3)`으로 대기를 늘리고 기준을 0.2초로 두면 버그는 잡고 부하에는 안 흔들릴 것 같아요.
 
 **판정 API를 따로 띄워 보는 법:**
 
