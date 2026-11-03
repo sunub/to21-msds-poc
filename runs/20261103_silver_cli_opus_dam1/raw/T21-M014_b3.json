@@ -1,0 +1,1028 @@
+{
+  "doc_id": "T21-M014",
+  "bundle": "b3",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 57585,
+    "completion_tokens": 12133,
+    "cached_tokens": 8451,
+    "reasoning_tokens": 2769,
+    "notional_cost_usd": 0.6374142
+  },
+  "seconds": 87.0,
+  "request_usage": [
+    {
+      "prompt_tokens": 57585,
+      "completion_tokens": 12133,
+      "cached_tokens": 8451,
+      "reasoning_tokens": 2769,
+      "notional_cost_usd": 0.6374142
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "toxicity": [
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ORAL",
+            "descriptor": "ATE",
+            "q": {
+              "raw": "급성독성 추정값: 435.26 mg/kg",
+              "value": 435.26,
+              "unit": "mg/kg",
+              "dp": 2,
+              "status": "값있음"
+            },
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_INHAL",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_DERMAL",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_EYE",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_RESP_SENS",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN_SENS",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_CARC",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "발암성",
+                "value": "IARC 조사 결과, 이 제품에 0.1% 이상 존재하는 어떤 성분도 유력하거나, 가능성 있거나, 확인된 인체 발암 물질로 확인되지 않았습니다.",
+                "text": "발암성 : IARC 조사 결과, 이 제품에 0.1% 이상 존재하는 어떤 성분도 유력하거나, 가능성 있거나, 확인된 인체 발암 물질로 확인되지 않았습니다."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_REPRO",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "생식독성",
+                "value": "태아 또는 생식능력에 손상을 일으킬 것으로 의심됨.",
+                "text": "생식독성 : 태아 또는 생식능력에 손상을 일으킬 것으로 의심됨."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_MUTA",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "생식세포 변이원성",
+                "value": "돌연변이 유발물질로 등재된 성분이 함유되지 않았습니다",
+                "text": "생식세포 변이원성 : 돌연변이 유발물질로 등재된 성분이 함유되지 않았습니다"
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_REPRO",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "최기형성",
+                "value": "자료없음",
+                "text": "최기형성 : 자료없음"
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_STOT_SE",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "특정 표적장기 독성 (1회 노출)",
+                "value": "호흡기계 자극을 일으킬 수 있음.",
+                "text": "특정 표적장기 독성 (1회 노출) : 호흡기계 자극을 일으킬 수 있음."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_STOT_RE",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ASP",
+            "descriptor": "결과기술",
+            "classification": "분류되지 않음",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "흡인 유해성",
+                "value": "흡인 유해성으로 분류되지 않음",
+                "text": "흡인 유해성 : 흡인 유해성으로 분류되지 않음"
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_INHAL",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "> 1.6 mg/l",
+              "lower_op": ">",
+              "lower": 1.6,
+              "unit": "mg/L",
+              "dp": 1,
+              "status": "값있음"
+            },
+            "species": "쥐",
+            "duration_value": 4,
+            "duration_unit": "hr",
+            "physical_form": "분진·미스트",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_DERMAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "1,025 mg/kg",
+              "value": 1025,
+              "unit": "mg/kg",
+              "status": "값있음"
+            },
+            "species": "토끼",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_DERMAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "2,000 mg/kg",
+              "value": 2000,
+              "unit": "mg/kg",
+              "status": "값있음"
+            },
+            "species": "쥐",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "TX_DERMAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "277 mg/kg",
+              "value": 277,
+              "unit": "mg/kg",
+              "status": "값있음"
+            },
+            "species": "토끼",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": null,
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "인체 유해 특성",
+                "value": "당사의 유해 특성에 근거한 잠재적인 인체 유해성은 높음",
+                "text": "당사의 유해 특성에 근거한 잠재적인 인체 유해성은 높음"
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": null,
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "가능성이 높은 노출 경로에 관한 정보",
+                "value": "흡입, 눈에 들어 갔을 때, 피부에 접촉했을 때",
+                "text": "가능성이 높은 노출 경로에 관한 정보 : 흡입, 눈에 들어 갔을 때, 피부에 접촉했을 때"
+              },
+              {
+                "seq": 2,
+                "key": "눈",
+                "value": "눈에 심한 손상을 일으킴.",
+                "text": "눈 : 눈에 심한 손상을 일으킴."
+              },
+              {
+                "seq": 3,
+                "key": "피부",
+                "value": "심한 피부 화상을 유발합니다. 알레르기 피부 반응을 유발할 수 있습니다.",
+                "text": "피부 : 심한 피부 화상을 유발합니다. 알레르기 피부 반응을 유발할 수 있습니다."
+              },
+              {
+                "seq": 4,
+                "key": "섭취",
+                "value": "삼키면 유해함. 소화기관에 화상을 일으킴.",
+                "text": "섭취 : 삼키면 유해함. 소화기관에 화상을 일으킴."
+              },
+              {
+                "seq": 5,
+                "key": "흡입",
+                "value": "코, 인후 및 폐에 자극을 유발할 수도 있습니다. 호흡기계 자극을 일으킬 수 있음.",
+                "text": "흡입 : 코, 인후 및 폐에 자극을 유발할 수도 있습니다. 호흡기계 자극을 일으킬 수 있음."
+              },
+              {
+                "seq": 6,
+                "key": "만성 노출",
+                "value": "태아 또는 생식능력에 손상을 일으킬 것으로 의심됨.",
+                "text": "만성 노출 : 태아 또는 생식능력에 손상을 일으킬 것으로 의심됨."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": null,
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "눈에 들어 갔을 때",
+                "value": "발적, 통증, 부식",
+                "text": "눈에 들어 갔을 때 : 발적, 통증, 부식"
+              },
+              {
+                "seq": 2,
+                "key": "피부에 접촉했을 때",
+                "value": "발적, 통증, 자극, 부식, 알레르기 반응",
+                "text": "피부에 접촉했을 때 : 발적, 통증, 자극, 부식, 알레르기 반응"
+              },
+              {
+                "seq": 3,
+                "key": "먹었을 때",
+                "value": "부식, 복통",
+                "text": "먹었을 때 : 부식, 복통"
+              },
+              {
+                "seq": 4,
+                "key": "흡입",
+                "value": "호흡기 자극, 기침",
+                "text": "흡입 : 호흡기 자극, 기침"
+              }
+            ]
+          }
+        ],
+        "cmr": [
+          {
+            "comp_ref": "MIX",
+            "hazard": "발암성",
+            "agency": "IARC",
+            "class": null,
+            "status": null,
+            "note": "IARC 조사 결과, 이 제품에 0.1% 이상 존재하는 어떤 성분도 유력하거나, 가능성 있거나, 확인된 인체 발암 물질로 확인되지 않았습니다."
+          }
+        ],
+        "ecotox": [
+          {
+            "comp_ref": "MIX",
+            "endpoint": null,
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "환경 영향",
+                "value": "장기적인 영향에 의해 수생생물에게 유해함.",
+                "text": "환경 영향 : 장기적인 영향에 의해 수생생물에게 유해함."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_FISH",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_CRUST",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_ALGAE",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_CRUST",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "65 mg/l",
+              "value": 65,
+              "unit": "mg/L",
+              "status": "값있음"
+            },
+            "duration_value": 48,
+            "duration_unit": "hr",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "ECO_CRUST",
+            "descriptor": "EC50",
+            "q": {
+              "raw": "36.3 mg/l",
+              "value": 36.3,
+              "unit": "mg/L",
+              "dp": 1,
+              "status": "값있음"
+            },
+            "duration_value": 48,
+            "duration_unit": "hr",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_ALGAE",
+            "descriptor": "EC50",
+            "q": {
+              "raw": "31 mg/l",
+              "value": 31,
+              "unit": "mg/L",
+              "status": "값있음"
+            },
+            "duration_value": 72,
+            "duration_unit": "hr",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_CRUST",
+            "descriptor": "NOEC",
+            "q": {
+              "raw": "0.85 mg/l",
+              "value": 0.85,
+              "unit": "mg/L",
+              "dp": 2,
+              "status": "값있음"
+            },
+            "duration_value": 21,
+            "duration_unit": "day",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "(만성 독성)",
+                "text": "물벼룩류와 다른 수생 무척추 동물에 대한 독성. (만성 독성)"
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "본 제제의 유기 부분은 쉽게 생분해될 것으로 예상됨.",
+                "text": "본 제제의 유기 부분은 쉽게 생분해될 것으로 예상됨."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_SOIL",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "환경 영향은 미국 환경보호청(EPA)이 제공하는 EPI(estimation program interface) Suite TM에 삽입된 레벨 3 퓨가시티 모델을 이용해 추정함.",
+                "text": "환경 영향은 미국 환경보호청(EPA)이 제공하는 EPI(estimation program interface) Suite TM에 삽입된 레벨 3 퓨가시티 모델을 이용해 추정함."
+              },
+              {
+                "seq": 2,
+                "key": null,
+                "value": "이 모델은 총 입력 및 출력 간 정상 상태 조건을 가정함.",
+                "text": "이 모델은 총 입력 및 출력 간 정상 상태 조건을 가정함."
+              },
+              {
+                "seq": 3,
+                "key": null,
+                "value": "레벨 3 모델은 일정한 매체 간 평형을 요구하지 않음.",
+                "text": "레벨 3 모델은 일정한 매체 간 평형을 요구하지 않음."
+              },
+              {
+                "seq": 4,
+                "key": null,
+                "value": "제공된 정보는 해당 모델의 정의된 조건 하에서 본 제품의 환경 영향에 대한 일반 추정을 사용자에게 제시하는데 그 목적이 있음.",
+                "text": "제공된 정보는 해당 모델의 정의된 조건 하에서 본 제품의 환경 영향에 대한 일반 추정을 사용자에게 제시하는데 그 목적이 있음."
+              },
+              {
+                "seq": 5,
+                "key": null,
+                "value": "본 물질이 해당 환경 내에 배출된 경우, 공기, 물 및 토양/침전물에 각각의 근사비(approximate percentage)로 분포될 것으로 추정됨;",
+                "text": "본 물질이 해당 환경 내에 배출된 경우, 공기, 물 및 토양/침전물에 각각의 근사비(approximate percentage)로 분포될 것으로 추정됨;"
+              },
+              {
+                "seq": 6,
+                "key": null,
+                "value": "물 속에 있는 부분은 용해되거나 분산될 것으로 예상됨.",
+                "text": "물 속에 있는 부분은 용해되거나 분산될 것으로 예상됨."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_SOIL",
+            "descriptor": "기타",
+            "q": {
+              "raw": "5% 이하",
+              "upper_op": "<=",
+              "upper": 5,
+              "unit": "%",
+              "status": "값있음"
+            },
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "대기",
+                "value": "5% 이하",
+                "text": "대기 : 5% 이하"
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_SOIL",
+            "descriptor": "기타",
+            "q": {
+              "raw": "30 - 50%",
+              "lower_op": ">=",
+              "lower": 30,
+              "upper_op": "<=",
+              "upper": 50,
+              "unit": "%",
+              "status": "값있음"
+            },
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "물",
+                "value": "30 - 50%",
+                "text": "물 : 30 - 50%"
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_SOIL",
+            "descriptor": "기타",
+            "q": {
+              "raw": "50 - 70%",
+              "lower_op": ">=",
+              "lower": 50,
+              "upper_op": "<=",
+              "upper": 70,
+              "unit": "%",
+              "status": "값있음"
+            },
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "토양",
+                "value": "50 - 70%",
+                "text": "토양 : 50 - 70%"
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "본 제제 또는 재료는 생체 내에 축적될 가능성 낮음.",
+                "text": "본 제제 또는 재료는 생체 내에 축적될 가능성 낮음."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_OTHER",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": null,
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "환경 유해성 및 노출 특성",
+                "value": "당사의 유해 특성에 근거한 잠재적인 환경 위해성은 낮음",
+                "text": "환경 유해성 및 노출 특성 당사의 유해 특성에 근거한 잠재적인 환경 위해성은 낮음"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "toxicity[0]",
+        "page": 7,
+        "source_text": "급성경구독성 : 급성독성 추정값: 435.26 mg/kg",
+        "rules": [
+          "R04",
+          "R06"
+        ],
+        "note": "제품 전체 급성독성 추정값을 ATE로 저장"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[1]",
+        "page": 7,
+        "source_text": "급성흡입독성 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[2]",
+        "page": 7,
+        "source_text": "급성경피독성 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[3]",
+        "page": 7,
+        "source_text": "피부 부식성 또는 자극성 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[4]",
+        "page": 7,
+        "source_text": "심한 눈손상 또는 자극성 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[5]",
+        "page": 7,
+        "source_text": "호흡기 또는 피부 과민성 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "호흡기·피부 과민성을 한 줄로 기재해 두 항목에 각각 자료없음 행으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[6]",
+        "page": 7,
+        "source_text": "호흡기 또는 피부 과민성 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "호흡기·피부 과민성을 한 줄로 기재해 두 항목에 각각 자료없음 행으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[7]",
+        "page": 7,
+        "source_text": "발암성 : IARC 조사 결과, 이 제품에 0.1% 이상 존재하는 어떤 성분도 유력하거나, 가능성 있거나, 확인된 인체 발암 물질로 확인되지 않았습니다.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[8]",
+        "page": 7,
+        "source_text": "생식독성 : 태아 또는 생식능력에 손상을 일으킬 것으로 의심됨.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[9]",
+        "page": 7,
+        "source_text": "생식세포 변이원성 : 돌연변이 유발물질로 등재된 성분이 함유되지 않았습니다",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[10]",
+        "page": 7,
+        "source_text": "최기형성 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "최기형성은 생식독성(TX_REPRO) 항목으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[11]",
+        "page": 7,
+        "source_text": "특정 표적장기 독성 (1회 노출) : 호흡기계 자극을 일으킬 수 있음.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[12]",
+        "page": 7,
+        "source_text": "특정 표적장기 독성 (반복 노출) : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[13]",
+        "page": 7,
+        "source_text": "흡인 유해성 : 흡인 유해성으로 분류되지 않음",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[14]",
+        "page": 7,
+        "source_text": "급성흡입독성 : 모노에탄올아민 LC50 쥐: > 1.6 mg/l 노출시간: 4 h 시험환경: 분진/미스트",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "'> 1.6 mg/l'을 하한 1.6(>)로 나누고 노출 4 hr, 분진·미스트로 기록"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[15]",
+        "page": 7,
+        "source_text": "모노에탄올아민 LD50 토끼: 1,025 mg/kg",
+        "rules": [
+          "R04",
+          "R06",
+          "R10"
+        ],
+        "note": "천단위 콤마 제거"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[16]",
+        "page": 7,
+        "source_text": "메톡시프로필라민 LD50 쥐: 2,000 mg/kg",
+        "rules": [
+          "R04",
+          "R06",
+          "R10"
+        ],
+        "note": "천단위 콤마 제거"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[17]",
+        "page": 7,
+        "source_text": "시클로헥실아민 LD50 토끼: 277 mg/kg",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[18]",
+        "page": 7,
+        "source_text": "인체 유해 특성 당사의 유해 특성에 근거한 잠재적인 인체 유해성은 높음",
+        "rules": [],
+        "note": "맞는 값 없음: 독성 항목 코드가 없어 endpoint null"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[19]",
+        "page": 6,
+        "source_text": "잠재 건강 영향 눈 : 눈에 심한 손상을 일으킴. 피부 : 심한 피부 화상을 유발합니다.",
+        "rules": [],
+        "note": "맞는 값 없음: 잠재 건강 영향 서술을 endpoint null 결과기술 행으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[20]",
+        "page": 6,
+        "source_text": "인체 노출에 대한 역학자료 눈에 들어 갔을 때 : 발적, 통증, 부식",
+        "rules": [],
+        "note": "맞는 값 없음: 역학자료 서술을 endpoint null 결과기술 행으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[0]",
+        "page": 7,
+        "source_text": "IARC 조사 결과, 이 제품에 0.1% 이상 존재하는 어떤 성분도 유력하거나, 가능성 있거나, 확인된 인체 발암 물질로 확인되지 않았습니다.",
+        "rules": [],
+        "note": "맞는 값 없음: 등급 없이 미분류 서술이라 class·status는 null, 원문은 note에 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[0]",
+        "page": 7,
+        "source_text": "환경 영향 : 장기적인 영향에 의해 수생생물에게 유해함.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[1]",
+        "page": 7,
+        "source_text": "어독성 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[2]",
+        "page": 7,
+        "source_text": "물벼룩류와 다른 수생 무척추 동물에 대한 독성. : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[3]",
+        "page": 8,
+        "source_text": "조류독성 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[4]",
+        "page": 8,
+        "source_text": "모노에탄올아민 LC50 : 65 mg/l 노출시간: 48 h",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[5]",
+        "page": 8,
+        "source_text": "시클로헥실아민 EC50 : 36.3 mg/l 노출시간: 48 h",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[6]",
+        "page": 8,
+        "source_text": "조류독성 : 메톡시프로필라민 EC50 : 31 mg/l 노출시간: 72 h",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[7]",
+        "page": 8,
+        "source_text": "(만성 독성) 모노에탄올아민 NOEC: 0.85 mg/l 노출시간: 21 d",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "21 d를 21 day로 기록"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[8]",
+        "page": 8,
+        "source_text": "본 제제의 유기 부분은 쉽게 생분해될 것으로 예상됨.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[9]",
+        "page": 8,
+        "source_text": "환경 영향은 미국 환경보호청(EPA)이 제공하는 EPI(estimation program interface) Suite TM에 삽입된 레벨 3 퓨가시티 모델을 이용해 추정함.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[10]",
+        "page": 8,
+        "source_text": "대기 : 5% 이하",
+        "rules": [
+          "R04"
+        ],
+        "note": "'이하'를 <=로 분해"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[11]",
+        "page": 8,
+        "source_text": "물 : 30 - 50%",
+        "rules": [
+          "R04"
+        ],
+        "note": "범위를 하한 30(>=), 상한 50(<=)으로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[12]",
+        "page": 8,
+        "source_text": "토양 : 50 - 70%",
+        "rules": [
+          "R04"
+        ],
+        "note": "범위를 하한 50(>=), 상한 70(<=)으로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[13]",
+        "page": 8,
+        "source_text": "본 제제 또는 재료는 생체 내에 축적될 가능성 낮음.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[14]",
+        "page": 8,
+        "source_text": "기타 유해 영향 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[15]",
+        "page": 8,
+        "source_text": "환경 유해성 및 노출 특성 당사의 유해 특성에 근거한 잠재적인 환경 위해성은 낮음",
+        "rules": [],
+        "note": "맞는 값 없음: 생태 항목 코드가 없어 endpoint null"
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"toxicity\": [{\"comp_ref\": \"MIX\", \"endpoint\": \"TX_ORAL\", \"descriptor\": \"ATE\", \"q\": {\"raw\": \"급성독성 추정값: 435.26 mg/kg\", \"value\": 435.26, \"unit\": \"mg/kg\", \"dp\": 2, \"status\": \"값있음\"}, \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_INHAL\", \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_DERMAL\", \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_SKIN\", \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_EYE\", \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_RESP_SENS\", \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_SKIN_SENS\", \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_CARC\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"발암성\", \"value\": \"IARC 조사 결과, 이 제품에 0.1% 이상 존재하는 어떤 성분도 유력하거나, 가능성 있거나, 확인된 인체 발암 물질로 확인되지 않았습니다.\", \"text\": \"발암성 : IARC 조사 결과, 이 제품에 0.1% 이상 존재하는 어떤 성분도 유력하거나, 가능성 있거나, 확인된 인체 발암 물질로 확인되지 않았습니다.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_REPRO\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"생식독성\", \"value\": \"태아 또는 생식능력에 손상을 일으킬 것으로 의심됨.\", \"text\": \"생식독성 : 태아 또는 생식능력에 손상을 일으킬 것으로 의심됨.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_MUTA\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"생식세포 변이원성\", \"value\": \"돌연변이 유발물질로 등재된 성분이 함유되지 않았습니다\", \"text\": \"생식세포 변이원성 : 돌연변이 유발물질로 등재된 성분이 함유되지 않았습니다\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_REPRO\", \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": [{\"seq\": 1, \"key\": \"최기형성\", \"value\": \"자료없음\", \"text\": \"최기형성 : 자료없음\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_STOT_SE\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"특정 표적장기 독성 (1회 노출)\", \"value\": \"호흡기계 자극을 일으킬 수 있음.\", \"text\": \"특정 표적장기 독성 (1회 노출) : 호흡기계 자극을 일으킬 수 있음.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_STOT_RE\", \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_ASP\", \"descriptor\": \"결과기술\", \"classification\": \"분류되지 않음\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"흡인 유해성\", \"value\": \"흡인 유해성으로 분류되지 않음\", \"text\": \"흡인 유해성 : 흡인 유해성으로 분류되지 않음\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_INHAL\", \"descriptor\": \"LC50\", \"q\": {\"raw\": \"> 1.6 mg/l\", \"lower_op\": \">\", \"lower\": 1.6, \"unit\": \"mg/L\", \"dp\": 1, \"status\": \"값있음\"}, \"species\": \"쥐\", \"duration_value\": 4, \"duration_unit\": \"hr\", \"physical_form\": \"분진·미스트\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_DERMAL\", \"descriptor\": \"LD50\", \"q\": {\"raw\": \"1,025 mg/kg\", \"value\": 1025, \"unit\": \"mg/kg\", \"status\": \"값있음\"}, \"species\": \"토끼\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"2\", \"endpoint\": \"TX_DERMAL\", \"descriptor\": \"LD50\", \"q\": {\"raw\": \"2,000 mg/kg\", \"value\": 2000, \"unit\": \"mg/kg\", \"status\": \"값있음\"}, \"species\": \"쥐\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"3\", \"endpoint\": \"TX_DERMAL\", \"descriptor\": \"LD50\", \"q\": {\"raw\": \"277 mg/kg\", \"value\": 277, \"unit\": \"mg/kg\", \"status\": \"값있음\"}, \"species\": \"토끼\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": null, \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"인체 유해 특성\", \"value\": \"당사의 유해 특성에 근거한 잠재적인 인체 유해성은 높음\", \"text\": \"당사의 유해 특성에 근거한 잠재적인 인체 유해성은 높음\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": null, \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"가능성이 높은 노출 경로에 관한 정보\", \"value\": \"흡입, 눈에 들어 갔을 때, 피부에 접촉했을 때\", \"text\": \"가능성이 높은 노출 경로에 관한 정보 : 흡입, 눈에 들어 갔을 때, 피부에 접촉했을 때\"}, {\"seq\": 2, \"key\": \"눈\", \"value\": \"눈에 심한 손상을 일으킴.\", \"text\": \"눈 : 눈에 심한 손상을 일으킴.\"}, {\"seq\": 3, \"key\": \"피부\", \"value\": \"심한 피부 화상을 유발합니다. 알레르기 피부 반응을 유발할 수 있습니다.\", \"text\": \"피부 : 심한 피부 화상을 유발합니다. 알레르기 피부 반응을 유발할 수 있습니다.\"}, {\"seq\": 4, \"key\": \"섭취\", \"value\": \"삼키면 유해함. 소화기관에 화상을 일으킴.\", \"text\": \"섭취 : 삼키면 유해함. 소화기관에 화상을 일으킴.\"}, {\"seq\": 5, \"key\": \"흡입\", \"value\": \"코, 인후 및 폐에 자극을 유발할 수도 있습니다. 호흡기계 자극을 일으킬 수 있음.\", \"text\": \"흡입 : 코, 인후 및 폐에 자극을 유발할 수도 있습니다. 호흡기계 자극을 일으킬 수 있음.\"}, {\"seq\": 6, \"key\": \"만성 노출\", \"value\": \"태아 또는 생식능력에 손상을 일으킬 것으로 의심됨.\", \"text\": \"만성 노출 : 태아 또는 생식능력에 손상을 일으킬 것으로 의심됨.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": null, \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"눈에 들어 갔을 때\", \"value\": \"발적, 통증, 부식\", \"text\": \"눈에 들어 갔을 때 : 발적, 통증, 부식\"}, {\"seq\": 2, \"key\": \"피부에 접촉했을 때\", \"value\": \"발적, 통증, 자극, 부식, 알레르기 반응\", \"text\": \"피부에 접촉했을 때 : 발적, 통증, 자극, 부식, 알레르기 반응\"}, {\"seq\": 3, \"key\": \"먹었을 때\", \"value\": \"부식, 복통\", \"text\": \"먹었을 때 : 부식, 복통\"}, {\"seq\": 4, \"key\": \"흡입\", \"value\": \"호흡기 자극, 기침\", \"text\": \"흡입 : 호흡기 자극, 기침\"}]}], \"cmr\": [{\"comp_ref\": \"MIX\", \"hazard\": \"발암성\", \"agency\": \"IARC\", \"class\": null, \"status\": null, \"note\": \"IARC 조사 결과, 이 제품에 0.1% 이상 존재하는 어떤 성분도 유력하거나, 가능성 있거나, 확인된 인체 발암 물질로 확인되지 않았습니다.\"}], \"ecotox\": [{\"comp_ref\": \"MIX\", \"endpoint\": null, \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"환경 영향\", \"value\": \"장기적인 영향에 의해 수생생물에게 유해함.\", \"text\": \"환경 영향 : 장기적인 영향에 의해 수생생물에게 유해함.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_FISH\", \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_CRUST\", \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_ALGAE\", \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_CRUST\", \"descriptor\": \"LC50\", \"q\": {\"raw\": \"65 mg/l\", \"value\": 65, \"unit\": \"mg/L\", \"status\": \"값있음\"}, \"duration_value\": 48, \"duration_unit\": \"hr\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"3\", \"endpoint\": \"ECO_CRUST\", \"descriptor\": \"EC50\", \"q\": {\"raw\": \"36.3 mg/l\", \"value\": 36.3, \"unit\": \"mg/L\", \"dp\": 1, \"status\": \"값있음\"}, \"duration_value\": 48, \"duration_unit\": \"hr\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"2\", \"endpoint\": \"ECO_ALGAE\", \"descriptor\": \"EC50\", \"q\": {\"raw\": \"31 mg/l\", \"value\": 31, \"unit\": \"mg/L\", \"status\": \"값있음\"}, \"duration_value\": 72, \"duration_unit\": \"hr\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_CRUST\", \"descriptor\": \"NOEC\", \"q\": {\"raw\": \"0.85 mg/l\", \"value\": 0.85, \"unit\": \"mg/L\", \"dp\": 2, \"status\": \"값있음\"}, \"duration_value\": 21, \"duration_unit\": \"day\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": null, \"value\": \"(만성 독성)\", \"text\": \"물벼룩류와 다른 수생 무척추 동물에 대한 독성. (만성 독성)\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": null, \"value\": \"본 제제의 유기 부분은 쉽게 생분해될 것으로 예상됨.\", \"text\": \"본 제제의 유기 부분은 쉽게 생분해될 것으로 예상됨.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_SOIL\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": null, \"value\": \"환경 영향은 미국 환경보호청(EPA)이 제공하는 EPI(estimation program interface) Suite TM에 삽입된 레벨 3 퓨가시티 모델을 이용해 추정함.\", \"text\": \"환경 영향은 미국 환경보호청(EPA)이 제공하는 EPI(estimation program interface) Suite TM에 삽입된 레벨 3 퓨가시티 모델을 이용해 추정함.\"}, {\"seq\": 2, \"key\": null, \"value\": \"이 모델은 총 입력 및 출력 간 정상 상태 조건을 가정함.\", \"text\": \"이 모델은 총 입력 및 출력 간 정상 상태 조건을 가정함.\"}, {\"seq\": 3, \"key\": null, \"value\": \"레벨 3 모델은 일정한 매체 간 평형을 요구하지 않음.\", \"text\": \"레벨 3 모델은 일정한 매체 간 평형을 요구하지 않음.\"}, {\"seq\": 4, \"key\": null, \"value\": \"제공된 정보는 해당 모델의 정의된 조건 하에서 본 제품의 환경 영향에 대한 일반 추정을 사용자에게 제시하는데 그 목적이 있음.\", \"text\": \"제공된 정보는 해당 모델의 정의된 조건 하에서 본 제품의 환경 영향에 대한 일반 추정을 사용자에게 제시하는데 그 목적이 있음.\"}, {\"seq\": 5, \"key\": null, \"value\": \"본 물질이 해당 환경 내에 배출된 경우, 공기, 물 및 토양/침전물에 각각의 근사비(approximate percentage)로 분포될 것으로 추정됨;\", \"text\": \"본 물질이 해당 환경 내에 배출된 경우, 공기, 물 및 토양/침전물에 각각의 근사비(approximate percentage)로 분포될 것으로 추정됨;\"}, {\"seq\": 6, \"key\": null, \"value\": \"물 속에 있는 부분은 용해되거나 분산될 것으로 예상됨.\", \"text\": \"물 속에 있는 부분은 용해되거나 분산될 것으로 예상됨.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_SOIL\", \"descriptor\": \"기타\", \"q\": {\"raw\": \"5% 이하\", \"upper_op\": \"<=\", \"upper\": 5, \"unit\": \"%\", \"status\": \"값있음\"}, \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"대기\", \"value\": \"5% 이하\", \"text\": \"대기 : 5% 이하\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_SOIL\", \"descriptor\": \"기타\", \"q\": {\"raw\": \"30 - 50%\", \"lower_op\": \">=\", \"lower\": 30, \"upper_op\": \"<=\", \"upper\": 50, \"unit\": \"%\", \"status\": \"값있음\"}, \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"물\", \"value\": \"30 - 50%\", \"text\": \"물 : 30 - 50%\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_SOIL\", \"descriptor\": \"기타\", \"q\": {\"raw\": \"50 - 70%\", \"lower_op\": \">=\", \"lower\": 50, \"upper_op\": \"<=\", \"upper\": 70, \"unit\": \"%\", \"status\": \"값있음\"}, \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"토양\", \"value\": \"50 - 70%\", \"text\": \"토양 : 50 - 70%\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_BIOACC\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": null, \"value\": \"본 제제 또는 재료는 생체 내에 축적될 가능성 낮음.\", \"text\": \"본 제제 또는 재료는 생체 내에 축적될 가능성 낮음.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_OTHER\", \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": null, \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"환경 유해성 및 노출 특성\", \"value\": \"당사의 유해 특성에 근거한 잠재적인 환경 위해성은 낮음\", \"text\": \"환경 유해성 및 노출 특성 당사의 유해 특성에 근거한 잠재적인 환경 위해성은 낮음\"}]}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"toxicity[0]\", \"page\": 7, \"source_text\": \"급성경구독성 : 급성독성 추정값: 435.26 mg/kg\", \"rules\": [\"R04\", \"R06\"], \"note\": \"제품 전체 급성독성 추정값을 ATE로 저장\"}, {\"msds_index\": 0, \"field\": \"toxicity[1]\", \"page\": 7, \"source_text\": \"급성흡입독성 : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[2]\", \"page\": 7, \"source_text\": \"급성경피독성 : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[3]\", \"page\": 7, \"source_text\": \"피부 부식성 또는 자극성 : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[4]\", \"page\": 7, \"source_text\": \"심한 눈손상 또는 자극성 : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[5]\", \"page\": 7, \"source_text\": \"호흡기 또는 피부 과민성 : 자료없음\", \"rules\": [\"R15\"], \"note\": \"호흡기·피부 과민성을 한 줄로 기재해 두 항목에 각각 자료없음 행으로 둠\"}, {\"msds_index\": 0, \"field\": \"toxicity[6]\", \"page\": 7, \"source_text\": \"호흡기 또는 피부 과민성 : 자료없음\", \"rules\": [\"R15\"], \"note\": \"호흡기·피부 과민성을 한 줄로 기재해 두 항목에 각각 자료없음 행으로 둠\"}, {\"msds_index\": 0, \"field\": \"toxicity[7]\", \"page\": 7, \"source_text\": \"발암성 : IARC 조사 결과, 이 제품에 0.1% 이상 존재하는 어떤 성분도 유력하거나, 가능성 있거나, 확인된 인체 발암 물질로 확인되지 않았습니다.\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[8]\", \"page\": 7, \"source_text\": \"생식독성 : 태아 또는 생식능력에 손상을 일으킬 것으로 의심됨.\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[9]\", \"page\": 7, \"source_text\": \"생식세포 변이원성 : 돌연변이 유발물질로 등재된 성분이 함유되지 않았습니다\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[10]\", \"page\": 7, \"source_text\": \"최기형성 : 자료없음\", \"rules\": [\"R15\"], \"note\": \"최기형성은 생식독성(TX_REPRO) 항목으로 둠\"}, {\"msds_index\": 0, \"field\": \"toxicity[11]\", \"page\": 7, \"source_text\": \"특정 표적장기 독성 (1회 노출) : 호흡기계 자극을 일으킬 수 있음.\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[12]\", \"page\": 7, \"source_text\": \"특정 표적장기 독성 (반복 노출) : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[13]\", \"page\": 7, \"source_text\": \"흡인 유해성 : 흡인 유해성으로 분류되지 않음\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[14]\", \"page\": 7, \"source_text\": \"급성흡입독성 : 모노에탄올아민 LC50 쥐: > 1.6 mg/l 노출시간: 4 h 시험환경: 분진/미스트\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": \"'> 1.6 mg/l'을 하한 1.6(>)로 나누고 노출 4 hr, 분진·미스트로 기록\"}, {\"msds_index\": 0, \"field\": \"toxicity[15]\", \"page\": 7, \"source_text\": \"모노에탄올아민 LD50 토끼: 1,025 mg/kg\", \"rules\": [\"R04\", \"R06\", \"R10\"], \"note\": \"천단위 콤마 제거\"}, {\"msds_index\": 0, \"field\": \"toxicity[16]\", \"page\": 7, \"source_text\": \"메톡시프로필라민 LD50 쥐: 2,000 mg/kg\", \"rules\": [\"R04\", \"R06\", \"R10\"], \"note\": \"천단위 콤마 제거\"}, {\"msds_index\": 0, \"field\": \"toxicity[17]\", \"page\": 7, \"source_text\": \"시클로헥실아민 LD50 토끼: 277 mg/kg\", \"rules\": [\"R04\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[18]\", \"page\": 7, \"source_text\": \"인체 유해 특성 당사의 유해 특성에 근거한 잠재적인 인체 유해성은 높음\", \"rules\": [], \"note\": \"맞는 값 없음: 독성 항목 코드가 없어 endpoint null\"}, {\"msds_index\": 0, \"field\": \"toxicity[19]\", \"page\": 6, \"source_text\": \"잠재 건강 영향 눈 : 눈에 심한 손상을 일으킴. 피부 : 심한 피부 화상을 유발합니다.\", \"rules\": [], \"note\": \"맞는 값 없음: 잠재 건강 영향 서술을 endpoint null 결과기술 행으로 둠\"}, {\"msds_index\": 0, \"field\": \"toxicity[20]\", \"page\": 6, \"source_text\": \"인체 노출에 대한 역학자료 눈에 들어 갔을 때 : 발적, 통증, 부식\", \"rules\": [], \"note\": \"맞는 값 없음: 역학자료 서술을 endpoint null 결과기술 행으로 둠\"}, {\"msds_index\": 0, \"field\": \"cmr[0]\", \"page\": 7, \"source_text\": \"IARC 조사 결과, 이 제품에 0.1% 이상 존재하는 어떤 성분도 유력하거나, 가능성 있거나, 확인된 인체 발암 물질로 확인되지 않았습니다.\", \"rules\": [], \"note\": \"맞는 값 없음: 등급 없이 미분류 서술이라 class·status는 null, 원문은 note에 둠\"}, {\"msds_index\": 0, \"field\": \"ecotox[0]\", \"page\": 7, \"source_text\": \"환경 영향 : 장기적인 영향에 의해 수생생물에게 유해함.\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[1]\", \"page\": 7, \"source_text\": \"어독성 : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[2]\", \"page\": 7, \"source_text\": \"물벼룩류와 다른 수생 무척추 동물에 대한 독성. : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[3]\", \"page\": 8, \"source_text\": \"조류독성 : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[4]\", \"page\": 8, \"source_text\": \"모노에탄올아민 LC50 : 65 mg/l 노출시간: 48 h\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[5]\", \"page\": 8, \"source_text\": \"시클로헥실아민 EC50 : 36.3 mg/l 노출시간: 48 h\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[6]\", \"page\": 8, \"source_text\": \"조류독성 : 메톡시프로필라민 EC50 : 31 mg/l 노출시간: 72 h\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[7]\", \"page\": 8, \"source_text\": \"(만성 독성) 모노에탄올아민 NOEC: 0.85 mg/l 노출시간: 21 d\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": \"21 d를 21 day로 기록\"}, {\"msds_index\": 0, \"field\": \"ecotox[8]\", \"page\": 8, \"source_text\": \"본 제제의 유기 부분은 쉽게 생분해될 것으로 예상됨.\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[9]\", \"page\": 8, \"source_text\": \"환경 영향은 미국 환경보호청(EPA)이 제공하는 EPI(estimation program interface) Suite TM에 삽입된 레벨 3 퓨가시티 모델을 이용해 추정함.\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[10]\", \"page\": 8, \"source_text\": \"대기 : 5% 이하\", \"rules\": [\"R04\"], \"note\": \"'이하'를 <=로 분해\"}, {\"msds_index\": 0, \"field\": \"ecotox[11]\", \"page\": 8, \"source_text\": \"물 : 30 - 50%\", \"rules\": [\"R04\"], \"note\": \"범위를 하한 30(>=), 상한 50(<=)으로 나눔\"}, {\"msds_index\": 0, \"field\": \"ecotox[12]\", \"page\": 8, \"source_text\": \"토양 : 50 - 70%\", \"rules\": [\"R04\"], \"note\": \"범위를 하한 50(>=), 상한 70(<=)으로 나눔\"}, {\"msds_index\": 0, \"field\": \"ecotox[13]\", \"page\": 8, \"source_text\": \"본 제제 또는 재료는 생체 내에 축적될 가능성 낮음.\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[14]\", \"page\": 8, \"source_text\": \"기타 유해 영향 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[15]\", \"page\": 8, \"source_text\": \"환경 유해성 및 노출 특성 당사의 유해 특성에 근거한 잠재적인 환경 위해성은 낮음\", \"rules\": [], \"note\": \"맞는 값 없음: 생태 항목 코드가 없어 endpoint null\"}]}"
+}

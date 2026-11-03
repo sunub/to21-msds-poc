@@ -1,0 +1,731 @@
+{
+  "doc_id": "T21-S028",
+  "bundle": "b2",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 56029,
+    "completion_tokens": 5900,
+    "cached_tokens": 6909,
+    "reasoning_tokens": 670,
+    "notional_cost_usd": 0.5123338
+  },
+  "seconds": 41.9,
+  "request_usage": [
+    {
+      "prompt_tokens": 56029,
+      "completion_tokens": 5900,
+      "cached_tokens": 6909,
+      "reasoning_tokens": 670,
+      "notional_cost_usd": 0.5123338
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "exposure_limits": [
+          {
+            "comp_ref": "1",
+            "standard": "국내",
+            "limit_type": "TWA",
+            "kr_basis": "노출기준",
+            "q": {
+              "raw": "TWA : 20 ppm",
+              "status": "값있음",
+              "value": 20,
+              "unit": "ppm"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "1",
+            "standard": "국내",
+            "limit_type": "TWA",
+            "kr_basis": "노출기준",
+            "q": {
+              "raw": "85 mg/㎥",
+              "status": "값있음",
+              "value": 85,
+              "unit": "mg/m3"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "1",
+            "standard": "국내",
+            "limit_type": "STEL",
+            "kr_basis": "노출기준",
+            "q": {
+              "raw": "STEL : 40 ppm",
+              "status": "값있음",
+              "value": 40,
+              "unit": "ppm"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "1",
+            "standard": "국내",
+            "limit_type": "STEL",
+            "kr_basis": "노출기준",
+            "q": {
+              "raw": "170 mg/㎥",
+              "status": "값있음",
+              "value": 170,
+              "unit": "mg/m3"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "1",
+            "standard": "ACGIH",
+            "limit_type": "TWA",
+            "q": {
+              "raw": "TWA 20 ppm",
+              "status": "값있음",
+              "value": 20,
+              "unit": "ppm"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "1",
+            "standard": "ACGIH",
+            "limit_type": "TWA",
+            "q": {
+              "raw": "(85 mg/m3)",
+              "status": "값있음",
+              "value": 85,
+              "unit": "mg/m3"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "1",
+            "standard": "ACGIH",
+            "limit_type": "STEL",
+            "q": {
+              "raw": "STEL 40 ppm",
+              "status": "값있음",
+              "value": 40,
+              "unit": "ppm"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "1",
+            "standard": "ACGIH",
+            "limit_type": "STEL",
+            "q": {
+              "raw": "(170 mg/m3)",
+              "status": "값있음",
+              "value": 170,
+              "unit": "mg/m3"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "1",
+            "standard": "생물학적",
+            "limit_type": "BEI",
+            "bio_medium": "소변",
+            "bio_determinant": "Mandelic acid + phenylglyoxylic acid",
+            "bio_timing": "작업후",
+            "q": {
+              "raw": "400 mg/g 크레아티닌(작업후)",
+              "status": "값있음",
+              "value": 400,
+              "unit": "mg/g 크레아티닌"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "1",
+            "standard": "생물학적",
+            "limit_type": "BEI",
+            "bio_medium": "정맥혈",
+            "bio_determinant": "Styrene",
+            "bio_timing": "작업후",
+            "q": {
+              "raw": "0.2 mg/L(작업후)",
+              "status": "값있음",
+              "value": 0.2,
+              "unit": "mg/L",
+              "dp": 1
+            },
+            "notations": []
+          }
+        ],
+        "physchem": [
+          {
+            "prop_code": "APPEARANCE_STATE",
+            "comp_ref": "MIX",
+            "text_value": "액체",
+            "q": null
+          },
+          {
+            "prop_code": "APPEARANCE_COLOR",
+            "comp_ref": "MIX",
+            "text_value": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "ODOR",
+            "comp_ref": "MIX",
+            "text_value": "변화하는 냄새",
+            "q": null
+          },
+          {
+            "prop_code": "ODOR_THRESHOLD",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "PH",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "MELT_FREEZE",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "-31 ℃",
+              "status": "값있음",
+              "value": -31,
+              "unit": "C"
+            }
+          },
+          {
+            "prop_code": "BOILING",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "146 ℃",
+              "status": "값있음",
+              "value": 146,
+              "unit": "C"
+            }
+          },
+          {
+            "prop_code": "FLASH_POINT",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "31 ℃",
+              "status": "값있음",
+              "value": 31,
+              "unit": "C"
+            }
+          },
+          {
+            "prop_code": "EVAP_RATE",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "FLAMMABILITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "UEL",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "6.8 / 0.9 %",
+              "status": "값있음",
+              "value": 6.8,
+              "unit": "%",
+              "dp": 1
+            }
+          },
+          {
+            "prop_code": "LEL",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "6.8 / 0.9 %",
+              "status": "값있음",
+              "value": 0.9,
+              "unit": "%",
+              "dp": 1
+            }
+          },
+          {
+            "prop_code": "VAPOR_PRESSURE",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "6.4 ㎜Hg (25℃)",
+              "status": "값있음",
+              "value": 6.4,
+              "unit": "mmHg",
+              "dp": 1
+            },
+            "cond": {
+              "temp": 25,
+              "temp_unit": "C"
+            }
+          },
+          {
+            "prop_code": "SOLUBILITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "0.031 g/100㎖ (25℃)",
+              "status": "값있음",
+              "value": 0.031,
+              "unit": "g/100mL",
+              "dp": 3
+            },
+            "cond": {
+              "temp": 25,
+              "temp_unit": "C"
+            }
+          },
+          {
+            "prop_code": "VAPOR_DENSITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "3.6 (공기=1)",
+              "status": "값있음",
+              "value": 3.6,
+              "dp": 1
+            },
+            "cond": {
+              "reference": "공기=1"
+            }
+          },
+          {
+            "prop_code": "RELATIVE_DENSITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "0.906 (20℃)",
+              "status": "값있음",
+              "value": 0.906,
+              "dp": 3
+            },
+            "cond": {
+              "temp": 20,
+              "temp_unit": "C"
+            }
+          },
+          {
+            "prop_code": "LOG_KOW",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "2.95",
+              "status": "값있음",
+              "value": 2.95,
+              "dp": 2
+            }
+          },
+          {
+            "prop_code": "AUTOIGNITION",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "490 ℃",
+              "status": "값있음",
+              "value": 490,
+              "unit": "C"
+            }
+          },
+          {
+            "prop_code": "DECOMPOSITION",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "VISCOSITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "0.696 cP (25℃)",
+              "status": "값있음",
+              "value": 0.696,
+              "unit": "cP",
+              "dp": 3
+            },
+            "cond": {
+              "temp": 25,
+              "temp_unit": "C"
+            }
+          },
+          {
+            "prop_code": "MOL_WEIGHT",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "104.14",
+              "status": "값있음",
+              "value": 104.14,
+              "dp": 2
+            }
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[0]",
+        "page": 5,
+        "source_text": "- [Vinylbenzene] : TWA : 20 ppm 85 mg/㎥ STEL : 40 ppm 170 mg/㎥ - 페닐 에틸렌",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "국내 TWA ppm 값; 단위별로 행 분리. 끝의 '- 페닐 에틸렌'은 기준값이 아니라 넣지 않음"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[1]",
+        "page": 5,
+        "source_text": "- [Vinylbenzene] : TWA : 20 ppm 85 mg/㎥ STEL : 40 ppm 170 mg/㎥ - 페닐 에틸렌",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "국내 TWA mg/㎥ 값을 mg/m3로 정규화"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[2]",
+        "page": 5,
+        "source_text": "- [Vinylbenzene] : TWA : 20 ppm 85 mg/㎥ STEL : 40 ppm 170 mg/㎥ - 페닐 에틸렌",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "국내 STEL ppm 값"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[3]",
+        "page": 5,
+        "source_text": "- [Vinylbenzene] : TWA : 20 ppm 85 mg/㎥ STEL : 40 ppm 170 mg/㎥ - 페닐 에틸렌",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "국내 STEL mg/㎥ 값"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[4]",
+        "page": 5,
+        "source_text": "- [Vinylbenzene] : TWA 20 ppm (85 mg/m3) STEL 40 ppm (170 mg/m3)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "ACGIH TWA ppm 값"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[5]",
+        "page": 5,
+        "source_text": "- [Vinylbenzene] : TWA 20 ppm (85 mg/m3) STEL 40 ppm (170 mg/m3)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "ACGIH TWA mg/m3 값"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[6]",
+        "page": 5,
+        "source_text": "- [Vinylbenzene] : TWA 20 ppm (85 mg/m3) STEL 40 ppm (170 mg/m3)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "ACGIH STEL ppm 값"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[7]",
+        "page": 5,
+        "source_text": "- [Vinylbenzene] : TWA 20 ppm (85 mg/m3) STEL 40 ppm (170 mg/m3)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "ACGIH STEL mg/m3 값"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[8]",
+        "page": 5,
+        "source_text": "- [Vinylbenzene] : 소변 중 Mandelic acid + phenylglyoxylic acid : 400 mg/g 크레아티닌(작업후)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "생물학적 노출기준: 매체 소변, 지표물질, 채취시기 작업후로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[9]",
+        "page": 5,
+        "source_text": "정맥혈 중 Styrene : 0.2 mg/L(작업후)",
+        "rules": [
+          "R04",
+          "R06",
+          "R10"
+        ],
+        "note": "생물학적 노출기준: 매체 정맥혈, 지표 Styrene, 작업후"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[0]",
+        "page": 5,
+        "source_text": "- 성상 | 액체",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[1]",
+        "page": 5,
+        "source_text": "- 색 | 자료없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "자료없음을 status로"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[2]",
+        "page": 5,
+        "source_text": "나. 냄새 | 변화하는 냄새",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[3]",
+        "page": 5,
+        "source_text": "다. 냄새역치 | 자료없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[4]",
+        "page": 5,
+        "source_text": "라. pH | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[5]",
+        "page": 5,
+        "source_text": "마. 녹는점/어는점 | -31 ℃",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[6]",
+        "page": 5,
+        "source_text": "바. 초기 끓는점과 끓는점 범위 | 146 ℃",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[7]",
+        "page": 5,
+        "source_text": "사. 인화점 | 31 ℃",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[8]",
+        "page": 5,
+        "source_text": "아. 증발 속도 | 자료없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[9]",
+        "page": 5,
+        "source_text": "자. 인화성 (고체, 기체) | 자료없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[10]",
+        "page": 5,
+        "source_text": "차. 인화 또는 폭발 범위의 상한/하한 | 6.8 / 0.9 %",
+        "rules": [
+          "R04",
+          "R06",
+          "R25"
+        ],
+        "note": "상한/하한 순서에 따라 앞 값 6.8을 UEL로"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[11]",
+        "page": 5,
+        "source_text": "차. 인화 또는 폭발 범위의 상한/하한 | 6.8 / 0.9 %",
+        "rules": [
+          "R04",
+          "R06",
+          "R25"
+        ],
+        "note": "뒤 값 0.9를 LEL로"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[12]",
+        "page": 5,
+        "source_text": "카. 증기압 | 6.4 ㎜Hg (25℃)",
+        "rules": [
+          "R04",
+          "R06",
+          "R08"
+        ],
+        "note": "(25℃)를 cond.temp로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[13]",
+        "page": 5,
+        "source_text": "타. 용해도 | 0.031 g/100㎖ (25℃)",
+        "rules": [
+          "R04",
+          "R06",
+          "R08"
+        ],
+        "note": "(25℃)를 cond.temp로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[14]",
+        "page": 5,
+        "source_text": "파. 증기밀도 | 3.6 (공기=1)",
+        "rules": [
+          "R04",
+          "R06",
+          "R25"
+        ],
+        "note": "(공기=1)을 cond.reference로"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[15]",
+        "page": 5,
+        "source_text": "하. 비중 | 0.906 (20℃)",
+        "rules": [
+          "R04",
+          "R06",
+          "R25"
+        ],
+        "note": "(20℃)를 cond.temp로"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[16]",
+        "page": 5,
+        "source_text": "거. N-옥탄올/물 분배계수 | 2.95",
+        "rules": [
+          "R06",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[17]",
+        "page": 5,
+        "source_text": "너. 자연발화온도 | 490 ℃",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[18]",
+        "page": 5,
+        "source_text": "더. 분해온도 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[19]",
+        "page": 5,
+        "source_text": "러. 점도 | 0.696 cP (25℃)",
+        "rules": [
+          "R04",
+          "R06",
+          "R25"
+        ],
+        "note": "(25℃)를 cond.temp로"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[20]",
+        "page": 5,
+        "source_text": "머. 분자량 | 104.14",
+        "rules": [
+          "R06"
+        ],
+        "note": null
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"exposure_limits\": [{\"comp_ref\": \"1\", \"standard\": \"국내\", \"limit_type\": \"TWA\", \"kr_basis\": \"노출기준\", \"q\": {\"raw\": \"TWA : 20 ppm\", \"status\": \"값있음\", \"value\": 20, \"unit\": \"ppm\"}, \"notations\": []}, {\"comp_ref\": \"1\", \"standard\": \"국내\", \"limit_type\": \"TWA\", \"kr_basis\": \"노출기준\", \"q\": {\"raw\": \"85 mg/㎥\", \"status\": \"값있음\", \"value\": 85, \"unit\": \"mg/m3\"}, \"notations\": []}, {\"comp_ref\": \"1\", \"standard\": \"국내\", \"limit_type\": \"STEL\", \"kr_basis\": \"노출기준\", \"q\": {\"raw\": \"STEL : 40 ppm\", \"status\": \"값있음\", \"value\": 40, \"unit\": \"ppm\"}, \"notations\": []}, {\"comp_ref\": \"1\", \"standard\": \"국내\", \"limit_type\": \"STEL\", \"kr_basis\": \"노출기준\", \"q\": {\"raw\": \"170 mg/㎥\", \"status\": \"값있음\", \"value\": 170, \"unit\": \"mg/m3\"}, \"notations\": []}, {\"comp_ref\": \"1\", \"standard\": \"ACGIH\", \"limit_type\": \"TWA\", \"q\": {\"raw\": \"TWA 20 ppm\", \"status\": \"값있음\", \"value\": 20, \"unit\": \"ppm\"}, \"notations\": []}, {\"comp_ref\": \"1\", \"standard\": \"ACGIH\", \"limit_type\": \"TWA\", \"q\": {\"raw\": \"(85 mg/m3)\", \"status\": \"값있음\", \"value\": 85, \"unit\": \"mg/m3\"}, \"notations\": []}, {\"comp_ref\": \"1\", \"standard\": \"ACGIH\", \"limit_type\": \"STEL\", \"q\": {\"raw\": \"STEL 40 ppm\", \"status\": \"값있음\", \"value\": 40, \"unit\": \"ppm\"}, \"notations\": []}, {\"comp_ref\": \"1\", \"standard\": \"ACGIH\", \"limit_type\": \"STEL\", \"q\": {\"raw\": \"(170 mg/m3)\", \"status\": \"값있음\", \"value\": 170, \"unit\": \"mg/m3\"}, \"notations\": []}, {\"comp_ref\": \"1\", \"standard\": \"생물학적\", \"limit_type\": \"BEI\", \"bio_medium\": \"소변\", \"bio_determinant\": \"Mandelic acid + phenylglyoxylic acid\", \"bio_timing\": \"작업후\", \"q\": {\"raw\": \"400 mg/g 크레아티닌(작업후)\", \"status\": \"값있음\", \"value\": 400, \"unit\": \"mg/g 크레아티닌\"}, \"notations\": []}, {\"comp_ref\": \"1\", \"standard\": \"생물학적\", \"limit_type\": \"BEI\", \"bio_medium\": \"정맥혈\", \"bio_determinant\": \"Styrene\", \"bio_timing\": \"작업후\", \"q\": {\"raw\": \"0.2 mg/L(작업후)\", \"status\": \"값있음\", \"value\": 0.2, \"unit\": \"mg/L\", \"dp\": 1}, \"notations\": []}], \"physchem\": [{\"prop_code\": \"APPEARANCE_STATE\", \"comp_ref\": \"MIX\", \"text_value\": \"액체\", \"q\": null}, {\"prop_code\": \"APPEARANCE_COLOR\", \"comp_ref\": \"MIX\", \"text_value\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"ODOR\", \"comp_ref\": \"MIX\", \"text_value\": \"변화하는 냄새\", \"q\": null}, {\"prop_code\": \"ODOR_THRESHOLD\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"PH\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"MELT_FREEZE\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"-31 ℃\", \"status\": \"값있음\", \"value\": -31, \"unit\": \"C\"}}, {\"prop_code\": \"BOILING\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"146 ℃\", \"status\": \"값있음\", \"value\": 146, \"unit\": \"C\"}}, {\"prop_code\": \"FLASH_POINT\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"31 ℃\", \"status\": \"값있음\", \"value\": 31, \"unit\": \"C\"}}, {\"prop_code\": \"EVAP_RATE\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"FLAMMABILITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"UEL\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"6.8 / 0.9 %\", \"status\": \"값있음\", \"value\": 6.8, \"unit\": \"%\", \"dp\": 1}}, {\"prop_code\": \"LEL\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"6.8 / 0.9 %\", \"status\": \"값있음\", \"value\": 0.9, \"unit\": \"%\", \"dp\": 1}}, {\"prop_code\": \"VAPOR_PRESSURE\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"6.4 ㎜Hg (25℃)\", \"status\": \"값있음\", \"value\": 6.4, \"unit\": \"mmHg\", \"dp\": 1}, \"cond\": {\"temp\": 25, \"temp_unit\": \"C\"}}, {\"prop_code\": \"SOLUBILITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"0.031 g/100㎖ (25℃)\", \"status\": \"값있음\", \"value\": 0.031, \"unit\": \"g/100mL\", \"dp\": 3}, \"cond\": {\"temp\": 25, \"temp_unit\": \"C\"}}, {\"prop_code\": \"VAPOR_DENSITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"3.6 (공기=1)\", \"status\": \"값있음\", \"value\": 3.6, \"dp\": 1}, \"cond\": {\"reference\": \"공기=1\"}}, {\"prop_code\": \"RELATIVE_DENSITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"0.906 (20℃)\", \"status\": \"값있음\", \"value\": 0.906, \"dp\": 3}, \"cond\": {\"temp\": 20, \"temp_unit\": \"C\"}}, {\"prop_code\": \"LOG_KOW\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"2.95\", \"status\": \"값있음\", \"value\": 2.95, \"dp\": 2}}, {\"prop_code\": \"AUTOIGNITION\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"490 ℃\", \"status\": \"값있음\", \"value\": 490, \"unit\": \"C\"}}, {\"prop_code\": \"DECOMPOSITION\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"VISCOSITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"0.696 cP (25℃)\", \"status\": \"값있음\", \"value\": 0.696, \"unit\": \"cP\", \"dp\": 3}, \"cond\": {\"temp\": 25, \"temp_unit\": \"C\"}}, {\"prop_code\": \"MOL_WEIGHT\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"104.14\", \"status\": \"값있음\", \"value\": 104.14, \"dp\": 2}}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"exposure_limits[0]\", \"page\": 5, \"source_text\": \"- [Vinylbenzene] : TWA : 20 ppm 85 mg/㎥ STEL : 40 ppm 170 mg/㎥ - 페닐 에틸렌\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": \"국내 TWA ppm 값; 단위별로 행 분리. 끝의 '- 페닐 에틸렌'은 기준값이 아니라 넣지 않음\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[1]\", \"page\": 5, \"source_text\": \"- [Vinylbenzene] : TWA : 20 ppm 85 mg/㎥ STEL : 40 ppm 170 mg/㎥ - 페닐 에틸렌\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": \"국내 TWA mg/㎥ 값을 mg/m3로 정규화\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[2]\", \"page\": 5, \"source_text\": \"- [Vinylbenzene] : TWA : 20 ppm 85 mg/㎥ STEL : 40 ppm 170 mg/㎥ - 페닐 에틸렌\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": \"국내 STEL ppm 값\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[3]\", \"page\": 5, \"source_text\": \"- [Vinylbenzene] : TWA : 20 ppm 85 mg/㎥ STEL : 40 ppm 170 mg/㎥ - 페닐 에틸렌\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": \"국내 STEL mg/㎥ 값\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[4]\", \"page\": 5, \"source_text\": \"- [Vinylbenzene] : TWA 20 ppm (85 mg/m3) STEL 40 ppm (170 mg/m3)\", \"rules\": [\"R04\", \"R10\"], \"note\": \"ACGIH TWA ppm 값\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[5]\", \"page\": 5, \"source_text\": \"- [Vinylbenzene] : TWA 20 ppm (85 mg/m3) STEL 40 ppm (170 mg/m3)\", \"rules\": [\"R04\", \"R10\"], \"note\": \"ACGIH TWA mg/m3 값\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[6]\", \"page\": 5, \"source_text\": \"- [Vinylbenzene] : TWA 20 ppm (85 mg/m3) STEL 40 ppm (170 mg/m3)\", \"rules\": [\"R04\", \"R10\"], \"note\": \"ACGIH STEL ppm 값\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[7]\", \"page\": 5, \"source_text\": \"- [Vinylbenzene] : TWA 20 ppm (85 mg/m3) STEL 40 ppm (170 mg/m3)\", \"rules\": [\"R04\", \"R10\"], \"note\": \"ACGIH STEL mg/m3 값\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[8]\", \"page\": 5, \"source_text\": \"- [Vinylbenzene] : 소변 중 Mandelic acid + phenylglyoxylic acid : 400 mg/g 크레아티닌(작업후)\", \"rules\": [\"R04\", \"R10\"], \"note\": \"생물학적 노출기준: 매체 소변, 지표물질, 채취시기 작업후로 나눔\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[9]\", \"page\": 5, \"source_text\": \"정맥혈 중 Styrene : 0.2 mg/L(작업후)\", \"rules\": [\"R04\", \"R06\", \"R10\"], \"note\": \"생물학적 노출기준: 매체 정맥혈, 지표 Styrene, 작업후\"}, {\"msds_index\": 0, \"field\": \"physchem[0]\", \"page\": 5, \"source_text\": \"- 성상 | 액체\", \"rules\": [\"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[1]\", \"page\": 5, \"source_text\": \"- 색 | 자료없음\", \"rules\": [\"R15\", \"R25\"], \"note\": \"자료없음을 status로\"}, {\"msds_index\": 0, \"field\": \"physchem[2]\", \"page\": 5, \"source_text\": \"나. 냄새 | 변화하는 냄새\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[3]\", \"page\": 5, \"source_text\": \"다. 냄새역치 | 자료없음\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[4]\", \"page\": 5, \"source_text\": \"라. pH | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[5]\", \"page\": 5, \"source_text\": \"마. 녹는점/어는점 | -31 ℃\", \"rules\": [\"R04\", \"R08\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[6]\", \"page\": 5, \"source_text\": \"바. 초기 끓는점과 끓는점 범위 | 146 ℃\", \"rules\": [\"R04\", \"R08\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[7]\", \"page\": 5, \"source_text\": \"사. 인화점 | 31 ℃\", \"rules\": [\"R04\", \"R08\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[8]\", \"page\": 5, \"source_text\": \"아. 증발 속도 | 자료없음\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[9]\", \"page\": 5, \"source_text\": \"자. 인화성 (고체, 기체) | 자료없음\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[10]\", \"page\": 5, \"source_text\": \"차. 인화 또는 폭발 범위의 상한/하한 | 6.8 / 0.9 %\", \"rules\": [\"R04\", \"R06\", \"R25\"], \"note\": \"상한/하한 순서에 따라 앞 값 6.8을 UEL로\"}, {\"msds_index\": 0, \"field\": \"physchem[11]\", \"page\": 5, \"source_text\": \"차. 인화 또는 폭발 범위의 상한/하한 | 6.8 / 0.9 %\", \"rules\": [\"R04\", \"R06\", \"R25\"], \"note\": \"뒤 값 0.9를 LEL로\"}, {\"msds_index\": 0, \"field\": \"physchem[12]\", \"page\": 5, \"source_text\": \"카. 증기압 | 6.4 ㎜Hg (25℃)\", \"rules\": [\"R04\", \"R06\", \"R08\"], \"note\": \"(25℃)를 cond.temp로 분리\"}, {\"msds_index\": 0, \"field\": \"physchem[13]\", \"page\": 5, \"source_text\": \"타. 용해도 | 0.031 g/100㎖ (25℃)\", \"rules\": [\"R04\", \"R06\", \"R08\"], \"note\": \"(25℃)를 cond.temp로 분리\"}, {\"msds_index\": 0, \"field\": \"physchem[14]\", \"page\": 5, \"source_text\": \"파. 증기밀도 | 3.6 (공기=1)\", \"rules\": [\"R04\", \"R06\", \"R25\"], \"note\": \"(공기=1)을 cond.reference로\"}, {\"msds_index\": 0, \"field\": \"physchem[15]\", \"page\": 5, \"source_text\": \"하. 비중 | 0.906 (20℃)\", \"rules\": [\"R04\", \"R06\", \"R25\"], \"note\": \"(20℃)를 cond.temp로\"}, {\"msds_index\": 0, \"field\": \"physchem[16]\", \"page\": 5, \"source_text\": \"거. N-옥탄올/물 분배계수 | 2.95\", \"rules\": [\"R06\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[17]\", \"page\": 5, \"source_text\": \"너. 자연발화온도 | 490 ℃\", \"rules\": [\"R04\", \"R08\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[18]\", \"page\": 5, \"source_text\": \"더. 분해온도 | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[19]\", \"page\": 5, \"source_text\": \"러. 점도 | 0.696 cP (25℃)\", \"rules\": [\"R04\", \"R06\", \"R25\"], \"note\": \"(25℃)를 cond.temp로\"}, {\"msds_index\": 0, \"field\": \"physchem[20]\", \"page\": 5, \"source_text\": \"머. 분자량 | 104.14\", \"rules\": [\"R06\"], \"note\": null}]}"
+}

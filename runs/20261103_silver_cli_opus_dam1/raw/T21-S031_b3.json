@@ -1,0 +1,621 @@
+{
+  "doc_id": "T21-S031",
+  "bundle": "b3",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 42196,
+    "completion_tokens": 6110,
+    "cached_tokens": 8451,
+    "reasoning_tokens": 1168,
+    "notional_cost_usd": 0.39384220000000003
+  },
+  "seconds": 45.8,
+  "request_usage": [
+    {
+      "prompt_tokens": 42196,
+      "completion_tokens": 6110,
+      "cached_tokens": 8451,
+      "reasoning_tokens": 1168,
+      "notional_cost_usd": 0.39384220000000003
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "toxicity": [
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_INHAL",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "흡입",
+                "value": "고농도의 분진 흡입은 호흡기계에 자극을 유발할 수 있음. 제공받은 정보에 따라 알려진 영향은 없음.",
+                "text": "흡입 고농도의 분진 흡입은 호흡기계에 자극을 유발할 수 있음. 제공받은 정보에 따라 알려진 영향은 없음."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ORAL",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "경구",
+                "value": "알려진 것 없음.",
+                "text": "경구 알려진 것 없음."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_EYE",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "눈 접촉",
+                "value": "분진이 눈에 들어간 경우 기계적 자극을 유발할 수 있음.",
+                "text": "눈 접촉 분진이 눈에 들어간 경우 기계적 자극을 유발할 수 있음."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_DERMAL",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "피부 접촉",
+                "value": "알려진 것 없음.",
+                "text": "피부 접촉 알려진 것 없음."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN",
+            "status": "자료없음",
+            "q": {
+              "raw": "이용 가능한 정보가 없음.",
+              "status": "자료없음"
+            }
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_EYE",
+            "status": "자료없음",
+            "q": {
+              "raw": "이용 가능한 정보가 없음.",
+              "status": "자료없음"
+            }
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_RESP_SENS",
+            "status": "자료없음",
+            "q": {
+              "raw": "이용 가능한 정보가 없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN_SENS",
+            "status": "자료없음",
+            "q": {
+              "raw": "이용 가능한 정보가 없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_CARC",
+            "status": "자료없음",
+            "q": {
+              "raw": "이용 가능한 정보가 없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_MUTA",
+            "status": "자료없음",
+            "q": {
+              "raw": "이용 가능한 정보가 없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_REPRO",
+            "status": "자료없음",
+            "q": {
+              "raw": "이용 가능한 정보가 없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_STOT_SE",
+            "status": "자료없음",
+            "q": {
+              "raw": "이용 가능한 정보가 없음.",
+              "status": "자료없음"
+            }
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_STOT_RE",
+            "status": "자료없음",
+            "q": {
+              "raw": "이용 가능한 정보가 없음.",
+              "status": "자료없음"
+            }
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ASP",
+            "status": "자료없음",
+            "q": {
+              "raw": "이용 가능한 정보가 없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_ORAL",
+            "descriptor": "LD50",
+            "species": "Rat",
+            "sex": "수컷",
+            "status": "값있음",
+            "q": {
+              "raw": "> 10,0000 mg/kg",
+              "lower_op": ">",
+              "unit": "mg/kg",
+              "status": "값있음"
+            }
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_DERMAL",
+            "descriptor": "LD50",
+            "status": "자료없음",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_INHAL",
+            "descriptor": "LC50",
+            "status": "자료없음",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          }
+        ],
+        "cmr": [],
+        "ecotox": [
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_ALGAE",
+            "status": "자료없음",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_FISH",
+            "descriptor": "LC50",
+            "species": "Cyprinodon variegatus",
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "status": "값있음",
+            "q": {
+              "raw": "1000: 96 h Cyprinodon variegatus mg/L LC50 semi-static",
+              "value": 1000,
+              "unit": "mg/L",
+              "status": "값있음"
+            },
+            "statements": [
+              {
+                "seq": 1,
+                "value": "semi-static",
+                "text": "semi-static"
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_CRUST",
+            "descriptor": "LC50",
+            "species": "Mysidopsis bahia",
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "status": "값있음",
+            "q": {
+              "raw": "1000: 96 h Mysidopsis bahia mg/L LC50",
+              "value": 1000,
+              "unit": "mg/L",
+              "status": "값있음"
+            }
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_PERSIST",
+            "status": "자료없음",
+            "q": {
+              "raw": "이용 가능한 정보가 없음",
+              "status": "자료없음"
+            },
+            "statements": [
+              {
+                "seq": 1,
+                "key": "잔류성",
+                "value": "이용 가능한 정보가 없음",
+                "text": "잔류성 이용 가능한 정보가 없음"
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_PERSIST",
+            "status": "자료없음",
+            "q": {
+              "raw": "이용 가능한 정보가 없음.",
+              "status": "자료없음"
+            },
+            "statements": [
+              {
+                "seq": 1,
+                "key": "분해성",
+                "value": "이용 가능한 정보가 없음.",
+                "text": "분해성 이용 가능한 정보가 없음."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_BIOACC",
+            "status": "자료없음",
+            "q": {
+              "raw": "이용 가능한 정보가 없음.",
+              "status": "자료없음"
+            },
+            "statements": [
+              {
+                "seq": 1,
+                "key": "농축성",
+                "value": "이용 가능한 정보가 없음.",
+                "text": "농축성 이용 가능한 정보가 없음."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_BIOACC",
+            "status": "자료없음",
+            "q": {
+              "raw": "이용 가능한 정보가 없음",
+              "status": "자료없음"
+            },
+            "statements": [
+              {
+                "seq": 1,
+                "key": "생분해성",
+                "value": "이용 가능한 정보가 없음",
+                "text": "생분해성 이용 가능한 정보가 없음"
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_SOIL",
+            "status": "자료없음",
+            "q": {
+              "raw": "이용 가능한 정보가 없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_OTHER",
+            "status": "자료없음",
+            "q": {
+              "raw": "이용 가능한 정보가 없음",
+              "status": "자료없음"
+            }
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "toxicity[0]",
+        "page": 4,
+        "source_text": "흡입 고농도의 분진 흡입은 호흡기계에 자극을 유발할 수 있음. 제공받은 정보에 따라 알려진 영향은 없음.",
+        "rules": [
+          "R10"
+        ],
+        "note": "노출 경로 정보를 결과기술 행으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[1]",
+        "page": 4,
+        "source_text": "경구 알려진 것 없음.",
+        "rules": [
+          "R10"
+        ],
+        "note": "노출 경로 정보를 결과기술 행으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[2]",
+        "page": 4,
+        "source_text": "눈 접촉 분진이 눈에 들어간 경우 기계적 자극을 유발할 수 있음.",
+        "rules": [
+          "R10"
+        ],
+        "note": "노출 경로 정보를 결과기술 행으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[3]",
+        "page": 4,
+        "source_text": "피부 접촉 알려진 것 없음.",
+        "rules": [
+          "R10"
+        ],
+        "note": "피부 접촉 경로 정보를 TX_DERMAL 결과기술 행으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[4]",
+        "page": 4,
+        "source_text": "피부 부식성 / 자극성 이용 가능한 정보가 없음.",
+        "rules": [
+          "R15"
+        ],
+        "note": "'이용 가능한 정보가 없음'을 자료없음으로 처리"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[5]",
+        "page": 4,
+        "source_text": "심한 눈 손상성/눈 자극성 이용 가능한 정보가 없음.",
+        "rules": [
+          "R15"
+        ],
+        "note": "자료없음으로 처리"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[6]",
+        "page": 4,
+        "source_text": "호흡기과민성 이용 가능한 정보가 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "자료없음으로 처리"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[7]",
+        "page": 4,
+        "source_text": "피부과민성 이용 가능한 정보가 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "자료없음으로 처리"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[8]",
+        "page": 4,
+        "source_text": "발암성 이용 가능한 정보가 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "자료없음으로 처리. 기관별 분류가 없어 cmr 행은 만들지 않음"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[9]",
+        "page": 4,
+        "source_text": "생식세포 변이원성 이용 가능한 정보가 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "자료없음으로 처리"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[10]",
+        "page": 5,
+        "source_text": "생식독성 이용 가능한 정보가 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "자료없음으로 처리"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[11]",
+        "page": 5,
+        "source_text": "특정 표적장기 독성 – 1 회 노출 이용 가능한 정보가 없음.",
+        "rules": [
+          "R15"
+        ],
+        "note": "자료없음으로 처리"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[12]",
+        "page": 5,
+        "source_text": "특정 표적장기 독성 – 반복 노출 이용 가능한 정보가 없음.",
+        "rules": [
+          "R15"
+        ],
+        "note": "자료없음으로 처리"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[13]",
+        "page": 5,
+        "source_text": "흡인 유해성 이용 가능한 정보가 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "자료없음으로 처리. 11항의 '수생환경 유해성' 줄은 맞는 독성 항목 코드가 없어 행으로 두지 않음"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[14]",
+        "page": 5,
+        "source_text": "9-Octadecenamide, (Z) | > 10,0000 mg/kg ( Rat, male )",
+        "rules": [
+          "R04",
+          "R10",
+          "R17"
+        ],
+        "note": "'10,0000'은 콤마 위치가 비정상이라 값이 모호하므로 R17에 따라 숫자는 비우고 raw만 남김(부등호 >, 단위 mg/kg만 분리)"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[15]",
+        "page": 5,
+        "source_text": "9-Octadecenamide, (Z) | 경피 LD50 | 자료없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[16]",
+        "page": 5,
+        "source_text": "9-Octadecenamide, (Z) | 흡입 LC50 | 자료없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[0]",
+        "page": 5,
+        "source_text": "9-Octadecenamide, (Z) | 조류/수생 식물 | 자료없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[1]",
+        "page": 5,
+        "source_text": "1000: 96 h Cyprinodon variegatus mg/L LC50 semi-static",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "값 1000 mg/L, 96 hr, LC50으로 분해"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[2]",
+        "page": 5,
+        "source_text": "1000: 96 h Mysidopsis bahia mg/L LC50",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "값 1000 mg/L, 96 hr, LC50으로 분해"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[3]",
+        "page": 5,
+        "source_text": "잔류성 이용 가능한 정보가 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "자료없음으로 처리"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[4]",
+        "page": 5,
+        "source_text": "분해성 이용 가능한 정보가 없음.",
+        "rules": [
+          "R15"
+        ],
+        "note": "자료없음으로 처리"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[5]",
+        "page": 5,
+        "source_text": "농축성 이용 가능한 정보가 없음.",
+        "rules": [
+          "R15"
+        ],
+        "note": "자료없음으로 처리"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[6]",
+        "page": 5,
+        "source_text": "생분해성 이용 가능한 정보가 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "원문 'c 생물농축성' 아래 줄이라 ECO_BIOACC로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[7]",
+        "page": 5,
+        "source_text": "d 토양이동성 이용 가능한 정보가 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "자료없음으로 처리"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[8]",
+        "page": 5,
+        "source_text": "e 기타 유해영향 이용 가능한 정보가 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "자료없음으로 처리"
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"toxicity\": [{\"comp_ref\": \"MIX\", \"endpoint\": \"TX_INHAL\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"흡입\", \"value\": \"고농도의 분진 흡입은 호흡기계에 자극을 유발할 수 있음. 제공받은 정보에 따라 알려진 영향은 없음.\", \"text\": \"흡입 고농도의 분진 흡입은 호흡기계에 자극을 유발할 수 있음. 제공받은 정보에 따라 알려진 영향은 없음.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_ORAL\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"경구\", \"value\": \"알려진 것 없음.\", \"text\": \"경구 알려진 것 없음.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_EYE\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"눈 접촉\", \"value\": \"분진이 눈에 들어간 경우 기계적 자극을 유발할 수 있음.\", \"text\": \"눈 접촉 분진이 눈에 들어간 경우 기계적 자극을 유발할 수 있음.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_DERMAL\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"피부 접촉\", \"value\": \"알려진 것 없음.\", \"text\": \"피부 접촉 알려진 것 없음.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_SKIN\", \"status\": \"자료없음\", \"q\": {\"raw\": \"이용 가능한 정보가 없음.\", \"status\": \"자료없음\"}}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_EYE\", \"status\": \"자료없음\", \"q\": {\"raw\": \"이용 가능한 정보가 없음.\", \"status\": \"자료없음\"}}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_RESP_SENS\", \"status\": \"자료없음\", \"q\": {\"raw\": \"이용 가능한 정보가 없음\", \"status\": \"자료없음\"}}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_SKIN_SENS\", \"status\": \"자료없음\", \"q\": {\"raw\": \"이용 가능한 정보가 없음\", \"status\": \"자료없음\"}}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_CARC\", \"status\": \"자료없음\", \"q\": {\"raw\": \"이용 가능한 정보가 없음\", \"status\": \"자료없음\"}}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_MUTA\", \"status\": \"자료없음\", \"q\": {\"raw\": \"이용 가능한 정보가 없음\", \"status\": \"자료없음\"}}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_REPRO\", \"status\": \"자료없음\", \"q\": {\"raw\": \"이용 가능한 정보가 없음\", \"status\": \"자료없음\"}}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_STOT_SE\", \"status\": \"자료없음\", \"q\": {\"raw\": \"이용 가능한 정보가 없음.\", \"status\": \"자료없음\"}}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_STOT_RE\", \"status\": \"자료없음\", \"q\": {\"raw\": \"이용 가능한 정보가 없음.\", \"status\": \"자료없음\"}}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_ASP\", \"status\": \"자료없음\", \"q\": {\"raw\": \"이용 가능한 정보가 없음\", \"status\": \"자료없음\"}}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_ORAL\", \"descriptor\": \"LD50\", \"species\": \"Rat\", \"sex\": \"수컷\", \"status\": \"값있음\", \"q\": {\"raw\": \"> 10,0000 mg/kg\", \"lower_op\": \">\", \"unit\": \"mg/kg\", \"status\": \"값있음\"}}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_DERMAL\", \"descriptor\": \"LD50\", \"status\": \"자료없음\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_INHAL\", \"descriptor\": \"LC50\", \"status\": \"자료없음\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}], \"cmr\": [], \"ecotox\": [{\"comp_ref\": \"1\", \"endpoint\": \"ECO_ALGAE\", \"status\": \"자료없음\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_FISH\", \"descriptor\": \"LC50\", \"species\": \"Cyprinodon variegatus\", \"duration_value\": 96, \"duration_unit\": \"hr\", \"status\": \"값있음\", \"q\": {\"raw\": \"1000: 96 h Cyprinodon variegatus mg/L LC50 semi-static\", \"value\": 1000, \"unit\": \"mg/L\", \"status\": \"값있음\"}, \"statements\": [{\"seq\": 1, \"value\": \"semi-static\", \"text\": \"semi-static\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_CRUST\", \"descriptor\": \"LC50\", \"species\": \"Mysidopsis bahia\", \"duration_value\": 96, \"duration_unit\": \"hr\", \"status\": \"값있음\", \"q\": {\"raw\": \"1000: 96 h Mysidopsis bahia mg/L LC50\", \"value\": 1000, \"unit\": \"mg/L\", \"status\": \"값있음\"}}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_PERSIST\", \"status\": \"자료없음\", \"q\": {\"raw\": \"이용 가능한 정보가 없음\", \"status\": \"자료없음\"}, \"statements\": [{\"seq\": 1, \"key\": \"잔류성\", \"value\": \"이용 가능한 정보가 없음\", \"text\": \"잔류성 이용 가능한 정보가 없음\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_PERSIST\", \"status\": \"자료없음\", \"q\": {\"raw\": \"이용 가능한 정보가 없음.\", \"status\": \"자료없음\"}, \"statements\": [{\"seq\": 1, \"key\": \"분해성\", \"value\": \"이용 가능한 정보가 없음.\", \"text\": \"분해성 이용 가능한 정보가 없음.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_BIOACC\", \"status\": \"자료없음\", \"q\": {\"raw\": \"이용 가능한 정보가 없음.\", \"status\": \"자료없음\"}, \"statements\": [{\"seq\": 1, \"key\": \"농축성\", \"value\": \"이용 가능한 정보가 없음.\", \"text\": \"농축성 이용 가능한 정보가 없음.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_BIOACC\", \"status\": \"자료없음\", \"q\": {\"raw\": \"이용 가능한 정보가 없음\", \"status\": \"자료없음\"}, \"statements\": [{\"seq\": 1, \"key\": \"생분해성\", \"value\": \"이용 가능한 정보가 없음\", \"text\": \"생분해성 이용 가능한 정보가 없음\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_SOIL\", \"status\": \"자료없음\", \"q\": {\"raw\": \"이용 가능한 정보가 없음\", \"status\": \"자료없음\"}}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_OTHER\", \"status\": \"자료없음\", \"q\": {\"raw\": \"이용 가능한 정보가 없음\", \"status\": \"자료없음\"}}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"toxicity[0]\", \"page\": 4, \"source_text\": \"흡입 고농도의 분진 흡입은 호흡기계에 자극을 유발할 수 있음. 제공받은 정보에 따라 알려진 영향은 없음.\", \"rules\": [\"R10\"], \"note\": \"노출 경로 정보를 결과기술 행으로 둠\"}, {\"msds_index\": 0, \"field\": \"toxicity[1]\", \"page\": 4, \"source_text\": \"경구 알려진 것 없음.\", \"rules\": [\"R10\"], \"note\": \"노출 경로 정보를 결과기술 행으로 둠\"}, {\"msds_index\": 0, \"field\": \"toxicity[2]\", \"page\": 4, \"source_text\": \"눈 접촉 분진이 눈에 들어간 경우 기계적 자극을 유발할 수 있음.\", \"rules\": [\"R10\"], \"note\": \"노출 경로 정보를 결과기술 행으로 둠\"}, {\"msds_index\": 0, \"field\": \"toxicity[3]\", \"page\": 4, \"source_text\": \"피부 접촉 알려진 것 없음.\", \"rules\": [\"R10\"], \"note\": \"피부 접촉 경로 정보를 TX_DERMAL 결과기술 행으로 둠\"}, {\"msds_index\": 0, \"field\": \"toxicity[4]\", \"page\": 4, \"source_text\": \"피부 부식성 / 자극성 이용 가능한 정보가 없음.\", \"rules\": [\"R15\"], \"note\": \"'이용 가능한 정보가 없음'을 자료없음으로 처리\"}, {\"msds_index\": 0, \"field\": \"toxicity[5]\", \"page\": 4, \"source_text\": \"심한 눈 손상성/눈 자극성 이용 가능한 정보가 없음.\", \"rules\": [\"R15\"], \"note\": \"자료없음으로 처리\"}, {\"msds_index\": 0, \"field\": \"toxicity[6]\", \"page\": 4, \"source_text\": \"호흡기과민성 이용 가능한 정보가 없음\", \"rules\": [\"R15\"], \"note\": \"자료없음으로 처리\"}, {\"msds_index\": 0, \"field\": \"toxicity[7]\", \"page\": 4, \"source_text\": \"피부과민성 이용 가능한 정보가 없음\", \"rules\": [\"R15\"], \"note\": \"자료없음으로 처리\"}, {\"msds_index\": 0, \"field\": \"toxicity[8]\", \"page\": 4, \"source_text\": \"발암성 이용 가능한 정보가 없음\", \"rules\": [\"R15\"], \"note\": \"자료없음으로 처리. 기관별 분류가 없어 cmr 행은 만들지 않음\"}, {\"msds_index\": 0, \"field\": \"toxicity[9]\", \"page\": 4, \"source_text\": \"생식세포 변이원성 이용 가능한 정보가 없음\", \"rules\": [\"R15\"], \"note\": \"자료없음으로 처리\"}, {\"msds_index\": 0, \"field\": \"toxicity[10]\", \"page\": 5, \"source_text\": \"생식독성 이용 가능한 정보가 없음\", \"rules\": [\"R15\"], \"note\": \"자료없음으로 처리\"}, {\"msds_index\": 0, \"field\": \"toxicity[11]\", \"page\": 5, \"source_text\": \"특정 표적장기 독성 – 1 회 노출 이용 가능한 정보가 없음.\", \"rules\": [\"R15\"], \"note\": \"자료없음으로 처리\"}, {\"msds_index\": 0, \"field\": \"toxicity[12]\", \"page\": 5, \"source_text\": \"특정 표적장기 독성 – 반복 노출 이용 가능한 정보가 없음.\", \"rules\": [\"R15\"], \"note\": \"자료없음으로 처리\"}, {\"msds_index\": 0, \"field\": \"toxicity[13]\", \"page\": 5, \"source_text\": \"흡인 유해성 이용 가능한 정보가 없음\", \"rules\": [\"R15\"], \"note\": \"자료없음으로 처리. 11항의 '수생환경 유해성' 줄은 맞는 독성 항목 코드가 없어 행으로 두지 않음\"}, {\"msds_index\": 0, \"field\": \"toxicity[14]\", \"page\": 5, \"source_text\": \"9-Octadecenamide, (Z) | > 10,0000 mg/kg ( Rat, male )\", \"rules\": [\"R04\", \"R10\", \"R17\"], \"note\": \"'10,0000'은 콤마 위치가 비정상이라 값이 모호하므로 R17에 따라 숫자는 비우고 raw만 남김(부등호 >, 단위 mg/kg만 분리)\"}, {\"msds_index\": 0, \"field\": \"toxicity[15]\", \"page\": 5, \"source_text\": \"9-Octadecenamide, (Z) | 경피 LD50 | 자료없음\", \"rules\": [\"R15\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[16]\", \"page\": 5, \"source_text\": \"9-Octadecenamide, (Z) | 흡입 LC50 | 자료없음\", \"rules\": [\"R15\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[0]\", \"page\": 5, \"source_text\": \"9-Octadecenamide, (Z) | 조류/수생 식물 | 자료없음\", \"rules\": [\"R15\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[1]\", \"page\": 5, \"source_text\": \"1000: 96 h Cyprinodon variegatus mg/L LC50 semi-static\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": \"값 1000 mg/L, 96 hr, LC50으로 분해\"}, {\"msds_index\": 0, \"field\": \"ecotox[2]\", \"page\": 5, \"source_text\": \"1000: 96 h Mysidopsis bahia mg/L LC50\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": \"값 1000 mg/L, 96 hr, LC50으로 분해\"}, {\"msds_index\": 0, \"field\": \"ecotox[3]\", \"page\": 5, \"source_text\": \"잔류성 이용 가능한 정보가 없음\", \"rules\": [\"R15\"], \"note\": \"자료없음으로 처리\"}, {\"msds_index\": 0, \"field\": \"ecotox[4]\", \"page\": 5, \"source_text\": \"분해성 이용 가능한 정보가 없음.\", \"rules\": [\"R15\"], \"note\": \"자료없음으로 처리\"}, {\"msds_index\": 0, \"field\": \"ecotox[5]\", \"page\": 5, \"source_text\": \"농축성 이용 가능한 정보가 없음.\", \"rules\": [\"R15\"], \"note\": \"자료없음으로 처리\"}, {\"msds_index\": 0, \"field\": \"ecotox[6]\", \"page\": 5, \"source_text\": \"생분해성 이용 가능한 정보가 없음\", \"rules\": [\"R15\"], \"note\": \"원문 'c 생물농축성' 아래 줄이라 ECO_BIOACC로 둠\"}, {\"msds_index\": 0, \"field\": \"ecotox[7]\", \"page\": 5, \"source_text\": \"d 토양이동성 이용 가능한 정보가 없음\", \"rules\": [\"R15\"], \"note\": \"자료없음으로 처리\"}, {\"msds_index\": 0, \"field\": \"ecotox[8]\", \"page\": 5, \"source_text\": \"e 기타 유해영향 이용 가능한 정보가 없음\", \"rules\": [\"R15\"], \"note\": \"자료없음으로 처리\"}]}"
+}

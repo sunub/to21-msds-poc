@@ -1,0 +1,1332 @@
+[
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.first_issue_date",
+    "page": 4,
+    "source_text": "나. 최초작성일 : 2019. 03. 18",
+    "rules": [
+      "R01"
+    ],
+    "note": "'2019. 03. 18'을 YYYY-MM-DD로 변환"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.last_revision_date",
+    "page": 4,
+    "source_text": "최종 개정일자 : 2019. 03. 18",
+    "rules": [
+      "R01"
+    ],
+    "note": "'2019. 03. 18'을 YYYY-MM-DD로 변환"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.revision_no",
+    "page": 4,
+    "source_text": "개정횟수 :",
+    "rules": [],
+    "note": "개정횟수 값이 빈칸이라 null로 둠"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.msds_no",
+    "page": null,
+    "source_text": null,
+    "rules": [],
+    "note": "문서에 MSDS 제출번호 표기 없음"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.page_start",
+    "page": 1,
+    "source_text": "물질안전보건자료(MSDS)",
+    "rules": [
+      "R16"
+    ],
+    "note": "단일 MSDS, 1~4쪽"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "product.name",
+    "page": 1,
+    "source_text": "가. 제품명 : 남원복사나무꽃추출물",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "product.uses",
+    "page": 1,
+    "source_text": "제품의 권고 용도 : 화장품 원료로 사용",
+    "rules": [
+      "R11"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "product.restrictions",
+    "page": 1,
+    "source_text": "제품의 사용상의 제한 : 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "'자료없음'이라 목록을 비워 둠"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "companies[0]",
+    "page": 1,
+    "source_text": "회사명 : (주)단정바이오 | 주소 : 강원도 원주시 호저면 호매곡1길 85 | 전화 : 033) 763-7185",
+    "rules": [
+      "R12"
+    ],
+    "note": "공급자 정보로 기재되어 role=공급자, 전화 '033) 763-7185'를 033-763-7185로 정규화"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "companies[0].contacts",
+    "page": 1,
+    "source_text": "강원도 원주시 호저면 호매곡1길 85, 26303 | Tel : +82-33-763-7185 | Fax: +82-33-763-7186 | E-mail : danjoungbio@gmail.com",
+    "rules": [
+      "R12"
+    ],
+    "note": "머리글의 같은 회사(주식회사 단정바이오) 우편번호·팩스·이메일을 추가"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classified",
+    "page": 1,
+    "source_text": "가. 유해∙위험성 분류 : 해당없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "분류 해당없음이라 false"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.signal_word",
+    "page": 1,
+    "source_text": "신호어 : 해당없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "'해당없음'을 신호어 enum '없음'으로 기록"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.pictograms",
+    "page": 1,
+    "source_text": "그림문자 : 해당없음",
+    "rules": [],
+    "note": "그림문자 이미지 없음"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.h_statements",
+    "page": 1,
+    "source_text": "유해∙위험문구 : 해당없음",
+    "rules": [],
+    "note": "H코드 없음"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements",
+    "page": 1,
+    "source_text": "예방 : 해당없음 | 대응 : 해당없음 | 저장 : 해당없음 | 폐기 : 해당없음",
+    "rules": [],
+    "note": "P코드 없음"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.nfpa",
+    "page": 1,
+    "source_text": "보건 : 자료없음 | 화재 : 자료없음 | 반응성 : 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "모두 자료없음이라 null"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "composition.type",
+    "page": 1,
+    "source_text": "INCI Name | CAS No. | INCI Monograph ID | Contents(%)",
+    "rules": [],
+    "note": "성분 4종이 나열되어 혼합물"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "components[0]",
+    "page": 1,
+    "source_text": "Prunus Persica (Peach) Flower Extract | - | 10461 | 88.0%",
+    "rules": [
+      "R04",
+      "R06",
+      "R15"
+    ],
+    "note": "CAS '-'는 null, INCI Monograph ID를 other_id로, 88.0%는 value 88, dp 1"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "components[1]",
+    "page": 1,
+    "source_text": "Glycerin | 56-81-5 | 1077 | 5.0%",
+    "rules": [
+      "R02",
+      "R04",
+      "R06"
+    ],
+    "note": "5.0%는 value 5, dp 1"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "components[2]",
+    "page": 1,
+    "source_text": "Butylene Glycol | 107-88-0 | 343 | 5.0%",
+    "rules": [
+      "R02",
+      "R04",
+      "R06"
+    ],
+    "note": "5.0%는 value 5, dp 1"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "components[3]",
+    "page": 1,
+    "source_text": "1,2-Hexanediol | 6920-22-5 | 16304 | 2.0%",
+    "rules": [
+      "R02",
+      "R04",
+      "R06"
+    ],
+    "note": "2.0%는 value 2, dp 1"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[0]",
+    "page": 2,
+    "source_text": "국내규정 : 자료없음",
+    "rules": [
+      "R15",
+      "R10"
+    ],
+    "note": "제품 전체 값으로 보아 MIX, 기준 종류 표시 없어 limit_type null"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[1]",
+    "page": 2,
+    "source_text": "ACGIH 규정 : 자료없음",
+    "rules": [
+      "R15",
+      "R10"
+    ],
+    "note": "제품 전체 값으로 보아 MIX, 기준 종류 표시 없어 limit_type null"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[2]",
+    "page": 2,
+    "source_text": "생물학적 노출기준 : 자료없음",
+    "rules": [
+      "R15",
+      "R10"
+    ],
+    "note": "제품 전체 값으로 보아 MIX, 기준 종류 표시 없어 limit_type null"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[0]",
+    "page": 2,
+    "source_text": "성상 : 액상",
+    "rules": [
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[1]",
+    "page": 2,
+    "source_text": "색상 : 갈색",
+    "rules": [
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[2]",
+    "page": 2,
+    "source_text": "나. 냄새 : 약간의 특이취",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[3]",
+    "page": 2,
+    "source_text": "다. 냄새역치 : 자료없음",
+    "rules": [
+      "R15",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[4]",
+    "page": 2,
+    "source_text": "라. pH : 4.5 ~ 7.5",
+    "rules": [
+      "R04",
+      "R06"
+    ],
+    "note": "'4.5 ~ 7.5'를 하한 4.5(>=), 상한 7.5(<=)로 나눔"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[5]",
+    "page": 2,
+    "source_text": "마. 녹는점/어는점 : 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[6]",
+    "page": 2,
+    "source_text": "바. 초기 끓는점과 끓는점 범위 : 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[7]",
+    "page": 2,
+    "source_text": "사. 인화점 : 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[8]",
+    "page": 2,
+    "source_text": "아. 증발속도 : 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[9]",
+    "page": 2,
+    "source_text": "자. 인화성(고체, 기체) : 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[10]",
+    "page": 2,
+    "source_text": "차. 인화 또는 폭발 범위의 상한/하한 : 자료없음",
+    "rules": [
+      "R15",
+      "R25"
+    ],
+    "note": "상한/하한 한 줄을 UEL·LEL 두 행으로 나눔"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[11]",
+    "page": 2,
+    "source_text": "차. 인화 또는 폭발 범위의 상한/하한 : 자료없음",
+    "rules": [
+      "R15",
+      "R25"
+    ],
+    "note": "상한/하한 한 줄을 UEL·LEL 두 행으로 나눔"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[12]",
+    "page": 2,
+    "source_text": "카. 증기압 : 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[13]",
+    "page": 2,
+    "source_text": "타. 용해도(물) : Soluble",
+    "rules": [
+      "R25"
+    ],
+    "note": "숫자가 아닌 말이라 text_value에 적음"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[14]",
+    "page": 2,
+    "source_text": "파. 증기밀도 : 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[15]",
+    "page": 2,
+    "source_text": "하. 비중 : 1.000 ~ 1.040",
+    "rules": [
+      "R04",
+      "R06",
+      "R25"
+    ],
+    "note": "'1.000 ~ 1.040'을 하한 1(>=), 상한 1.04(<=)로 나누고 dp=3"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[16]",
+    "page": 2,
+    "source_text": "거. n-옥탄올/물분배계수 : 자료없음",
+    "rules": [
+      "R15",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[17]",
+    "page": 2,
+    "source_text": "너. 자연발화온도 : 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[18]",
+    "page": 2,
+    "source_text": "더. 분해온도 : 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[19]",
+    "page": 2,
+    "source_text": "러. 점도 : 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[20]",
+    "page": 2,
+    "source_text": "머. 분자량 : 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[0]",
+    "page": 2,
+    "source_text": "가. 가능성이 높은 노출 경로에 관한 정보 : 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "맞는 값 없음: 노출 경로 항목에 맞는 endpoint 코드가 없어 null로 두고 서술로 남김"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[1]",
+    "page": 2,
+    "source_text": "경구 : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "제품 전체 값으로 보아 MIX, status 자료없음"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[2]",
+    "page": 2,
+    "source_text": "경피 : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "제품 전체 값으로 보아 MIX, status 자료없음"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[3]",
+    "page": 2,
+    "source_text": "흡입 : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "제품 전체 값으로 보아 MIX, status 자료없음"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[4]",
+    "page": 2,
+    "source_text": "피부부식성 또는 자극성 : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[5]",
+    "page": 2,
+    "source_text": "심한 눈손상 또는 자극성 : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[6]",
+    "page": 3,
+    "source_text": "호흡기과민성 : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[7]",
+    "page": 3,
+    "source_text": "피부과민성 : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[8]",
+    "page": 3,
+    "source_text": "생식세포변이원성 : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[9]",
+    "page": 3,
+    "source_text": "생식독성 : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[10]",
+    "page": 3,
+    "source_text": "특정 표적장기 독성 (1회 노출) : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[11]",
+    "page": 3,
+    "source_text": "특정 표적장기 독성 (반복 노출) : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[12]",
+    "page": 3,
+    "source_text": "흡인유해성 : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[0]",
+    "page": 3,
+    "source_text": "산업안전보건법 : 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "발암성 아래 산업안전보건법 행을 KR_OSH로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[1]",
+    "page": 3,
+    "source_text": "고용노동부고시 : 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "고용노동부고시를 KR_OSH로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[2]",
+    "page": 3,
+    "source_text": "IARC : 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[3]",
+    "page": 3,
+    "source_text": "OSHA : 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[4]",
+    "page": 3,
+    "source_text": "ACGIH : 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[5]",
+    "page": 3,
+    "source_text": "EU CLP : 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[0]",
+    "page": 3,
+    "source_text": "어류 : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[1]",
+    "page": 3,
+    "source_text": "갑각류 : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[2]",
+    "page": 3,
+    "source_text": "조류 : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[3]",
+    "page": 3,
+    "source_text": "잔류성 : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[4]",
+    "page": 3,
+    "source_text": "분해성 : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[5]",
+    "page": 3,
+    "source_text": "농축성 : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[6]",
+    "page": 3,
+    "source_text": "생분해성 : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'다. 생물농축성' 소제목 아래 행이라 ECO_BIOACC로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[7]",
+    "page": 3,
+    "source_text": "라. 토양이동성 : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[8]",
+    "page": 3,
+    "source_text": "마. 기타 유해 영향 : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[0]",
+    "page": 3,
+    "source_text": "가. 유엔번호(UN No.) : 자료없음 | 나. 적정선적명 : 자료없음 | 다. 운송에서의 위험성 등급 : 해당없음 | 라. 용기등급 : 자료없음 | 마. 해양오염물질 : 자료없음 | 화재시 비상조치 : 자료없음 | 유출시 비상조치 : 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "운송 구분 없어 mode=공통. 유엔번호·선적명·용기등급·EmS는 자료없음이라 null, 위험성 등급 해당없음은 null로 둠. 규제 여부가 명시되지 않아 regulated=null"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[0]",
+    "page": 3,
+    "source_text": "가. 산업안전보건법에 의한 규제 : 해당없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "법령 전체 해당없음으로 세부 항목 코드 없음 — 맞는 값 없음: item_code null"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[1]",
+    "page": 3,
+    "source_text": "나. 화학물질관리법에 의한 규제 : 해당없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "법령 전체 해당없음 — 맞는 값 없음: item_code null"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[2]",
+    "page": 3,
+    "source_text": null,
+    "rules": [
+      "R18"
+    ],
+    "note": "구양식 문서로 화평법 항목이 없어 미기재"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[3]",
+    "page": 3,
+    "source_text": "다. 위험물안전관리법에 의한 규제 : 해당없음",
+    "rules": [
+      "R15",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "dangerous_goods[0]",
+    "page": 3,
+    "source_text": "다. 위험물안전관리법에 의한 규제 : 해당없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "류별 해당없음"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[4]",
+    "page": 3,
+    "source_text": "라. 폐기물관리법에 의한 규제 : 적용",
+    "rules": [
+      "R17"
+    ],
+    "note": "맞는 값 없음: '적용'은 지정폐기물 여부가 아니어서 item_code·applicable null, value_raw에 원문 보존. waste[]는 지정폐기물 여부 불명으로 비움"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[5]",
+    "page": 3,
+    "source_text": "잔류성유기오염물질관리법 : 해당없음",
+    "rules": [
+      "R25",
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[6]",
+    "page": 3,
+    "source_text": "미국관리정보(OSHA 규정) : 해당없음",
+    "rules": [
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[7]",
+    "page": 3,
+    "source_text": "미국관리정보(CERCLA 규정) : 해당없음",
+    "rules": [
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[8]",
+    "page": 3,
+    "source_text": "미국관리정보(EPCRA 302 규정) : 해당없음",
+    "rules": [
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[9]",
+    "page": 3,
+    "source_text": "미국관리정보(EPCRA 304 규정) : 해당없음",
+    "rules": [
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[10]",
+    "page": 3,
+    "source_text": "미국관리정보(EPCRA 313 규정) : 해당없음",
+    "rules": [
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[11]",
+    "page": 4,
+    "source_text": "미국관리정보(로테르담협약물질) : 해당없음",
+    "rules": [
+      "R25"
+    ],
+    "note": "국제협약으로 INTL_TREATY"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[12]",
+    "page": 4,
+    "source_text": "미국관리정보(스톡홀름협약물질) : 해당없음",
+    "rules": [
+      "R25"
+    ],
+    "note": "국제협약으로 INTL_TREATY"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[13]",
+    "page": 4,
+    "source_text": "미국관리정보(몬트리올의정서물질) : 해당없음",
+    "rules": [
+      "R25"
+    ],
+    "note": "국제협약으로 INTL_TREATY"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[14]",
+    "page": 4,
+    "source_text": "EU 분류정보(확정분류결과) : 해당없음",
+    "rules": [
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[15]",
+    "page": 4,
+    "source_text": "EU 분류정보(위험문구) : 해당없음",
+    "rules": [
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[16]",
+    "page": 4,
+    "source_text": "EU 분류정보(안전문구) : 해당없음",
+    "rules": [
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "intl_class[0]",
+    "page": 4,
+    "source_text": "EU 분류정보(확정분류결과) : 해당없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "EU 분류 해당없음"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S4_EYE]",
+    "page": 1,
+    "source_text": "가. 눈에 들어갔을 때 : 물질과 접촉 시 즉시 20분 이상 흐르는 물에 눈을 씻어내시오. 즉시 의료조치를 받으시오.",
+    "rules": [
+      "R14",
+      "R04"
+    ],
+    "note": "두 문장으로 나누고 '20분 이상'을 cond(>=20 min)로 분리"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S4_SKIN]",
+    "page": 1,
+    "source_text": "나. 피부에 접촉했을 때 : 해당없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "원문 '해당없음'으로 status 해당없음"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S4_INHAL]",
+    "page": 1,
+    "source_text": "다. 흡입했을 때 : 신선한 공기가 있는 곳으로 옮기시오.",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S4_INGEST]",
+    "page": 1,
+    "source_text": "라. 먹었을 때 : 입을 씻어내시오. 삼켰다면 즉시 의사의 진찰을 받으시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "문장 단위로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S4_DOCTOR]",
+    "page": 1,
+    "source_text": "마. 기타 의사의 주의사항 : 의료인력이 해당물질에 대해 인지하고 보호조치를 취하도록 하시오.",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S5_MEDIA]",
+    "page": 1,
+    "source_text": "가. 적절한 소화제 : 이 물질과 관련된 소화 시 알콜 포말, 이산화탄소 또는 물 분무를 사용할 것. 질식소화 시 건조한 모래 또는 흙을 사용할 것.",
+    "rules": [
+      "R14"
+    ],
+    "note": "문장 단위로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S5_SPECIFIC]",
+    "page": 1,
+    "source_text": "나. 화학물질로부터 생기는 특정 유해성 : 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S5_FIREFIGHT]",
+    "page": 1,
+    "source_text": "다. 화재진압 시 착용할 보호구 및 예방조치 : 적절한 보호구를 착용하시오.",
+    "rules": [
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[0]",
+    "page": 1,
+    "source_text": "라. 추가 정보 : 본 제품 자체로는 연소하지 않습니다.",
+    "rules": [
+      "R24"
+    ],
+    "note": "5항 '추가 정보'에 맞는 서술 코드가 없어 extras로 둠"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S6_PERSONAL]",
+    "page": 1,
+    "source_text": "가. 인체를 보호하기 위해 필요한 조치사항 및 보호구 : 엎질러진 것을 즉시 닦아내고, 보호구 항의 예방조치를 따르시오. 위험하지 않다면 누출을 멈추시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "줄 단위로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S6_ENV]",
+    "page": 1,
+    "source_text": "나. 환경을 보호하기 위해 필요한 조치사항 : 환경으로 배출하지 마시오.",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S6_CLEANUP]",
+    "page": 1,
+    "source_text": "다. 정화 또는 제거 방법 : 소량 누출 시 비가연성 물질로 흡수하시오. 수습 후 오염지역을 물로 씻어내시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "문장 단위로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S7_HANDLING]",
+    "page": 2,
+    "source_text": "가. 안전취급요령 : 피해야 할 물질 및 조건에 유의하시오.",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S7_STORAGE]",
+    "page": 2,
+    "source_text": "나. 안전한 저장방법 : 용기를 단단히 밀폐하시오. 직사광선을 피하고 환기가 잘 되는 곳에 보관하시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "문장 단위로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S8_ENG]",
+    "page": 2,
+    "source_text": "나. 적절한 공학적 관리 : 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S8_RESP]",
+    "page": 2,
+    "source_text": "호흡기 보호 : 노출되는 물질의 물리화학적 특성에 맞는 한국산업안전보건공단의 인증을 필한 호흡용 보호구를 착용하시오.",
+    "rules": [],
+    "note": "두 줄에 걸친 문장을 이어 붙임"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S8_EYE]",
+    "page": 2,
+    "source_text": "눈 보호 : 화학물질 방어용 안경과 보안면을 사용하시오.",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S8_HAND]",
+    "page": 2,
+    "source_text": "손 보호 : 해당없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S8_BODY]",
+    "page": 2,
+    "source_text": "신체 보호 : 해당없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S10_STABILITY]",
+    "page": 2,
+    "source_text": "가. 화학적 안정성 및 유해 반응의 가능성 : 물질의 흡입은 유해할 수 있음. 일부는 탈 수 있으나 쉽게 점화하지 않음. 접촉 시 눈을 자극할 수 있음.",
+    "rules": [
+      "R14"
+    ],
+    "note": "문장 단위로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S10_CONDITIONS]",
+    "page": 2,
+    "source_text": "나. 피해야 할 조건 : 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S10_INCOMPAT]",
+    "page": 2,
+    "source_text": "다. 피해야 할 물질 : 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S10_DECOMP]",
+    "page": 2,
+    "source_text": "라. 분해시 생성되는 유해물질 : 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S13_METHOD]",
+    "page": 3,
+    "source_text": "가. 폐기방법 : 폐기물관리법에 명시된 경우 규정에 따라 내용물 및 용기를 폐기하시오.",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S13_CAUTION]",
+    "page": 3,
+    "source_text": "나. 폐기시 주의사항 : 관련 법규에 명시된 내용에 따라 내용물 및 용기를 폐기하시오.",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S16_SOURCE]",
+    "page": 4,
+    "source_text": "가. 자료의 출처 : 한국산업안전공단 물질안전보건자료 화학물질의 분류∙표시 및 물질안전보건자료에 관한 기준",
+    "rules": [
+      "R14"
+    ],
+    "note": "줄 단위로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S16_OTHER]",
+    "page": 4,
+    "source_text": "라. 기타 보다 상세한 정보를 원하시면 (주)단정바이오 연구소로 문의 바랍니다. Tel. 033) 743-7184",
+    "rules": [
+      "R14"
+    ],
+    "note": "줄 단위로 나누고 'Tel.' 줄은 key/value로 분리"
+  }
+]

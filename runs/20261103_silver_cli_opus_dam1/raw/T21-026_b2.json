@@ -1,0 +1,610 @@
+{
+  "doc_id": "T21-026",
+  "bundle": "b2",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 61521,
+    "completion_tokens": 5636,
+    "cached_tokens": 6909,
+    "reasoning_tokens": 1328,
+    "notional_cost_usd": 0.5509898
+  },
+  "seconds": 42.5,
+  "request_usage": [
+    {
+      "prompt_tokens": 61521,
+      "completion_tokens": 5636,
+      "cached_tokens": 6909,
+      "reasoning_tokens": 1328,
+      "notional_cost_usd": 0.5509898
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "exposure_limits": [
+          {
+            "comp_ref": "1",
+            "standard": "기타",
+            "limit_type": "TWA",
+            "q": {
+              "raw": "10 mg/m3",
+              "status": "값있음",
+              "value": 10,
+              "unit": "mg/m3"
+            },
+            "form": null,
+            "kr_basis": null,
+            "notations": []
+          }
+        ],
+        "physchem": [
+          {
+            "prop_code": "APPEARANCE_STATE",
+            "comp_ref": "MIX",
+            "text_value": "액체",
+            "q": null
+          },
+          {
+            "prop_code": "APPEARANCE_COLOR",
+            "comp_ref": "MIX",
+            "text_value": "무색",
+            "q": null
+          },
+          {
+            "prop_code": "ODOR",
+            "comp_ref": "MIX",
+            "text_value": "무향",
+            "q": null
+          },
+          {
+            "prop_code": "ODOR_THRESHOLD",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "PH",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "해당 없음",
+              "status": "해당없음"
+            }
+          },
+          {
+            "prop_code": "MELT_FREEZE",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "q": {
+              "raw": "< -20 °C",
+              "status": "값있음",
+              "upper_op": "<",
+              "upper": -20,
+              "unit": "C"
+            },
+            "cond": {
+              "method": "EU Method A.1 (녹는점 / 어는점)"
+            }
+          },
+          {
+            "prop_code": "MELT_FREEZE",
+            "comp_ref": "MIX",
+            "seq": 2,
+            "q": {
+              "raw": "< -20 °C",
+              "status": "값있음",
+              "upper_op": "<",
+              "upper": -20,
+              "unit": "C"
+            },
+            "cond": {
+              "method": "EC Method A1"
+            }
+          },
+          {
+            "prop_code": "BOILING",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "184 °C @ 752.46 mmHg",
+              "status": "값있음",
+              "value": 184,
+              "unit": "C"
+            },
+            "cond": {
+              "pressure": 752.46,
+              "pressure_unit": "mmHg"
+            },
+            "data_source": "문헌자료기준"
+          },
+          {
+            "prop_code": "FLASH_POINT",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "closed cup 104 °C @ 1,000.1 hPa",
+              "status": "값있음",
+              "value": 104,
+              "unit": "C"
+            },
+            "cond": {
+              "pressure": 1000.1,
+              "pressure_unit": "hPa",
+              "method": "closed cup; EC Method A9(PMCC)"
+            }
+          },
+          {
+            "prop_code": "EVAP_RATE",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "0.01 추정치",
+              "status": "값있음",
+              "value": 0.01,
+              "dp": 2,
+              "note": "추정치"
+            },
+            "cond": {
+              "reference": "Butyl Acetate = 1"
+            }
+          },
+          {
+            "prop_code": "FLAMMABILITY",
+            "comp_ref": "MIX",
+            "text_value": "액체 물질에 적용할 수 없음",
+            "q": null
+          },
+          {
+            "prop_code": "LEL",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "2.6 %(V) 추정치",
+              "status": "값있음",
+              "value": 2.6,
+              "dp": 1,
+              "unit": "%(V)",
+              "note": "추정치"
+            }
+          },
+          {
+            "prop_code": "UEL",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "12.5 %(V) 추정치",
+              "status": "값있음",
+              "value": 12.5,
+              "dp": 1,
+              "unit": "%(V)",
+              "note": "추정치"
+            }
+          },
+          {
+            "prop_code": "VAPOR_PRESSURE",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "20 Pa @ 25 °C",
+              "status": "값있음",
+              "value": 20,
+              "unit": "Pa"
+            },
+            "cond": {
+              "temp": 25,
+              "temp_unit": "C",
+              "method": "EC Method A4"
+            }
+          },
+          {
+            "prop_code": "VAPOR_DENSITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "2.62",
+              "status": "값있음",
+              "value": 2.62,
+              "dp": 2
+            },
+            "cond": {
+              "reference": "공기=1"
+            },
+            "data_source": "문헌자료기준"
+          },
+          {
+            "prop_code": "RELATIVE_DENSITY",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "q": {
+              "raw": "1.03 @ 20 °C / 20 °C",
+              "status": "값있음",
+              "value": 1.03,
+              "dp": 2
+            },
+            "cond": {
+              "temp": 20,
+              "temp_unit": "C",
+              "reference": "물=1",
+              "method": "EU Method A.3 (Relative Density)"
+            }
+          },
+          {
+            "prop_code": "RELATIVE_DENSITY",
+            "comp_ref": "MIX",
+            "seq": 2,
+            "q": {
+              "raw": "1.03 g/cm3 @ 20 °C",
+              "status": "값있음",
+              "value": 1.03,
+              "dp": 2,
+              "unit": "g/cm3"
+            },
+            "cond": {
+              "temp": 20,
+              "temp_unit": "C"
+            },
+            "data_source": "문헌자료기준"
+          },
+          {
+            "prop_code": "SOLUBILITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "100 % @ 20 °C",
+              "status": "값있음",
+              "value": 100,
+              "unit": "%"
+            },
+            "cond": {
+              "temp": 20,
+              "temp_unit": "C",
+              "method": "EU Method A.6 (수용해도)"
+            }
+          },
+          {
+            "prop_code": "LOG_KOW",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "log Pow: -1.07 추정치",
+              "status": "값있음",
+              "value": -1.07,
+              "dp": 2,
+              "note": "추정치"
+            }
+          },
+          {
+            "prop_code": "AUTOIGNITION",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "> 400 °C @ 100.01 kPa",
+              "status": "값있음",
+              "lower_op": ">",
+              "lower": 400,
+              "unit": "C"
+            },
+            "cond": {
+              "pressure": 100.01,
+              "pressure_unit": "kPa",
+              "method": "EC Method A15"
+            }
+          },
+          {
+            "prop_code": "DECOMPOSITION",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "VISCOSITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "43.4 mPa.s @ 25 °C",
+              "status": "값있음",
+              "value": 43.4,
+              "dp": 1,
+              "unit": "mPa.s"
+            },
+            "cond": {
+              "temp": 25,
+              "temp_unit": "C"
+            },
+            "data_source": "문헌자료기준"
+          },
+          {
+            "prop_code": "VISCOSITY_KIN",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "MOL_WEIGHT",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            }
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[0]",
+        "page": 4,
+        "source_text": "Propylene glycol | US WEEL | TWA | 10 mg/m3",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "US WEEL은 standard 목록에 없어 '기타'로 둠; CAS 57-55-6 성분 → comp_ref 1"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[0]",
+        "page": 5,
+        "source_text": "물리적 상태 액체",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[1]",
+        "page": 5,
+        "source_text": "색상 무색",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[2]",
+        "page": 5,
+        "source_text": "냄새 무향",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[3]",
+        "page": 5,
+        "source_text": "냄새 역치 자료 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[4]",
+        "page": 5,
+        "source_text": "pH 해당 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[5]",
+        "page": 5,
+        "source_text": "녹는점/범위 < -20 °C EU Method A.1 (녹는점 / 어는점)",
+        "rules": [
+          "R04",
+          "R08",
+          "R25"
+        ],
+        "note": "'녹는점/범위'를 MELT_FREEZE로 매핑, 방법은 cond.method"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[6]",
+        "page": 5,
+        "source_text": "어는 점 < -20 °C EC Method A1",
+        "rules": [
+          "R04",
+          "R08",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[7]",
+        "page": 5,
+        "source_text": "끓는점 (760 mmHg) 184 °C @ 752.46 mmHg 문헌자료기준",
+        "rules": [
+          "R04",
+          "R08",
+          "R25"
+        ],
+        "note": "값 뒤 @752.46 mmHg를 cond 압력으로, 문헌자료기준을 data_source로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[8]",
+        "page": 5,
+        "source_text": "인화점 closed cup 104 °C @ 1,000.1 hPa EC Method A9(PMCC)",
+        "rules": [
+          "R04",
+          "R06",
+          "R08"
+        ],
+        "note": "압력 1,000.1 콤마 제거"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[9]",
+        "page": 5,
+        "source_text": "증발속도 (Butyl Acetate = 1) 0.01 추정치",
+        "rules": [
+          "R04",
+          "R06",
+          "R25"
+        ],
+        "note": "추정치는 q.note로"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[10]",
+        "page": 5,
+        "source_text": "인화성(고체, 기체) 액체 물질에 적용할 수 없음",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[11]",
+        "page": 5,
+        "source_text": "인화 또는 폭발 범위의 하한 2.6 %(V) 추정치",
+        "rules": [
+          "R04",
+          "R06"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[12]",
+        "page": 5,
+        "source_text": "인화 또는 폭발 범위의 상한 12.5 %(V) 추정치",
+        "rules": [
+          "R04",
+          "R06"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[13]",
+        "page": 5,
+        "source_text": "증기압 20 Pa @ 25 °C EC Method A4",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[14]",
+        "page": 5,
+        "source_text": "상대증기밀도(공기=1) 2.62 문헌자료기준",
+        "rules": [
+          "R04",
+          "R25"
+        ],
+        "note": "'상대증기밀도'를 VAPOR_DENSITY로 매핑"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[15]",
+        "page": 5,
+        "source_text": "비중 (물=1) 1.03 @ 20 °C / 20 °C EU Method A.3 (Relative Density)",
+        "rules": [
+          "R04",
+          "R06",
+          "R08"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[16]",
+        "page": 5,
+        "source_text": "액체 밀도 1.03 g/cm3 @ 20 °C 문헌자료기준",
+        "rules": [
+          "R04",
+          "R08",
+          "R25"
+        ],
+        "note": "'액체 밀도'를 동의어 '밀도'로 보아 RELATIVE_DENSITY seq 2로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[17]",
+        "page": 5,
+        "source_text": "수용해도 100 % @ 20 °C EU Method A.6 (수용해도)",
+        "rules": [
+          "R04",
+          "R08",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[18]",
+        "page": 5,
+        "source_text": "n-옥탄올/물 분배계수 log Pow: -1.07 추정치",
+        "rules": [
+          "R04",
+          "R06"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[19]",
+        "page": 5,
+        "source_text": "자연발화 온도 > 400 °C @ 100.01 kPa EC Method A15",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[20]",
+        "page": 5,
+        "source_text": "분해 온도 자료 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[21]",
+        "page": 5,
+        "source_text": "점성계수 43.4 mPa.s @ 25 °C 문헌자료기준",
+        "rules": [
+          "R04",
+          "R06",
+          "R25"
+        ],
+        "note": "'점성계수'는 동의어 사전에 없으나 단위 mPa.s로 VISCOSITY에 매핑 — 사전 추가 요청"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[22]",
+        "page": 5,
+        "source_text": "동적 점성도 자료 없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "'동적 점성도'는 사전에 없음; 점성계수와 별도 행이라 VISCOSITY_KIN으로 둠 — 검수 필요"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[23]",
+        "page": 5,
+        "source_text": "분자량 자료 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"exposure_limits\": [{\"comp_ref\": \"1\", \"standard\": \"기타\", \"limit_type\": \"TWA\", \"q\": {\"raw\": \"10 mg/m3\", \"status\": \"값있음\", \"value\": 10, \"unit\": \"mg/m3\"}, \"form\": null, \"kr_basis\": null, \"notations\": []}], \"physchem\": [{\"prop_code\": \"APPEARANCE_STATE\", \"comp_ref\": \"MIX\", \"text_value\": \"액체\", \"q\": null}, {\"prop_code\": \"APPEARANCE_COLOR\", \"comp_ref\": \"MIX\", \"text_value\": \"무색\", \"q\": null}, {\"prop_code\": \"ODOR\", \"comp_ref\": \"MIX\", \"text_value\": \"무향\", \"q\": null}, {\"prop_code\": \"ODOR_THRESHOLD\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"PH\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"해당 없음\", \"status\": \"해당없음\"}}, {\"prop_code\": \"MELT_FREEZE\", \"comp_ref\": \"MIX\", \"seq\": 1, \"q\": {\"raw\": \"< -20 °C\", \"status\": \"값있음\", \"upper_op\": \"<\", \"upper\": -20, \"unit\": \"C\"}, \"cond\": {\"method\": \"EU Method A.1 (녹는점 / 어는점)\"}}, {\"prop_code\": \"MELT_FREEZE\", \"comp_ref\": \"MIX\", \"seq\": 2, \"q\": {\"raw\": \"< -20 °C\", \"status\": \"값있음\", \"upper_op\": \"<\", \"upper\": -20, \"unit\": \"C\"}, \"cond\": {\"method\": \"EC Method A1\"}}, {\"prop_code\": \"BOILING\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"184 °C @ 752.46 mmHg\", \"status\": \"값있음\", \"value\": 184, \"unit\": \"C\"}, \"cond\": {\"pressure\": 752.46, \"pressure_unit\": \"mmHg\"}, \"data_source\": \"문헌자료기준\"}, {\"prop_code\": \"FLASH_POINT\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"closed cup 104 °C @ 1,000.1 hPa\", \"status\": \"값있음\", \"value\": 104, \"unit\": \"C\"}, \"cond\": {\"pressure\": 1000.1, \"pressure_unit\": \"hPa\", \"method\": \"closed cup; EC Method A9(PMCC)\"}}, {\"prop_code\": \"EVAP_RATE\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"0.01 추정치\", \"status\": \"값있음\", \"value\": 0.01, \"dp\": 2, \"note\": \"추정치\"}, \"cond\": {\"reference\": \"Butyl Acetate = 1\"}}, {\"prop_code\": \"FLAMMABILITY\", \"comp_ref\": \"MIX\", \"text_value\": \"액체 물질에 적용할 수 없음\", \"q\": null}, {\"prop_code\": \"LEL\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"2.6 %(V) 추정치\", \"status\": \"값있음\", \"value\": 2.6, \"dp\": 1, \"unit\": \"%(V)\", \"note\": \"추정치\"}}, {\"prop_code\": \"UEL\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"12.5 %(V) 추정치\", \"status\": \"값있음\", \"value\": 12.5, \"dp\": 1, \"unit\": \"%(V)\", \"note\": \"추정치\"}}, {\"prop_code\": \"VAPOR_PRESSURE\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"20 Pa @ 25 °C\", \"status\": \"값있음\", \"value\": 20, \"unit\": \"Pa\"}, \"cond\": {\"temp\": 25, \"temp_unit\": \"C\", \"method\": \"EC Method A4\"}}, {\"prop_code\": \"VAPOR_DENSITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"2.62\", \"status\": \"값있음\", \"value\": 2.62, \"dp\": 2}, \"cond\": {\"reference\": \"공기=1\"}, \"data_source\": \"문헌자료기준\"}, {\"prop_code\": \"RELATIVE_DENSITY\", \"comp_ref\": \"MIX\", \"seq\": 1, \"q\": {\"raw\": \"1.03 @ 20 °C / 20 °C\", \"status\": \"값있음\", \"value\": 1.03, \"dp\": 2}, \"cond\": {\"temp\": 20, \"temp_unit\": \"C\", \"reference\": \"물=1\", \"method\": \"EU Method A.3 (Relative Density)\"}}, {\"prop_code\": \"RELATIVE_DENSITY\", \"comp_ref\": \"MIX\", \"seq\": 2, \"q\": {\"raw\": \"1.03 g/cm3 @ 20 °C\", \"status\": \"값있음\", \"value\": 1.03, \"dp\": 2, \"unit\": \"g/cm3\"}, \"cond\": {\"temp\": 20, \"temp_unit\": \"C\"}, \"data_source\": \"문헌자료기준\"}, {\"prop_code\": \"SOLUBILITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"100 % @ 20 °C\", \"status\": \"값있음\", \"value\": 100, \"unit\": \"%\"}, \"cond\": {\"temp\": 20, \"temp_unit\": \"C\", \"method\": \"EU Method A.6 (수용해도)\"}}, {\"prop_code\": \"LOG_KOW\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"log Pow: -1.07 추정치\", \"status\": \"값있음\", \"value\": -1.07, \"dp\": 2, \"note\": \"추정치\"}}, {\"prop_code\": \"AUTOIGNITION\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"> 400 °C @ 100.01 kPa\", \"status\": \"값있음\", \"lower_op\": \">\", \"lower\": 400, \"unit\": \"C\"}, \"cond\": {\"pressure\": 100.01, \"pressure_unit\": \"kPa\", \"method\": \"EC Method A15\"}}, {\"prop_code\": \"DECOMPOSITION\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"VISCOSITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"43.4 mPa.s @ 25 °C\", \"status\": \"값있음\", \"value\": 43.4, \"dp\": 1, \"unit\": \"mPa.s\"}, \"cond\": {\"temp\": 25, \"temp_unit\": \"C\"}, \"data_source\": \"문헌자료기준\"}, {\"prop_code\": \"VISCOSITY_KIN\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"MOL_WEIGHT\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"exposure_limits[0]\", \"page\": 4, \"source_text\": \"Propylene glycol | US WEEL | TWA | 10 mg/m3\", \"rules\": [\"R04\", \"R10\"], \"note\": \"US WEEL은 standard 목록에 없어 '기타'로 둠; CAS 57-55-6 성분 → comp_ref 1\"}, {\"msds_index\": 0, \"field\": \"physchem[0]\", \"page\": 5, \"source_text\": \"물리적 상태 액체\", \"rules\": [\"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[1]\", \"page\": 5, \"source_text\": \"색상 무색\", \"rules\": [\"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[2]\", \"page\": 5, \"source_text\": \"냄새 무향\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[3]\", \"page\": 5, \"source_text\": \"냄새 역치 자료 없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[4]\", \"page\": 5, \"source_text\": \"pH 해당 없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[5]\", \"page\": 5, \"source_text\": \"녹는점/범위 < -20 °C EU Method A.1 (녹는점 / 어는점)\", \"rules\": [\"R04\", \"R08\", \"R25\"], \"note\": \"'녹는점/범위'를 MELT_FREEZE로 매핑, 방법은 cond.method\"}, {\"msds_index\": 0, \"field\": \"physchem[6]\", \"page\": 5, \"source_text\": \"어는 점 < -20 °C EC Method A1\", \"rules\": [\"R04\", \"R08\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[7]\", \"page\": 5, \"source_text\": \"끓는점 (760 mmHg) 184 °C @ 752.46 mmHg 문헌자료기준\", \"rules\": [\"R04\", \"R08\", \"R25\"], \"note\": \"값 뒤 @752.46 mmHg를 cond 압력으로, 문헌자료기준을 data_source로 둠\"}, {\"msds_index\": 0, \"field\": \"physchem[8]\", \"page\": 5, \"source_text\": \"인화점 closed cup 104 °C @ 1,000.1 hPa EC Method A9(PMCC)\", \"rules\": [\"R04\", \"R06\", \"R08\"], \"note\": \"압력 1,000.1 콤마 제거\"}, {\"msds_index\": 0, \"field\": \"physchem[9]\", \"page\": 5, \"source_text\": \"증발속도 (Butyl Acetate = 1) 0.01 추정치\", \"rules\": [\"R04\", \"R06\", \"R25\"], \"note\": \"추정치는 q.note로\"}, {\"msds_index\": 0, \"field\": \"physchem[10]\", \"page\": 5, \"source_text\": \"인화성(고체, 기체) 액체 물질에 적용할 수 없음\", \"rules\": [\"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[11]\", \"page\": 5, \"source_text\": \"인화 또는 폭발 범위의 하한 2.6 %(V) 추정치\", \"rules\": [\"R04\", \"R06\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[12]\", \"page\": 5, \"source_text\": \"인화 또는 폭발 범위의 상한 12.5 %(V) 추정치\", \"rules\": [\"R04\", \"R06\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[13]\", \"page\": 5, \"source_text\": \"증기압 20 Pa @ 25 °C EC Method A4\", \"rules\": [\"R04\", \"R08\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[14]\", \"page\": 5, \"source_text\": \"상대증기밀도(공기=1) 2.62 문헌자료기준\", \"rules\": [\"R04\", \"R25\"], \"note\": \"'상대증기밀도'를 VAPOR_DENSITY로 매핑\"}, {\"msds_index\": 0, \"field\": \"physchem[15]\", \"page\": 5, \"source_text\": \"비중 (물=1) 1.03 @ 20 °C / 20 °C EU Method A.3 (Relative Density)\", \"rules\": [\"R04\", \"R06\", \"R08\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[16]\", \"page\": 5, \"source_text\": \"액체 밀도 1.03 g/cm3 @ 20 °C 문헌자료기준\", \"rules\": [\"R04\", \"R08\", \"R25\"], \"note\": \"'액체 밀도'를 동의어 '밀도'로 보아 RELATIVE_DENSITY seq 2로 둠\"}, {\"msds_index\": 0, \"field\": \"physchem[17]\", \"page\": 5, \"source_text\": \"수용해도 100 % @ 20 °C EU Method A.6 (수용해도)\", \"rules\": [\"R04\", \"R08\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[18]\", \"page\": 5, \"source_text\": \"n-옥탄올/물 분배계수 log Pow: -1.07 추정치\", \"rules\": [\"R04\", \"R06\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[19]\", \"page\": 5, \"source_text\": \"자연발화 온도 > 400 °C @ 100.01 kPa EC Method A15\", \"rules\": [\"R04\", \"R08\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[20]\", \"page\": 5, \"source_text\": \"분해 온도 자료 없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[21]\", \"page\": 5, \"source_text\": \"점성계수 43.4 mPa.s @ 25 °C 문헌자료기준\", \"rules\": [\"R04\", \"R06\", \"R25\"], \"note\": \"'점성계수'는 동의어 사전에 없으나 단위 mPa.s로 VISCOSITY에 매핑 — 사전 추가 요청\"}, {\"msds_index\": 0, \"field\": \"physchem[22]\", \"page\": 5, \"source_text\": \"동적 점성도 자료 없음\", \"rules\": [\"R15\", \"R25\"], \"note\": \"'동적 점성도'는 사전에 없음; 점성계수와 별도 행이라 VISCOSITY_KIN으로 둠 — 검수 필요\"}, {\"msds_index\": 0, \"field\": \"physchem[23]\", \"page\": 5, \"source_text\": \"분자량 자료 없음\", \"rules\": [\"R15\"], \"note\": null}]}"
+}

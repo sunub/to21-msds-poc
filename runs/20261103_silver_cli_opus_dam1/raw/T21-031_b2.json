@@ -1,0 +1,608 @@
+{
+  "doc_id": "T21-031",
+  "bundle": "b2",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 44342,
+    "completion_tokens": 4935,
+    "cached_tokens": 6909,
+    "reasoning_tokens": 817,
+    "notional_cost_usd": 0.3995378
+  },
+  "seconds": 35.3,
+  "request_usage": [
+    {
+      "prompt_tokens": 44342,
+      "completion_tokens": 4935,
+      "cached_tokens": 6909,
+      "reasoning_tokens": 817,
+      "notional_cost_usd": 0.3995378
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "exposure_limits": [
+          {
+            "comp_ref": "1",
+            "standard": "국내",
+            "limit_type": "TWA",
+            "kr_basis": "노출기준",
+            "form": "분진 및 미스트",
+            "notations": [],
+            "q": {
+              "raw": "TWA 1mg/m3 (분진 및 미스트)",
+              "status": "값있음",
+              "value": 1,
+              "unit": "mg/m3"
+            }
+          },
+          {
+            "comp_ref": "1",
+            "standard": "국내",
+            "limit_type": "STEL",
+            "kr_basis": "노출기준",
+            "form": "분진 및 미스트",
+            "notations": [],
+            "q": {
+              "raw": "STEL 2mg/m3 (분진 및 미스트)",
+              "status": "값있음",
+              "value": 2,
+              "unit": "mg/m3"
+            }
+          },
+          {
+            "comp_ref": "1",
+            "standard": "국내",
+            "limit_type": "TWA",
+            "kr_basis": "노출기준",
+            "form": "흄",
+            "notations": [],
+            "q": {
+              "raw": "TWA 0.1mg/m3 (흄)",
+              "status": "값있음",
+              "value": 0.1,
+              "dp": 1,
+              "unit": "mg/m3"
+            }
+          },
+          {
+            "comp_ref": "2",
+            "standard": "국내",
+            "limit_type": "TWA",
+            "kr_basis": "노출기준",
+            "notations": [],
+            "q": {
+              "raw": "TWA 1mg/m3",
+              "status": "값있음",
+              "value": 1,
+              "unit": "mg/m3"
+            }
+          },
+          {
+            "comp_ref": "1",
+            "standard": "ACGIH",
+            "limit_type": "TWA",
+            "form": "흄",
+            "notations": [],
+            "q": {
+              "raw": "TWA 0.2mg/m3 (흄)",
+              "status": "값있음",
+              "value": 0.2,
+              "dp": 1,
+              "unit": "mg/m3"
+            }
+          },
+          {
+            "comp_ref": "1",
+            "standard": "ACGIH",
+            "limit_type": "TWA",
+            "form": "분진",
+            "notations": [],
+            "q": {
+              "raw": "TWA 1mg/m3 (분진)",
+              "status": "값있음",
+              "value": 1,
+              "unit": "mg/m3"
+            }
+          },
+          {
+            "comp_ref": "MIX",
+            "standard": "생물학적",
+            "limit_type": "BEI",
+            "notations": [],
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "comp_ref": "MIX",
+            "standard": "기타",
+            "limit_type": "기타",
+            "notations": [],
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          }
+        ],
+        "physchem": [
+          {
+            "prop_code": "APPEARANCE_STATE",
+            "comp_ref": "MIX",
+            "text_value": "고체",
+            "q": null
+          },
+          {
+            "prop_code": "APPEARANCE_COLOR",
+            "comp_ref": "MIX",
+            "text_value": "붉은색",
+            "q": null
+          },
+          {
+            "prop_code": "ODOR",
+            "comp_ref": "MIX",
+            "text_value": "무취",
+            "q": null
+          },
+          {
+            "prop_code": "ODOR_THRESHOLD",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "PH",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "MELT_FREEZE",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "1088 ℃",
+              "status": "값있음",
+              "value": 1088,
+              "unit": "C"
+            }
+          },
+          {
+            "prop_code": "BOILING",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "FLASH_POINT",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "EVAP_RATE",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "FLAMMABILITY",
+            "comp_ref": "MIX",
+            "text_value": "Zinc: 불연성 (20um 미만 ~40um 미만)",
+            "data_source": "ECHA",
+            "q": null
+          },
+          {
+            "prop_code": "UEL",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "LEL",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "VAPOR_PRESSURE",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "SOLUBILITY",
+            "comp_ref": "MIX",
+            "text_value": "불용성",
+            "q": null
+          },
+          {
+            "prop_code": "VAPOR_DENSITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "RELATIVE_DENSITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "8.91 (물=1)",
+              "status": "값있음",
+              "value": 8.91,
+              "dp": 2
+            },
+            "cond": {
+              "reference": "물=1"
+            }
+          },
+          {
+            "prop_code": "LOG_KOW",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "AUTOIGNITION",
+            "comp_ref": "MIX",
+            "text_value": "Zinc: 자연발화성으로 분류되지 않음(Nr 4, section 14.4.2.2.4.)",
+            "data_source": "ECHA",
+            "q": null
+          },
+          {
+            "prop_code": "DECOMPOSITION",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "VISCOSITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "MOL_WEIGHT",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[0]",
+        "page": 3,
+        "source_text": "Copper | TWA 1mg/m3, STEL 2mg/m3 (분진 및 미스트)",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "국내 규정 표에서 TWA·STEL을 행으로 나눔, 괄호는 form으로"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[1]",
+        "page": 3,
+        "source_text": "Copper | TWA 1mg/m3, STEL 2mg/m3 (분진 및 미스트)",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "STEL 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[2]",
+        "page": 3,
+        "source_text": "TWA 0.1mg/m3 (흄)",
+        "rules": [
+          "R04",
+          "R06",
+          "R08",
+          "R10"
+        ],
+        "note": "Copper 국내 규정 둘째 줄"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[3]",
+        "page": 3,
+        "source_text": "Iron | TWA 1mg/m3",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[4]",
+        "page": 3,
+        "source_text": "Copper | TWA 0.2mg/m3 (흄)",
+        "rules": [
+          "R04",
+          "R06",
+          "R08",
+          "R10"
+        ],
+        "note": "ACGIH 규정"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[5]",
+        "page": 3,
+        "source_text": "TWA 1mg/m3 (분진)",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "ACGIH 규정 Copper 둘째 줄"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[6]",
+        "page": 3,
+        "source_text": "* 생물학적 노출기준 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[7]",
+        "page": 3,
+        "source_text": "* 기타 노출기준 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "표시 없어 limit_type 기타"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[0]",
+        "page": 3,
+        "source_text": "* 성상 고체",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[1]",
+        "page": 3,
+        "source_text": "* 색상 붉은색",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[2]",
+        "page": 3,
+        "source_text": "나. 냄새 무취",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[3]",
+        "page": 3,
+        "source_text": "다. 냄새역치 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[4]",
+        "page": 3,
+        "source_text": "라. pH 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[5]",
+        "page": 3,
+        "source_text": "마. 녹는점/어는점 1088 ℃",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[6]",
+        "page": 3,
+        "source_text": "바. 초기 끓는점과 끓는점 범위 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[7]",
+        "page": 3,
+        "source_text": "사. 인화점 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[8]",
+        "page": 3,
+        "source_text": "아. 증발속도 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[9]",
+        "page": 3,
+        "source_text": "자. 인화성(고체, 기체) Zinc: 불연성 (20um 미만 ~40um 미만)(ECHA)",
+        "rules": [
+          "R17"
+        ],
+        "note": "Zinc는 성분 목록에 없어 comp_ref MIX로 두고 원문 텍스트 유지, 출처 ECHA 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[10]",
+        "page": 3,
+        "source_text": "차. 인화 또는 폭발 범위의 상한/하한 자료없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "상한/하한 한 줄을 UEL·LEL 두 행으로"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[11]",
+        "page": 3,
+        "source_text": "차. 인화 또는 폭발 범위의 상한/하한 자료없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "LEL 행"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[12]",
+        "page": 3,
+        "source_text": "카. 증기압 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[13]",
+        "page": 3,
+        "source_text": "타. 용해도 불용성",
+        "rules": [],
+        "note": "숫자 아닌 말이라 text_value"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[14]",
+        "page": 4,
+        "source_text": "파. 증기밀도 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[15]",
+        "page": 4,
+        "source_text": "하. 비중 8.91 (물=1)",
+        "rules": [
+          "R04",
+          "R06"
+        ],
+        "note": "괄호 '물=1'을 cond.reference로"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[16]",
+        "page": 4,
+        "source_text": "거. n-옥탄올/물분배계수 (Kow) 자료없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[17]",
+        "page": 4,
+        "source_text": "너. 자연발화온도 Zinc: 자연발화성으로 분류되지 않음(Nr 4, section 14.4.2.2.4.)(ECHA)",
+        "rules": [
+          "R17"
+        ],
+        "note": "숫자 아닌 말이라 text_value, Zinc는 성분 목록에 없어 MIX로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[18]",
+        "page": 4,
+        "source_text": "더. 분해온도 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[19]",
+        "page": 4,
+        "source_text": "러. 점도 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[20]",
+        "page": 4,
+        "source_text": "머. 분자량 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"exposure_limits\": [{\"comp_ref\": \"1\", \"standard\": \"국내\", \"limit_type\": \"TWA\", \"kr_basis\": \"노출기준\", \"form\": \"분진 및 미스트\", \"notations\": [], \"q\": {\"raw\": \"TWA 1mg/m3 (분진 및 미스트)\", \"status\": \"값있음\", \"value\": 1, \"unit\": \"mg/m3\"}}, {\"comp_ref\": \"1\", \"standard\": \"국내\", \"limit_type\": \"STEL\", \"kr_basis\": \"노출기준\", \"form\": \"분진 및 미스트\", \"notations\": [], \"q\": {\"raw\": \"STEL 2mg/m3 (분진 및 미스트)\", \"status\": \"값있음\", \"value\": 2, \"unit\": \"mg/m3\"}}, {\"comp_ref\": \"1\", \"standard\": \"국내\", \"limit_type\": \"TWA\", \"kr_basis\": \"노출기준\", \"form\": \"흄\", \"notations\": [], \"q\": {\"raw\": \"TWA 0.1mg/m3 (흄)\", \"status\": \"값있음\", \"value\": 0.1, \"dp\": 1, \"unit\": \"mg/m3\"}}, {\"comp_ref\": \"2\", \"standard\": \"국내\", \"limit_type\": \"TWA\", \"kr_basis\": \"노출기준\", \"notations\": [], \"q\": {\"raw\": \"TWA 1mg/m3\", \"status\": \"값있음\", \"value\": 1, \"unit\": \"mg/m3\"}}, {\"comp_ref\": \"1\", \"standard\": \"ACGIH\", \"limit_type\": \"TWA\", \"form\": \"흄\", \"notations\": [], \"q\": {\"raw\": \"TWA 0.2mg/m3 (흄)\", \"status\": \"값있음\", \"value\": 0.2, \"dp\": 1, \"unit\": \"mg/m3\"}}, {\"comp_ref\": \"1\", \"standard\": \"ACGIH\", \"limit_type\": \"TWA\", \"form\": \"분진\", \"notations\": [], \"q\": {\"raw\": \"TWA 1mg/m3 (분진)\", \"status\": \"값있음\", \"value\": 1, \"unit\": \"mg/m3\"}}, {\"comp_ref\": \"MIX\", \"standard\": \"생물학적\", \"limit_type\": \"BEI\", \"notations\": [], \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"comp_ref\": \"MIX\", \"standard\": \"기타\", \"limit_type\": \"기타\", \"notations\": [], \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}], \"physchem\": [{\"prop_code\": \"APPEARANCE_STATE\", \"comp_ref\": \"MIX\", \"text_value\": \"고체\", \"q\": null}, {\"prop_code\": \"APPEARANCE_COLOR\", \"comp_ref\": \"MIX\", \"text_value\": \"붉은색\", \"q\": null}, {\"prop_code\": \"ODOR\", \"comp_ref\": \"MIX\", \"text_value\": \"무취\", \"q\": null}, {\"prop_code\": \"ODOR_THRESHOLD\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"PH\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"MELT_FREEZE\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"1088 ℃\", \"status\": \"값있음\", \"value\": 1088, \"unit\": \"C\"}}, {\"prop_code\": \"BOILING\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"FLASH_POINT\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"EVAP_RATE\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"FLAMMABILITY\", \"comp_ref\": \"MIX\", \"text_value\": \"Zinc: 불연성 (20um 미만 ~40um 미만)\", \"data_source\": \"ECHA\", \"q\": null}, {\"prop_code\": \"UEL\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"LEL\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"VAPOR_PRESSURE\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"SOLUBILITY\", \"comp_ref\": \"MIX\", \"text_value\": \"불용성\", \"q\": null}, {\"prop_code\": \"VAPOR_DENSITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"RELATIVE_DENSITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"8.91 (물=1)\", \"status\": \"값있음\", \"value\": 8.91, \"dp\": 2}, \"cond\": {\"reference\": \"물=1\"}}, {\"prop_code\": \"LOG_KOW\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"AUTOIGNITION\", \"comp_ref\": \"MIX\", \"text_value\": \"Zinc: 자연발화성으로 분류되지 않음(Nr 4, section 14.4.2.2.4.)\", \"data_source\": \"ECHA\", \"q\": null}, {\"prop_code\": \"DECOMPOSITION\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"VISCOSITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"MOL_WEIGHT\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"exposure_limits[0]\", \"page\": 3, \"source_text\": \"Copper | TWA 1mg/m3, STEL 2mg/m3 (분진 및 미스트)\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": \"국내 규정 표에서 TWA·STEL을 행으로 나눔, 괄호는 form으로\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[1]\", \"page\": 3, \"source_text\": \"Copper | TWA 1mg/m3, STEL 2mg/m3 (분진 및 미스트)\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": \"STEL 분리\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[2]\", \"page\": 3, \"source_text\": \"TWA 0.1mg/m3 (흄)\", \"rules\": [\"R04\", \"R06\", \"R08\", \"R10\"], \"note\": \"Copper 국내 규정 둘째 줄\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[3]\", \"page\": 3, \"source_text\": \"Iron | TWA 1mg/m3\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"exposure_limits[4]\", \"page\": 3, \"source_text\": \"Copper | TWA 0.2mg/m3 (흄)\", \"rules\": [\"R04\", \"R06\", \"R08\", \"R10\"], \"note\": \"ACGIH 규정\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[5]\", \"page\": 3, \"source_text\": \"TWA 1mg/m3 (분진)\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": \"ACGIH 규정 Copper 둘째 줄\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[6]\", \"page\": 3, \"source_text\": \"* 생물학적 노출기준 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"exposure_limits[7]\", \"page\": 3, \"source_text\": \"* 기타 노출기준 자료없음\", \"rules\": [\"R15\"], \"note\": \"표시 없어 limit_type 기타\"}, {\"msds_index\": 0, \"field\": \"physchem[0]\", \"page\": 3, \"source_text\": \"* 성상 고체\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[1]\", \"page\": 3, \"source_text\": \"* 색상 붉은색\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[2]\", \"page\": 3, \"source_text\": \"나. 냄새 무취\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[3]\", \"page\": 3, \"source_text\": \"다. 냄새역치 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[4]\", \"page\": 3, \"source_text\": \"라. pH 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[5]\", \"page\": 3, \"source_text\": \"마. 녹는점/어는점 1088 ℃\", \"rules\": [\"R04\", \"R08\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[6]\", \"page\": 3, \"source_text\": \"바. 초기 끓는점과 끓는점 범위 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[7]\", \"page\": 3, \"source_text\": \"사. 인화점 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[8]\", \"page\": 3, \"source_text\": \"아. 증발속도 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[9]\", \"page\": 3, \"source_text\": \"자. 인화성(고체, 기체) Zinc: 불연성 (20um 미만 ~40um 미만)(ECHA)\", \"rules\": [\"R17\"], \"note\": \"Zinc는 성분 목록에 없어 comp_ref MIX로 두고 원문 텍스트 유지, 출처 ECHA 분리\"}, {\"msds_index\": 0, \"field\": \"physchem[10]\", \"page\": 3, \"source_text\": \"차. 인화 또는 폭발 범위의 상한/하한 자료없음\", \"rules\": [\"R15\", \"R25\"], \"note\": \"상한/하한 한 줄을 UEL·LEL 두 행으로\"}, {\"msds_index\": 0, \"field\": \"physchem[11]\", \"page\": 3, \"source_text\": \"차. 인화 또는 폭발 범위의 상한/하한 자료없음\", \"rules\": [\"R15\", \"R25\"], \"note\": \"LEL 행\"}, {\"msds_index\": 0, \"field\": \"physchem[12]\", \"page\": 3, \"source_text\": \"카. 증기압 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[13]\", \"page\": 3, \"source_text\": \"타. 용해도 불용성\", \"rules\": [], \"note\": \"숫자 아닌 말이라 text_value\"}, {\"msds_index\": 0, \"field\": \"physchem[14]\", \"page\": 4, \"source_text\": \"파. 증기밀도 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[15]\", \"page\": 4, \"source_text\": \"하. 비중 8.91 (물=1)\", \"rules\": [\"R04\", \"R06\"], \"note\": \"괄호 '물=1'을 cond.reference로\"}, {\"msds_index\": 0, \"field\": \"physchem[16]\", \"page\": 4, \"source_text\": \"거. n-옥탄올/물분배계수 (Kow) 자료없음\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[17]\", \"page\": 4, \"source_text\": \"너. 자연발화온도 Zinc: 자연발화성으로 분류되지 않음(Nr 4, section 14.4.2.2.4.)(ECHA)\", \"rules\": [\"R17\"], \"note\": \"숫자 아닌 말이라 text_value, Zinc는 성분 목록에 없어 MIX로 둠\"}, {\"msds_index\": 0, \"field\": \"physchem[18]\", \"page\": 4, \"source_text\": \"더. 분해온도 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[19]\", \"page\": 4, \"source_text\": \"러. 점도 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[20]\", \"page\": 4, \"source_text\": \"머. 분자량 자료없음\", \"rules\": [\"R15\"], \"note\": null}]}"
+}

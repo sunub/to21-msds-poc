@@ -1,0 +1,1523 @@
+[
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.msds_no",
+    "page": 1,
+    "source_text": "MSDS 번호: AA00630-0000000017",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.first_issue_date",
+    "page": 10,
+    "source_text": "2019. 01. 18.",
+    "rules": [
+      "R01"
+    ],
+    "note": "'2019. 01. 18.'을 2019-01-18로 변환"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.last_revision_date",
+    "page": 10,
+    "source_text": "2024. 04. 04.",
+    "rules": [
+      "R01"
+    ],
+    "note": "'2024. 04. 04.'을 2024-04-04로 변환"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.revision_no",
+    "page": 10,
+    "source_text": "개정횟수 - 4 회",
+    "rules": [],
+    "note": "'4 회'에서 4를 취함"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.page_start",
+    "page": 1,
+    "source_text": "물질안전보건자료 (Material Safety Data Sheet)",
+    "rules": [
+      "R16"
+    ],
+    "note": "단일 MSDS로 1~10쪽"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "product.name",
+    "page": 1,
+    "source_text": "가. 품명 Sol-D (D-30621 Naphtha)",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "product.uses",
+    "page": 1,
+    "source_text": "석유화학 제품의 원료, 용제, 비료원료 등",
+    "rules": [
+      "R11"
+    ],
+    "note": "쉼표 기준으로 3개로 분리"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "companies[0]",
+    "page": 1,
+    "source_text": "회사명 : S-OIL(주) 온산 공장 | 주 소 : 울산광역시 울주군 온산읍 온산로 68 | 담당부서 : Hydrocracker 공정팀 | 전화번호 : 052)231-3653 FAX 번호 : 052) 231-2209",
+    "rules": [
+      "R12"
+    ],
+    "note": "'온산 공장'을 site로 분리하고 전화·팩스를 R12로 정규화"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "companies[1]",
+    "page": 1,
+    "source_text": "공급업자/유통업자 정보 : ( 상 동 )",
+    "rules": [
+      "R12"
+    ],
+    "note": "'상동'이라 적혀 있어 제조자 정보를 공급자로 똑같이 옮김"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classified",
+    "page": 1,
+    "source_text": "가. 유해성·위험성 분류",
+    "rules": [],
+    "note": "분류 9건이 있어 true"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classes[0]",
+    "page": 1,
+    "source_text": "인화성 액체 : 구분 2",
+    "rules": [
+      "R07"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classes[1]",
+    "page": 1,
+    "source_text": "피부 부식성 또는 자극성 : 구분 2",
+    "rules": [
+      "R07"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classes[2]",
+    "page": 1,
+    "source_text": "심한 눈 손상 또는 자극성 : 구분 2",
+    "rules": [
+      "R07"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classes[3]",
+    "page": 1,
+    "source_text": "발암성 : 구분 1A",
+    "rules": [
+      "R07"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classes[4]",
+    "page": 1,
+    "source_text": "생식 독성 : 구분 1A",
+    "rules": [
+      "R07"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classes[5]",
+    "page": 1,
+    "source_text": "흡인 유해성 : 구분 1",
+    "rules": [
+      "R07"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classes[6]",
+    "page": 1,
+    "source_text": "특정표적장기 독성(1 회 노출) : 구분 2",
+    "rules": [
+      "R07"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classes[7]",
+    "page": 1,
+    "source_text": "특정표적장기 독성(반복 노출) : 구분 1",
+    "rules": [
+      "R07"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classes[8]",
+    "page": 1,
+    "source_text": "수생환경 유해성 : 만성 2",
+    "rules": [
+      "R07"
+    ],
+    "note": "'만성 2'를 수생환경 만성 구분 2로 봄"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.signal_word",
+    "page": 2,
+    "source_text": "신호어 - 위험",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.pictograms",
+    "page": 2,
+    "source_text": "그림문자",
+    "rules": [],
+    "note": "이미지에서 불꽃, 건강유해성, 환경, 감탄부호 4개 확인"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.h_statements",
+    "page": 2,
+    "source_text": "H225 : 고인화성 액체 및 증기 ... H411 : 장기적인 영향에 의해 수생생물에게 유독함",
+    "rules": [
+      "R05"
+    ],
+    "note": "H코드 9개"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements",
+    "page": 2,
+    "source_text": "P202 : 모든 안전 예방조치 문구를 읽고 이해하기 전에는 취급하지 마시오. ... P370+P378 화재 시 불을 끄기 위해 소화기를 사용하시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": "2쪽 P문구 16개(중복 P202 포함)"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[21]",
+    "page": 3,
+    "source_text": "P301_P310 : 삼켰다면 즉시 의료기관의 진찰을 받으시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": "원문 'P301_P310'의 밑줄을 결합 기호 '+'로 보고 P301+P310으로 적음"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[27]",
+    "page": 3,
+    "source_text": "저장 - P391 : 누출물을 모으시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": "저장 소제목 아래 있으나 코드 첫 자리 3에 따라 대응"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements",
+    "page": 3,
+    "source_text": "P302+P352 ... P501 : 관련 법규에 명시된 내용에 따라 내용물 용기를 폐기하시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": "3쪽 P문구 13개"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.nfpa",
+    "page": 3,
+    "source_text": "보건 : 1 | 화재 : 2 | 반응성 : 0",
+    "rules": [],
+    "note": "NFPA라는 표기는 없으나 보건·화재·반응성 3항목 등급으로 적혀 있어 nfpa에 넣음"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.other_hazards",
+    "page": 3,
+    "source_text": "- 보건 : 1 - 화재 : 2 - 반응성 : 0",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "composition.type",
+    "page": 3,
+    "source_text": "3. 구성성분의 명칭 및 함유량",
+    "rules": [],
+    "note": "성분이 여러 개라 혼합물"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "components[0]",
+    "page": 3,
+    "source_text": "Fuel, Kerosene | - | 8008-20-6 | 27%",
+    "rules": [
+      "R02",
+      "R04"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "components[1]",
+    "page": 3,
+    "source_text": "Fuel, Diesel | - | 68334-30-5 | 22%",
+    "rules": [
+      "R02",
+      "R04"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "components[2]",
+    "page": 3,
+    "source_text": "HDS Naphtha | 수소처리된 나프타 | 64742-48-9 | 51%",
+    "rules": [
+      "R02",
+      "R04"
+    ],
+    "note": "관용명을 synonyms에 넣음"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "components[3]",
+    "page": 3,
+    "source_text": "n-Hexane | - | 110-54-3 | 5~8%",
+    "rules": [
+      "R02",
+      "R04",
+      "R22"
+    ],
+    "note": "'HDS Naphtha 에는 다음의 물질이 포함되어 있음' 아래 행이라 parent_seq=3; 범위 5(>=)~8(<=)"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "components[4]",
+    "page": 3,
+    "source_text": "Benzene | - | 71-43-2 | 0.05% 이하",
+    "rules": [
+      "R02",
+      "R04",
+      "R22"
+    ],
+    "note": "'이하'를 upper_op <=로, parent_seq=3"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "components[5]",
+    "page": 3,
+    "source_text": "Toluene | - | 108-88-3 | 0.05% 이하",
+    "rules": [
+      "R02",
+      "R04",
+      "R22"
+    ],
+    "note": "'이하'를 upper_op <=로, parent_seq=3"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[0]",
+    "page": 6,
+    "source_text": "나프타 : OSHA - TWA : 300ppm, 1350mg/m3 STEL : 400ppm, 1800mg/m3",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": "나프타를 HDS Naphtha(comp_ref 3)로 매칭, TWA ppm 값"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[1]",
+    "page": 6,
+    "source_text": "나프타 : OSHA - TWA : 300ppm, 1350mg/m3 STEL : 400ppm, 1800mg/m3",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": "TWA mg/m3 값을 별도 행으로 나눔"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[2]",
+    "page": 6,
+    "source_text": "나프타 : OSHA - TWA : 300ppm, 1350mg/m3 STEL : 400ppm, 1800mg/m3",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": "STEL ppm 값"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[3]",
+    "page": 6,
+    "source_text": "나프타 : OSHA - TWA : 300ppm, 1350mg/m3 STEL : 400ppm, 1800mg/m3",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": "STEL mg/m3 값"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[4]",
+    "page": 6,
+    "source_text": "벤젠 : 산업안전보건법 - TWA 0.5ppm STEL : 2.5ppm (발암성 1A, 생식세포 변이원성 1B, Skin)",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R11"
+    ],
+    "note": "산업안전보건법을 국내로, 노출기준/허용기준 구분 표기 없어 kr_basis 비움"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[5]",
+    "page": 6,
+    "source_text": "벤젠 : 산업안전보건법 - TWA 0.5ppm STEL : 2.5ppm (발암성 1A, 생식세포 변이원성 1B, Skin)",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R11"
+    ],
+    "note": "STEL 행 분리"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[6]",
+    "page": 6,
+    "source_text": "톨루엔 : 산업안전보건법 - TWA 100ppm, 375mg/m3 STEL : 150ppm, 560mg/m3",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": "TWA ppm"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[7]",
+    "page": 6,
+    "source_text": "톨루엔 : 산업안전보건법 - TWA 100ppm, 375mg/m3 STEL : 150ppm, 560mg/m3",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": "TWA mg/m3"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[8]",
+    "page": 6,
+    "source_text": "톨루엔 : 산업안전보건법 - TWA 100ppm, 375mg/m3 STEL : 150ppm, 560mg/m3",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": "STEL ppm"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[9]",
+    "page": 6,
+    "source_text": "톨루엔 : 산업안전보건법 - TWA 100ppm, 375mg/m3 STEL : 150ppm, 560mg/m3",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": "STEL mg/m3"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[10]",
+    "page": 6,
+    "source_text": "n-Hexane : 산업안전보건법 - TWA 50ppm, 180mg/m3",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": "TWA ppm"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[11]",
+    "page": 6,
+    "source_text": "n-Hexane : 산업안전보건법 - TWA 50ppm, 180mg/m3",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": "TWA mg/m3"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[12]",
+    "page": 6,
+    "source_text": "Kerosene : 산업안전보건법 - TWA 200mg/m3 ACGIH - TWA 200mg/m3",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": "Kerosene을 Fuel, Kerosene(comp_ref 1)으로 매칭, 국내 TWA"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[13]",
+    "page": 6,
+    "source_text": "Kerosene : 산업안전보건법 - TWA 200mg/m3 ACGIH - TWA 200mg/m3",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": "ACGIH TWA"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[0]",
+    "page": 7,
+    "source_text": "가. 외관 : 투명한 액체",
+    "rules": [
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[1]",
+    "page": 7,
+    "source_text": "나. 냄새 : 강한 탄화수소 냄새",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[2]",
+    "page": 7,
+    "source_text": "다. 냄새역치 : 자료 없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[3]",
+    "page": 7,
+    "source_text": "라. pH : 자료 없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[4]",
+    "page": 7,
+    "source_text": "마. 녹는점/ 어는점 : 자료 없음",
+    "rules": [
+      "R15",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[5]",
+    "page": 7,
+    "source_text": "바. 초기 끓는점과 끓는점 범위 : IBP 36’C ~ EP 235’C",
+    "rules": [
+      "R04",
+      "R08"
+    ],
+    "note": "IBP 36을 하한(>=), EP 235를 상한(<=)으로 나눔"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[6]",
+    "page": 7,
+    "source_text": "사. 인화점 : 자료 없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[7]",
+    "page": 7,
+    "source_text": "아. 증발속도 : 자료 없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[8]",
+    "page": 7,
+    "source_text": "자. 인화성(고체/기체) : 해당 없음",
+    "rules": [
+      "R15",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[9]",
+    "page": 7,
+    "source_text": "차. 인화 또는 폭발범위의 상한/하한 : 자료 없음",
+    "rules": [
+      "R15",
+      "R25"
+    ],
+    "note": "상한/하한 한 줄을 UEL·LEL 두 행으로 나눔"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[10]",
+    "page": 7,
+    "source_text": "차. 인화 또는 폭발범위의 상한/하한 : 자료 없음",
+    "rules": [
+      "R15",
+      "R25"
+    ],
+    "note": "상한/하한 한 줄을 UEL·LEL 두 행으로 나눔"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[11]",
+    "page": 7,
+    "source_text": "카. 증기압 : 자료 없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[12]",
+    "page": 7,
+    "source_text": "타. 용해도 : 무시할만한 정도",
+    "rules": [],
+    "note": "숫자가 아닌 말이라 text_value에만 적음"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[13]",
+    "page": 7,
+    "source_text": "파. 증기밀도 : 자료 없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[14]",
+    "page": 7,
+    "source_text": "하. 비중 : 0.69 (15℃)",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R25"
+    ],
+    "note": "괄호 속 15℃를 cond 온도로 분리"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[15]",
+    "page": 7,
+    "source_text": "거. N 옥탄올/ 물 분배계수 : 자료 없음",
+    "rules": [
+      "R15",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[16]",
+    "page": 7,
+    "source_text": "너. 자연발화 온도 : 자료 없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[17]",
+    "page": 7,
+    "source_text": "더. 분해 온도 : 자료 없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[18]",
+    "page": 7,
+    "source_text": "러. 점도 : 자료 없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[19]",
+    "page": 7,
+    "source_text": "머. 분자량 : 자료 없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[0]",
+    "page": 8,
+    "source_text": "가. 가능성이 높은 노출 경로에 관한 정보 - 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "맞는 값 없음: 노출 경로 정보에 해당하는 endpoint 코드가 없어 endpoint를 null로 두고 status 자료없음"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[1]",
+    "page": 8,
+    "source_text": "경구 : LD50 자료 없음",
+    "rules": [
+      "R15",
+      "R10"
+    ],
+    "note": "제품 전체 값으로 보고 MIX로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[2]",
+    "page": 8,
+    "source_text": "경피 : 피부 자극성",
+    "rules": [
+      "R10"
+    ],
+    "note": "수치가 없어 결과기술 서술로 넣음"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[3]",
+    "page": 8,
+    "source_text": "흡입 : LC50 자료 없음",
+    "rules": [
+      "R15",
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[4]",
+    "page": 8,
+    "source_text": "- 피부 부식성 또는 자극성 : 자료 없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[5]",
+    "page": 8,
+    "source_text": "- 심한 눈 손상 또는 자극성 : 자료 없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[6]",
+    "page": 8,
+    "source_text": "- 호흡기 과민성 : 자료 없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[7]",
+    "page": 8,
+    "source_text": "- 피부 과민성 : 자료 없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[8]",
+    "page": 8,
+    "source_text": "- 발암성 : 벤젠은 발암성 추정물질(A2)로 노출기간과 수준에 따라 암을 유발할 수 있음",
+    "rules": [
+      "R10"
+    ],
+    "note": "벤젠을 comp_ref 5로 매칭"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[9]",
+    "page": 8,
+    "source_text": "- 생식세포 변이원성 : 자료 없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[10]",
+    "page": 8,
+    "source_text": "- 생식독성 : 자료 없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[11]",
+    "page": 8,
+    "source_text": "- 특정표적장기전신독성(1 회 노출) : 자료 없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[12]",
+    "page": 8,
+    "source_text": "- 특정표적장기전신독성(반복 노출) : 자료 없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[13]",
+    "page": 8,
+    "source_text": "- 흡인 유해성 : 자료 없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[0]",
+    "page": 8,
+    "source_text": "- 발암성 : 벤젠은 발암성 추정물질(A2)로 노출기간과 수준에 따라 암을 유발할 수 있음",
+    "rules": [
+      "R10"
+    ],
+    "note": "맞는 값 없음: 원문에 분류 기관이 적혀 있지 않아 agency를 null로 두고 class에 A2를 적음"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[0]",
+    "page": 8,
+    "source_text": "가. 생태독성 - 자료 없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "맞는 값 없음: 생물종 구분 없는 생태독성 전체라 endpoint를 null로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[1]",
+    "page": 8,
+    "source_text": "나. 잔류성 및 분해성 - 자료 없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[2]",
+    "page": 8,
+    "source_text": "다. 생물농축성 - 자료 없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[3]",
+    "page": 9,
+    "source_text": "- 자료 없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "8쪽 '라. 토양이동성' 소제목에 이어지는 9쪽 값"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[4]",
+    "page": 9,
+    "source_text": "마. 기타 유해 영향 - 자료 없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[0]",
+    "page": 9,
+    "source_text": "가. 유엔번호(UN No.) - 해당 없음 나. 적정선적명 - 해당 없음 다. 운송에서의 위험성 등급 - 해당 없음 라. 용기등급 - 해당 없음 마. 해양오염물질 - 해당 없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "모든 항목 '해당 없음'이라 regulated=false, 용기등급 해당없음, 해양오염물질 비해당으로 채움"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[0]",
+    "page": 9,
+    "source_text": "n-Hexane – 작업환경측정/특수검진/관리대상 유해인자",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "'/'로 묶인 세 항목을 나눴고, 이 행은 작업환경측정 → OSH_MEASURE"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[1]",
+    "page": 9,
+    "source_text": "n-Hexane – 작업환경측정/특수검진/관리대상 유해인자",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "특수검진 → OSH_HEALTH_EXAM"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[2]",
+    "page": 9,
+    "source_text": "n-Hexane – 작업환경측정/특수검진/관리대상 유해인자",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "관리대상 유해인자 → OSH_MANAGED"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[3]",
+    "page": 9,
+    "source_text": "공정안전보고서(PSM) 제출 대상 물질",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "성분 지정이 없어 MIX로 둠"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[4]",
+    "page": 10,
+    "source_text": "나. 화학물질관리법에 의한 규제 - 해당 없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "맞는 값 없음: 화관법 전체에 대한 '해당 없음'이라 item_code는 null로 두고 applicable은 비해당으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[5]",
+    "page": 10,
+    "source_text": null,
+    "rules": [
+      "R18"
+    ],
+    "note": "구양식이라 15항에 화평법 항목이 없어 미기재로 둠"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[6]",
+    "page": 10,
+    "source_text": "제 4 류 인화성액체 제 1 석유류 비수용성 액체 200 리터",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "dangerous_goods[0]",
+    "page": 10,
+    "source_text": "제 4 류 인화성액체 제 1 석유류 비수용성 액체 200 리터",
+    "rules": [
+      "R04"
+    ],
+    "note": "류·품명·수용성으로 나눴고 '200 리터'는 value 200, unit L로 씀. 위험등급은 원문에 없음"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[7]",
+    "page": 10,
+    "source_text": "폐기 시, 폐기물관리법에 따라 처리",
+    "rules": [
+      "R17"
+    ],
+    "note": "맞는 값 없음: 지정폐기물 해당 여부가 적혀 있지 않아 item_code와 applicable은 null로 두고 원문만 남김"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "waste[0]",
+    "page": 10,
+    "source_text": "폐기 시, 폐기물관리법에 따라 처리",
+    "rules": [
+      "R17"
+    ],
+    "note": "지정폐기물 여부가 적혀 있지 않아 designated는 null로 둠"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[8]",
+    "page": 10,
+    "source_text": "TSCA : 규정",
+    "rules": [
+      "R25"
+    ],
+    "note": "미국 법령이라 INTL_US, country US. '규정'은 해당으로 봄"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[9]",
+    "page": 10,
+    "source_text": "CERCLA 제 103 조(40CFR 302.4) : 규정, 벤젠 : RQ=10 lbs",
+    "rules": [
+      "R25"
+    ],
+    "note": "제품 전체에 대한 '규정'을 MIX 행으로 둠"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[10]",
+    "page": 10,
+    "source_text": "CERCLA 제 103 조(40CFR 302.4) : 규정, 벤젠 : RQ=10 lbs",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": "벤젠 RQ=10 lbs는 comp_ref 5의 qty 10 lb로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[11]",
+    "page": 10,
+    "source_text": "SARA 제 313 조(40CFR 372.65) : 규정",
+    "rules": [
+      "R25"
+    ],
+    "note": "미국 법령이라 INTL_US, country US"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S4_EYE]",
+    "page": 3,
+    "source_text": "가. 눈에 들어갔을 때 - 즉시 다량의 물로 씻어내고, 자극이 계속되면 의사의 처방에 따를 것",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S4_SKIN]",
+    "page": 4,
+    "source_text": "나. 피부에 접촉했을 때 - 오염된 의복을 벗겨내고, 다량의 물과 비누를 사용하여 씻어낼 것",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿 5개를 문장으로 나눔, 줄바꿈된 다섯째 불릿은 이어 붙임"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S4_INHAL]",
+    "page": 4,
+    "source_text": "다. 흡입했을 때 - 노출지역으로부터 즉시 신선한 공기가 있는 곳으로 옮길 것",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S4_INGEST]",
+    "page": 4,
+    "source_text": "라. 먹었을 때 - 억지로 구토를 유도하지 말고 안정을 취하게 한 후 의사의 진단 받게 할 것.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S4_DOCTOR]",
+    "page": 4,
+    "source_text": "마. 기타 의사의 주의사항 - 특정한 해독제는 없으며, 증상에 따라서 부양적으로 치료 할 것.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S5_MEDIA]",
+    "page": 4,
+    "source_text": "가. 적절한 소화제 - 분말 소화제, 이산화탄소, 물 뿌림 또는 정규 포말",
+    "rules": [
+      "R14",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S5_SPECIFIC]",
+    "page": 4,
+    "source_text": "나. 화학물질로부터 생기는 특정 유해성 - 유독한 탄소산화물 및 반응성 탄화수소를 포함할 수 있음.",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿 10개를 문장으로 나눔, '고인화성: …'은 key/value 분리"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S5_FIREFIGHT]",
+    "page": 4,
+    "source_text": "다. 화재진압시 착용할 보호구 및 예방조치 - 구조자는 적절한 보호구를 착용하시오.",
+    "rules": [
+      "R14",
+      "R04"
+    ],
+    "note": "4쪽 2개와 5쪽 6개 불릿을 이어 붙임, '약 800m 이상'은 cond로 분해"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S6_PERSONAL]",
+    "page": 5,
+    "source_text": "가. 인체를 보호하기 위해 필요한 조치사항 및 보호구 - 점화원을 차단하고 위험하지 않게 누출을 중지 시킬 수 있는 경우에는 누출을 중지시킬 것.",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿 11개를 문장으로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S6_ENV]",
+    "page": 5,
+    "source_text": "나. 환경을 보호하기 위해 필요한 조치사항 - 제품이 토양이나 수원에 흘러 들어가지 않도록 할 것",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S6_CLEANUP]",
+    "page": 5,
+    "source_text": "다. 정화 또는 제거 방법 - 증기를 줄이기 위하여 물을 뿌릴 것.",
+    "rules": [
+      "R14"
+    ],
+    "note": "6쪽으로 넘어간 문장 '불활성 물질(…)…화학폐기물 용기에 넣으시오.'를 이어 붙이고 빈 '-' 불릿은 제외"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S7_HANDLING]",
+    "page": 6,
+    "source_text": "가. 안전취급요령 - 이 물질을 저장 시는 중앙정부 및 지방자치단체의 규정을 준수할 것",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S7_STORAGE]",
+    "page": 6,
+    "source_text": "나. 안전한 저장방법 - 완전히 밀폐된 용기에 담아 시원하고 건조하며, 격리된 환기가 잘되는 곳에 저장할 것",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S8_ENG]",
+    "page": 6,
+    "source_text": "나. 적절한 공학적 관리 - 작업장 전체 환기 및 국소 배기시설 설치할 것",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S8_RESP]",
+    "page": 6,
+    "source_text": "• 호흡기 보호 - 공기 호흡장비 착용",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S8_EYE]",
+    "page": 6,
+    "source_text": "• 눈 보호 - 비말 보호 또는 분진 보호용 고글형 보안경 착용",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S8_HAND]",
+    "page": 6,
+    "source_text": "• 손 보호 - 적절한 보호장갑 착용",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S8_BODY]",
+    "page": 6,
+    "source_text": "• 신체 보호 - 불침투성 보호의 및 장비 착용",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S10_STABILITY]",
+    "page": 7,
+    "source_text": "- 화학적 안정성: 상온 및 상압에서 안정함 - 유해 반응의 가능성: 자료 없음",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿 8개로 나누고 '키: 값' 형태는 key/value 분리"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S10_CONDITIONS]",
+    "page": 7,
+    "source_text": "나. 피해야 할 조건 - 열·스파크·화염·고열로부터 멀리하시오 – 금연",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S10_INCOMPAT]",
+    "page": 7,
+    "source_text": "다. 피해야 할 물질 - 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "'자료없음'을 status 자료없음으로 둠"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S10_DECOMP]",
+    "page": 8,
+    "source_text": "라. 분해시 생성되는 유해물질 - 유독한 탄소산화물과 반응성 탄화수소를 포함할 수 있음.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S11_ROUTE]",
+    "page": 8,
+    "source_text": "가. 가능성이 높은 노출 경로에 관한 정보 - 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "'자료없음'을 status 자료없음으로 둠"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S13_METHOD]",
+    "page": 9,
+    "source_text": "가. 폐기방법 - 정해진 처리 시설에서 적법한 절차에 따라 폐기하여야 함",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S13_CAUTION]",
+    "page": 9,
+    "source_text": "나. 폐기시 주의사항 - 폐기물관리법에 따라 내용물과 용기를 폐기하시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S14_SPECIAL]",
+    "page": 9,
+    "source_text": "바. 사용자가 운송 또는 운송수단에 관련해 알 필요가 있거나 필요한 특별한 안전대책 - 해당 없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "'해당 없음'을 status 해당없음으로 둠"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S15_WASTE]",
+    "page": 10,
+    "source_text": "라. 폐기물관리법에 의한 규제 - 폐기 시, 폐기물관리법에 따라 처리",
+    "rules": [
+      "R14"
+    ],
+    "note": "폐기물 처리 문장을 규제 행과 함께 S15_WASTE로도 둠"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S16_SOURCE]",
+    "page": 10,
+    "source_text": "가. 자료의 출처 - S-OIL㈜ 품질관리 분석자료 - 한국산업안전보건공단 제공자료(원자료:미국 MDL 사 영문 MSDS)",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S16_OTHER]",
+    "page": 10,
+    "source_text": "라. 기타 - 없음",
+    "rules": [
+      "R14",
+      "R15"
+    ],
+    "note": "맞는 값 없음: '없음'은 자료없음·해당없음 어느 쪽도 아니어서 status를 null로 두고 원문을 문장으로 남김"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[0]",
+    "page": 1,
+    "source_text": "담당부서 : Hydrocracker 공정팀 담당자 : 이민준 매니저",
+    "rules": [
+      "R24"
+    ],
+    "note": "companies[0] 근거에 담기지 않은 담당자 부분만 extras로 둠"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[1]",
+    "page": 1,
+    "source_text": "• 작성부서 : Hydrocracker 공정팀",
+    "rules": [
+      "R24"
+    ],
+    "note": "작성부서를 담을 칸이 없어 extras로 둠"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[2]",
+    "page": 3,
+    "source_text": "*) HDS Naphtha 에는 다음의 물질이 포함되어 있음",
+    "rules": [
+      "R24",
+      "R10"
+    ],
+    "note": "성분 표 안의 포함 관계 주석을 담을 칸이 없어 extras로 두고 HDS Naphtha(3)에 연결"
+  }
+]

@@ -1,0 +1,1564 @@
+[
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.doc_code",
+    "page": 1,
+    "source_text": "보고서 번호 | HGBZ2511LWX1",
+    "rules": [],
+    "note": "보고서 번호는 회사 내부 번호로 보고 doc_code에 넣음. 제출번호(AA형식)는 문서에 없어 msds_no=null"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.revision_label",
+    "page": 1,
+    "source_text": "버전 | V2.0.1.1",
+    "rules": [
+      "R17"
+    ],
+    "note": "개정일이 '-'이고 다단 버전이라 개정 횟수로 바꾸면 뜻이 달라질 수 있어 revision_no는 null로 두고 원문만 남김"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.first_issue_date",
+    "page": 1,
+    "source_text": "작성일 | 2025년 11월 13일",
+    "rules": [
+      "R01"
+    ],
+    "note": "2025-11-13으로 정규화"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.last_revision_date",
+    "page": 1,
+    "source_text": "개정일 | -",
+    "rules": [
+      "R15"
+    ],
+    "note": "개정일이 '-'(미기재)라 null"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.header_product_name",
+    "page": 1,
+    "source_text": "안전보건자료 (SDS) 프로필렌 (Propylene)",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.page_start",
+    "page": 1,
+    "source_text": "안전보건자료 (SDS)",
+    "rules": [
+      "R16"
+    ],
+    "note": "1~9쪽, MSDS 1건"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "product.name",
+    "page": 1,
+    "source_text": "제품명 (한국어) | 프로필렌",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "product.synonyms",
+    "page": 1,
+    "source_text": "제품명 (영어) | PROPYLENE",
+    "rules": [],
+    "note": "영문 제품명을 이명으로 넣음"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "product.uses",
+    "page": 1,
+    "source_text": "권고 용도 | 주로 폴리프로필렌 생산에 사용",
+    "rules": [
+      "R11"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "product.restrictions",
+    "page": 1,
+    "source_text": "사용 제한 | 특별한 제한 없음",
+    "rules": [
+      "R11"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "companies[0]",
+    "page": 1,
+    "source_text": "업체명 | 저장위성에너지유한공사 (浙江 星能源有限公司) | 주소 | 저장성 핑후시 두산항구 싱강로 1호 | 우편번호 | 314200 | 전화 | 0573-83285323 | 팩스 | 0573-82219851 | 이메일 | wangxiaoyun@weixing.com.cn | 비상 전화번호 | 0573-83287997",
+    "rules": [
+      "R12"
+    ],
+    "note": "공급업체 정보를 공급자로 두고 전화·팩스·이메일·비상전화를 contacts로 나눔"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "companies[1]",
+    "page": 1,
+    "source_text": "작성 기관 | 창저우합규사원제품안전기술서비스유한공사 (Changzhou Hegui Siyuan Products Safety Technology Service Co., Ltd.)",
+    "rules": [],
+    "note": "작성 기관을 작성자로 둠"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classified",
+    "page": 1,
+    "source_text": "인화성 가스 | 1A류 - 인화성 가스",
+    "rules": [],
+    "note": "분류 항목이 있어 true"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classes[0]",
+    "page": 1,
+    "source_text": "인화성 가스 | 1A류 - 인화성 가스",
+    "rules": [
+      "R07"
+    ],
+    "note": "'1A류'에서 구분 1A를 얻음"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classes[1]",
+    "page": 2,
+    "source_text": "가압 가스 | 액화 가스",
+    "rules": [
+      "R07"
+    ],
+    "note": "구분 표기가 '액화 가스'라 그대로 category에 넣음"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.signal_word",
+    "page": 2,
+    "source_text": "신호어 | 위험 (Danger)",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.pictograms",
+    "page": 2,
+    "source_text": "그림문자 | 불꽃 / 가스용기",
+    "rules": [],
+    "note": "그림문자는 글자로만 적혀 있고 그림이 보이지 않아 넣지 않음"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.h_statements[0]",
+    "page": 2,
+    "source_text": "H220 | 극인화성 가스",
+    "rules": [
+      "R05"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.h_statements[1]",
+    "page": 2,
+    "source_text": "H280 | 가압 가스 함유; 가열 시 폭발할 수 있음",
+    "rules": [
+      "R05"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[0]",
+    "page": 2,
+    "source_text": "예방 | P210 | 열원, 고온 표면, 불꽃, 나화 및 기타 점화원으로부터 멀리하십시오. 금연.",
+    "rules": [
+      "R05"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[1]",
+    "page": 2,
+    "source_text": "사고 대응 | P377 | 가스 누출로 인한 화재: 누출을 안전하게 차단할 수 없으면 소화하지 마십시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[2]",
+    "page": 2,
+    "source_text": "사고 대응 | P381 | 누출 시 모든 점화원을 제거하십시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[3]",
+    "page": 2,
+    "source_text": "안전 저장 | P403 | 환기가 잘 되는 곳에 보관하십시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[4]",
+    "page": 2,
+    "source_text": "안전 저장 | P410+P403 | 직사광선으로부터 보호하십시오. 환기가 잘 되는 곳에 보관하십시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": "폐기 행은 코드가 '-'·'해당 없음'이라 P코드 항목을 만들지 않음"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.other_hazards",
+    "page": 2,
+    "source_text": "물리·화학적 위험 | 극인화성 가스로 폭발 위험이 있습니다. 고압 액화 가스로 가열 시 폭발 위험이 있습니다.",
+    "rules": [
+      "R14"
+    ],
+    "note": "위해성 설명 표의 6행을 key/value 문장으로 나눔"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "composition.type",
+    "page": 2,
+    "source_text": "프로필렌 (Propylene) | 115-07-1 | 204-062-1 | ≥ 99.5",
+    "rules": [],
+    "note": "성분이 1개라 단일물질"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "components[0]",
+    "page": 2,
+    "source_text": "프로필렌 (Propylene) | 115-07-1 | 204-062-1 | ≥ 99.5",
+    "rules": [
+      "R02",
+      "R04",
+      "R06",
+      "R19"
+    ],
+    "note": "'≥ 99.5'를 하한 99.5(>=)로 나눔. 단위 %와 부피 기준은 표 머리 '함유량 (부피분율, %)'에서 가져옴"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[0]",
+    "page": 4,
+    "source_text": "프로필렌 | 캐나다 온타리오 | 500 | - | - | -",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": "국가별 기준은 standard 목록에 없어 기타로 두고 국가명은 q.note에 적음. 열 제목 '직업노출기준(8h) ppm'에 따라 TWA, ppm으로 둠. mg/m³ 열의 '-'는 행으로 만들지 않음"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[1]",
+    "page": 4,
+    "source_text": "프로필렌 | 캐나다 온타리오 | 500 | - | - | -",
+    "rules": [
+      "R15"
+    ],
+    "note": "단시간노출 기준 열이 '-'이므로 STEL 행을 미기재로 둠"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[2]",
+    "page": 4,
+    "source_text": "프로필렌 | 캐나다 퀘벡 | 500 | - | - | -",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": "standard=기타, 국가명은 q.note에 적음"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[3]",
+    "page": 4,
+    "source_text": "프로필렌 | 캐나다 퀘벡 | 500 | - | - | -",
+    "rules": [
+      "R15"
+    ],
+    "note": "STEL '-'를 미기재로 둠"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[4]",
+    "page": 4,
+    "source_text": "프로필렌 | 스페인 | 500 | - | - | -",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": "standard=기타, 국가명은 q.note에 적음"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[5]",
+    "page": 4,
+    "source_text": "프로필렌 | 스페인 | 500 | - | - | -",
+    "rules": [
+      "R15"
+    ],
+    "note": "STEL '-'를 미기재로 둠"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[6]",
+    "page": 4,
+    "source_text": "프로필렌 | 스위스 | 10,000 | 17,500 | - | -",
+    "rules": [
+      "R04",
+      "R06",
+      "R10"
+    ],
+    "note": "천단위 콤마를 없애 10000 ppm으로 둠"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[7]",
+    "page": 4,
+    "source_text": "프로필렌 | 스위스 | 10,000 | 17,500 | - | -",
+    "rules": [
+      "R04",
+      "R06",
+      "R08"
+    ],
+    "note": "17500 mg/m3, TWA"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[8]",
+    "page": 4,
+    "source_text": "프로필렌 | 스위스 | 10,000 | 17,500 | - | -",
+    "rules": [
+      "R15"
+    ],
+    "note": "STEL '-'를 미기재로 둠"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[9]",
+    "page": 4,
+    "source_text": "프로필렌 | 벨기에 | 500 | 875 | - | -",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": "TWA 500 ppm"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[10]",
+    "page": 4,
+    "source_text": "프로필렌 | 벨기에 | 500 | 875 | - | -",
+    "rules": [
+      "R04",
+      "R08"
+    ],
+    "note": "TWA 875 mg/m3"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[11]",
+    "page": 4,
+    "source_text": "프로필렌 | 벨기에 | 500 | 875 | - | -",
+    "rules": [
+      "R15"
+    ],
+    "note": "STEL '-'를 미기재로 둠"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[12]",
+    "page": 4,
+    "source_text": "프로필렌 | 덴마크 | 100 | 172 | 200 | 344",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": "TWA 100 ppm"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[13]",
+    "page": 4,
+    "source_text": "프로필렌 | 덴마크 | 100 | 172 | 200 | 344",
+    "rules": [
+      "R04",
+      "R08"
+    ],
+    "note": "TWA 172 mg/m3"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[14]",
+    "page": 4,
+    "source_text": "프로필렌 | 덴마크 | 100 | 172 | 200 | 344",
+    "rules": [
+      "R04"
+    ],
+    "note": "단시간노출 기준 열을 STEL 200 ppm으로 둠"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[15]",
+    "page": 4,
+    "source_text": "프로필렌 | 덴마크 | 100 | 172 | 200 | 344",
+    "rules": [
+      "R04",
+      "R08"
+    ],
+    "note": "STEL 344 mg/m3"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[16]",
+    "page": 4,
+    "source_text": "생물학적 기준값 | 관련 규정 없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "맞는 값 없음: '관련 규정 없음'은 자료없음·해당없음 어느 쪽에도 딱 맞지 않아 status는 null로 두고 raw만 남김"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[0]",
+    "page": 5,
+    "source_text": "물리적 상태 | 투명한 액체 (액화 가스)",
+    "rules": [
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[1]",
+    "page": 5,
+    "source_text": "색상 | 무색",
+    "rules": [
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[2]",
+    "page": 5,
+    "source_text": "냄새 | 탄화수소 냄새",
+    "rules": [
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[3]",
+    "page": 5,
+    "source_text": "냄새 역치 | 자료 없음",
+    "rules": [
+      "R15",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[4]",
+    "page": 5,
+    "source_text": "pH | 해당 없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[5]",
+    "page": 5,
+    "source_text": "융점/응고점 (°C) | -185",
+    "rules": [
+      "R04",
+      "R08",
+      "R25"
+    ],
+    "note": "'융점/응고점'은 사전에 없는 표기라 MELT_FREEZE로 매핑하고 사전 추가 요청. 단위 °C는 항목명에서 가져옴"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[6]",
+    "page": 5,
+    "source_text": "초기 비점 및 비점 범위 (°C) | -47.7",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R25"
+    ],
+    "note": "'초기 비점 및 비점 범위'는 사전에 없는 표기라 BOILING으로 매핑하고 사전 추가 요청"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[7]",
+    "page": 5,
+    "source_text": "인화점 (밀폐식, °C) | -108",
+    "rules": [
+      "R04",
+      "R08"
+    ],
+    "note": "'밀폐식'은 cond.method로 나눔"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[8]",
+    "page": 5,
+    "source_text": "증발 속도 | 해당 없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[9]",
+    "page": 5,
+    "source_text": "인화성 | 극인화성",
+    "rules": [
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[10]",
+    "page": 5,
+    "source_text": "폭발 한계 [% (v/v)] | 상한: 10.3 / 하한: 2.4",
+    "rules": [
+      "R04",
+      "R06",
+      "R25"
+    ],
+    "note": "'폭발 한계'는 사전에 없는 표기라 UEL/LEL로 나누어 매핑하고 사전 추가 요청. 상한을 UEL로 둠"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[11]",
+    "page": 5,
+    "source_text": "폭발 한계 [% (v/v)] | 상한: 10.3 / 하한: 2.4",
+    "rules": [
+      "R04",
+      "R06",
+      "R25"
+    ],
+    "note": "하한을 LEL로 둠"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[12]",
+    "page": 5,
+    "source_text": "증기압 | 1,158 kPa (25°C)",
+    "rules": [
+      "R04",
+      "R06"
+    ],
+    "note": "콤마를 없애 1158 kPa로 두고 25°C는 cond로 나눔"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[13]",
+    "page": 5,
+    "source_text": "(상대) 증기 밀도 (공기=1) | 1.48",
+    "rules": [
+      "R04",
+      "R25"
+    ],
+    "note": "공기=1은 cond.reference로 나눔"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[14]",
+    "page": 5,
+    "source_text": "상대 밀도 (물=1) | 0.5",
+    "rules": [
+      "R04",
+      "R25"
+    ],
+    "note": "물=1은 cond.reference로 나눔"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[15]",
+    "page": 5,
+    "source_text": "용해성 | 물에 약간 녹음; 에탄올, 에테르에 녹음",
+    "rules": [
+      "R25"
+    ],
+    "note": "'용해성'은 사전에 없는 표기라 SOLUBILITY로 매핑하고 사전 추가 요청. 서술 값이어서 text_value에 적음"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[16]",
+    "page": 5,
+    "source_text": "옥탄올/물 분배계수 | 1.77",
+    "rules": [
+      "R04",
+      "R25"
+    ],
+    "note": "'옥탄올/물 분배계수'는 사전에 없는 표기라 LOG_KOW로 매핑하고 사전 추가 요청"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[17]",
+    "page": 5,
+    "source_text": "자연발화온도 (°C) | 460",
+    "rules": [
+      "R04",
+      "R08"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[18]",
+    "page": 5,
+    "source_text": "분해 온도 (°C) | 자료 없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[19]",
+    "page": 5,
+    "source_text": "동점도 | 해당 없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "'입자 특성 | 해당 없음' 행은 C4에 맞는 코드가 없어 이번 묶음에서는 넣지 않음"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[0]",
+    "page": 6,
+    "source_text": "급성 독성 | 자료 없음",
+    "rules": [
+      "R15",
+      "R10"
+    ],
+    "note": "'급성 독성 자료 없음'을 경구 행에 적용(경구·경피·흡입 공통 표기)"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[1]",
+    "page": 6,
+    "source_text": "급성 독성 | 자료 없음",
+    "rules": [
+      "R15",
+      "R10"
+    ],
+    "note": "'급성 독성 자료 없음'을 경피 행에 적용(경구·경피·흡입 공통 표기)"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[2]",
+    "page": 6,
+    "source_text": "급성 독성 | 자료 없음",
+    "rules": [
+      "R15",
+      "R10"
+    ],
+    "note": "'급성 독성 자료 없음'을 흡입 행에 적용(경구·경피·흡입 공통 표기)"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[3]",
+    "page": 6,
+    "source_text": "피부 부식성/자극성 | 현재 자료에 근거하여 분류 기준에 해당하지 않음",
+    "rules": [
+      "R10"
+    ],
+    "note": "'기타 정보 (프로필렌)' 표에서 성분 1로 지정"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[4]",
+    "page": 6,
+    "source_text": "심한 눈 손상/자극성 | 현재 자료에 근거하여 분류 기준에 해당하지 않음",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[5]",
+    "page": 6,
+    "source_text": "피부 과민성 | 현재 자료에 근거하여 분류 기준에 해당하지 않음",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[6]",
+    "page": 6,
+    "source_text": "호흡기 과민성 | 현재 자료에 근거하여 분류 기준에 해당하지 않음",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[7]",
+    "page": 6,
+    "source_text": "생식 독성 | 현재 자료에 근거하여 분류 기준에 해당하지 않음",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[8]",
+    "page": 6,
+    "source_text": "특이적 표적장기 독성 – 1회 노출 현재 자료에 근거하여 분류 기준에 해당하지 않음",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[9]",
+    "page": 6,
+    "source_text": "특이적 표적장기 독성 – 반복 노출 | 현재 자료에 근거하여 분류 기준에 해당하지 않음",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[10]",
+    "page": 6,
+    "source_text": "흡인 유해성 | 현재 자료에 근거하여 분류 기준에 해당하지 않음",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[11]",
+    "page": 6,
+    "source_text": "생식세포 변이원성 | 현재 자료에 근거하여 분류 기준에 해당하지 않음",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[0]",
+    "page": 6,
+    "source_text": "프로필렌 | 3류 (인체 발암성으로 분류 불가) | 미등재",
+    "rules": [
+      "R10"
+    ],
+    "note": "IARC 열 '3류'를 class로, 괄호 설명을 note로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[1]",
+    "page": 6,
+    "source_text": "프로필렌 | 3류 (인체 발암성으로 분류 불가) | 미등재",
+    "rules": [
+      "R10"
+    ],
+    "note": "맞는 값 없음: NTP '미등재'는 상태값에 없어 status·class를 null로 두고 note에 원문을 남김"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[0]",
+    "page": 6,
+    "source_text": "급성 수생 독성 | 자료 없음",
+    "rules": [
+      "R15",
+      "R10"
+    ],
+    "note": "맞는 값 없음: '급성 수생 독성'은 어류·갑각류·조류를 특정하지 않아 endpoint를 null로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[1]",
+    "page": 6,
+    "source_text": "만성 수생 독성 | 자료 없음",
+    "rules": [
+      "R15",
+      "R10"
+    ],
+    "note": "맞는 값 없음: '만성 수생 독성'은 생물군을 특정하지 않아 endpoint를 null로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[2]",
+    "page": 6,
+    "source_text": "잔류성 및 분해성 | 자료 없음",
+    "rules": [
+      "R15",
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[3]",
+    "page": 6,
+    "source_text": "생물 농축 또는 생물 축적성 | 자료 없음",
+    "rules": [
+      "R15",
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[4]",
+    "page": 6,
+    "source_text": "프로필렌 | 1.54 | 20°C | ECHA",
+    "rules": [
+      "R04",
+      "R06",
+      "R10"
+    ],
+    "note": "log Koc 값 1.54를 descriptor Koc로 두고 'log Koc, 20°C'를 q.note에 남김"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[5]",
+    "page": 6,
+    "source_text": "프로필렌 | PBT/vPvB에 해당하지 않음",
+    "rules": [
+      "R10"
+    ],
+    "note": "PBT/vPvB 평가 결과를 ECO_OTHER 결과기술로 둠"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[0]",
+    "page": 7,
+    "source_text": "해상 운송 (IMDG-CODE) | UN 위험물 번호 1077 | UN 정식 운송 명칭 프로필렌 (PROPYLENE) | 주요 위험 등급 2.1 | 보조 위험 등급 없음 | 포장 등급 해당 UN 번호 포장 규정 참조 | 해양 오염물질 아니오",
+    "rules": [
+      "R09",
+      "R17"
+    ],
+    "note": "보조 위험 '없음'은 sub_risk null, 포장 등급 '해당 UN 번호 포장 규정 참조'는 enum에 맞는 값 없어 null, 해양오염물질 '아니오'는 비해당"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[1]",
+    "page": 7,
+    "source_text": "항공 운송 (ICAO/IATA-DGR) | UN 위험물 번호 1077 | UN 정식 운송 명칭 프로필렌 (PROPYLENE) | 주요 위험 등급 2.1 | 보조 위험 등급 없음 | 포장 등급 해당 UN 번호 포장 규정 참조",
+    "rules": [
+      "R09",
+      "R17"
+    ],
+    "note": "맞는 값 없음: 포장 등급 원문 '해당 UN 번호 포장 규정 참조'로 packing_group null"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[2]",
+    "page": 7,
+    "source_text": "도로 운송 (UN-ADR) | UN 위험물 번호 1077 | UN 정식 운송 명칭 프로필렌 (PROPYLENE) | 주요 위험 등급 2.1 | 보조 위험 등급 없음 | 포장 등급 해당 UN 번호 포장 규정 참조",
+    "rules": [
+      "R09",
+      "R17"
+    ],
+    "note": "맞는 값 없음: 포장 등급 원문 '해당 UN 번호 포장 규정 참조'로 packing_group null"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[0]",
+    "page": 7,
+    "source_text": "구성성분 A B C D E F G H I J K L M | 프로필렌 | 【A】 중국 기존 화학물질 목록 (IECSC)",
+    "rules": [
+      "R25",
+      "R10"
+    ],
+    "note": "표의 칸이 비어 있고 범례 '\" \" : 해당 법규에 등재된 물질'(8쪽)에 따라 해당으로 기록"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[1]",
+    "page": 7,
+    "source_text": "【B】 유럽연합 화학물질 목록 (EC inventory)",
+    "rules": [
+      "R25"
+    ],
+    "note": "빈 칸 = 범례상 등재 물질로 해당"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[2]",
+    "page": 7,
+    "source_text": "【C】 미국 독성물질 규제법 목록 (TSCA)",
+    "rules": [
+      "R25"
+    ],
+    "note": "빈 칸 = 범례상 등재 물질로 해당"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[3]",
+    "page": 7,
+    "source_text": "【D】 캐나다 국내 물질 목록 (DSL)",
+    "rules": [
+      "R25"
+    ],
+    "note": "빈 칸 = 범례상 등재 물질로 해당"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[4]",
+    "page": 8,
+    "source_text": "【E】 뉴질랜드 화학물질 목록 (NZIoC)",
+    "rules": [
+      "R25"
+    ],
+    "note": "빈 칸 = 범례상 등재 물질로 해당"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[5]",
+    "page": 8,
+    "source_text": "【F】 필리핀 화학물질 목록 (PICCS)",
+    "rules": [
+      "R25"
+    ],
+    "note": "빈 칸 = 범례상 등재 물질로 해당"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[6]",
+    "page": 8,
+    "source_text": "【G】 대한민국 기존 화학물질 목록 (KECL)",
+    "rules": [
+      "R25"
+    ],
+    "note": "기존화학물질 목록으로 KREACH_EXIST 매핑, 빈 칸 = 범례상 등재로 해당"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[7]",
+    "page": 8,
+    "source_text": "【H】 호주 산업화학물질 목록 (AIIC)",
+    "rules": [
+      "R25"
+    ],
+    "note": "빈 칸 = 범례상 등재 물질로 해당"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[8]",
+    "page": 8,
+    "source_text": "【I】 일본 기존·신 화학물질 목록 (ENCS)",
+    "rules": [
+      "R25"
+    ],
+    "note": "빈 칸 = 범례상 등재 물질로 해당"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[9]",
+    "page": 8,
+    "source_text": "【J】 태국 기존 물질 목록 (TECI)",
+    "rules": [
+      "R25"
+    ],
+    "note": "빈 칸 = 범례상 등재 물질로 해당"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[10]",
+    "page": 8,
+    "source_text": "【K】 멕시코 국가 화학물질 목록 (INSQ)",
+    "rules": [
+      "R25"
+    ],
+    "note": "빈 칸 = 범례상 등재 물질로 해당"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[11]",
+    "page": 8,
+    "source_text": "【L】 러시아 기존 물질 목록 (DRAFT)",
+    "rules": [
+      "R25"
+    ],
+    "note": "빈 칸 = 범례상 등재 물질로 해당"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[12]",
+    "page": 8,
+    "source_text": "【M】 대만 기존 화학물질 목록 (TCSI)",
+    "rules": [
+      "R25"
+    ],
+    "note": "빈 칸 = 범례상 등재 물질로 해당"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[13]",
+    "page": 8,
+    "source_text": "프로필렌 × × × | \"×\" : 자료 없음 또는 미등재",
+    "rules": [
+      "R25",
+      "R15"
+    ],
+    "note": "'×'는 범례상 '자료 없음 또는 미등재'로 구분 불가하여 자료없음으로 기록"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[14]",
+    "page": 8,
+    "source_text": "프로필렌 × × × | \"×\" : 자료 없음 또는 미등재",
+    "rules": [
+      "R25",
+      "R15"
+    ],
+    "note": "'×'는 범례상 '자료 없음 또는 미등재'로 구분 불가하여 자료없음으로 기록"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[15]",
+    "page": 8,
+    "source_text": "프로필렌 × × × | \"×\" : 자료 없음 또는 미등재",
+    "rules": [
+      "R25",
+      "R15"
+    ],
+    "note": "'×'는 범례상 '자료 없음 또는 미등재'로 구분 불가하여 자료없음으로 기록"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S4_EYE]",
+    "page": 2,
+    "source_text": "눈 접촉 | 즉시 다량의 물로 수 분간 세척하십시오 (가능하면 콘택트렌즈 제거 후). 이후 의사의 진찰을 받으십시오.",
+    "rules": [
+      "R14",
+      "R25"
+    ],
+    "note": "'눈 접촉'을 S4_EYE로 매핑하고 문장 단위로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S4_SKIN]",
+    "page": 2,
+    "source_text": "피부 접촉 | 동상 시 다량의 물로 세척하십시오. 의복을 벗기지 말고 의료 처치를 받으십시오.",
+    "rules": [
+      "R14",
+      "R25"
+    ],
+    "note": "문장 단위로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S4_INGEST]",
+    "page": 2,
+    "source_text": "섭취 | 의식이 없는 사람에게 경구로 아무것도 투여하지 마십시오. 즉시 의사 또는 중독 통제 센터에 연락하십시오.",
+    "rules": [
+      "R14",
+      "R25"
+    ],
+    "note": "문장 단위로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S4_INHAL]",
+    "page": 3,
+    "source_text": "흡입 | 신선한 공기가 있는 곳으로 이동하고 안정을 취하십시오. 필요 시 인공호흡을 실시하고 의료 처치를 받으십시오.",
+    "rules": [
+      "R14",
+      "R25"
+    ],
+    "note": "문장 단위로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S4_SYMPTOM]",
+    "page": 3,
+    "source_text": "1. 반복 또는 장기간 직업적 노출이 장기 또는 생화학 시스템에 누적적인 건강 영향을 유발할 수 있다는 제한적 증거가 있습니다.",
+    "rules": [
+      "R14"
+    ],
+    "note": "'주요 급성 및 지연 증상/영향'을 S4_SYMPTOM으로 둠"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S4_DOCTOR]",
+    "page": 3,
+    "source_text": "1. 나타나는 증상에 따라 대증 처치를 실시하십시오. 2. 증상이 지연되어 나타날 수 있으므로 주의하십시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "'긴급 의료 처치 및 특수 처치 사항'을 S4_DOCTOR로 둠"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S5_MEDIA]",
+    "page": 3,
+    "source_text": "적합한 소화제 | 소규모 화재: 건조 분말 또는 이산화탄소. ... 부적합한 소화제 | 누출 중인 가스 화재를 진압하려 하지 마십시오",
+    "rules": [
+      "R14"
+    ],
+    "note": "적합/부적합을 key로 분리"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S5_SPECIFIC]",
+    "page": 3,
+    "source_text": "1. 화재 시 유해한 가연성 가스 또는 증기가 발생할 수 있습니다.",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿 6개를 문장으로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S5_FIREFIGHT]",
+    "page": 3,
+    "source_text": "1. 소화 시 MSHA/NIOSH 기준에 적합한 호흡기 보호구 및 전신 보호복을 착용하십시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿 3개를 문장으로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S6_PERSONAL]",
+    "page": 3,
+    "source_text": "1. 충분한 환기를 확보하고 모든 점화원을 제거하며 정전기 방지 조치를 취하십시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿 7개를 문장으로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S6_ENV]",
+    "page": 3,
+    "source_text": "1. 안전한 상황에서 추가 누출 또는 유출을 방지하는 조치를 취하십시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿 2개를 문장으로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S6_CLEANUP]",
+    "page": 3,
+    "source_text": "1. 누출물에 접촉하거나 넘지 마십시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "3~4쪽에 걸친 불릿 13개를 이어 붙임"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S7_HANDLING]",
+    "page": 4,
+    "source_text": "1. 환기가 잘 되는 곳에서 작업하십시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿 8개를 문장으로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S7_STORAGE]",
+    "page": 4,
+    "source_text": "1. 용기를 밀폐 상태로 유지하십시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿 4개를 문장으로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S8_ENG]",
+    "page": 4,
+    "source_text": "1. 특히 밀폐 구역 내에서 충분한 환기를 유지하십시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿 5개를 문장으로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S8_EYE]",
+    "page": 5,
+    "source_text": "눈 보호 | 적합한 안전 보호 안경을 반드시 착용하십시오.",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S8_HAND]",
+    "page": 5,
+    "source_text": "손 보호 | 정전기 방지 화학물질 방호 장갑을 반드시 착용하십시오.",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S8_RESP]",
+    "page": 5,
+    "source_text": "호흡 보호 | 적합한 호흡 보호구를 반드시 착용하십시오. 산소 농도를 알 수 없는 경우 자급식 격리형 호흡 보호구를 착용하십시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "문장 단위로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S8_BODY]",
+    "page": 5,
+    "source_text": "피부·신체 보호 | 정전기 방지 화학물질 방호복 및 정전기 방지 안전화를 반드시 착용하십시오.",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S10_STABILITY]",
+    "page": 5,
+    "source_text": "반응성 | 불상용 물질과 접촉 시 분해 또는 기타 화학 반응이 발생할 수 있습니다.",
+    "rules": [
+      "R14"
+    ],
+    "note": "반응성·화학적 안정성·위험 반응 가능성을 key로 묶음"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S10_CONDITIONS]",
+    "page": 5,
+    "source_text": "피해야 할 조건 | 불상용 물질, 열, 화염 및 불꽃",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S10_INCOMPAT]",
+    "page": 5,
+    "source_text": "불상용 물질 | 이산화질소, 산화질소, 암모니아, 산화제, 할로겐화 탄화수소, 할로겐 단체",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S10_DECOMP]",
+    "page": 6,
+    "source_text": "위험 분해 생성물 | 정상적인 저장 및 사용 조건에서는 위험한 분해 생성물이 발생하지 않습니다.",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S13_METHOD]",
+    "page": 6,
+    "source_text": "폐기 화학물질 | 폐기 전 국가 및 지방 관련 법규를 참조하십시오. 소각 처리를 권장합니다.",
+    "rules": [
+      "R14"
+    ],
+    "note": "폐기 화학물질·오염된 포장재를 key로 분리"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S13_CAUTION]",
+    "page": 6,
+    "source_text": "폐기 주의사항 | 폐기 화학물질 및 오염된 포장재 항목을 참조하십시오.",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S14_SPECIAL]",
+    "page": 7,
+    "source_text": "운송 차량에 적절한 종류 및 수량의 소화 장비와 누출 비상 처리 장비를 갖추어야 합니다.",
+    "rules": [
+      "R14"
+    ],
+    "note": "문단을 문장 8개로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S16_SOURCE]",
+    "page": 8,
+    "source_text": "[1] 국제화학품안전계획 (IPCS): 국제화학물질안전카드 (ICSC) – http://www.ilo.org/dyn/icsc/showcard.home",
+    "rules": [
+      "R14"
+    ],
+    "note": "참고 문헌 8개를 문장으로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S16_OTHER]",
+    "page": 8,
+    "source_text": "CAS | 화학 초록 번호 | UN | 유엔",
+    "rules": [
+      "R14"
+    ],
+    "note": "8~9쪽 약어 정리와 9쪽 면책 조항을 하나의 S16_OTHER로 합치고 소제목을 key로 둠"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[1]",
+    "page": 1,
+    "source_text": "작성 기준 | 유엔 화학물질의 분류 및 표지에 관한 세계조화시스템 (GHS) 제11개정판",
+    "rules": [
+      "R24"
+    ],
+    "note": "담을 칸이 없어 extras로 둠"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[2]",
+    "page": 1,
+    "source_text": "분자식 | CH₃CHCH₂",
+    "rules": [
+      "R24"
+    ],
+    "note": "분자식 칸이 없어 extras로 둠"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[3]",
+    "page": 2,
+    "source_text": "폐기 | - | 해당 없음",
+    "rules": [
+      "R24"
+    ],
+    "note": "P코드 없는 폐기 행이라 extras로 둠"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[4]",
+    "page": 2,
+    "source_text": "건강 유해성 – 흡입 | 졸음, 질식",
+    "rules": [
+      "R24"
+    ],
+    "note": "위해성 설명 중 정식 칸에 들어가지 않은 건강·환경 유해성 줄을 extras로 둠"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[5]",
+    "page": 2,
+    "source_text": "일반 사항 | 응급조치가 필요한 경우 이 SDS를 현장 의료진에게 제시하십시오.",
+    "rules": [
+      "R24"
+    ],
+    "note": "맞는 값 없음: 4항 일반 사항 코드 없음"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[6]",
+    "page": 3,
+    "source_text": "구조자 보호 | 의료진은 제품의 유해 특성을 파악하고 자신을 보호하며 오염 확산을 방지하는 조치를 취하여야 합니다.",
+    "rules": [
+      "R24"
+    ],
+    "note": "맞는 값 없음: 구조자 보호 코드 없음"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[7]",
+    "page": 4,
+    "source_text": "1. EN 14042 – 화학적 또는 생물학적 물질에 대한 노출 평가를 위한 작업장 공기 절차 지침",
+    "rules": [
+      "R24",
+      "R14"
+    ],
+    "note": "모니터링 방법 코드 없음"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[8]",
+    "page": 5,
+    "source_text": "입자 특성 | 해당 없음",
+    "rules": [
+      "R24",
+      "R15"
+    ],
+    "note": "입자 특성 물성 코드가 없어 extras, status 해당없음"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[9]",
+    "page": 8,
+    "source_text": "개정 사유 | -",
+    "rules": [
+      "R24",
+      "R15"
+    ],
+    "note": "개정 사유 칸 없음, '-'는 미기재"
+  }
+]

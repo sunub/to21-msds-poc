@@ -1,0 +1,258 @@
+{
+  "doc_id": "T21-026",
+  "bundle": "b4",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 65969,
+    "completion_tokens": 3641,
+    "cached_tokens": 8949,
+    "reasoning_tokens": 1142,
+    "notional_cost_usd": 0.5307618
+  },
+  "seconds": 30.1,
+  "request_usage": [
+    {
+      "prompt_tokens": 65969,
+      "completion_tokens": 3641,
+      "cached_tokens": 8949,
+      "reasoning_tokens": 1142,
+      "notional_cost_usd": 0.5307618
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "transport": [
+          {
+            "mode": "육상",
+            "basis_raw": "도로 및 철도운송 분류",
+            "regulated": false,
+            "un_no": null,
+            "shipping_name": "운송에 관한 규정 없음",
+            "hazard_class": null,
+            "sub_risk": null,
+            "packing_group": "해당없음",
+            "marine_pollutant": null,
+            "ems_fire": null,
+            "ems_spill": null
+          },
+          {
+            "mode": "해상",
+            "basis_raw": "IMO-IMDG",
+            "regulated": false,
+            "un_no": null,
+            "shipping_name": "Not regulated for transport",
+            "hazard_class": null,
+            "sub_risk": null,
+            "packing_group": "해당없음",
+            "marine_pollutant": "비해당",
+            "ems_fire": null,
+            "ems_spill": null
+          },
+          {
+            "mode": "항공",
+            "basis_raw": "IATA/ICAO",
+            "regulated": false,
+            "un_no": null,
+            "shipping_name": "Not regulated for transport",
+            "hazard_class": null,
+            "sub_risk": null,
+            "packing_group": "해당없음",
+            "marine_pollutant": null,
+            "ems_fire": null,
+            "ems_spill": null
+          }
+        ],
+        "regulations": [
+          {
+            "seq": 1,
+            "law": "OSH",
+            "item_code": null,
+            "item_raw": "산업안전보건법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": "산업안전보건법 제 41 조에 의거 자료작성 및 비치 등에 적용 대상 화학물질이 아님.",
+            "remark": null
+          },
+          {
+            "seq": 2,
+            "law": "CCA",
+            "item_code": null,
+            "item_raw": "화학물질관리법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": "규정사항 없음",
+            "remark": null
+          },
+          {
+            "seq": 3,
+            "law": "DG",
+            "item_code": "DG_HAZMAT",
+            "item_raw": "위험물안전관리법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": "제 4 류, 제 3 석유류, 화기엄금, 위험등급 III",
+            "remark": null
+          },
+          {
+            "seq": 4,
+            "law": "WASTE",
+            "item_code": "WASTE_DESIG",
+            "item_raw": "폐기물관리법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": null,
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": "모든 나라에서 폐기물 처리 방법은 각 국가 및 지역 법규를 따라야 함.",
+            "remark": null
+          },
+          {
+            "seq": 5,
+            "law": "KREACH",
+            "item_code": "KREACH_EXIST",
+            "item_raw": "한국. 기존화학물질 목록 (KECI)",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": "모든 성분은 목록에 등록되어 있거나 제외 되었거나 공급자가 확인한 것임",
+            "remark": null
+          }
+        ],
+        "dangerous_goods": [
+          {
+            "comp_ref": "MIX",
+            "class": "제4류",
+            "item": "제3석유류",
+            "water_soluble": "미표기",
+            "grade": "III",
+            "designated_qty": null
+          }
+        ],
+        "waste": [],
+        "intl_class": []
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "transport[0]",
+        "page": 9,
+        "source_text": "도로 및 철도운송 분류: | 유엔 번호 해당 없음 | 유엔 적정 선적명 운송에 관한 규정 없음 | 운송에서의 위험성 등급 해당 없음 | 용기등급 해당 없음 | 환경 영향 해당 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "UN번호·위험성 등급 '해당 없음'이라 null, regulated=false; '환경 영향'은 해양오염물질 항목이 아니므로 marine_pollutant는 null"
+      },
+      {
+        "msds_index": 0,
+        "field": "transport[1]",
+        "page": 10,
+        "source_text": "해상수송분류(IMO-IMDG): | 유엔 번호 해당 없음 | 유엔 적정 선적명 Not regulated for transport | 운송에서의 위험성 등급 해당 없음 | 용기등급 해당 없음 | 해양오염물질(해당 또는 비해당으로 표기) 해당 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "해양오염물질 '해당 없음'을 비해당으로, regulated=false"
+      },
+      {
+        "msds_index": 0,
+        "field": "transport[2]",
+        "page": 10,
+        "source_text": "항공수송분류(IATA/ICAO): | 유엔 번호 해당 없음 | 유엔 적정 선적명 Not regulated for transport | 운송에서의 위험성 등급 해당 없음 | 용기등급 해당 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "regulated=false"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[0]",
+        "page": 10,
+        "source_text": "산업안전보건법 제 41 조에 의거 자료작성 및 비치 등에 적용 대상 화학물질이 아님.",
+        "rules": [
+          "R17"
+        ],
+        "note": "맞는 값 없음: C6 항목코드에 해당하는 규제항목이 아니라 item_code null, '아님'을 비해당으로"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[1]",
+        "page": 11,
+        "source_text": "규정사항 없음",
+        "rules": [
+          "R17"
+        ],
+        "note": "맞는 값 없음: 화관법 세부 항목 구분이 없어 item_code null, '규정사항 없음'을 비해당으로"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[2]",
+        "page": 11,
+        "source_text": "제 4 류, 제 3 석유류, 화기엄금, 위험등급 III",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[3]",
+        "page": 11,
+        "source_text": "모든 나라에서 폐기물 처리 방법은 각 국가 및 지역 법규를 따라야 함.",
+        "rules": [
+          "R17"
+        ],
+        "note": "맞는 값 없음: 지정폐기물 해당 여부가 기재되지 않아 applicable null, waste[] 미생성"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[4]",
+        "page": 11,
+        "source_text": "한국. 기존화학물질 목록 (KECI): 모든 성분은 목록에 등록되어 있거나 제외 되었거나 공급자가 확인한 것임",
+        "rules": [
+          "R25"
+        ],
+        "note": "KECI 등록을 KREACH_EXIST 해당으로 매핑"
+      },
+      {
+        "msds_index": 0,
+        "field": "dangerous_goods[0]",
+        "page": 11,
+        "source_text": "제 4 류, 제 3 석유류, 화기엄금, 위험등급 III",
+        "rules": [],
+        "note": "수용성 표기 없어 미표기; 지정수량은 원문에 없어 null"
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"transport\": [{\"mode\": \"육상\", \"basis_raw\": \"도로 및 철도운송 분류\", \"regulated\": false, \"un_no\": null, \"shipping_name\": \"운송에 관한 규정 없음\", \"hazard_class\": null, \"sub_risk\": null, \"packing_group\": \"해당없음\", \"marine_pollutant\": null, \"ems_fire\": null, \"ems_spill\": null}, {\"mode\": \"해상\", \"basis_raw\": \"IMO-IMDG\", \"regulated\": false, \"un_no\": null, \"shipping_name\": \"Not regulated for transport\", \"hazard_class\": null, \"sub_risk\": null, \"packing_group\": \"해당없음\", \"marine_pollutant\": \"비해당\", \"ems_fire\": null, \"ems_spill\": null}, {\"mode\": \"항공\", \"basis_raw\": \"IATA/ICAO\", \"regulated\": false, \"un_no\": null, \"shipping_name\": \"Not regulated for transport\", \"hazard_class\": null, \"sub_risk\": null, \"packing_group\": \"해당없음\", \"marine_pollutant\": null, \"ems_fire\": null, \"ems_spill\": null}], \"regulations\": [{\"seq\": 1, \"law\": \"OSH\", \"item_code\": null, \"item_raw\": \"산업안전보건법에 의한 규제\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"threshold\": null, \"qty\": null, \"qty_alt\": null, \"sub_class\": null, \"cycle\": null, \"country\": null, \"value_raw\": \"산업안전보건법 제 41 조에 의거 자료작성 및 비치 등에 적용 대상 화학물질이 아님.\", \"remark\": null}, {\"seq\": 2, \"law\": \"CCA\", \"item_code\": null, \"item_raw\": \"화학물질관리법에 의한 규제\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"threshold\": null, \"qty\": null, \"qty_alt\": null, \"sub_class\": null, \"cycle\": null, \"country\": null, \"value_raw\": \"규정사항 없음\", \"remark\": null}, {\"seq\": 3, \"law\": \"DG\", \"item_code\": \"DG_HAZMAT\", \"item_raw\": \"위험물안전관리법에 의한 규제\", \"comp_ref\": \"MIX\", \"applicable\": \"해당\", \"threshold\": null, \"qty\": null, \"qty_alt\": null, \"sub_class\": null, \"cycle\": null, \"country\": null, \"value_raw\": \"제 4 류, 제 3 석유류, 화기엄금, 위험등급 III\", \"remark\": null}, {\"seq\": 4, \"law\": \"WASTE\", \"item_code\": \"WASTE_DESIG\", \"item_raw\": \"폐기물관리법에 의한 규제\", \"comp_ref\": \"MIX\", \"applicable\": null, \"threshold\": null, \"qty\": null, \"qty_alt\": null, \"sub_class\": null, \"cycle\": null, \"country\": null, \"value_raw\": \"모든 나라에서 폐기물 처리 방법은 각 국가 및 지역 법규를 따라야 함.\", \"remark\": null}, {\"seq\": 5, \"law\": \"KREACH\", \"item_code\": \"KREACH_EXIST\", \"item_raw\": \"한국. 기존화학물질 목록 (KECI)\", \"comp_ref\": \"MIX\", \"applicable\": \"해당\", \"threshold\": null, \"qty\": null, \"qty_alt\": null, \"sub_class\": null, \"cycle\": null, \"country\": null, \"value_raw\": \"모든 성분은 목록에 등록되어 있거나 제외 되었거나 공급자가 확인한 것임\", \"remark\": null}], \"dangerous_goods\": [{\"comp_ref\": \"MIX\", \"class\": \"제4류\", \"item\": \"제3석유류\", \"water_soluble\": \"미표기\", \"grade\": \"III\", \"designated_qty\": null}], \"waste\": [], \"intl_class\": []}], \"evidence\": [{\"msds_index\": 0, \"field\": \"transport[0]\", \"page\": 9, \"source_text\": \"도로 및 철도운송 분류: | 유엔 번호 해당 없음 | 유엔 적정 선적명 운송에 관한 규정 없음 | 운송에서의 위험성 등급 해당 없음 | 용기등급 해당 없음 | 환경 영향 해당 없음\", \"rules\": [\"R15\"], \"note\": \"UN번호·위험성 등급 '해당 없음'이라 null, regulated=false; '환경 영향'은 해양오염물질 항목이 아니므로 marine_pollutant는 null\"}, {\"msds_index\": 0, \"field\": \"transport[1]\", \"page\": 10, \"source_text\": \"해상수송분류(IMO-IMDG): | 유엔 번호 해당 없음 | 유엔 적정 선적명 Not regulated for transport | 운송에서의 위험성 등급 해당 없음 | 용기등급 해당 없음 | 해양오염물질(해당 또는 비해당으로 표기) 해당 없음\", \"rules\": [\"R15\"], \"note\": \"해양오염물질 '해당 없음'을 비해당으로, regulated=false\"}, {\"msds_index\": 0, \"field\": \"transport[2]\", \"page\": 10, \"source_text\": \"항공수송분류(IATA/ICAO): | 유엔 번호 해당 없음 | 유엔 적정 선적명 Not regulated for transport | 운송에서의 위험성 등급 해당 없음 | 용기등급 해당 없음\", \"rules\": [\"R15\"], \"note\": \"regulated=false\"}, {\"msds_index\": 0, \"field\": \"regulations[0]\", \"page\": 10, \"source_text\": \"산업안전보건법 제 41 조에 의거 자료작성 및 비치 등에 적용 대상 화학물질이 아님.\", \"rules\": [\"R17\"], \"note\": \"맞는 값 없음: C6 항목코드에 해당하는 규제항목이 아니라 item_code null, '아님'을 비해당으로\"}, {\"msds_index\": 0, \"field\": \"regulations[1]\", \"page\": 11, \"source_text\": \"규정사항 없음\", \"rules\": [\"R17\"], \"note\": \"맞는 값 없음: 화관법 세부 항목 구분이 없어 item_code null, '규정사항 없음'을 비해당으로\"}, {\"msds_index\": 0, \"field\": \"regulations[2]\", \"page\": 11, \"source_text\": \"제 4 류, 제 3 석유류, 화기엄금, 위험등급 III\", \"rules\": [\"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[3]\", \"page\": 11, \"source_text\": \"모든 나라에서 폐기물 처리 방법은 각 국가 및 지역 법규를 따라야 함.\", \"rules\": [\"R17\"], \"note\": \"맞는 값 없음: 지정폐기물 해당 여부가 기재되지 않아 applicable null, waste[] 미생성\"}, {\"msds_index\": 0, \"field\": \"regulations[4]\", \"page\": 11, \"source_text\": \"한국. 기존화학물질 목록 (KECI): 모든 성분은 목록에 등록되어 있거나 제외 되었거나 공급자가 확인한 것임\", \"rules\": [\"R25\"], \"note\": \"KECI 등록을 KREACH_EXIST 해당으로 매핑\"}, {\"msds_index\": 0, \"field\": \"dangerous_goods[0]\", \"page\": 11, \"source_text\": \"제 4 류, 제 3 석유류, 화기엄금, 위험등급 III\", \"rules\": [], \"note\": \"수용성 표기 없어 미표기; 지정수량은 원문에 없어 null\"}]}"
+}

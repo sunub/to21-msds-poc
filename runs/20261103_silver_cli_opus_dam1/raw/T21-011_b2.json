@@ -1,0 +1,613 @@
+{
+  "doc_id": "T21-011",
+  "bundle": "b2",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 66411,
+    "completion_tokens": 5772,
+    "cached_tokens": 6909,
+    "reasoning_tokens": 1344,
+    "notional_cost_usd": 0.5928298
+  },
+  "seconds": 44.1,
+  "request_usage": [
+    {
+      "prompt_tokens": 66411,
+      "completion_tokens": 5772,
+      "cached_tokens": 6909,
+      "reasoning_tokens": 1344,
+      "notional_cost_usd": 0.5928298
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "exposure_limits": [
+          {
+            "comp_ref": "MIX",
+            "standard": null,
+            "limit_type": null,
+            "q": {
+              "raw": "구체적으로 알려진 작업상 노출한계 물질은 없음",
+              "status": "자료없음"
+            },
+            "form": null,
+            "kr_basis": null,
+            "notations": []
+          },
+          {
+            "comp_ref": "MIX",
+            "standard": "생물학적",
+            "limit_type": null,
+            "q": {
+              "raw": "자료없음.",
+              "status": "자료없음"
+            },
+            "notations": []
+          }
+        ],
+        "physchem": [
+          {
+            "prop_code": "APPEARANCE_STATE",
+            "comp_ref": "MIX",
+            "text_value": "액체, 분산액",
+            "q": null,
+            "seq": 1
+          },
+          {
+            "prop_code": "APPEARANCE_COLOR",
+            "comp_ref": "MIX",
+            "text_value": "백색",
+            "q": null,
+            "seq": 1
+          },
+          {
+            "prop_code": "ODOR",
+            "comp_ref": "MIX",
+            "text_value": "약한 냄새",
+            "q": null,
+            "seq": 1
+          },
+          {
+            "prop_code": "ODOR_THRESHOLD",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음.",
+              "status": "자료없음"
+            },
+            "seq": 1
+          },
+          {
+            "prop_code": "PH",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "6.5 - 7.5",
+              "status": "값있음",
+              "lower_op": ">=",
+              "lower": 6.5,
+              "upper_op": "<=",
+              "upper": 7.5,
+              "unit": null,
+              "dp": 1
+            },
+            "cond": {
+              "method": "DIN ISO 976"
+            },
+            "seq": 1
+          },
+          {
+            "prop_code": "MELT_FREEZE",
+            "comp_ref": null,
+            "q": {
+              "raw": "0 °C",
+              "status": "값있음",
+              "value": 0,
+              "unit": "C",
+              "dp": 0,
+              "note": "다음 물질에 대한 정보: water"
+            },
+            "seq": 1
+          },
+          {
+            "prop_code": "BOILING",
+            "comp_ref": null,
+            "q": {
+              "raw": "100 °C",
+              "status": "값있음",
+              "value": 100,
+              "unit": "C",
+              "dp": 0,
+              "note": "다음 물질에 대한 정보: water"
+            },
+            "seq": 1
+          },
+          {
+            "prop_code": "FLASH_POINT",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "> 250 °C",
+              "status": "값있음",
+              "lower_op": ">",
+              "lower": 250,
+              "unit": "C",
+              "dp": 0
+            },
+            "cond": {
+              "method": "명시되지 않음"
+            },
+            "seq": 1
+          },
+          {
+            "prop_code": "EVAP_RATE",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음.",
+              "status": "자료없음"
+            },
+            "seq": 1
+          },
+          {
+            "prop_code": "FLAMMABILITY",
+            "comp_ref": "MIX",
+            "text_value": "발화하지 않음",
+            "q": null,
+            "seq": 1
+          },
+          {
+            "prop_code": "LEL",
+            "comp_ref": "MIX",
+            "text_value": "분류 및 표시와 관련없는 액체임.",
+            "q": null,
+            "seq": 1
+          },
+          {
+            "prop_code": "UEL",
+            "comp_ref": "MIX",
+            "text_value": "분류 및 표시와 관련없는 액체임.",
+            "q": null,
+            "seq": 1
+          },
+          {
+            "prop_code": "AUTOIGNITION",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음.",
+              "status": "자료없음"
+            },
+            "seq": 1
+          },
+          {
+            "prop_code": "DECOMPOSITION",
+            "comp_ref": "MIX",
+            "text_value": "올바르게 사용하는 경우에는 분해되지 않음",
+            "q": null,
+            "seq": 1
+          },
+          {
+            "prop_code": "VAPOR_PRESSURE",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음.",
+              "status": "자료없음"
+            },
+            "seq": 1
+          },
+          {
+            "prop_code": "VAPOR_PRESSURE",
+            "comp_ref": null,
+            "q": {
+              "raw": "23.4 hPa",
+              "status": "값있음",
+              "value": 23.4,
+              "unit": "hPa",
+              "dp": 1,
+              "note": "다음 물질에 대한 정보: water"
+            },
+            "cond": {
+              "temp": 20,
+              "temp_unit": "C"
+            },
+            "data_source": "문헌 자료",
+            "seq": 2
+          },
+          {
+            "prop_code": "RELATIVE_DENSITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "약 1.04 g/cm3",
+              "status": "값있음",
+              "value": 1.04,
+              "approx": true,
+              "unit": "g/cm3",
+              "dp": 2
+            },
+            "cond": {
+              "temp": 20,
+              "temp_unit": "C",
+              "method": "ISO 2811-1"
+            },
+            "seq": 1
+          },
+          {
+            "prop_code": "RELATIVE_DENSITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음.",
+              "status": "자료없음"
+            },
+            "seq": 2
+          },
+          {
+            "prop_code": "VAPOR_DENSITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음.",
+              "status": "자료없음"
+            },
+            "seq": 1
+          },
+          {
+            "prop_code": "SOLUBILITY",
+            "comp_ref": "MIX",
+            "text_value": "부분 용해성",
+            "q": null,
+            "cond": {
+              "temp": 15,
+              "temp_unit": "C"
+            },
+            "seq": 1
+          },
+          {
+            "prop_code": "SOLUBILITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음.",
+              "status": "자료없음"
+            },
+            "seq": 2
+          },
+          {
+            "prop_code": "LOG_KOW",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음.",
+              "status": "자료없음"
+            },
+            "seq": 1
+          },
+          {
+            "prop_code": "VISCOSITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "100 - 280 mPa.s",
+              "status": "값있음",
+              "lower_op": ">=",
+              "lower": 100,
+              "upper_op": "<=",
+              "upper": 280,
+              "unit": "mPa.s",
+              "dp": 0
+            },
+            "cond": {
+              "temp": 23,
+              "temp_unit": "C",
+              "method": "DIN EN ISO 2555 (RVT)"
+            },
+            "seq": 1
+          },
+          {
+            "prop_code": "VISCOSITY_KIN",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음.",
+              "status": "자료없음"
+            },
+            "seq": 1
+          },
+          {
+            "prop_code": "MOL_WEIGHT",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음.",
+              "status": "자료없음"
+            },
+            "seq": 1
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[0]",
+        "page": 5,
+        "source_text": "구체적으로 알려진 작업상 노출한계 물질은 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "맞는 값 없음: 기준 출처·종류 표시가 없어 standard·limit_type은 null. 노출한계 물질이 없다는 문장이라 status를 자료없음으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[1]",
+        "page": 5,
+        "source_text": "생물학적 노출기준: 자료없음.",
+        "rules": [
+          "R15"
+        ],
+        "note": "생물학적 노출기준 자료없음 행. 기준 종류 표시가 없어 limit_type은 null"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[0]",
+        "page": 6,
+        "source_text": "외관: 액체, 분산액",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[1]",
+        "page": 6,
+        "source_text": "색: 백색",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[2]",
+        "page": 6,
+        "source_text": "냄새: 약한 냄새",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[3]",
+        "page": 6,
+        "source_text": "냄새 역치: 자료없음.",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[4]",
+        "page": 6,
+        "source_text": "pH 값: 6.5 - 7.5 (DIN ISO 976)",
+        "rules": [
+          "R04",
+          "R06",
+          "R25"
+        ],
+        "note": "범위를 하한 6.5(>=), 상한 7.5(<=)로 나누고 시험법은 cond.method에 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[5]",
+        "page": 6,
+        "source_text": "다음 물질에 대한 정보： water 녹는점/어는점: 0 °C",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "water의 값이며 water는 성분 목록에 없어 comp_ref는 null로 두고 q.note에 적음"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[6]",
+        "page": 6,
+        "source_text": "다음 물질에 대한 정보： water 초기 끓는점과 끓는점 범위: 100 °C",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "water의 값이며 water는 성분 목록에 없어 comp_ref는 null로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[7]",
+        "page": 6,
+        "source_text": "인화점: > 250 °C (명시되지 않음)",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": "'>'는 lower_op로 두고 괄호 속 '명시되지 않음'은 cond.method에 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[8]",
+        "page": 6,
+        "source_text": "증발 속도: 자료없음.",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[9]",
+        "page": 6,
+        "source_text": "인화성 (고체/가스): 발화하지 않음",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[10]",
+        "page": 6,
+        "source_text": "인화 또는 폭발 범위의 하한: 분류 및 표시와 관련없는 액체임.",
+        "rules": [
+          "R25"
+        ],
+        "note": "숫자가 아닌 말로 적혀 있어 text_value에 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[11]",
+        "page": 6,
+        "source_text": "인화 또는 폭발 범위의 상한: 분류 및 표시와 관련없는 액체임.",
+        "rules": [
+          "R25"
+        ],
+        "note": "숫자가 아닌 말로 적혀 있어 text_value에 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[12]",
+        "page": 6,
+        "source_text": "자연발화 온도: 자료없음.",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[13]",
+        "page": 6,
+        "source_text": "분해 온도: 올바르게 사용하는 경우에는 분해되지 않음",
+        "rules": [
+          "R25"
+        ],
+        "note": "숫자가 아닌 말로 적혀 있어 text_value에 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[14]",
+        "page": 6,
+        "source_text": "증기압: 자료없음.",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[15]",
+        "page": 6,
+        "source_text": "다음 물질에 대한 정보： water 증기압: 23.4 hPa (20 °C) 문헌 자료",
+        "rules": [
+          "R04",
+          "R06",
+          "R10"
+        ],
+        "note": "water의 값이라 comp_ref는 null. 20 °C는 cond로, '문헌 자료'는 data_source로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[16]",
+        "page": 7,
+        "source_text": "밀도(비중): 약 1.04 g/cm3 (20 °C) (ISO 2811-1)",
+        "rules": [
+          "R04",
+          "R06",
+          "R25"
+        ],
+        "note": "'약'이 있어 approx=true로 둠. 20 °C와 ISO 2811-1은 cond로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[17]",
+        "page": 7,
+        "source_text": "상대 밀도: 자료없음.",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[18]",
+        "page": 7,
+        "source_text": "증기밀도: 자료없음.",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[19]",
+        "page": 7,
+        "source_text": "수용해도: 부분 용해성 (15 °C)",
+        "rules": [
+          "R25"
+        ],
+        "note": "숫자가 아닌 말이라 text_value에 두고 15 °C는 cond로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[20]",
+        "page": 7,
+        "source_text": "용해도(정량적) : 자료없음.",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[21]",
+        "page": 7,
+        "source_text": "n-옥탄올/물 분배계수(log Pow) : 자료없음.",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[22]",
+        "page": 7,
+        "source_text": "점도, 유동적: 100 - 280 mPa.s (23 °C) (DIN EN ISO 2555 (RVT))",
+        "rules": [
+          "R04",
+          "R25"
+        ],
+        "note": "범위를 하한 100(>=), 상한 280(<=)으로 나누고 온도와 시험법은 cond로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[23]",
+        "page": 7,
+        "source_text": "점도, 운동학적: 자료없음.",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[24]",
+        "page": 7,
+        "source_text": "몰 분자량: 자료없음.",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"exposure_limits\": [{\"comp_ref\": \"MIX\", \"standard\": null, \"limit_type\": null, \"q\": {\"raw\": \"구체적으로 알려진 작업상 노출한계 물질은 없음\", \"status\": \"자료없음\"}, \"form\": null, \"kr_basis\": null, \"notations\": []}, {\"comp_ref\": \"MIX\", \"standard\": \"생물학적\", \"limit_type\": null, \"q\": {\"raw\": \"자료없음.\", \"status\": \"자료없음\"}, \"notations\": []}], \"physchem\": [{\"prop_code\": \"APPEARANCE_STATE\", \"comp_ref\": \"MIX\", \"text_value\": \"액체, 분산액\", \"q\": null, \"seq\": 1}, {\"prop_code\": \"APPEARANCE_COLOR\", \"comp_ref\": \"MIX\", \"text_value\": \"백색\", \"q\": null, \"seq\": 1}, {\"prop_code\": \"ODOR\", \"comp_ref\": \"MIX\", \"text_value\": \"약한 냄새\", \"q\": null, \"seq\": 1}, {\"prop_code\": \"ODOR_THRESHOLD\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음.\", \"status\": \"자료없음\"}, \"seq\": 1}, {\"prop_code\": \"PH\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"6.5 - 7.5\", \"status\": \"값있음\", \"lower_op\": \">=\", \"lower\": 6.5, \"upper_op\": \"<=\", \"upper\": 7.5, \"unit\": null, \"dp\": 1}, \"cond\": {\"method\": \"DIN ISO 976\"}, \"seq\": 1}, {\"prop_code\": \"MELT_FREEZE\", \"comp_ref\": null, \"q\": {\"raw\": \"0 °C\", \"status\": \"값있음\", \"value\": 0, \"unit\": \"C\", \"dp\": 0, \"note\": \"다음 물질에 대한 정보: water\"}, \"seq\": 1}, {\"prop_code\": \"BOILING\", \"comp_ref\": null, \"q\": {\"raw\": \"100 °C\", \"status\": \"값있음\", \"value\": 100, \"unit\": \"C\", \"dp\": 0, \"note\": \"다음 물질에 대한 정보: water\"}, \"seq\": 1}, {\"prop_code\": \"FLASH_POINT\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"> 250 °C\", \"status\": \"값있음\", \"lower_op\": \">\", \"lower\": 250, \"unit\": \"C\", \"dp\": 0}, \"cond\": {\"method\": \"명시되지 않음\"}, \"seq\": 1}, {\"prop_code\": \"EVAP_RATE\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음.\", \"status\": \"자료없음\"}, \"seq\": 1}, {\"prop_code\": \"FLAMMABILITY\", \"comp_ref\": \"MIX\", \"text_value\": \"발화하지 않음\", \"q\": null, \"seq\": 1}, {\"prop_code\": \"LEL\", \"comp_ref\": \"MIX\", \"text_value\": \"분류 및 표시와 관련없는 액체임.\", \"q\": null, \"seq\": 1}, {\"prop_code\": \"UEL\", \"comp_ref\": \"MIX\", \"text_value\": \"분류 및 표시와 관련없는 액체임.\", \"q\": null, \"seq\": 1}, {\"prop_code\": \"AUTOIGNITION\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음.\", \"status\": \"자료없음\"}, \"seq\": 1}, {\"prop_code\": \"DECOMPOSITION\", \"comp_ref\": \"MIX\", \"text_value\": \"올바르게 사용하는 경우에는 분해되지 않음\", \"q\": null, \"seq\": 1}, {\"prop_code\": \"VAPOR_PRESSURE\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음.\", \"status\": \"자료없음\"}, \"seq\": 1}, {\"prop_code\": \"VAPOR_PRESSURE\", \"comp_ref\": null, \"q\": {\"raw\": \"23.4 hPa\", \"status\": \"값있음\", \"value\": 23.4, \"unit\": \"hPa\", \"dp\": 1, \"note\": \"다음 물질에 대한 정보: water\"}, \"cond\": {\"temp\": 20, \"temp_unit\": \"C\"}, \"data_source\": \"문헌 자료\", \"seq\": 2}, {\"prop_code\": \"RELATIVE_DENSITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"약 1.04 g/cm3\", \"status\": \"값있음\", \"value\": 1.04, \"approx\": true, \"unit\": \"g/cm3\", \"dp\": 2}, \"cond\": {\"temp\": 20, \"temp_unit\": \"C\", \"method\": \"ISO 2811-1\"}, \"seq\": 1}, {\"prop_code\": \"RELATIVE_DENSITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음.\", \"status\": \"자료없음\"}, \"seq\": 2}, {\"prop_code\": \"VAPOR_DENSITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음.\", \"status\": \"자료없음\"}, \"seq\": 1}, {\"prop_code\": \"SOLUBILITY\", \"comp_ref\": \"MIX\", \"text_value\": \"부분 용해성\", \"q\": null, \"cond\": {\"temp\": 15, \"temp_unit\": \"C\"}, \"seq\": 1}, {\"prop_code\": \"SOLUBILITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음.\", \"status\": \"자료없음\"}, \"seq\": 2}, {\"prop_code\": \"LOG_KOW\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음.\", \"status\": \"자료없음\"}, \"seq\": 1}, {\"prop_code\": \"VISCOSITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"100 - 280 mPa.s\", \"status\": \"값있음\", \"lower_op\": \">=\", \"lower\": 100, \"upper_op\": \"<=\", \"upper\": 280, \"unit\": \"mPa.s\", \"dp\": 0}, \"cond\": {\"temp\": 23, \"temp_unit\": \"C\", \"method\": \"DIN EN ISO 2555 (RVT)\"}, \"seq\": 1}, {\"prop_code\": \"VISCOSITY_KIN\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음.\", \"status\": \"자료없음\"}, \"seq\": 1}, {\"prop_code\": \"MOL_WEIGHT\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음.\", \"status\": \"자료없음\"}, \"seq\": 1}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"exposure_limits[0]\", \"page\": 5, \"source_text\": \"구체적으로 알려진 작업상 노출한계 물질은 없음\", \"rules\": [\"R15\"], \"note\": \"맞는 값 없음: 기준 출처·종류 표시가 없어 standard·limit_type은 null. 노출한계 물질이 없다는 문장이라 status를 자료없음으로 둠\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[1]\", \"page\": 5, \"source_text\": \"생물학적 노출기준: 자료없음.\", \"rules\": [\"R15\"], \"note\": \"생물학적 노출기준 자료없음 행. 기준 종류 표시가 없어 limit_type은 null\"}, {\"msds_index\": 0, \"field\": \"physchem[0]\", \"page\": 6, \"source_text\": \"외관: 액체, 분산액\", \"rules\": [\"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[1]\", \"page\": 6, \"source_text\": \"색: 백색\", \"rules\": [\"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[2]\", \"page\": 6, \"source_text\": \"냄새: 약한 냄새\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[3]\", \"page\": 6, \"source_text\": \"냄새 역치: 자료없음.\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[4]\", \"page\": 6, \"source_text\": \"pH 값: 6.5 - 7.5 (DIN ISO 976)\", \"rules\": [\"R04\", \"R06\", \"R25\"], \"note\": \"범위를 하한 6.5(>=), 상한 7.5(<=)로 나누고 시험법은 cond.method에 둠\"}, {\"msds_index\": 0, \"field\": \"physchem[5]\", \"page\": 6, \"source_text\": \"다음 물질에 대한 정보： water 녹는점/어는점: 0 °C\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": \"water의 값이며 water는 성분 목록에 없어 comp_ref는 null로 두고 q.note에 적음\"}, {\"msds_index\": 0, \"field\": \"physchem[6]\", \"page\": 6, \"source_text\": \"다음 물질에 대한 정보： water 초기 끓는점과 끓는점 범위: 100 °C\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": \"water의 값이며 water는 성분 목록에 없어 comp_ref는 null로 둠\"}, {\"msds_index\": 0, \"field\": \"physchem[7]\", \"page\": 6, \"source_text\": \"인화점: > 250 °C (명시되지 않음)\", \"rules\": [\"R04\", \"R08\"], \"note\": \"'>'는 lower_op로 두고 괄호 속 '명시되지 않음'은 cond.method에 둠\"}, {\"msds_index\": 0, \"field\": \"physchem[8]\", \"page\": 6, \"source_text\": \"증발 속도: 자료없음.\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[9]\", \"page\": 6, \"source_text\": \"인화성 (고체/가스): 발화하지 않음\", \"rules\": [\"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[10]\", \"page\": 6, \"source_text\": \"인화 또는 폭발 범위의 하한: 분류 및 표시와 관련없는 액체임.\", \"rules\": [\"R25\"], \"note\": \"숫자가 아닌 말로 적혀 있어 text_value에 둠\"}, {\"msds_index\": 0, \"field\": \"physchem[11]\", \"page\": 6, \"source_text\": \"인화 또는 폭발 범위의 상한: 분류 및 표시와 관련없는 액체임.\", \"rules\": [\"R25\"], \"note\": \"숫자가 아닌 말로 적혀 있어 text_value에 둠\"}, {\"msds_index\": 0, \"field\": \"physchem[12]\", \"page\": 6, \"source_text\": \"자연발화 온도: 자료없음.\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[13]\", \"page\": 6, \"source_text\": \"분해 온도: 올바르게 사용하는 경우에는 분해되지 않음\", \"rules\": [\"R25\"], \"note\": \"숫자가 아닌 말로 적혀 있어 text_value에 둠\"}, {\"msds_index\": 0, \"field\": \"physchem[14]\", \"page\": 6, \"source_text\": \"증기압: 자료없음.\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[15]\", \"page\": 6, \"source_text\": \"다음 물질에 대한 정보： water 증기압: 23.4 hPa (20 °C) 문헌 자료\", \"rules\": [\"R04\", \"R06\", \"R10\"], \"note\": \"water의 값이라 comp_ref는 null. 20 °C는 cond로, '문헌 자료'는 data_source로 둠\"}, {\"msds_index\": 0, \"field\": \"physchem[16]\", \"page\": 7, \"source_text\": \"밀도(비중): 약 1.04 g/cm3 (20 °C) (ISO 2811-1)\", \"rules\": [\"R04\", \"R06\", \"R25\"], \"note\": \"'약'이 있어 approx=true로 둠. 20 °C와 ISO 2811-1은 cond로 나눔\"}, {\"msds_index\": 0, \"field\": \"physchem[17]\", \"page\": 7, \"source_text\": \"상대 밀도: 자료없음.\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[18]\", \"page\": 7, \"source_text\": \"증기밀도: 자료없음.\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[19]\", \"page\": 7, \"source_text\": \"수용해도: 부분 용해성 (15 °C)\", \"rules\": [\"R25\"], \"note\": \"숫자가 아닌 말이라 text_value에 두고 15 °C는 cond로 나눔\"}, {\"msds_index\": 0, \"field\": \"physchem[20]\", \"page\": 7, \"source_text\": \"용해도(정량적) : 자료없음.\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[21]\", \"page\": 7, \"source_text\": \"n-옥탄올/물 분배계수(log Pow) : 자료없음.\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[22]\", \"page\": 7, \"source_text\": \"점도, 유동적: 100 - 280 mPa.s (23 °C) (DIN EN ISO 2555 (RVT))\", \"rules\": [\"R04\", \"R25\"], \"note\": \"범위를 하한 100(>=), 상한 280(<=)으로 나누고 온도와 시험법은 cond로 둠\"}, {\"msds_index\": 0, \"field\": \"physchem[23]\", \"page\": 7, \"source_text\": \"점도, 운동학적: 자료없음.\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[24]\", \"page\": 7, \"source_text\": \"몰 분자량: 자료없음.\", \"rules\": [\"R15\", \"R25\"], \"note\": null}]}"
+}

@@ -1,0 +1,445 @@
+{
+  "doc_id": "T21-009",
+  "bundle": "b4",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 53194,
+    "completion_tokens": 6072,
+    "cached_tokens": 8949,
+    "reasoning_tokens": 1564,
+    "notional_cost_usd": 0.4771818
+  },
+  "seconds": 47.3,
+  "request_usage": [
+    {
+      "prompt_tokens": 53194,
+      "completion_tokens": 6072,
+      "cached_tokens": 8949,
+      "reasoning_tokens": 1564,
+      "notional_cost_usd": 0.4771818
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "transport": [
+          {
+            "mode": "육상",
+            "basis_raw": "KSSTDG",
+            "regulated": true,
+            "un_no": "2735",
+            "shipping_name": "아민, 액체, 부식 n.o.s.",
+            "hazard_class": "8",
+            "sub_risk": null,
+            "packing_group": "II",
+            "marine_pollutant": "비해당",
+            "ems_fire": "F-A",
+            "ems_spill": "S-B"
+          },
+          {
+            "mode": "항공",
+            "basis_raw": "IATA",
+            "regulated": true,
+            "un_no": "2735",
+            "shipping_name": "Amines, liquid, corrosive, n.o.s. (Triethylenetetramine, 1-(2-aminoethyl)piperazine)",
+            "hazard_class": "8",
+            "sub_risk": null,
+            "packing_group": "II",
+            "marine_pollutant": null,
+            "ems_fire": null,
+            "ems_spill": null
+          },
+          {
+            "mode": "해상",
+            "basis_raw": "IMDG",
+            "regulated": true,
+            "un_no": "2735",
+            "shipping_name": "AMINES, LIQUID, CORROSIVE, N.O.S. or POLYAMINES, LIQUID, CORROSIVE, N.O.S. (Triethylenetetramine, 1-(2-aminoethyl)piperazine)",
+            "hazard_class": "8",
+            "sub_risk": null,
+            "packing_group": "II",
+            "marine_pollutant": "비해당",
+            "ems_fire": "F-A",
+            "ems_spill": "S-B"
+          }
+        ],
+        "regulations": [
+          {
+            "seq": 1,
+            "law": "OSH",
+            "item_code": "OSH_PROHIBIT",
+            "item_raw": "제조등의 금지 유해물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "value_raw": "규제되지 않음."
+          },
+          {
+            "seq": 2,
+            "law": "OSH",
+            "item_code": "OSH_PERMIT",
+            "item_raw": "허가대상 유해물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "value_raw": "규제되지 않음."
+          },
+          {
+            "seq": 3,
+            "law": "OSH",
+            "item_code": "OSH_MANAGED",
+            "item_raw": "관리대상 유해물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "value_raw": "규제되지 않음."
+          },
+          {
+            "seq": 4,
+            "law": "OSH",
+            "item_code": "OSH_HEALTH_EXAM",
+            "item_raw": "특수건강진단 대상물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "value_raw": "규제되지 않음."
+          },
+          {
+            "seq": 5,
+            "law": "OSH",
+            "item_code": "OSH_MEASURE",
+            "item_raw": "작업환경 측정대상물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "value_raw": "규제되지 않음."
+          },
+          {
+            "seq": 6,
+            "law": "OSH",
+            "item_code": "OSH_EXPOSURE_STD",
+            "item_raw": "노출기준설정물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "value_raw": "규제되지 않음."
+          },
+          {
+            "seq": 7,
+            "law": "CCA",
+            "item_code": "CCA_ACCIDENT",
+            "item_raw": "사고대비물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "value_raw": "규제되지 않음."
+          },
+          {
+            "seq": 8,
+            "law": "CCA",
+            "item_code": "CCA_PROHIBIT",
+            "item_raw": "금지물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "value_raw": "규제되지 않음."
+          },
+          {
+            "seq": 9,
+            "law": "KREACH",
+            "item_code": "KREACH_REG",
+            "item_raw": "등록대상 기존 화학물질 (PEC) (환경부 고시 제2015-92)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "value_raw": "등재되지 않음."
+          },
+          {
+            "seq": 10,
+            "law": "CCA",
+            "item_code": "CCA_RESTRICT",
+            "item_raw": "제한물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "value_raw": "규제되지 않음."
+          },
+          {
+            "seq": 11,
+            "law": "CCA",
+            "item_code": "CCA_TOXIC",
+            "item_raw": "유독물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "value_raw": "규제되지 않음."
+          },
+          {
+            "seq": 12,
+            "law": "DG",
+            "item_code": "DG_HAZMAT",
+            "item_raw": "다. 위험물안전관리법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "미기재"
+          },
+          {
+            "seq": 13,
+            "law": "WASTE",
+            "item_code": "WASTE_DESIG",
+            "item_raw": "폐유기용제중 할로겐족에 해당되는 물질",
+            "sub_class": "폐유기용제중 할로겐족",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "value_raw": "규제되지 않음."
+          },
+          {
+            "seq": 14,
+            "law": "WASTE",
+            "item_code": null,
+            "item_raw": "유해물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "value_raw": "규제되지 않음."
+          },
+          {
+            "seq": 15,
+            "law": "KR_ETC",
+            "item_code": "KR_ETC",
+            "item_raw": "대기환경보전법 대기유해물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "value_raw": "규제되지 않음."
+          },
+          {
+            "seq": 16,
+            "law": "KR_ETC",
+            "item_code": "KR_ETC",
+            "item_raw": "특정 유해 화학물질 및 살충제에 관한 사전통보승인절차 (PIC에 관한 규정, MoE 번호 2014-252, 2014년 12일 31일; 살충제에 관한 규정, RDA 번호 2014-26), 개정된 바에 따라",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "value_raw": "등재되지 않음."
+          },
+          {
+            "seq": 17,
+            "law": "KR_ETC",
+            "item_code": "KR_ETC",
+            "item_raw": "대기환경보전법 특정대기유해물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "value_raw": "규제되지 않음."
+          },
+          {
+            "seq": 18,
+            "law": "KREACH",
+            "item_code": "KREACH_EXIST",
+            "item_raw": "한국 기존화학물질 목록（ECL）",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "value_raw": "아니오"
+          }
+        ],
+        "dangerous_goods": [],
+        "waste": [],
+        "intl_class": []
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "transport[0]",
+        "page": 6,
+        "source_text": "KSSTDG | 가. 유엔번호 UN2735 | 나. 유엔 적정 선적명 아민, 액체, 부식 n.o.s. | 위해 등급 8 | 부수적 유해성 - | 라. 용기등급 2 | 해양오염물질 아니오. | EmS F-A, S-B",
+        "rules": [
+          "R09"
+        ],
+        "note": "'국내 규정' KSSTDG를 국내(육상) 행으로 둠; 용기등급 '2'를 II로, 해양오염물질 '아니오'를 비해당으로, 부수적 유해성 '-'는 null"
+      },
+      {
+        "msds_index": 0,
+        "field": "transport[1]",
+        "page": 6,
+        "source_text": "IATA | A. UN number UN2735 | Amines, liquid, corrosive, n.o.s. (Triethylenetetramine, 1-(2-aminoethyl)piperazine) | Class 8 | Subsidiary hazard - | D. Packing group II | E. Environmental hazards No.",
+        "rules": [
+          "R09"
+        ],
+        "note": "항공 행; 해양오염물질 항목이 없어 marine_pollutant는 null"
+      },
+      {
+        "msds_index": 0,
+        "field": "transport[2]",
+        "page": 6,
+        "source_text": "IMDG | A. UN number UN2735 | AMINES, LIQUID, CORROSIVE, N.O.S. or POLYAMINES, LIQUID, CORROSIVE, N.O.S. (Triethylenetetramine, 1-(2-aminoethyl)piperazine) | Class 8 | D. Packing group II | Marine pollutant No. | EmS F-A, S-B",
+        "rules": [
+          "R09"
+        ],
+        "note": "해상 행; Marine pollutant No.를 비해당으로"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[0]",
+        "page": 7,
+        "source_text": "제조등의 금지 유해물질 | 규제되지 않음.",
+        "rules": [
+          "R25"
+        ],
+        "note": "'규제되지 않음'을 비해당으로"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[1]",
+        "page": 7,
+        "source_text": "허가대상 유해물질 | 규제되지 않음.",
+        "rules": [
+          "R25"
+        ],
+        "note": "'규제되지 않음'을 비해당으로"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[2]",
+        "page": 7,
+        "source_text": "관리대상 유해물질 | 규제되지 않음.",
+        "rules": [
+          "R25"
+        ],
+        "note": "'규제되지 않음'을 비해당으로"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[3]",
+        "page": 7,
+        "source_text": "특수건강진단 대상물질 | 규제되지 않음.",
+        "rules": [
+          "R25"
+        ],
+        "note": "'규제되지 않음'을 비해당으로"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[4]",
+        "page": 7,
+        "source_text": "작업환경 측정대상물질 | 규제되지 않음.",
+        "rules": [
+          "R25"
+        ],
+        "note": "'규제되지 않음'을 비해당으로"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[5]",
+        "page": 7,
+        "source_text": "노출기준설정물질 | 규제되지 않음.",
+        "rules": [
+          "R25"
+        ],
+        "note": "'규제되지 않음'을 비해당으로"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[6]",
+        "page": 7,
+        "source_text": "사고대비물질 | 규제되지 않음.",
+        "rules": [
+          "R25"
+        ],
+        "note": "'규제되지 않음'을 비해당으로"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[7]",
+        "page": 7,
+        "source_text": "금지물질 | 규제되지 않음.",
+        "rules": [
+          "R25"
+        ],
+        "note": "문서에서는 화평법 소제목 아래 있으나 동의어 사전에 따라 CCA_PROHIBIT로 매핑"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[8]",
+        "page": 7,
+        "source_text": "등록대상 기존 화학물질 (PEC) (환경부 고시 제2015-92) | 등재되지 않음.",
+        "rules": [
+          "R25"
+        ],
+        "note": "'등재되지 않음'을 비해당으로"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[9]",
+        "page": 7,
+        "source_text": "제한물질 | 규제되지 않음.",
+        "rules": [
+          "R25"
+        ],
+        "note": "화평법 소제목 아래 있으나 CCA_RESTRICT로 매핑"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[10]",
+        "page": 7,
+        "source_text": "유독물질 | 규제되지 않음.",
+        "rules": [
+          "R25"
+        ],
+        "note": "화평법 소제목 아래 있으나 CCA_TOXIC으로 매핑"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[11]",
+        "page": 7,
+        "source_text": "다. 위험물안전관리법에 의한 규제",
+        "rules": [
+          "R15"
+        ],
+        "note": "항목 제목만 있고 값이 없어 미기재"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[12]",
+        "page": 7,
+        "source_text": "폐유기용제중 할로겐족에 해당되는 물질 | 규제되지 않음.",
+        "rules": [
+          "R25"
+        ],
+        "note": "폐기물관리법 지정폐기물 항목으로 보아 WASTE_DESIG, 비해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[13]",
+        "page": 7,
+        "source_text": "유해물질 | 규제되지 않음.",
+        "rules": [],
+        "note": "맞는 값 없음: 폐기물관리법 '유해물질'에 맞는 항목 코드가 없어 item_code null"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[14]",
+        "page": 7,
+        "source_text": "대기환경보전법 | 대기유해물질 | 규제되지 않음.",
+        "rules": [],
+        "note": "기타 국내법으로 분류, 비해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[15]",
+        "page": 7,
+        "source_text": "특정 유해 화학물질 및 살충제에 관한 사전통보승인절차 (PIC에 관한 규정, MoE 번호 2014-252, 2014년 12일 | 31일; 살충제에 관한 규정, RDA 번호 2014-26), 개정된 바에 따라 | 등재되지 않음.",
+        "rules": [],
+        "note": "기타 국내법으로 분류, '등재되지 않음'을 비해당으로"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[16]",
+        "page": 7,
+        "source_text": "특정대기유해물질 | 규제되지 않음.",
+        "rules": [],
+        "note": "기타 국내법으로 분류, 비해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[17]",
+        "page": 7,
+        "source_text": "한국 | 한국 기존화학물질 목록（ECL） | 아니오",
+        "rules": [
+          "R25"
+        ],
+        "note": "목록 등재 '아니오'(하나 이상 성분 미등재)를 혼합물 기준 비해당으로"
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"transport\": [{\"mode\": \"육상\", \"basis_raw\": \"KSSTDG\", \"regulated\": true, \"un_no\": \"2735\", \"shipping_name\": \"아민, 액체, 부식 n.o.s.\", \"hazard_class\": \"8\", \"sub_risk\": null, \"packing_group\": \"II\", \"marine_pollutant\": \"비해당\", \"ems_fire\": \"F-A\", \"ems_spill\": \"S-B\"}, {\"mode\": \"항공\", \"basis_raw\": \"IATA\", \"regulated\": true, \"un_no\": \"2735\", \"shipping_name\": \"Amines, liquid, corrosive, n.o.s. (Triethylenetetramine, 1-(2-aminoethyl)piperazine)\", \"hazard_class\": \"8\", \"sub_risk\": null, \"packing_group\": \"II\", \"marine_pollutant\": null, \"ems_fire\": null, \"ems_spill\": null}, {\"mode\": \"해상\", \"basis_raw\": \"IMDG\", \"regulated\": true, \"un_no\": \"2735\", \"shipping_name\": \"AMINES, LIQUID, CORROSIVE, N.O.S. or POLYAMINES, LIQUID, CORROSIVE, N.O.S. (Triethylenetetramine, 1-(2-aminoethyl)piperazine)\", \"hazard_class\": \"8\", \"sub_risk\": null, \"packing_group\": \"II\", \"marine_pollutant\": \"비해당\", \"ems_fire\": \"F-A\", \"ems_spill\": \"S-B\"}], \"regulations\": [{\"seq\": 1, \"law\": \"OSH\", \"item_code\": \"OSH_PROHIBIT\", \"item_raw\": \"제조등의 금지 유해물질\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"value_raw\": \"규제되지 않음.\"}, {\"seq\": 2, \"law\": \"OSH\", \"item_code\": \"OSH_PERMIT\", \"item_raw\": \"허가대상 유해물질\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"value_raw\": \"규제되지 않음.\"}, {\"seq\": 3, \"law\": \"OSH\", \"item_code\": \"OSH_MANAGED\", \"item_raw\": \"관리대상 유해물질\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"value_raw\": \"규제되지 않음.\"}, {\"seq\": 4, \"law\": \"OSH\", \"item_code\": \"OSH_HEALTH_EXAM\", \"item_raw\": \"특수건강진단 대상물질\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"value_raw\": \"규제되지 않음.\"}, {\"seq\": 5, \"law\": \"OSH\", \"item_code\": \"OSH_MEASURE\", \"item_raw\": \"작업환경 측정대상물질\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"value_raw\": \"규제되지 않음.\"}, {\"seq\": 6, \"law\": \"OSH\", \"item_code\": \"OSH_EXPOSURE_STD\", \"item_raw\": \"노출기준설정물질\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"value_raw\": \"규제되지 않음.\"}, {\"seq\": 7, \"law\": \"CCA\", \"item_code\": \"CCA_ACCIDENT\", \"item_raw\": \"사고대비물질\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"value_raw\": \"규제되지 않음.\"}, {\"seq\": 8, \"law\": \"CCA\", \"item_code\": \"CCA_PROHIBIT\", \"item_raw\": \"금지물질\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"value_raw\": \"규제되지 않음.\"}, {\"seq\": 9, \"law\": \"KREACH\", \"item_code\": \"KREACH_REG\", \"item_raw\": \"등록대상 기존 화학물질 (PEC) (환경부 고시 제2015-92)\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"value_raw\": \"등재되지 않음.\"}, {\"seq\": 10, \"law\": \"CCA\", \"item_code\": \"CCA_RESTRICT\", \"item_raw\": \"제한물질\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"value_raw\": \"규제되지 않음.\"}, {\"seq\": 11, \"law\": \"CCA\", \"item_code\": \"CCA_TOXIC\", \"item_raw\": \"유독물질\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"value_raw\": \"규제되지 않음.\"}, {\"seq\": 12, \"law\": \"DG\", \"item_code\": \"DG_HAZMAT\", \"item_raw\": \"다. 위험물안전관리법에 의한 규제\", \"comp_ref\": \"MIX\", \"applicable\": \"미기재\"}, {\"seq\": 13, \"law\": \"WASTE\", \"item_code\": \"WASTE_DESIG\", \"item_raw\": \"폐유기용제중 할로겐족에 해당되는 물질\", \"sub_class\": \"폐유기용제중 할로겐족\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"value_raw\": \"규제되지 않음.\"}, {\"seq\": 14, \"law\": \"WASTE\", \"item_code\": null, \"item_raw\": \"유해물질\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"value_raw\": \"규제되지 않음.\"}, {\"seq\": 15, \"law\": \"KR_ETC\", \"item_code\": \"KR_ETC\", \"item_raw\": \"대기환경보전법 대기유해물질\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"value_raw\": \"규제되지 않음.\"}, {\"seq\": 16, \"law\": \"KR_ETC\", \"item_code\": \"KR_ETC\", \"item_raw\": \"특정 유해 화학물질 및 살충제에 관한 사전통보승인절차 (PIC에 관한 규정, MoE 번호 2014-252, 2014년 12일 31일; 살충제에 관한 규정, RDA 번호 2014-26), 개정된 바에 따라\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"value_raw\": \"등재되지 않음.\"}, {\"seq\": 17, \"law\": \"KR_ETC\", \"item_code\": \"KR_ETC\", \"item_raw\": \"대기환경보전법 특정대기유해물질\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"value_raw\": \"규제되지 않음.\"}, {\"seq\": 18, \"law\": \"KREACH\", \"item_code\": \"KREACH_EXIST\", \"item_raw\": \"한국 기존화학물질 목록（ECL）\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"value_raw\": \"아니오\"}], \"dangerous_goods\": [], \"waste\": [], \"intl_class\": []}], \"evidence\": [{\"msds_index\": 0, \"field\": \"transport[0]\", \"page\": 6, \"source_text\": \"KSSTDG | 가. 유엔번호 UN2735 | 나. 유엔 적정 선적명 아민, 액체, 부식 n.o.s. | 위해 등급 8 | 부수적 유해성 - | 라. 용기등급 2 | 해양오염물질 아니오. | EmS F-A, S-B\", \"rules\": [\"R09\"], \"note\": \"'국내 규정' KSSTDG를 국내(육상) 행으로 둠; 용기등급 '2'를 II로, 해양오염물질 '아니오'를 비해당으로, 부수적 유해성 '-'는 null\"}, {\"msds_index\": 0, \"field\": \"transport[1]\", \"page\": 6, \"source_text\": \"IATA | A. UN number UN2735 | Amines, liquid, corrosive, n.o.s. (Triethylenetetramine, 1-(2-aminoethyl)piperazine) | Class 8 | Subsidiary hazard - | D. Packing group II | E. Environmental hazards No.\", \"rules\": [\"R09\"], \"note\": \"항공 행; 해양오염물질 항목이 없어 marine_pollutant는 null\"}, {\"msds_index\": 0, \"field\": \"transport[2]\", \"page\": 6, \"source_text\": \"IMDG | A. UN number UN2735 | AMINES, LIQUID, CORROSIVE, N.O.S. or POLYAMINES, LIQUID, CORROSIVE, N.O.S. (Triethylenetetramine, 1-(2-aminoethyl)piperazine) | Class 8 | D. Packing group II | Marine pollutant No. | EmS F-A, S-B\", \"rules\": [\"R09\"], \"note\": \"해상 행; Marine pollutant No.를 비해당으로\"}, {\"msds_index\": 0, \"field\": \"regulations[0]\", \"page\": 7, \"source_text\": \"제조등의 금지 유해물질 | 규제되지 않음.\", \"rules\": [\"R25\"], \"note\": \"'규제되지 않음'을 비해당으로\"}, {\"msds_index\": 0, \"field\": \"regulations[1]\", \"page\": 7, \"source_text\": \"허가대상 유해물질 | 규제되지 않음.\", \"rules\": [\"R25\"], \"note\": \"'규제되지 않음'을 비해당으로\"}, {\"msds_index\": 0, \"field\": \"regulations[2]\", \"page\": 7, \"source_text\": \"관리대상 유해물질 | 규제되지 않음.\", \"rules\": [\"R25\"], \"note\": \"'규제되지 않음'을 비해당으로\"}, {\"msds_index\": 0, \"field\": \"regulations[3]\", \"page\": 7, \"source_text\": \"특수건강진단 대상물질 | 규제되지 않음.\", \"rules\": [\"R25\"], \"note\": \"'규제되지 않음'을 비해당으로\"}, {\"msds_index\": 0, \"field\": \"regulations[4]\", \"page\": 7, \"source_text\": \"작업환경 측정대상물질 | 규제되지 않음.\", \"rules\": [\"R25\"], \"note\": \"'규제되지 않음'을 비해당으로\"}, {\"msds_index\": 0, \"field\": \"regulations[5]\", \"page\": 7, \"source_text\": \"노출기준설정물질 | 규제되지 않음.\", \"rules\": [\"R25\"], \"note\": \"'규제되지 않음'을 비해당으로\"}, {\"msds_index\": 0, \"field\": \"regulations[6]\", \"page\": 7, \"source_text\": \"사고대비물질 | 규제되지 않음.\", \"rules\": [\"R25\"], \"note\": \"'규제되지 않음'을 비해당으로\"}, {\"msds_index\": 0, \"field\": \"regulations[7]\", \"page\": 7, \"source_text\": \"금지물질 | 규제되지 않음.\", \"rules\": [\"R25\"], \"note\": \"문서에서는 화평법 소제목 아래 있으나 동의어 사전에 따라 CCA_PROHIBIT로 매핑\"}, {\"msds_index\": 0, \"field\": \"regulations[8]\", \"page\": 7, \"source_text\": \"등록대상 기존 화학물질 (PEC) (환경부 고시 제2015-92) | 등재되지 않음.\", \"rules\": [\"R25\"], \"note\": \"'등재되지 않음'을 비해당으로\"}, {\"msds_index\": 0, \"field\": \"regulations[9]\", \"page\": 7, \"source_text\": \"제한물질 | 규제되지 않음.\", \"rules\": [\"R25\"], \"note\": \"화평법 소제목 아래 있으나 CCA_RESTRICT로 매핑\"}, {\"msds_index\": 0, \"field\": \"regulations[10]\", \"page\": 7, \"source_text\": \"유독물질 | 규제되지 않음.\", \"rules\": [\"R25\"], \"note\": \"화평법 소제목 아래 있으나 CCA_TOXIC으로 매핑\"}, {\"msds_index\": 0, \"field\": \"regulations[11]\", \"page\": 7, \"source_text\": \"다. 위험물안전관리법에 의한 규제\", \"rules\": [\"R15\"], \"note\": \"항목 제목만 있고 값이 없어 미기재\"}, {\"msds_index\": 0, \"field\": \"regulations[12]\", \"page\": 7, \"source_text\": \"폐유기용제중 할로겐족에 해당되는 물질 | 규제되지 않음.\", \"rules\": [\"R25\"], \"note\": \"폐기물관리법 지정폐기물 항목으로 보아 WASTE_DESIG, 비해당\"}, {\"msds_index\": 0, \"field\": \"regulations[13]\", \"page\": 7, \"source_text\": \"유해물질 | 규제되지 않음.\", \"rules\": [], \"note\": \"맞는 값 없음: 폐기물관리법 '유해물질'에 맞는 항목 코드가 없어 item_code null\"}, {\"msds_index\": 0, \"field\": \"regulations[14]\", \"page\": 7, \"source_text\": \"대기환경보전법 | 대기유해물질 | 규제되지 않음.\", \"rules\": [], \"note\": \"기타 국내법으로 분류, 비해당\"}, {\"msds_index\": 0, \"field\": \"regulations[15]\", \"page\": 7, \"source_text\": \"특정 유해 화학물질 및 살충제에 관한 사전통보승인절차 (PIC에 관한 규정, MoE 번호 2014-252, 2014년 12일 | 31일; 살충제에 관한 규정, RDA 번호 2014-26), 개정된 바에 따라 | 등재되지 않음.\", \"rules\": [], \"note\": \"기타 국내법으로 분류, '등재되지 않음'을 비해당으로\"}, {\"msds_index\": 0, \"field\": \"regulations[16]\", \"page\": 7, \"source_text\": \"특정대기유해물질 | 규제되지 않음.\", \"rules\": [], \"note\": \"기타 국내법으로 분류, 비해당\"}, {\"msds_index\": 0, \"field\": \"regulations[17]\", \"page\": 7, \"source_text\": \"한국 | 한국 기존화학물질 목록（ECL） | 아니오\", \"rules\": [\"R25\"], \"note\": \"목록 등재 '아니오'(하나 이상 성분 미등재)를 혼합물 기준 비해당으로\"}]}"
+}

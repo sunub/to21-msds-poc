@@ -1,0 +1,472 @@
+{
+  "doc_id": "T21-031",
+  "bundle": "b1",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 52955,
+    "completion_tokens": 4571,
+    "cached_tokens": 11700,
+    "reasoning_tokens": 910,
+    "notional_cost_usd": 0.42379199999999995
+  },
+  "seconds": 40.1,
+  "request_usage": [
+    {
+      "prompt_tokens": 52955,
+      "completion_tokens": 4571,
+      "cached_tokens": 11700,
+      "reasoning_tokens": 910,
+      "notional_cost_usd": 0.42379199999999995
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "doc": {
+      "language": "ko",
+      "msds_count": 1
+    },
+    "msds": [
+      {
+        "meta": {
+          "msds_no": "AA07087-0000000017",
+          "doc_code": "PS-MSDS-07",
+          "revision_no": 3,
+          "revision_label": "3회",
+          "header_product_name": "C194",
+          "source_note": null,
+          "first_issue_date": "2022-03-25",
+          "last_revision_date": "2025-05-30",
+          "page_start": 1,
+          "page_end": 7
+        },
+        "product": {
+          "name": "C194",
+          "code": "C1940",
+          "synonyms": [],
+          "uses": [
+            "Lead Frame용",
+            "단자용",
+            "전기전자용",
+            "기타부품용"
+          ],
+          "restrictions": [],
+          "use_category_code": null
+        },
+        "companies": [
+          {
+            "seq": 1,
+            "role": "제조자",
+            "name": "㈜ 풍산",
+            "site": "울산 사업장",
+            "address": "울산광역시 울주군 온산읍 산암로 94",
+            "postcode": null,
+            "department": "품질보증팀",
+            "contacts": [
+              {
+                "type": "긴급",
+                "value": "052-231-9114",
+                "hours": null
+              },
+              {
+                "type": "팩스",
+                "value": "231-9400",
+                "hours": null
+              },
+              {
+                "type": "웹",
+                "value": "www.poongsan.co.kr",
+                "hours": null
+              }
+            ]
+          }
+        ],
+        "hazard": {
+          "classified": true,
+          "classes": [
+            {
+              "seq": 1,
+              "group": "환경",
+              "class_code": "ENV_AQ_ACUTE",
+              "category": "1",
+              "route_form": null,
+              "effect": null,
+              "target_organs": [],
+              "raw": "급성 수생환경 유해성 : 구분1"
+            },
+            {
+              "seq": 2,
+              "group": "환경",
+              "class_code": "ENV_AQ_CHRONIC",
+              "category": "1",
+              "route_form": null,
+              "effect": null,
+              "target_organs": [],
+              "raw": "만성 수생환경 유해성 : 구분1"
+            }
+          ],
+          "signal_word": "위험",
+          "pictograms": [
+            {
+              "code": "GHS09",
+              "detection": "이미지판독"
+            }
+          ],
+          "h_statements": [
+            {
+              "seq": 1,
+              "code": "H400",
+              "system": "GHS",
+              "mark": null,
+              "text": "수생생물에 매우 유독함"
+            },
+            {
+              "seq": 2,
+              "code": "H410",
+              "system": "GHS",
+              "mark": null,
+              "text": "장기적인 영향에 의해 수생생물에게 매우 유독함"
+            }
+          ],
+          "p_statements": [
+            {
+              "seq": 1,
+              "code": "P273",
+              "type": "예방",
+              "text": "환경으로 배출하지 마시오."
+            },
+            {
+              "seq": 2,
+              "code": "P391",
+              "type": "대응",
+              "text": "누출물을 모으시오."
+            },
+            {
+              "seq": 3,
+              "code": "P501",
+              "type": "폐기",
+              "text": "폐기물 관련 법령에 따라 내용물/용기를 폐기하시오"
+            }
+          ],
+          "other_hazards": [
+            {
+              "seq": 1,
+              "key": null,
+              "value": "분진, 분말, 미세입자의 경우 점화원과 접촉 시 폭발의 가능성이 있음",
+              "text": "분진, 분말, 미세입자의 경우 점화원과 접촉 시 폭발의 가능성이 있음"
+            }
+          ],
+          "nfpa": {
+            "health": null,
+            "fire": null,
+            "reactivity": null,
+            "special": null
+          }
+        },
+        "composition": {
+          "type": "혼합물",
+          "no_hazardous_component": false
+        },
+        "components": [
+          {
+            "seq": 1,
+            "name": "Copper",
+            "name_en": "Copper",
+            "synonyms": [],
+            "cas_no": "7440-50-8",
+            "ke_no": null,
+            "ec_no": null,
+            "parent_seq": null,
+            "content": {
+              "raw": "Balance",
+              "status": "값있음",
+              "note": "Balance"
+            },
+            "content_note": "기타",
+            "content_basis": "중량",
+            "trade_secret": false
+          },
+          {
+            "seq": 2,
+            "name": "Iron",
+            "name_en": "Iron",
+            "synonyms": [],
+            "cas_no": "7439-89-6",
+            "ke_no": null,
+            "ec_no": null,
+            "parent_seq": null,
+            "content": {
+              "raw": "2.1 ~ 2.6",
+              "status": "값있음",
+              "lower_op": ">=",
+              "lower": 2.1,
+              "upper_op": "<=",
+              "upper": 2.6,
+              "unit": "%",
+              "dp": 1
+            },
+            "content_basis": "중량",
+            "trade_secret": false
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "meta.msds_no",
+        "page": 1,
+        "source_text": "MSDS 제출번호 | AA07087-0000000017",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.doc_code",
+        "page": 1,
+        "source_text": "관리번호 | PS-MSDS-07",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.revision_no",
+        "page": 1,
+        "source_text": "개정 횟수 | 3회",
+        "rules": [],
+        "note": "'3회'를 3으로 기록"
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.header_product_name",
+        "page": 1,
+        "source_text": "제품명 | C194",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.first_issue_date",
+        "page": 1,
+        "source_text": "최초 작성일 | 2022. 03. 25",
+        "rules": [
+          "R01"
+        ],
+        "note": "2022-03-25로 정규화"
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.last_revision_date",
+        "page": 1,
+        "source_text": "최종 개정일 | 2025. 05. 30",
+        "rules": [
+          "R01"
+        ],
+        "note": "2025-05-30으로 정규화"
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.page_start",
+        "page": 1,
+        "source_text": "PS-MSDS-07 1 / 7",
+        "rules": [
+          "R16"
+        ],
+        "note": "1~7쪽 단일 MSDS"
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.page_end",
+        "page": 7,
+        "source_text": "PS-MSDS-07 7 / 7",
+        "rules": [
+          "R16"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "product.name",
+        "page": 1,
+        "source_text": "가. 제품명 C194",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "product.code",
+        "page": 1,
+        "source_text": "* 제품규격 C1940 (주석도금 제품 포함)",
+        "rules": [],
+        "note": "제품규격 C1940을 코드로 기록, 괄호 설명은 제외"
+      },
+      {
+        "msds_index": 0,
+        "field": "product.uses",
+        "page": 1,
+        "source_text": "* 제품의 권고 용도 Lead Frame용, 단자용, 전기전자용, 기타부품용",
+        "rules": [
+          "R11"
+        ],
+        "note": "쉼표 기준 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "product.restrictions",
+        "page": 1,
+        "source_text": "* 제품의 사용상의 제한 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "자료없음으로 기재되어 목록은 비움"
+      },
+      {
+        "msds_index": 0,
+        "field": "companies[0]",
+        "page": 1,
+        "source_text": "* 회사명 ㈜ 풍산 울산 사업장 | * 주소 울산광역시 울주군 온산읍 산암로 94 | * 긴급 전화번호 052) 231 – 9114 (대표전화), FAX : 231 – 9400 | * 담당부서 품질보증팀",
+        "rules": [
+          "R12"
+        ],
+        "note": "사업장명 분리, 긴급 전화번호 줄의 번호를 긴급으로 기록(원문에 '대표전화' 표기), 팩스는 지역번호 없이 원문대로; 역할은 제조자/수입자/유통업자 정보 표제에서 제조자로 기록; 웹은 바닥글에서"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classified",
+        "page": 1,
+        "source_text": "가. 유해성·위험성 분류 급성 수생환경 유해성 : 구분1",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classes[0]",
+        "page": 1,
+        "source_text": "급성 수생환경 유해성 : 구분1",
+        "rules": [
+          "R07"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classes[1]",
+        "page": 1,
+        "source_text": "만성 수생환경 유해성 : 구분1",
+        "rules": [
+          "R07"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.signal_word",
+        "page": 1,
+        "source_text": "* 신호어 위험",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.pictograms[0]",
+        "page": 1,
+        "source_text": "* 그림문자",
+        "rules": [],
+        "note": "이미지에서 환경(나무·물고기) 그림문자 확인"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.h_statements[0]",
+        "page": 1,
+        "source_text": "H400 수생생물에 매우 유독함",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.h_statements[1]",
+        "page": 1,
+        "source_text": "H410 장기적인 영향에 의해 수생생물에게 매우 유독함",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[0]",
+        "page": 1,
+        "source_text": "- 예방 P273 환경으로 배출하지 마시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[1]",
+        "page": 1,
+        "source_text": "- 대응 P391 누출물을 모으시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[2]",
+        "page": 1,
+        "source_text": "- 폐기 P501 폐기물 관련 법령에 따라 내용물/용기를 폐기하시오",
+        "rules": [
+          "R05"
+        ],
+        "note": "저장 '없음'은 행을 만들지 않음"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.other_hazards[0]",
+        "page": 1,
+        "source_text": "다. 유해성·위험성 분류기준에 포함되지 않는 분진, 분말, 미세입자의 경우 점화원과 접촉 시 폭발의 가능성이 있음",
+        "rules": [
+          "R14"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "composition.type",
+        "page": 1,
+        "source_text": "C1940 | Copper | - | 7440-50-8 | Balance / Iron | - | 7439-89-6 | 2.1 ~ 2.6",
+        "rules": [],
+        "note": "성분 2종으로 혼합물"
+      },
+      {
+        "msds_index": 0,
+        "field": "components[0]",
+        "page": 1,
+        "source_text": "C1940 | Copper | - | 7440-50-8 | Balance",
+        "rules": [
+          "R02"
+        ],
+        "note": "함유량 'Balance'는 수치가 없어 raw만 보존; 종류 열 C1940은 제품규격으로 성분 아님; 기준은 표제 함유량(%)"
+      },
+      {
+        "msds_index": 0,
+        "field": "components[1]",
+        "page": 1,
+        "source_text": "Iron | - | 7439-89-6 | 2.1 ~ 2.6",
+        "rules": [
+          "R02",
+          "R04",
+          "R06"
+        ],
+        "note": "'2.1 ~ 2.6'을 하한 2.1(>=), 상한 2.6(<=), 단위 %로 나눔"
+      }
+    ]
+  },
+  "raw_text": "{\"doc\": {\"language\": \"ko\", \"msds_count\": 1}, \"msds\": [{\"meta\": {\"msds_no\": \"AA07087-0000000017\", \"doc_code\": \"PS-MSDS-07\", \"revision_no\": 3, \"revision_label\": \"3회\", \"header_product_name\": \"C194\", \"source_note\": null, \"first_issue_date\": \"2022-03-25\", \"last_revision_date\": \"2025-05-30\", \"page_start\": 1, \"page_end\": 7}, \"product\": {\"name\": \"C194\", \"code\": \"C1940\", \"synonyms\": [], \"uses\": [\"Lead Frame용\", \"단자용\", \"전기전자용\", \"기타부품용\"], \"restrictions\": [], \"use_category_code\": null}, \"companies\": [{\"seq\": 1, \"role\": \"제조자\", \"name\": \"㈜ 풍산\", \"site\": \"울산 사업장\", \"address\": \"울산광역시 울주군 온산읍 산암로 94\", \"postcode\": null, \"department\": \"품질보증팀\", \"contacts\": [{\"type\": \"긴급\", \"value\": \"052-231-9114\", \"hours\": null}, {\"type\": \"팩스\", \"value\": \"231-9400\", \"hours\": null}, {\"type\": \"웹\", \"value\": \"www.poongsan.co.kr\", \"hours\": null}]}], \"hazard\": {\"classified\": true, \"classes\": [{\"seq\": 1, \"group\": \"환경\", \"class_code\": \"ENV_AQ_ACUTE\", \"category\": \"1\", \"route_form\": null, \"effect\": null, \"target_organs\": [], \"raw\": \"급성 수생환경 유해성 : 구분1\"}, {\"seq\": 2, \"group\": \"환경\", \"class_code\": \"ENV_AQ_CHRONIC\", \"category\": \"1\", \"route_form\": null, \"effect\": null, \"target_organs\": [], \"raw\": \"만성 수생환경 유해성 : 구분1\"}], \"signal_word\": \"위험\", \"pictograms\": [{\"code\": \"GHS09\", \"detection\": \"이미지판독\"}], \"h_statements\": [{\"seq\": 1, \"code\": \"H400\", \"system\": \"GHS\", \"mark\": null, \"text\": \"수생생물에 매우 유독함\"}, {\"seq\": 2, \"code\": \"H410\", \"system\": \"GHS\", \"mark\": null, \"text\": \"장기적인 영향에 의해 수생생물에게 매우 유독함\"}], \"p_statements\": [{\"seq\": 1, \"code\": \"P273\", \"type\": \"예방\", \"text\": \"환경으로 배출하지 마시오.\"}, {\"seq\": 2, \"code\": \"P391\", \"type\": \"대응\", \"text\": \"누출물을 모으시오.\"}, {\"seq\": 3, \"code\": \"P501\", \"type\": \"폐기\", \"text\": \"폐기물 관련 법령에 따라 내용물/용기를 폐기하시오\"}], \"other_hazards\": [{\"seq\": 1, \"key\": null, \"value\": \"분진, 분말, 미세입자의 경우 점화원과 접촉 시 폭발의 가능성이 있음\", \"text\": \"분진, 분말, 미세입자의 경우 점화원과 접촉 시 폭발의 가능성이 있음\"}], \"nfpa\": {\"health\": null, \"fire\": null, \"reactivity\": null, \"special\": null}}, \"composition\": {\"type\": \"혼합물\", \"no_hazardous_component\": false}, \"components\": [{\"seq\": 1, \"name\": \"Copper\", \"name_en\": \"Copper\", \"synonyms\": [], \"cas_no\": \"7440-50-8\", \"ke_no\": null, \"ec_no\": null, \"parent_seq\": null, \"content\": {\"raw\": \"Balance\", \"status\": \"값있음\", \"note\": \"Balance\"}, \"content_note\": \"기타\", \"content_basis\": \"중량\", \"trade_secret\": false}, {\"seq\": 2, \"name\": \"Iron\", \"name_en\": \"Iron\", \"synonyms\": [], \"cas_no\": \"7439-89-6\", \"ke_no\": null, \"ec_no\": null, \"parent_seq\": null, \"content\": {\"raw\": \"2.1 ~ 2.6\", \"status\": \"값있음\", \"lower_op\": \">=\", \"lower\": 2.1, \"upper_op\": \"<=\", \"upper\": 2.6, \"unit\": \"%\", \"dp\": 1}, \"content_basis\": \"중량\", \"trade_secret\": false}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"meta.msds_no\", \"page\": 1, \"source_text\": \"MSDS 제출번호 | AA07087-0000000017\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"meta.doc_code\", \"page\": 1, \"source_text\": \"관리번호 | PS-MSDS-07\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"meta.revision_no\", \"page\": 1, \"source_text\": \"개정 횟수 | 3회\", \"rules\": [], \"note\": \"'3회'를 3으로 기록\"}, {\"msds_index\": 0, \"field\": \"meta.header_product_name\", \"page\": 1, \"source_text\": \"제품명 | C194\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"meta.first_issue_date\", \"page\": 1, \"source_text\": \"최초 작성일 | 2022. 03. 25\", \"rules\": [\"R01\"], \"note\": \"2022-03-25로 정규화\"}, {\"msds_index\": 0, \"field\": \"meta.last_revision_date\", \"page\": 1, \"source_text\": \"최종 개정일 | 2025. 05. 30\", \"rules\": [\"R01\"], \"note\": \"2025-05-30으로 정규화\"}, {\"msds_index\": 0, \"field\": \"meta.page_start\", \"page\": 1, \"source_text\": \"PS-MSDS-07 1 / 7\", \"rules\": [\"R16\"], \"note\": \"1~7쪽 단일 MSDS\"}, {\"msds_index\": 0, \"field\": \"meta.page_end\", \"page\": 7, \"source_text\": \"PS-MSDS-07 7 / 7\", \"rules\": [\"R16\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"product.name\", \"page\": 1, \"source_text\": \"가. 제품명 C194\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"product.code\", \"page\": 1, \"source_text\": \"* 제품규격 C1940 (주석도금 제품 포함)\", \"rules\": [], \"note\": \"제품규격 C1940을 코드로 기록, 괄호 설명은 제외\"}, {\"msds_index\": 0, \"field\": \"product.uses\", \"page\": 1, \"source_text\": \"* 제품의 권고 용도 Lead Frame용, 단자용, 전기전자용, 기타부품용\", \"rules\": [\"R11\"], \"note\": \"쉼표 기준 분리\"}, {\"msds_index\": 0, \"field\": \"product.restrictions\", \"page\": 1, \"source_text\": \"* 제품의 사용상의 제한 자료없음\", \"rules\": [\"R15\"], \"note\": \"자료없음으로 기재되어 목록은 비움\"}, {\"msds_index\": 0, \"field\": \"companies[0]\", \"page\": 1, \"source_text\": \"* 회사명 ㈜ 풍산 울산 사업장 | * 주소 울산광역시 울주군 온산읍 산암로 94 | * 긴급 전화번호 052) 231 – 9114 (대표전화), FAX : 231 – 9400 | * 담당부서 품질보증팀\", \"rules\": [\"R12\"], \"note\": \"사업장명 분리, 긴급 전화번호 줄의 번호를 긴급으로 기록(원문에 '대표전화' 표기), 팩스는 지역번호 없이 원문대로; 역할은 제조자/수입자/유통업자 정보 표제에서 제조자로 기록; 웹은 바닥글에서\"}, {\"msds_index\": 0, \"field\": \"hazard.classified\", \"page\": 1, \"source_text\": \"가. 유해성·위험성 분류 급성 수생환경 유해성 : 구분1\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.classes[0]\", \"page\": 1, \"source_text\": \"급성 수생환경 유해성 : 구분1\", \"rules\": [\"R07\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.classes[1]\", \"page\": 1, \"source_text\": \"만성 수생환경 유해성 : 구분1\", \"rules\": [\"R07\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.signal_word\", \"page\": 1, \"source_text\": \"* 신호어 위험\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.pictograms[0]\", \"page\": 1, \"source_text\": \"* 그림문자\", \"rules\": [], \"note\": \"이미지에서 환경(나무·물고기) 그림문자 확인\"}, {\"msds_index\": 0, \"field\": \"hazard.h_statements[0]\", \"page\": 1, \"source_text\": \"H400 수생생물에 매우 유독함\", \"rules\": [\"R05\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.h_statements[1]\", \"page\": 1, \"source_text\": \"H410 장기적인 영향에 의해 수생생물에게 매우 유독함\", \"rules\": [\"R05\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.p_statements[0]\", \"page\": 1, \"source_text\": \"- 예방 P273 환경으로 배출하지 마시오.\", \"rules\": [\"R05\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.p_statements[1]\", \"page\": 1, \"source_text\": \"- 대응 P391 누출물을 모으시오.\", \"rules\": [\"R05\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.p_statements[2]\", \"page\": 1, \"source_text\": \"- 폐기 P501 폐기물 관련 법령에 따라 내용물/용기를 폐기하시오\", \"rules\": [\"R05\"], \"note\": \"저장 '없음'은 행을 만들지 않음\"}, {\"msds_index\": 0, \"field\": \"hazard.other_hazards[0]\", \"page\": 1, \"source_text\": \"다. 유해성·위험성 분류기준에 포함되지 않는 분진, 분말, 미세입자의 경우 점화원과 접촉 시 폭발의 가능성이 있음\", \"rules\": [\"R14\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"composition.type\", \"page\": 1, \"source_text\": \"C1940 | Copper | - | 7440-50-8 | Balance / Iron | - | 7439-89-6 | 2.1 ~ 2.6\", \"rules\": [], \"note\": \"성분 2종으로 혼합물\"}, {\"msds_index\": 0, \"field\": \"components[0]\", \"page\": 1, \"source_text\": \"C1940 | Copper | - | 7440-50-8 | Balance\", \"rules\": [\"R02\"], \"note\": \"함유량 'Balance'는 수치가 없어 raw만 보존; 종류 열 C1940은 제품규격으로 성분 아님; 기준은 표제 함유량(%)\"}, {\"msds_index\": 0, \"field\": \"components[1]\", \"page\": 1, \"source_text\": \"Iron | - | 7439-89-6 | 2.1 ~ 2.6\", \"rules\": [\"R02\", \"R04\", \"R06\"], \"note\": \"'2.1 ~ 2.6'을 하한 2.1(>=), 상한 2.6(<=), 단위 %로 나눔\"}]}"
+}
