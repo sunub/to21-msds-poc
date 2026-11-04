@@ -9,12 +9,10 @@ set -a; . $APP/deploy/htodb/.env; set +a
 PORT=${HTODB_PG_PORT:-5433}
 export DEBIAN_FRONTEND=noninteractive
 
-echo "[0] 앱 가상환경 (볼륨에 있으면 건너뜀)"
-if [ ! -x $APP/backend/.venv/bin/python ]; then
-  command -v uv >/dev/null || { curl -LsSf https://astral.sh/uv/install.sh | sh >/dev/null 2>&1; }
-  export PATH=$HOME/.local/bin:$PATH
-  ( cd $APP/backend && UV_LINK_MODE=copy uv sync --frozen --no-dev --python 3.11 > $W/venv_app.log 2>&1 )
-fi
+echo "[0] 앱 가상환경 (uv.lock에 맞춘다. 바뀐 게 없으면 몇 초)"
+command -v uv >/dev/null || [ -x $HOME/.local/bin/uv ] || { curl -LsSf https://astral.sh/uv/install.sh | sh >/dev/null 2>&1; }
+export PATH=$HOME/.local/bin:$PATH
+( cd $APP/backend && UV_LINK_MODE=copy uv sync --frozen --no-dev --python 3.11 > $W/venv_app.log 2>&1 ) || { tail -5 $W/venv_app.log >&2; exit 1; }
 
 echo "[1] 패키지"
 if [ ! -x $PGBIN/postgres ] || ! command -v apache2 >/dev/null; then
