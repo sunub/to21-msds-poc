@@ -56,8 +56,8 @@ export function ComponentDetail({
 
       {component.notes.length > 0 && (
         <ul className="flex list-disc flex-col gap-1 pl-5 text-sm text-mut">
-          {component.notes.map((n) => (
-            <li key={n}>{n}</li>
+          {component.notes.map((n, i) => (
+            <li key={`${i}-${n}`}>{n}</li>
           ))}
         </ul>
       )}
@@ -86,8 +86,8 @@ function Chips({ chips }: { chips: string[] }) {
   if (chips.length === 0) return <p className="text-sm text-mut">분류 없음</p>;
   return (
     <ul className="flex flex-wrap gap-1.5">
-      {chips.map((c) => (
-        <li key={c} className="rounded-xs bg-tint px-2 py-0.5 text-sm">
+      {chips.map((c, i) => (
+        <li key={`${i}-${c}`}className="rounded-xs bg-tint px-2 py-0.5 text-sm">
           {c}
         </li>
       ))}
