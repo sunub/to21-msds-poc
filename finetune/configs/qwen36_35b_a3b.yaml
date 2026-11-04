@@ -1,0 +1,14 @@
+# Qwen3.6-35B-A3B (RunPod 추론 모델 Qwen/Qwen3.6-35B-A3B-FP8의 원본). 11/04 F
+# 학습 데이터: ft_build_data.py --student qwen36_35b_runpod (행 형식 항 [3, 8, 9, 11, 12, 14, 15], 2항 쪽 이미지는 학습에 안 넣음)
+# MoE(256 전문가, 40층)라 전문가 약 322억 개가 4bit로 줄지 않는다. 4bit 없이 bf16 LoRA로 돌린다.
+# bf16 가중치 약 69GB(글 모델만 올린다) + 학습 중 메모리라 A100 80GB 한 장은 빠듯하다. --check-memory로 먼저 보고,
+# 넘치면 H200 141GB 한 장, 또는 max_seq_len을 줄이거나 GPU 두 장에 device_map: auto로 나눈다.
+# 40층 중 30층이 Gated DeltaNet(in_proj_qkv·in_proj_z·out_proj), 10층이 주의(q/k/v/o)다. 둘 다 LoRA를 붙인다.
+base: qlora.yaml
+run_name: to21_lora_qwen36_35b_a3b_v1
+base_model: Qwen/Qwen3.6-35B-A3B
+chat_template_kwargs: {enable_thinking: false}   # models.yaml qwen36_35b_runpod와 같게 둔다
+quantization:
+  load_in_4bit: false
+lora:
+  target_modules: [q_proj, k_proj, v_proj, o_proj, in_proj_qkv, in_proj_z, out_proj]

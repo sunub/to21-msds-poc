@@ -1,0 +1,57 @@
+# 학습 전후 비교용 추출 태그 (11/04 F). backend/configs/models.yaml의 `models:` 아래에 맡은 모델의 두 태그를 붙여 넣는다.
+# 개인 PC에서 평가할 때만 쓴다. 팀 설정을 바꾸는 것이 아니므로 커밋하지 않아도 된다.
+#
+# - 요청 방식(행 형식 항·구조화 방식·이미지·출력 한도·생각 모드)은 학습 데이터를 만든 학생 태그와 같다. 주소·키·모델 이름만 다르다.
+# - 주소·키는 추출에 쓰는 PC .env(RUNPOD_VLLM_API_KEY가 있는 파일)에 더한다. 팀 RunPod 서버의 RUNPOD_VLLM_*와 따로 둔다:
+#     FT_VLLM_BASE_URL=http://127.0.0.1:18000/v1     # ssh -N -L 18000:127.0.0.1:8000 ... 터널
+#     FT_VLLM_API_KEY=<Pod의 /workspace/vllm_api_key 값>
+# - 학습 전(ft_base_*)은 serve_lora.sh에 준 원본 이름, 학습 후(ft_lora_*)는 LoRA 이름 to21-ft다. 한 서버가 둘 다 받는다.
+
+  # Qwen3.6-35B-A3B · 학생 qwen36_35b_runpod · 서버: bash finetune/serve_lora.sh Qwen/Qwen3.6-35B-A3B-FP8 <adapter>
+  ft_base_qwen36: &ft_qwen36
+    model: Qwen/Qwen3.6-35B-A3B-FP8
+    base_url_env: FT_VLLM_BASE_URL
+    api_key_env: FT_VLLM_API_KEY
+    structured: [json_schema, json_object, none]
+    max_tokens: 8192
+    concurrency: 16
+    rows_sections: [3, 8, 9, 11, 12, 14, 15]
+    rows_max_tokens: 16384
+    image_input: true
+    params:
+      temperature: 0
+      extra_body:
+        chat_template_kwargs: {enable_thinking: false}
+  ft_lora_qwen36: {<<: *ft_qwen36, model: to21-ft}
+
+  # Qwen3.5-122B-A10B · 학생 qwen36_35b_runpod(35B와 같은 데이터) · 서버(GPU 4장): bash finetune/serve_lora.sh Qwen/Qwen3.5-122B-A10B <adapter>
+  ft_base_qwen35_122b: {<<: *ft_qwen36, model: Qwen/Qwen3.5-122B-A10B}
+  ft_lora_qwen35_122b: {<<: *ft_qwen36, model: to21-ft}
+
+  # Qwen3.8-27B · 학생 qwen38 · 서버: MAX_MODEL_LEN=65536 bash finetune/serve_lora.sh Qwen/Qwen3.8-27B <adapter>
+  # 모든 항이 JSON이고 출력 한도가 32000이라 입력+출력이 49k를 넘을 수 있어 서버 길이를 늘린다
+  ft_base_qwen38: &ft_qwen38
+    model: Qwen/Qwen3.8-27B
+    base_url_env: FT_VLLM_BASE_URL
+    api_key_env: FT_VLLM_API_KEY
+    structured: [json_schema, none]
+    max_tokens: 32000
+    concurrency: 16
+    params:
+      temperature: 0
+      extra_body:
+        chat_template_kwargs: {enable_thinking: false}
+  ft_lora_qwen38: {<<: *ft_qwen38, model: to21-ft}
+
+  # Qwen3-30B-A3B · 학생 qwen3_30b_a3b_rngd · 서버(글 전용): MM_LIMIT= bash finetune/serve_lora.sh Qwen/Qwen3-30B-A3B-Instruct-2507-FP8 <adapter>
+  # 운영(RNGD furiosa FP8)과 서버가 달라 학습 전도 같은 RunPod 서버에서 다시 돌린다
+  ft_base_qwen3_30b: &ft_qwen3_30b
+    model: Qwen/Qwen3-30B-A3B-Instruct-2507-FP8
+    base_url_env: FT_VLLM_BASE_URL
+    api_key_env: FT_VLLM_API_KEY
+    structured: [json_schema_compact, none]
+    max_tokens: 8192
+    concurrency: 16
+    rows_sections: [3, 8, 9, 11, 12, 14, 15]
+    params: {temperature: 0}
+  ft_lora_qwen3_30b: {<<: *ft_qwen3_30b, model: to21-ft}
