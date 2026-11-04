@@ -6,6 +6,9 @@ import pytest
 from fastapi.testclient import TestClient
 
 from msds.api import extract_app
+from msds.api.routers.extract import jobs as jobs_router
+from msds.api.routers.extract import regenerated as regen_router
+from msds.api.routers.extract import storage as storage_router
 from msds.service import pipeline
 from msds.service.store import DocumentStore
 from msds.service.worker import Worker
@@ -74,7 +77,7 @@ def test_upload_rejects_bad_input(ctx, params, body, code):
 
 def test_upload_too_large(ctx, monkeypatch):
     client, *_ = ctx
-    monkeypatch.setattr(extract_app, "MAX_PDF_BYTES", 10)
+    monkeypatch.setattr(jobs_router, "MAX_PDF_BYTES", 10)
     assert upload(client).status_code == 413
 
 
@@ -243,8 +246,8 @@ def test_regenerated_conflict_until_done_then_joins_status_and_final_review(ctx,
     regen_ctx(store, doc)
     assert client.get(f"/api/documents/{doc}/regenerated").status_code == 409
     store.apply(doc, {"type": "done", "summary": {}})
-    monkeypatch.setattr(extract_app, "load_regen", lambda: None)
-    monkeypatch.setattr(extract_app.regenerated, "regenerate_sections", lambda d, mod: [
+    monkeypatch.setattr(regen_router, "load_regen", lambda: None)
+    monkeypatch.setattr(regen_router.regenerated, "regenerate_sections", lambda d, mod: [
         {"msds_index": 0, "header": ["머리"], "sections": [
             {"section": 1, "title": "회사", "lines": [{"kind": "item", "text": "젯소"}]},
             {"section": 2, "title": "유해성", "lines": []}]}])
@@ -264,10 +267,10 @@ def test_regenerated_can_use_original_or_reviewed_extraction(ctx, monkeypatch):
     source = {'doc': {'doc_id': doc_id}, 'msds': [{'product': {'name': '원본'}}]}
     out.write_text(json.dumps(source), encoding='utf-8')
     store.apply(doc_id, {'type': 'done', 'summary': {}})
-    store.update_review(doc_id, lambda record: extract_app.review.set_field(
+    store.update_review(doc_id, lambda record: regen_router.review.set_field(
         record, source, 0, 'product.name', 'edit', '수정', '검토자', '2026-11-03T12:00:00+09:00'))
-    monkeypatch.setattr(extract_app, 'load_regen', lambda: None)
-    monkeypatch.setattr(extract_app.regenerated, 'regenerate_sections', lambda doc, mod: [
+    monkeypatch.setattr(regen_router, 'load_regen', lambda: None)
+    monkeypatch.setattr(regen_router.regenerated, 'regenerate_sections', lambda doc, mod: [
         {'msds_index': 0, 'header': [], 'sections': [{'section': 1, 'title': '제품',
          'lines': [{'text': doc['msds'][0]['product']['name']}]}]},
     ])
@@ -293,7 +296,7 @@ def test_regenerated_reports_failure_of_provided_script(ctx, monkeypatch):
     def boom():
         raise KeyError("product_uses")
 
-    monkeypatch.setattr(extract_app, "load_regen", boom)
+    monkeypatch.setattr(regen_router, "load_regen", boom)
     r = client.get(f"/api/documents/{doc}/regenerated")
     detail = r.json()["detail"]
     assert r.status_code == 500 and "재생성하지 못했습니다" in detail and "KeyError" in detail
@@ -404,15 +407,15 @@ def test_to_judgment_publishes_values_reviewed_handoff(ctx, monkeypatch):
     doc_id = upload(client).json()["id"]
     store.dsn, store.schema = "postgresql://unused", "extract"
     saved = {"extraction": {"doc": {"extraction": {"extracted_at": "2026-11-03T09:00:00+09:00"}}}}
-    monkeypatch.setattr(extract_app.ResultStore, "__init__", lambda self, *a, **k: None)
-    monkeypatch.setattr(extract_app.ResultStore, "get_active", lambda self, job_id: saved)
+    monkeypatch.setattr(storage_router.ResultStore, "__init__", lambda self, *a, **k: None)
+    monkeypatch.setattr(storage_router.ResultStore, "get_active", lambda self, job_id: saved)
     calls = []
 
     def publish(store_, job_id, **kwargs):
         calls.append((job_id, kwargs["reason"]))
         return {"handoff_seq": 2, "as_of": kwargs["as_of"]}
 
-    monkeypatch.setattr(extract_app, "publish_handoff", publish)
+    monkeypatch.setattr(storage_router, "publish_handoff", publish)
     r = client.post(f"/api/documents/{doc_id}/to-judgment", json={"reviewer": "홍길동"})
     assert r.status_code == 201 and r.json() == {"job_id": doc_id, "handoff_seq": 2}
     assert calls == [(doc_id, "values_reviewed")]

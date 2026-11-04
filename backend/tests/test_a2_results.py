@@ -391,6 +391,7 @@ def test_lease_expiring_during_database_write_rolls_back_pair(stores):
 
 def test_completed_result_api_persists_existing_output_and_reports_errors(stores, monkeypatch):
     from msds.api import extract_app
+    from msds.api.routers.extract import storage as storage_router
 
     jobs, results, _ = stores
     job, claim = start_extraction(jobs)
@@ -406,7 +407,7 @@ def test_completed_result_api_persists_existing_output_and_reports_errors(stores
                      'sections': [], 'needs_review': []}
     out.write_text(json.dumps(doc), encoding='utf-8')
     checks.write_text(json.dumps(review_checks, ensure_ascii=False), encoding='utf-8')
-    monkeypatch.setattr(extract_app, 'validate_document', lambda doc, checks: (dict(checks), {}))
+    monkeypatch.setattr(storage_router, 'validate_document', lambda doc, checks: (dict(checks), {}))
     app = extract_app.create_app(store=jobs, static_dir=None)
     app.state.store = jobs
     client = TestClient(app)
@@ -421,7 +422,7 @@ def test_completed_result_api_persists_existing_output_and_reports_errors(stores
         assert stored.status_code == 200
         assert stored.json()['validation']['validator_errors'] == 1
         assert stored.json()['to21'] == doc
-        monkeypatch.setattr(extract_app, 'validate_document',
+        monkeypatch.setattr(storage_router, 'validate_document',
                             lambda doc, checks: ({**checks, 'schema_errors': ['changed']}, {}))
         assert client.post(f"/api/documents/{job['id']}/results/persist").status_code == 409
     finally:

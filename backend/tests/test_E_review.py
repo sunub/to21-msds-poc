@@ -5,6 +5,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 from msds.api import extract_app
+from msds.api.routers.extract import regenerated as regen_router
 from msds.extract.inputs import EXTRACT_SECTIONS
 from msds.service import pipeline, review
 from msds.service.store import DocumentStore
@@ -179,8 +180,8 @@ def test_api_edit_persists_and_changes_regenerated_input(api, monkeypatch):
     assert f["value"] == "새 이름" and f["original"] == "젯소"
     assert fields(by_no(client.get(f"/api/documents/{doc}/review").json())[1])["product.name"]["reviewer"] == "김검수"
     seen = {}
-    monkeypatch.setattr(extract_app, "load_regen", lambda: None)
-    monkeypatch.setattr(extract_app.regenerated, "regenerate_sections",
+    monkeypatch.setattr(regen_router, "load_regen", lambda: None)
+    monkeypatch.setattr(regen_router.regenerated, "regenerate_sections",
                         lambda d, mod: seen.update(name=d["msds"][0]["product"]["name"]) or [])
     assert client.get(f"/api/documents/{doc}/regenerated").status_code == 200
     assert seen["name"] == "새 이름"
