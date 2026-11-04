@@ -113,6 +113,18 @@ def test_detail_has_sections_and_404(ctx):
     assert client.get("/api/documents/U-20990101-001").status_code == 404
 
 
+def test_source_pdf_is_served_inline(ctx):
+    client, store, *_ = ctx
+    doc = upload(client).json()["id"]
+    r = client.get(f"/api/documents/{doc}/pdf")
+    assert r.status_code == 200 and r.content == PDF
+    assert r.headers["content-type"] == "application/pdf"
+    assert r.headers["content-disposition"].startswith("inline")
+    store.pdf_path(doc).unlink()
+    assert client.get(f"/api/documents/{doc}/pdf").status_code == 404
+    assert client.get("/api/documents/U-20990101-001/pdf").status_code == 404
+
+
 def test_page_image_and_lines(ctx):
     client, _, _, tmp = ctx
     doc = upload(client).json()["id"]
