@@ -72,18 +72,16 @@ B1·B2는 main에 들어갔다(#143, #145). 아래 코드 위치는 main 기준�
 
 > **sunub 님:** 판정 탭 연결 확인했어요. 실제 응답으로 `judgment.ts`·`history.ts` 스키마 검사가 모두 통과했고, "판정으로 넘기기"는 nnieun 님이 서버에 `to-judgment`를 추가해서(#158) 이제 맞습니다. 남은 게 두 가지예요. ① 저장 화면이 `GET /api/judgments/{job_id}/save-overview`를, 목록 요약이 `GET /api/judgments/summary`를 아직 부르지 않아요(서버에는 둘 다 있습니다). ② `tests/test_B_client_gate.py::test_recovers_after_one_failure`가 컴퓨터가 바쁠 때 실패해요. `make([...], first_delay=0.3)`으로 대기를 늘리고 기준을 0.2초로 두면 버그는 잡고 부하에는 안 흔들릴 것 같아요.
 
-**판정 API를 따로 띄워 보는 법:**
+**판정 API를 띄우는 법 (2026-11-04, A1 문서 `docs/A1_작업_흐름_실행.md` 기준):**
 
 ```bash
-# DB: 팀 PostgreSQL에 judge 스키마와 개발용 넘김 표
-cd backend && python scripts/b2_migrate.py --dev
-# 판정 서버 (CORS: localhost·127.0.0.1의 3000·3101 허용, 바꾸려면 MSDS_CORS_ORIGINS)
-MSDS_JUDGE_TEST_API=1 uvicorn --app-dir src msds.api.judge_app:app --port 8011
+backend/scripts/serve_api.sh   # 추출·판정을 8020 한 앱으로 (MSDS_JUDGE_IN_EXTRACT_APP=1, DB msds_service). make dev도 이것을 쓴다
 ```
 
-- 추출 앱에 붙여 띄우려면 `MSDS_JUDGE_IN_EXTRACT_APP=1`(#144). main 화면은 주소를 `NEXT_PUBLIC_API_BASE` 하나만 쓰므로 이 방식이 맞다.
-- 견본 넘김은 `POST /api/judgments/_test/handoffs`로 넣는다(`MSDS_JUDGE_TEST_API=1`일 때만). 25번이 약 3초 뒤 판정·설명까지 나온다.
-- 모델 주소가 없으면 설명은 문장틀로 나온다. 비용 없음.
+- 화면은 8020만 부른다(`NEXT_PUBLIC_API_BASE`). 판정 API를 8011에 따로 띄우던 방식은 라우터가 붙기 전의 임시 방법이다.
+- DB는 처음 한 번 `apply_erd_migrations.py`와 `b2_migrate.py --database msds_service`로 준비한다. 서비스 DB에는 `--dev`를 쓰지 않는다(대역 표 때문에 `a2_0003`이 실패한다). `--dev`는 시험용 DB(`judge_test`)에만 쓴다.
+- 설명 모델은 `MSDS_EXPLAIN_MODEL`이 없으면 `MSDS_SERVICE_MODEL`(추출 모델)을 따른다.
+- 견본 넘김은 `MSDS_JUDGE_TEST_API=1`일 때 `POST /api/judgments/_test/handoffs`로 넣는다. 서비스 DB에서는 같은 `job_id`의 `extract.jobs` 행이 있어야 한다(없으면 422). 모델 주소가 없으면 설명은 문장틀로 나온다(비용 없음).
 
 ## `b_app` 시험 담당 — 보낼 필요 없음 (2026-11-04)
 
