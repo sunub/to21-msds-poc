@@ -12,7 +12,8 @@ export DEBIAN_FRONTEND=noninteractive
 echo "[0] 앱 가상환경 (uv.lock에 맞춘다. 바뀐 게 없으면 몇 초)"
 command -v uv >/dev/null || [ -x $HOME/.local/bin/uv ] || { curl -LsSf https://astral.sh/uv/install.sh | sh >/dev/null 2>&1; }
 export PATH=$HOME/.local/bin:$PATH
-( cd $APP/backend && UV_LINK_MODE=copy uv sync --frozen --no-dev --python 3.11 > $W/venv_app.log 2>&1 ) || { tail -5 $W/venv_app.log >&2; exit 1; }
+# OCR을 쓰면 UV_SYNC_EXTRA="--group ocr" 로 부른다(uv sync는 lock에 없는 그룹 패키지를 지운다)
+( cd $APP/backend && UV_LINK_MODE=copy uv sync --frozen --no-dev --python 3.11 ${UV_SYNC_EXTRA:-} > $W/venv_app.log 2>&1 ) || { tail -5 $W/venv_app.log >&2; exit 1; }
 
 echo "[1] 패키지"
 if [ ! -x $PGBIN/postgres ] || ! command -v apache2 >/dev/null; then

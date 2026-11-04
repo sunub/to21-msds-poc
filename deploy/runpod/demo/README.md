@@ -29,7 +29,7 @@
 
 코드만 바뀌었으면 `push_to_pod.sh`(Pod의 앱 가상환경·업로드 자료·설정은 지우지 않는다) → Pod에서 `pod_app_setup.sh`(의존성이 바뀌었으면 가상환경을 맞춘다) → `RESTART_APP=1 bash pod_start.sh`.
 
-전처리는 예전 방식(`MSDS_PREPROCESS=legacy`)으로 띄운다. version17(#172)은 OCR 패키지가 있어야 글꼴 깨짐·스캔 PDF를 처리하는데 체험 서버는 OCR 그룹을 깔지 않는다. OCR을 쓰려면 `uv sync --group ocr`, OCR 가중치, GPU 메모리(vLLM 0.92면 약 4GB만 남음)를 먼저 확인하고 `PREPROCESS= bash pod_start.sh`.
+전처리는 예전 방식(`MSDS_PREPROCESS=legacy`)으로 띄운다. version17(#172)은 OCR 패키지가 있어야 글꼴 깨짐·스캔 PDF를 처리하는데 체험 서버는 OCR 그룹을 깔지 않는다. OCR을 쓰려면 OCR 가중치와 GPU 메모리(vLLM 0.92면 약 4GB만 남음)를 먼저 확인하고 `UV_SYNC_EXTRA="--group ocr" bash pod_app_setup.sh` → `PREPROCESS= RESTART_APP=1 bash pod_start.sh`(앱이 떠 있으면 다시 켜야 반영된다).
 
 ## 오늘 확인한 사실 (2026-11-04, L40S 48GB, Qwen3.6-35B-A3B-FP8 원본)
 
