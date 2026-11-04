@@ -96,7 +96,7 @@ export function stageMessage(doc: Pick<DocumentSummary, "status" | "stage">) {
   if (doc.status === "queued") return "앞 문서가 끝나기를 기다리고 있습니다";
   switch (doc.stage) {
     case "preprocess":
-      return "쪽 이미지와 글자를 만드는 중입니다";
+      return "쪽 이미지와 텍스트를 만드는 중입니다";
     case "sections":
       return "항목을 나누는 중입니다";
     case "extract":
