@@ -7,7 +7,6 @@
 from __future__ import annotations
 
 import asyncio
-import fcntl
 import os
 import sqlite3
 import threading
@@ -17,6 +16,11 @@ from contextlib import asynccontextmanager, closing, contextmanager
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import AsyncIterator, Iterator, Literal
+
+try:
+    import fcntl
+except ImportError:   # Windows: fcntl·fork가 없다. 프로세스 사이 게이트 대신 프로세스 안 게이트(ModelGate)를 쓴다
+    fcntl = None
 
 Kind = Literal["extract", "reextract", "explain"]
 _KINDS = frozenset(("extract", "reextract", "explain"))
@@ -38,8 +42,9 @@ def _after_fork_child() -> None:
     _default_lock = threading.Lock()
 
 
-os.register_at_fork(before=_lease_fds_lock.acquire, after_in_parent=_lease_fds_lock.release,
-                    after_in_child=_after_fork_child)
+if hasattr(os, "register_at_fork"):   # Windows에는 없다
+    os.register_at_fork(before=_lease_fds_lock.acquire, after_in_parent=_lease_fds_lock.release,
+                        after_in_child=_after_fork_child)
 
 
 @dataclass(eq=False)
@@ -306,12 +311,13 @@ class ProcessModelGate:
                     raise
 
 
-_default_gate: ProcessModelGate | None = None
+_default_gate: ProcessModelGate | ModelGate | None = None
 _default_lock = threading.Lock()
 
 
-def get_model_gate() -> ProcessModelGate:
-    """환경 설정을 처음 사용할 때 읽고 호출자들이 하나의 게이트를 공유한다."""
+def get_model_gate() -> ProcessModelGate | ModelGate:
+    """환경 설정을 처음 사용할 때 읽고 호출자들이 하나의 게이트를 공유한다.
+    Windows(fcntl 없음)에서는 같은 상한·우선순위를 프로세스 안에서만 지킨다(여러 프로세스가 함께 쓰는 상한은 없다)."""
     global _default_gate
     with _default_lock:
         if _default_gate is None:
@@ -320,6 +326,9 @@ def get_model_gate() -> ProcessModelGate:
                 limit = int(raw)
             except ValueError as exc:
                 raise ValueError("MSDS_MODEL_MAX_INFLIGHT는 1 이상의 정수여야 합니다") from exc
-            state_dir = os.environ.get("MSDS_MODEL_GATE_DIR", f"/tmp/to21-msds-model-gate-{os.getuid()}")
-            _default_gate = ProcessModelGate(limit, state_dir)
+            if fcntl is None:
+                _default_gate = ModelGate(limit)
+            else:
+                state_dir = os.environ.get("MSDS_MODEL_GATE_DIR", f"/tmp/to21-msds-model-gate-{os.getuid()}")
+                _default_gate = ProcessModelGate(limit, state_dir)
         return _default_gate
