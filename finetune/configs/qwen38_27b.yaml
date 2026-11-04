@@ -1,0 +1,12 @@
+# Qwen3.8-27B (기준선 모델, 밀집, Apache-2.0). 11/04 F
+# 학습 데이터: ft_build_data.py --student qwen38 (지금 설정은 모든 항 JSON, json_schema)
+# 밀집 모델이라 4bit QLoRA가 잘 듣는다: 4bit 본체 약 13GB + 임베딩·출력층. A100 80GB 한 장이면 넉넉하다.
+# 64층 중 48층이 Gated DeltaNet(in_proj_qkv·in_proj_z·out_proj), 16층이 주의(q/k/v/o)다. 둘 다 LoRA를 붙인다.
+base: qlora.yaml
+run_name: to21_qlora_qwen38_27b_v1
+base_model: Qwen/Qwen3.8-27B
+chat_template_kwargs: {enable_thinking: false}   # models.yaml qwen38과 같게 둔다(생각 모드 끔, D-37)
+quantization:
+  load_in_4bit: true
+lora:
+  target_modules: [q_proj, k_proj, v_proj, o_proj, in_proj_qkv, in_proj_z, out_proj]

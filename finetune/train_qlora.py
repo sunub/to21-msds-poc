@@ -1,14 +1,25 @@
-"""추출 모델 QLoRA 학습 (11/03 F). GPU 서버(RunPod A100 80GB 한 장)에서 저장소 최상위 폴더 기준으로 돌린다.
+"""추출 모델 LoRA·QLoRA 학습 (11/03 F, 11/04 메모리 점검). GPU 서버(RunPod)에서 저장소 최상위 폴더 기준으로 돌린다.
 
     pip install -r finetune/requirements.txt
-    python finetune/train_qlora.py --config finetune/configs/qlora.yaml --data data/finetune/<이름> --check-data   길이만 본다
-    python finetune/train_qlora.py --config finetune/configs/qlora.yaml --data data/finetune/<이름>                학습
+    python finetune/train_qlora.py --config finetune/configs/<모델>.yaml --data data/finetune/<이름> --check-data    길이만 본다
+    python finetune/train_qlora.py --config finetune/configs/<모델>.yaml --data data/finetune/<이름> --check-memory  한 걸음만 재 본다
+    python finetune/train_qlora.py --config finetune/configs/<모델>.yaml --data data/finetune/<이름>                 학습
 
 입력  <data>/train.jsonl·val.jsonl (backend/scripts/ft_build_data.py). 예시마다 messages = system·user·assistant
 출력  <output_dir>/<run_name>/
         adapter/            LoRA 가중치와 토크나이저 (vLLM --lora-modules, merge_adapter.py가 읽는다)
-        train_info.yaml     설정, 데이터 기록(data_info.yaml), 길이 통계, 뺀 예시, 손실, 라이브러리 버전, GPU, 걸린 시간
+        train_info.yaml     설정, 데이터 기록(data_info.yaml), 길이 통계, 뺀 예시, 손실, 매개변수 크기, LoRA가 붙은 층,
+                            최대 GPU 메모리, 라이브러리 버전, GPU, 걸린 시간
         log_history.json    단계별 손실·학습률
+        check_memory.yaml   --check-memory 결과(가장 긴 예시 한 걸음의 최대 메모리·걸린 시간)
+
+메모리 (11/04)
+- transformers 5는 MoE 전문가를 층마다 큰 3차원 묶음 하나로 둔다. bitsandbytes 4bit는 nn.Linear만 바꾸므로 전문가는 bf16 그대로다.
+  그래서 MoE 모델은 4bit로 올려도 거의 줄지 않는다(Qwen3-30B-A3B 전문가 약 58GB). MoE는 4bit 없이 bf16 LoRA로 돌린다(모델별 설정).
+- peft의 4bit 준비 함수는 4bit가 아닌 bf16 매개변수를 모두 fp32로 바꾼다. 큰 bf16 묶음이 있으면 두 배가 되어 넘치므로
+  늘어나는 크기가 quantization.upcast_max_gb보다 크면 바꾸지 않는다(quantization.upcast_rest: auto).
+- 손실은 정답 토큰에만 걸리므로 출력 확률(logits)도 정답 자리만 만든다(train.completion_logits_only). 어휘가 15만~25만이라
+  16k 토큰 전체의 logits는 fp32로 10~16GB다. 손실 값은 전체로 만들 때와 같다.
 W&B(선택, 설정 wandb.enabled): 손실·학습률·기울기 크기·GPU 사용량과 설정·데이터 통계를 실시간으로 본다.
   학습 글(안내문·MSDS 원문)과 모델·체크포인트는 보내지 않는다(D-47). 키는 RunPod 환경변수 WANDB_API_KEY로만 둔다.
 
@@ -41,8 +52,19 @@ IGNORE = -100
 
 # ── 설정·데이터 ────────────────────────────────────────
 
+def deep_merge(base: dict, over: dict) -> dict:
+    out = dict(base)
+    for k, v in over.items():
+        out[k] = deep_merge(out[k], v) if isinstance(v, dict) and isinstance(out.get(k), dict) else v
+    return out
+
+
 def load_config(path: Path, overrides: dict) -> dict:
-    cfg = yaml.safe_load(Path(path).read_text(encoding="utf-8"))
+    """설정을 읽는다. 'base: <같은 폴더의 설정 파일>'이 있으면 그 파일을 먼저 읽고 이 파일의 값으로 덮는다(모델별 설정)."""
+    path = Path(path)
+    cfg = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+    if cfg.get("base"):
+        cfg = deep_merge(load_config(path.parent / cfg.pop("base"), {}), cfg)
     for key, value in overrides.items():          # "train.lr" 같은 점 경로
         node = cfg
         *parents, last = key.split(".")
@@ -123,8 +145,11 @@ def length_stats(xs: list[dict]) -> dict:
 
 
 class Collator:
-    def __init__(self, pad_id: int):
-        self.pad_id = pad_id
+    """오른쪽을 채운다. completion_logits_only면 logits_to_keep(끝에서 몇 자리의 logits를 만들지)도 넣는다:
+    묶음에서 가장 앞선 정답 토큰 바로 앞 자리부터 끝까지. 그 앞 자리의 logits는 손실에 쓰이지 않는다."""
+
+    def __init__(self, pad_id: int, completion_logits_only: bool = False):
+        self.pad_id, self.completion_logits_only = pad_id, completion_logits_only
 
     def __call__(self, batch: list[dict]) -> dict:
         import torch
@@ -132,7 +157,26 @@ class Collator:
         ids = [b["input_ids"] + [self.pad_id] * (n - len(b["input_ids"])) for b in batch]
         labels = [b["labels"] + [IGNORE] * (n - len(b["labels"])) for b in batch]
         mask = [[1] * len(b["input_ids"]) + [0] * (n - len(b["input_ids"])) for b in batch]
-        return {"input_ids": torch.tensor(ids), "labels": torch.tensor(labels), "attention_mask": torch.tensor(mask)}
+        out = {"input_ids": torch.tensor(ids), "labels": torch.tensor(labels), "attention_mask": torch.tensor(mask)}
+        if self.completion_logits_only:
+            first = min(next((i for i, v in enumerate(lab) if v != IGNORE), n) for lab in labels)
+            out["logits_to_keep"] = max(n - first + 1, 1)
+        return out
+
+
+def completion_loss(outputs, labels, num_items_in_batch=None):
+    """정답 토큰의 교차 엔트로피. 모델이 끝 k자리 logits만 냈으면(logits_to_keep) labels 끝 k-1자리와 맞춘다.
+    k가 전체 길이면 보통의 다음 토큰 손실과 같다. 학습 때는 합을 num_items_in_batch(쌓는 단계 전체의 정답 토큰 수)로 나누고,
+    검증 때(None)는 이 묶음의 평균이다. 모델이 labels로 내는 손실과 같은 값이다."""
+    import torch
+    logits = outputs["logits"] if isinstance(outputs, dict) else outputs[0]
+    k = logits.shape[1]
+    labels = labels.to(logits.device)
+    pred, tgt = logits[:, :-1, :], labels[:, labels.shape[1] - k + 1:]
+    loss = torch.nn.functional.cross_entropy(pred.float().reshape(-1, pred.shape[-1]), tgt.reshape(-1),
+                                             ignore_index=IGNORE, reduction="sum")
+    n = num_items_in_batch if num_items_in_batch is not None else (tgt != IGNORE).sum().clamp(min=1)
+    return loss / (n.to(loss.device) if torch.is_tensor(n) else n)
 
 
 class ListDataset:
@@ -161,7 +205,8 @@ def load_model(cfg: dict, use_4bit: bool):
         kw["quantization_config"] = BitsAndBytesConfig(
             load_in_4bit=True, bnb_4bit_quant_type=q.get("quant_type", "nf4"),
             bnb_4bit_use_double_quant=q.get("double_quant", True), bnb_4bit_compute_dtype=torch.bfloat16)
-        kw["device_map"] = {"": 0}
+    if torch.cuda.is_available():                        # 한 장이면 GPU 0에 바로 올린다. 여러 장에 나누려면 device_map: auto
+        kw["device_map"] = cfg.get("device_map") or {"": 0}
     try:
         return AutoModelForCausalLM.from_pretrained(cfg["base_model"], **kw)
     except ValueError:                                   # 글 전용 클래스가 없는 멀티모달 체크포인트
@@ -169,22 +214,151 @@ def load_model(cfg: dict, use_4bit: bool):
         return AutoModelForImageTextToText.from_pretrained(cfg["base_model"], **kw)
 
 
-def add_lora(model, cfg: dict, use_4bit: bool):
-    from peft import LoraConfig, get_peft_model, prepare_model_for_kbit_training
+def _is_4bit(p) -> bool:
+    return p.__class__.__name__ == "Params4bit"
+
+
+def upcast_plan(model, cfg: dict) -> tuple[bool, float]:
+    """4bit로 줄지 않은 bf16·fp16 매개변수를 fp32로 바꿀지와, 바꾸면 늘어나는 크기(GB).
+    quantization.upcast_rest: true·false면 그대로, auto(기본)면 늘어나는 크기가 upcast_max_gb(기본 16) 이하일 때만 바꾼다.
+    밀집 모델은 임베딩·정규화 층 정도라 바꾸고(peft 기본), MoE 전문가처럼 큰 묶음이 남은 모델은 bf16 그대로 둔다."""
+    import torch
+    extra = sum(p.numel() * 2 for p in model.parameters()
+                if p.dtype in (torch.float16, torch.bfloat16) and not _is_4bit(p)) / 1e9
+    q = cfg.get("quantization") or {}
+    mode = q.get("upcast_rest", "auto")
+    if isinstance(mode, bool):
+        return mode, extra
+    return extra <= float(q.get("upcast_max_gb", 16)), extra
+
+
+def prepare_for_training(model, cfg: dict, use_4bit: bool):
+    """기울기 체크포인트를 켜고 원래 가중치를 얼린다. 4bit면 upcast_plan에 따라 peft 준비 함수를 쓰거나(fp32로 바꿈) 건너뛴다."""
+    from peft import prepare_model_for_kbit_training
 
     gc = cfg["train"].get("gradient_checkpointing", True)
     model.config.use_cache = False
+    info = {"load_in_4bit": use_4bit, "upcast_rest": False, "upcast_extra_gb": None}
     if use_4bit:
-        model = prepare_model_for_kbit_training(model, use_gradient_checkpointing=gc,
-                                                gradient_checkpointing_kwargs={"use_reentrant": False})
-    elif gc:
+        upcast, extra = upcast_plan(model, cfg)
+        info.update(upcast_rest=upcast, upcast_extra_gb=round(extra, 2))
+        if upcast:
+            model = prepare_model_for_kbit_training(model, use_gradient_checkpointing=gc,
+                                                    gradient_checkpointing_kwargs={"use_reentrant": False})
+            return model, info
+        print(f"참고: 4bit로 줄지 않은 bf16 매개변수가 커서(fp32로 바꾸면 +{extra:.1f}GB) 바꾸지 않고 bf16 그대로 학습합니다."
+              " MoE 전문가 묶음이 보통 그렇습니다. 이 경우 4bit로 아끼는 메모리가 적으니 bf16 LoRA(load_in_4bit: false)도 고려합니다.")
+    for p in model.parameters():
+        p.requires_grad = False
+    if gc:
         model.gradient_checkpointing_enable(gradient_checkpointing_kwargs={"use_reentrant": False})
         model.enable_input_require_grads()
+    return model, info
+
+
+def add_lora(model, cfg: dict):
+    from peft import LoraConfig, get_peft_model
+
     lo = cfg["lora"]
     config = LoraConfig(r=lo["r"], lora_alpha=lo["alpha"], lora_dropout=lo.get("dropout", 0.0), bias="none",
                         task_type="CAUSAL_LM", target_modules=lo["target_modules"],
                         exclude_modules=lo.get("exclude_modules"))
     return get_peft_model(model, config)
+
+
+def param_breakdown(model) -> dict:
+    """저장 방식별 매개변수 크기(GB)와 4bit가 아닌 가장 큰 묶음(층 번호는 N으로 모은다)."""
+    import re
+    by, rest = Counter(), Counter()
+    for name, p in model.named_parameters():
+        size = p.numel() * p.element_size()
+        kind = "4bit" if _is_4bit(p) else str(p.dtype).replace("torch.", "")
+        by[kind] += size
+        if kind != "4bit":
+            rest[re.sub(r"\.\d+\.", ".N.", name.removeprefix("base_model.model."))] += size
+    gb = lambda v: round(v / 1e9, 2)                     # noqa: E731
+    return {"by_dtype_gb": {k: gb(v) for k, v in by.most_common()}, "total_gb": gb(sum(by.values())),
+            "largest_not_4bit_gb": {k: gb(v) for k, v in rest.most_common(4)}}
+
+
+def lora_coverage(model) -> dict:
+    """LoRA가 붙은 곳: 모듈 이름별 수와 글 모델 층 중 붙은 층 수. 층마다 구조가 다른 모델(Qwen3.5·3.6·3.8 계열은
+    4층 중 3층이 Gated DeltaNet)은 q/k/v/o만 적으면 일부 층에만 붙는다. 이미지 쪽 층은 세지 않는다."""
+    import re
+    layers, hit, by = set(), set(), Counter()
+    for name, m in model.named_modules():
+        if re.search(r"visual|vision", name):
+            continue
+        mm = re.search(r"\.layers\.(\d+)(?:\.|$)", name)
+        if mm:
+            layers.add(int(mm.group(1)))
+        if len(getattr(m, "lora_A", None) or {}):     # peft LoraLayer
+            by[name.rsplit(".", 1)[-1]] += 1
+            if mm:
+                hit.add(int(mm.group(1)))
+    return {"modules": sum(by.values()), "by_name": dict(sorted(by.items())), "layers": len(layers),
+            "layers_with_lora": len(hit), "layers_without_lora": sorted(layers - hit)[:12]}
+
+
+def gpu_gb(peak: bool = False) -> list | None:
+    """GPU마다 쓰는(peak면 최대) 메모리 GB. GPU가 없으면 None."""
+    import torch
+    if not torch.cuda.is_available():
+        return None
+    f = torch.cuda.max_memory_allocated if peak else torch.cuda.memory_allocated
+    return [round(f(i) / 1e9, 1) for i in range(torch.cuda.device_count())]
+
+
+def print_model_report(params: dict, prep: dict, cov: dict, after_load: list | None) -> None:
+    dt = ", ".join(f"{k} {v}GB" for k, v in params["by_dtype_gb"].items())
+    print(f"\n매개변수: {dt} (합 {params['total_gb']}GB). 올린 뒤 GPU 메모리: {after_load or '-'}GB")
+    print("4bit가 아닌 큰 묶음: " + ", ".join(f"{k} {v}GB" for k, v in params["largest_not_4bit_gb"].items()))
+    if prep["load_in_4bit"]:
+        print(f"4bit 아닌 부분 fp32 변환: {'함' if prep['upcast_rest'] else '안 함'} (바꾸면 +{prep['upcast_extra_gb']}GB)")
+    print(f"LoRA: {cov['modules']}곳 {cov['by_name']}, 글 모델 {cov['layers']}층 중 {cov['layers_with_lora']}층")
+    if cov["layers"] and cov["layers_with_lora"] < cov["layers"]:
+        print(f"주의: LoRA가 {cov['layers']}층 중 {cov['layers_with_lora']}층에만 붙었습니다(빠진 층 예: {cov['layers_without_lora']})."
+              " 층마다 구조가 다른 모델이면 lora.target_modules에 그 층의 투영 이름을 더합니다"
+              "(Qwen3.5·3.6·3.8 계열 Gated DeltaNet: in_proj_qkv, in_proj_z, out_proj).")
+
+
+def check_memory(model, examples: list[dict], collator, cfg: dict) -> dict:
+    """가장 긴 예시 하나로 순전파·역전파를 두 번 해(첫 번은 준비 운동) 최대 GPU 메모리와 한 걸음 시간을 잰다. 학습은 하지 않는다.
+    최적화기 상태(LoRA 가중치만)는 작아 학습 때 최대 메모리는 이 값보다 1~3GB 더 나올 수 있다."""
+    import contextlib
+    import torch
+    x = max(examples, key=lambda e: len(e["input_ids"]))
+    batch = collator([x])
+    labels = batch.pop("labels")
+    dev = model.get_input_embeddings().weight.device
+    batch = {k: v.to(dev) if torch.is_tensor(v) else v for k, v in batch.items()}
+    cuda = torch.cuda.is_available()
+    bf16 = cuda and cfg["train"].get("bf16", True)
+    model.train()
+    secs, loss = [], None
+    for i in range(2):
+        if cuda:
+            torch.cuda.synchronize()
+            if i == 1:
+                for d in range(torch.cuda.device_count()):
+                    torch.cuda.reset_peak_memory_stats(d)
+        t = time.time()
+        with torch.autocast("cuda", dtype=torch.bfloat16) if bf16 else contextlib.nullcontext():
+            out = model(**batch) if "logits_to_keep" in batch else model(**batch, labels=labels)
+            loss = completion_loss(out, labels) if "logits_to_keep" in batch else out.loss
+        loss.backward()
+        model.zero_grad(set_to_none=True)
+        if cuda:
+            torch.cuda.synchronize()
+        secs.append(round(time.time() - t, 2))
+    total_tokens = sum(len(e["input_ids"]) for e in examples)
+    epochs = float(cfg["train"].get("epochs", 1))
+    props = [torch.cuda.get_device_properties(d).total_memory / 1e9 for d in range(torch.cuda.device_count())] if cuda else None
+    return {"example_id": x["id"], "tokens": len(x["input_ids"]), "completion_tokens": x["completion_tokens"],
+            "logits_to_keep": batch.get("logits_to_keep"), "loss": round(float(loss.detach()), 4), "seconds_per_step": secs,
+            "peak_gb": gpu_gb(peak=True), "gpu_total_gb": [round(v, 1) for v in props] if props else None,
+            # 한 걸음 시간이 길이에 비례한다고 본 대략값(주의 계산은 길이 제곱이라 긴 예시가 많으면 더 걸린다)
+            "rough_train_hours": round(secs[-1] * total_tokens / len(x["input_ids"]) * epochs / 3600, 2)}
 
 
 # ── 기록 ───────────────────────────────────────────────
@@ -262,8 +436,10 @@ def main():
     ap.add_argument("--data", required=True, help="train.jsonl·val.jsonl이 있는 폴더")
     ap.add_argument("--check-data", action="store_true", help="토크나이저만 받아 길이와 뺄 예시를 보고 끝낸다(GPU 불필요)")
     ap.add_argument("--set", nargs="*", default=[], metavar="KEY=VALUE", help="설정 덮어쓰기. 예: train.lr=5e-5 base_model=...")
+    ap.add_argument("--check-memory", action="store_true",
+                    help="모델을 올리고 가장 긴 예시로 한 걸음만 돌려 최대 GPU 메모리와 시간을 잰다(학습·저장 안 함)")
     ap.add_argument("--max-steps", type=int, default=-1, help="시험용: 이 단계에서 멈춘다")
-    ap.add_argument("--no-4bit", action="store_true", help="시험용(CPU): 4bit 양자화 없이 올린다")
+    ap.add_argument("--no-4bit", action="store_true", help="4bit 양자화 없이 올린다(CPU 시험용. GPU에서는 quantization.load_in_4bit=false와 같다)")
     a = ap.parse_args()
 
     overrides = {k: yaml.safe_load(v) for k, v in (s.split("=", 1) for s in a.set)}
@@ -300,11 +476,39 @@ def main():
     out = Path(cfg["output_dir"]) / cfg["run_name"]
     out.mkdir(parents=True, exist_ok=True)
     data_info = yaml.safe_load((data / "data_info.yaml").read_text(encoding="utf-8")) if (data / "data_info.yaml").exists() else None
-    wb = start_wandb(cfg, train_stat, val_stat, data_info)
-    t0 = time.time()
-    model = add_lora(load_model(cfg, use_4bit), cfg, use_4bit)
-    model.print_trainable_parameters()
     tr = cfg["train"]
+    collator = Collator(tok.pad_token_id, bool(tr.get("completion_logits_only", True)))
+    t0 = time.time()
+    model = load_model(cfg, use_4bit)
+    after_load = gpu_gb()
+    model, prep = prepare_for_training(model, cfg, use_4bit)
+    model = add_lora(model, cfg)
+    model.print_trainable_parameters()
+    params, cov = param_breakdown(model), lora_coverage(model)
+    print_model_report(params, prep, cov, after_load)
+    model_info = {"after_load_gb": after_load, "params": params, "prep": prep, "lora": cov,
+                  "experts_implementation": getattr(model.config, "_experts_implementation", None),   # MoE: grouped_mm이 빠르다
+                  "device_map": sorted({str(v) for v in (getattr(model, "hf_device_map", None) or {}).values()}) or None,
+                  "completion_logits_only": collator.completion_logits_only, "load_seconds": round(time.time() - t0)}
+
+    if a.check_memory:
+        mem = check_memory(model, train_x + val_x, collator, cfg)
+        info = {"run_name": cfg["run_name"], "base_model": cfg["base_model"], "max_seq_len": max_len,
+                "model": model_info, "check": mem, "versions": versions(), "git_commit": git_commit()}
+        (out / "check_memory.yaml").write_text(yaml.safe_dump(info, allow_unicode=True, sort_keys=False), encoding="utf-8")
+        total = mem["gpu_total_gb"]
+        print(f"\n가장 긴 예시 {mem['example_id']} ({mem['tokens']}토큰, 정답 {mem['completion_tokens']}): "
+              f"최대 GPU 메모리 {mem['peak_gb'] or '-'}GB / {total or '-'}GB, 한 걸음 {mem['seconds_per_step'][-1]}초, "
+              f"학습 대략 {mem['rough_train_hours']}시간({tr.get('epochs')}에폭)")
+        if total and mem["peak_gb"] and max(p / t for p, t in zip(mem["peak_gb"], total)) > 0.92:
+            print("주의: 여유가 8% 밑입니다. 학습 중 넘칠 수 있습니다. max_seq_len을 줄이거나 더 큰 GPU를 씁니다.")
+        print(f"기록: {out / 'check_memory.yaml'}")
+        return
+
+    wb = start_wandb(cfg, train_stat, val_stat, data_info)
+    if wb:
+        wb.summary.update({"model/params_gb": params["by_dtype_gb"], "model/lora_layers": cov["layers_with_lora"],
+                           "model/layers": cov["layers"], "model/after_load_gb": after_load})
     args = TrainingArguments(
         output_dir=str(out / "checkpoints"), per_device_train_batch_size=tr["batch_size"], per_device_eval_batch_size=1,
         gradient_accumulation_steps=tr["grad_accum"], num_train_epochs=tr["epochs"], max_steps=a.max_steps,
@@ -315,10 +519,12 @@ def main():
         save_strategy="steps", save_steps=tr.get("save_steps", 50), save_total_limit=2, save_only_model=True,
         bf16=bool(tr.get("bf16", True)) and cuda, optim=tr.get("optim", "paged_adamw_8bit") if cuda else "adamw_torch",
         report_to="wandb" if wb else "none", run_name=cfg["run_name"], remove_unused_columns=False,
+        prediction_loss_only=True,                       # 검증 때 logits를 모으지 않는다(긴 예시 logits는 수 GB)
         seed=tr.get("seed", 2026), use_cpu=not cuda,
     )
     trainer = Trainer(model=model, args=args, train_dataset=ListDataset(train_x),
-                      eval_dataset=ListDataset(val_x) if val_x else None, data_collator=Collator(tok.pad_token_id))
+                      eval_dataset=ListDataset(val_x) if val_x else None, data_collator=collator,
+                      compute_loss_func=completion_loss if collator.completion_logits_only else None)
     before = trainer.evaluate() if val_x and tr.get("eval_before", True) else None
     result = trainer.train()
     after = trainer.evaluate() if val_x else None
@@ -331,6 +537,7 @@ def main():
         "eval_loss_before": before.get("eval_loss") if before else None,
         "eval_loss_after": after.get("eval_loss") if after else None,
         "train_loss": result.training_loss, "steps": result.global_step, "seconds": round(time.time() - t0),
+        "model": model_info, "peak_gb": gpu_gb(peak=True),
         "versions": versions(), "git_commit": git_commit(), "smoke_test": bool(a.no_4bit or a.max_steps > 0),
         "wandb_url": getattr(wb, "url", None) if wb else None,
     }
@@ -341,7 +548,7 @@ def main():
     print(f"LoRA: {out / 'adapter'}")
     if wb:
         wb.summary.update({"eval_loss_before": info["eval_loss_before"], "eval_loss_after": info["eval_loss_after"],
-                           "seconds": info["seconds"]})
+                           "seconds": info["seconds"], "peak_gb": info["peak_gb"]})
         wb.finish()
         print(f"W&B: {info['wandb_url'] or '오프라인 기록(wandb sync로 올림)'}")
 
