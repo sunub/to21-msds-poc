@@ -7,6 +7,7 @@ import { downloadJudgmentReport, type ReportFormat } from "@/api/judgment-report
 import { Button, PillTabs, ScrollTable, StatusLabel, TableHead, TableRow } from "@/components/ui";
 import { cn } from "@/lib/cn";
 import { buildHazardTable, hazardFilterItems, type HazardFilter } from "@/lib/hazard";
+import { FLOAT_HEAD, FLOAT_ROW, FLOAT_TABLE, floatRow } from "../regulation/regulation-table";
 import { noteBreakdown, regulationCounts, reviewText, verdictText, verdictTone } from "@/lib/regulation";
 
 const WIDE = "min-w-0 flex-[3_1_0] max-lg:basis-[45%]";
@@ -46,10 +47,7 @@ export function HazardTable({
         selected={isSelected}
         onClick={() => onSelect(f)}
         aria-label={`${f.label}, MSDS ${d.msds}, 검증 결과 ${d.expected}, ${f.method}, ${verdict}${review ? `, ${review}` : ""}`}
-        className={cn(
-          "max-lg:flex-wrap",
-          isSelected && (f.verdict === "불일치" ? "shadow-[inset_4px_0_0_var(--red)]" : "shadow-[inset_4px_0_0_var(--blue)]"),
-        )}
+        className={floatRow(isSelected, "max-lg:flex-wrap")}
       >
         <div className={cn(WIDE, "font-bold")}>{f.label}</div>
         <div className={NARROW}>{d.msds}</div>
@@ -72,7 +70,7 @@ export function HazardTable({
           type="button"
           aria-expanded={open}
           onClick={() => setToggled((prev) => ({ ...prev, [key]: !open }))}
-          className="block w-full border-b border-line2 bg-white px-4 py-2.5 text-left text-mut"
+          className={cn("block w-full px-4 py-2.5 text-left text-mut", FLOAT_ROW)}
         >
           {open ? "▾" : "▸"} {title}
         </button>
@@ -99,8 +97,8 @@ export function HazardTable({
         </div>
         <ReportButtons docId={docId} />
       </div>
-      <ScrollTable follow={selected?.id}>
-        <TableHead sticky className="max-lg:hidden">
+      <ScrollTable follow={selected?.id} className={FLOAT_TABLE}>
+        <TableHead sticky className={cn("max-lg:hidden", FLOAT_HEAD)}>
           <div className={WIDE}>유해성 항목</div>
           <div className={NARROW}>MSDS 기재</div>
           <div className={WIDE}>검증 결과</div>

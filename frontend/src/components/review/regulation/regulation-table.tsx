@@ -6,6 +6,17 @@ import { Button, PillTabs, ScrollTable, StatusLabel, TableHead, TableRow } from 
 import { cn } from "@/lib/cn";
 import { buildTable, lawCounts, noteBreakdown, regulationCounts, reviewText, verdictText, verdictTone } from "@/lib/regulation";
 
+/** 검토 화면 세 표가 같이 쓰는 "떠 있는 행" 스타일. 컨테이너·머리줄·행·고른 행 */
+export const FLOAT_TABLE = "gap-0 rounded-xl border-blue-line bg-tint p-1.5";
+// 머리줄은 위에 붙어 스크롤하므로 완전 투명 대신 컨테이너와 같은 색으로 (겹쳐 비치지 않게)
+export const FLOAT_HEAD = "rounded-[10px] border-b-0 bg-tint";
+// 행 구분선: 각 행(과 접힘 줄) 위에 좌우 12px 안쪽의 1px 선. 머리줄과 첫 행 사이·접힘 줄 위도 이 선이고, 마지막 행 아래에는 없다.
+// 고른 행의 위 선과, 고른 행 바로 다음 행의 위 선은 숨겨 고른 행이 떠 보이게 한다.
+export const FLOAT_ROW =
+  "relative rounded-[10px] border-b-0 bg-transparent hover:bg-white/60 before:pointer-events-none before:absolute before:inset-x-3 before:top-0 before:h-px before:bg-line2 [[aria-current]+&]:before:hidden";
+const FLOAT_ROW_ON = "bg-white before:hidden shadow-[0_2px_10px_rgba(37,99,235,.18),0_0_0_1px_#cfe0ff] hover:bg-white";
+export const floatRow = (selected: boolean, ...more: string[]) => cn(FLOAT_ROW, selected && FLOAT_ROW_ON, ...more);
+
 const CELL = "min-w-0 flex-[2_1_0] max-lg:basis-[45%]";
 
 /** 2.4 아래쪽: 건수, 법령 거르기, 처리 필요 줄과 접힌 일치·참고 묶음 */
@@ -45,7 +56,7 @@ export function RegulationTable({
         selected={f.id === selectedId}
         onClick={() => onSelect(f)}
         aria-label={`${f.law_label ?? ""} ${f.label}, ${d.component ?? "제품"}, MSDS ${d.msds}, 규제DB ${d.expected}, ${verdict}${review ? `, ${review}` : ""}`}
-        className={cn("max-lg:flex-wrap", f.id === selectedId && "shadow-[inset_4px_0_0_var(--blue)]")}
+        className={floatRow(f.id === selectedId, "max-lg:flex-wrap")}
       >
         <div className="w-18 flex-none font-medium max-lg:w-full max-lg:text-sm max-lg:text-mut">{f.law_label ?? "—"}</div>
         <div className={cn(CELL, "font-bold")}>{f.label}</div>
@@ -69,7 +80,7 @@ export function RegulationTable({
           type="button"
           aria-expanded={expanded}
           onClick={() => setOpen((prev) => ({ ...prev, [key]: !expanded }))}
-          className="block w-full border-b border-line2 bg-white px-4 py-2.5 text-left text-mut"
+          className={cn("block w-full px-4 py-2.5 text-left text-mut", FLOAT_ROW)}
         >
           {expanded ? "▾" : "▸"} {title}
         </button>
@@ -107,8 +118,8 @@ export function RegulationTable({
           처리 필요만
         </label>
       </div>
-      <ScrollTable follow={selectedId}>
-        <TableHead sticky className="max-lg:hidden">
+      <ScrollTable follow={selectedId} className={FLOAT_TABLE}>
+        <TableHead sticky className={cn("max-lg:hidden", FLOAT_HEAD)}>
           <div className="w-18 flex-none">법령</div>
           <div className={CELL}>규제 항목</div>
           <div className={CELL}>성분 (함량)</div>

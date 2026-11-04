@@ -2,7 +2,7 @@
 
 import type { ComponentSummary } from "@/api/judgment";
 import { StatusLabel, Table, TableHead, TableRow } from "@/components/ui";
-import { cn } from "@/lib/cn";
+import { FLOAT_HEAD, FLOAT_TABLE, floatRow } from "../regulation/regulation-table";
 import { ateSummary, classesText, formatContent, hitsText, reliabilityTone } from "@/lib/components";
 
 /** 시안 '구성성분별 판단 요약' 표. 줄을 누르면 위 성분 상세가 그 성분으로 바뀐다 */
@@ -22,9 +22,9 @@ export function ComponentTable({
       <h2 id="component-table-title" className="text-base font-bold">
         구성성분별 판단 요약
       </h2>
-      <Table>
+      <Table className={FLOAT_TABLE}>
         <div className="min-w-[960px]">
-          <TableHead>
+          <TableHead className={FLOAT_HEAD}>
             <div className="flex-[1_1_0]">성분</div>
             <div className="flex-[1.2_1_0]">CAS</div>
             <div className="flex-[0.8_1_0]">함량 %</div>
@@ -40,7 +40,7 @@ export function ComponentTable({
                 key={c.comp_ref}
                 selected={on}
                 onClick={() => onSelect(c.comp_ref)}
-                className={cn("items-start", on && "border-l-4 border-l-blue")}
+                className={floatRow(on, "items-start")}
               >
                 <div className="flex-[1_1_0] font-bold break-words">{c.name ?? `성분 ${c.comp_ref}`}</div>
                 <div className="flex-[1.2_1_0] break-words">{c.cas ?? "-"}</div>
