@@ -18,7 +18,7 @@ echo "[1] 화면 빌드 (Node 24, 같은 출처 API)"
 ( cd "$ROOT" && make build > "$T/build.log" 2>&1 ) || { tail -20 "$T/build.log" >&2; exit 1; }
 
 echo "[2] 묶기: git 이력(bundle), 화면·TO21 자료·DB 설정(추적하지 않는 파일)"
-git -C "$ROOT" bundle create "$T/repo.bundle" HEAD 2>/dev/null
+git -C "$ROOT" bundle create -q "$T/repo.bundle" HEAD
 tar -C "$ROOT" --dereference -czf "$T/extras.tgz" frontend/out to21/v0.6 deploy/htodb/.env   # .env 는 링크일 수 있어 실제 파일을 담는다
 
 echo "[3] 지식DB 덤프 (로컬 to21-htodb-pg-1)"

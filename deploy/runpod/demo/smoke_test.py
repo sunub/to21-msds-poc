@@ -9,6 +9,8 @@ import time
 import urllib.parse
 import urllib.request
 
+if len(sys.argv) != 4:
+    sys.exit(__doc__)
 BASE, PDF, PW = sys.argv[1].rstrip("/"), sys.argv[2], sys.argv[3]
 AUTH = "Basic " + base64.b64encode(f"to21:{PW}".encode()).decode()
 

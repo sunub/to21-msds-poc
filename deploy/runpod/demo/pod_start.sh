@@ -29,7 +29,8 @@ grep -E "Maximum concurrency" $W/serve_vllm.log | tail -1 || true
 { echo "RUNPOD_VLLM_BASE_URL=http://127.0.0.1:8000/v1"; echo "RUNPOD_VLLM_API_KEY=$(cat $W/vllm_api_key)"; echo "MSDS_SERVICE_MODEL=$TAG"; } > $APP/.env
 
 if [ "${RESTART_APP:-0}" = "1" ] && pgrep -f "[u]vicorn --app-dir src msds.api.extract_app" >/dev/null; then
-  kill $(pgrep -f "[u]vicorn --app-dir src msds.api.extract_app"); sleep 3
+  kill $(pgrep -f "[u]vicorn --app-dir src msds.api.extract_app")
+  for _ in $(seq 1 30); do pgrep -f "[u]vicorn --app-dir src msds.api.extract_app" >/dev/null || break; sleep 1; done
 fi
 if ! curl -s -m 3 http://127.0.0.1:8020/api/health | grep -q '"ok":true'; then
   ( cd $APP && MSDS_EXTRACT_WORKERS=3 MSDS_PREPROCESS_WORKERS=2 setsid bash backend/scripts/serve_api.sh > $W/app.log 2>&1 < /dev/null & )
