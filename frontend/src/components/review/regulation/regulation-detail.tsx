@@ -34,6 +34,7 @@ export function RegulationDetail({
   draft,
   onDraft,
   onNext,
+  onPrev,
   onPin,
 }: {
   docId: string;
@@ -44,6 +45,8 @@ export function RegulationDetail({
   draft: string;
   onDraft: (text: string) => void;
   onNext: (() => void) | null;
+  /** 이전 미처리 줄로 이동. null 이면 이전 항목이 없음(버튼 비활성), 생략하면 버튼을 그리지 않는다 */
+  onPrev?: (() => void) | null;
   onPin: () => void;
 }) {
   const display = view.display[finding.id];
@@ -93,6 +96,7 @@ export function RegulationDetail({
           draft={draft}
           onDraft={onDraft}
           onNext={onNext}
+          onPrev={onPrev}
           onPin={onPin}
         />
       )}
@@ -142,6 +146,7 @@ export function ReviewControls({
   draft,
   onDraft,
   onNext,
+  onPrev,
   onPin,
 }: {
   docId: string;
@@ -152,6 +157,7 @@ export function ReviewControls({
   draft: string;
   onDraft: (text: string) => void;
   onNext: (() => void) | null;
+  onPrev?: (() => void) | null;
   onPin: () => void;
 }) {
   const client = useQueryClient();
@@ -224,24 +230,33 @@ export function ReviewControls({
           if (missing === "comment") setMissing(null);
         }}
       />
-      <div className="flex flex-wrap items-center justify-end gap-2">
-        {reviewed ? (
-          <>
-            <Button disabled={locked} onClick={() => submit("의견")}>
-              의견 추가
-            </Button>
-            <Button disabled={locked} onClick={() => submit("되돌리기")}>
-              되돌리기
-            </Button>
-          </>
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        {onPrev !== undefined ? (
+          <Button disabled={!onPrev} onClick={onPrev ?? undefined}>
+            이전 미처리
+          </Button>
         ) : (
-          actionsFor(finding).map((action, i) => (
-            <Button key={action} variant={i === 0 ? "primary" : "default"} disabled={locked} onClick={() => submit(action)}>
-              {mutation.isPending && mutation.variables?.action === action ? "저장 중…" : action}
-            </Button>
-          ))
+          <span />
         )}
-        {nextButton}
+        <div className="flex flex-wrap items-center justify-end gap-2">
+          {reviewed ? (
+            <>
+              <Button disabled={locked} onClick={() => submit("의견")}>
+                의견 추가
+              </Button>
+              <Button disabled={locked} onClick={() => submit("되돌리기")}>
+                되돌리기
+              </Button>
+            </>
+          ) : (
+            actionsFor(finding).map((action, i) => (
+              <Button key={action} variant={i === 0 ? "primary" : "default"} disabled={locked} onClick={() => submit(action)}>
+                {mutation.isPending && mutation.variables?.action === action ? "저장 중…" : action}
+              </Button>
+            ))
+          )}
+          {nextButton}
+        </div>
       </div>
       {lock && <p className="text-sm text-mut">{LOCK_TEXT[lock]}</p>}
       {missing === "reviewer" && (
