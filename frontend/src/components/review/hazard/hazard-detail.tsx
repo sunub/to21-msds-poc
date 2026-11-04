@@ -48,7 +48,7 @@ export function HazardDetail({
     <Pane
       title={finding.label}
       fill
-      className={cn(finding.verdict === "불일치" && "border-l-4 border-red")}
+      className={cn(finding.verdict === "불일치" && "border border-red")}
       aside={<StatusLabel tone={verdictTone(finding)}>{verdictText(finding)}</StatusLabel>}
     >
       {hidden && <p className="rounded-sm bg-blue-soft px-3 py-2 text-sm text-blue2">현재 필터 조건에 맞지 않아 목록에서는 보이지 않는 항목입니다.</p>}
