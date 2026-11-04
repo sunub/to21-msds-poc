@@ -6,6 +6,7 @@
 - 밀집 모델(Qwen3)과 MoE 모델(Qwen3-MoE)에서 LoRA가 주의 투영에 붙고 몇 단계 학습해 LoRA 가중치를 저장한다.
 """
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -91,8 +92,8 @@ def test_너무_긴_예시는_자르지_않고_뺀다(tiny):
     assert kept == [] and stat["too_long"] == 3 and stat["lengths"]["3"]["total"]["n"] == 3
 
 
-@pytest.mark.parametrize("kind", ["dense", "moe"])
-def test_CPU에서_몇_단계_학습하고_LoRA를_저장한다(tiny, tmp_path, kind):
+def _train(tmp_path, model_dir, *extra, env=None):
+    """가짜 데이터 6개(학습 4·검증 2)로 2단계 학습. 반환: 실행 결과."""
     data = tmp_path / "data"
     data.mkdir()
     rows = _examples(6)
@@ -101,9 +102,14 @@ def test_CPU에서_몇_단계_학습하고_LoRA를_저장한다(tiny, tmp_path, 
     (data / "data_info.yaml").write_text("examples: 6\n", encoding="utf-8")
     cmd = [sys.executable, str(HERE.parent / "train_qlora.py"), "--config", str(HERE.parent / "configs" / "qlora.yaml"),
            "--data", str(data), "--no-4bit", "--max-steps", "2",
-           "--set", f"base_model={tiny[kind]}", f"output_dir={tmp_path / 'out'}", "run_name=t", "train.bf16=false",
-           "train.grad_accum=1", "train.eval_steps=1", "max_seq_len=512", "attn_implementation=eager"]
-    p = subprocess.run(cmd, capture_output=True, text=True, timeout=600)
+           "--set", f"base_model={model_dir}", f"output_dir={tmp_path / 'out'}", "run_name=t", "train.bf16=false",
+           "train.grad_accum=1", "train.eval_steps=1", "max_seq_len=512", "attn_implementation=eager", *extra]
+    return subprocess.run(cmd, capture_output=True, text=True, timeout=600, env=env)
+
+
+@pytest.mark.parametrize("kind", ["dense", "moe"])
+def test_CPU에서_몇_단계_학습하고_LoRA를_저장한다(tiny, tmp_path, kind):
+    p = _train(tmp_path, tiny[kind])
     assert p.returncode == 0, p.stdout[-2000:] + p.stderr[-3000:]
     run = tmp_path / "out" / "t"
     adapter = json.loads((run / "adapter" / "adapter_config.json").read_text(encoding="utf-8"))
@@ -120,3 +126,19 @@ def test_CPU에서_몇_단계_학습하고_LoRA를_저장한다(tiny, tmp_path, 
         from transformers import AutoModelForCausalLM, AutoTokenizer
         m = AutoModelForCausalLM.from_pretrained(merged)
         assert not any("lora" in n for n, _ in m.named_parameters()) and AutoTokenizer.from_pretrained(merged).eos_token == "<|im_end|>"
+
+
+def test_W_B를_켜면_학습_곡선만_남기고_학습_글은_보내지_않는다(tiny, tmp_path):
+    pytest.importorskip("wandb")
+    env = {**os.environ, "WANDB_MODE": "offline", "WANDB_DIR": str(tmp_path), "WANDB_SILENT": "true"}
+    p = _train(tmp_path, tiny["dense"], "wandb.enabled=true", env=env)
+    assert p.returncode == 0, p.stdout[-2000:] + p.stderr[-3000:]
+    runs = list((tmp_path / "wandb").glob("offline-run-*"))
+    assert len(runs) == 1
+    blob = b"".join(f.read_bytes() for f in runs[0].rglob("*") if f.is_file())
+    assert b"eval/loss" in blob and b"train/loss" in blob                       # 학습 곡선은 남는다
+    for text in ("가상물질 갑", "MSDS 3항 추출기", "3항 원문"):                    # 정답·안내문·원문은 없다 (D-47)
+        assert text.encode() not in blob, text
+    import yaml
+    info = yaml.safe_load((tmp_path / "out" / "t" / "train_info.yaml").read_text(encoding="utf-8"))
+    assert info["eval_loss_after"] is not None

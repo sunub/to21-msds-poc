@@ -9,6 +9,8 @@
         adapter/            LoRA 가중치와 토크나이저 (vLLM --lora-modules, merge_adapter.py가 읽는다)
         train_info.yaml     설정, 데이터 기록(data_info.yaml), 길이 통계, 뺀 예시, 손실, 라이브러리 버전, GPU, 걸린 시간
         log_history.json    단계별 손실·학습률
+W&B(선택, 설정 wandb.enabled): 손실·학습률·기울기 크기·GPU 사용량과 설정·데이터 통계를 실시간으로 본다.
+  학습 글(안내문·MSDS 원문)과 모델·체크포인트는 보내지 않는다(D-47). 키는 RunPod 환경변수 WANDB_API_KEY로만 둔다.
 
 학습 글을 만드는 방법
 - 프롬프트는 추론 때와 같다: 대화 틀(apply_chat_template)에 system·user만 넣고 add_generation_prompt=True로 만든 글.
@@ -23,6 +25,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import platform
 import statistics
 import subprocess
@@ -209,6 +212,39 @@ def git_commit() -> str | None:
         return None
 
 
+def start_wandb(cfg: dict, train_stat: dict, val_stat: dict, data_info: dict | None):
+    """W&B 실행을 연다(설정 wandb.enabled가 참일 때만). 열면 Trainer가 같은 실행에 손실·학습률·GPU 사용량을 남긴다.
+    보내는 것: 설정, 예시 수·뺀 수·길이 통계(숫자), 학생 설정·교사 모델 이름. 학습 글과 모델 파일은 보내지 않는다(D-47).
+    WANDB_MODE=offline이면 RunPod 디스크에만 남기고 나중에 `wandb sync`로 올린다."""
+    w = cfg.get("wandb") or {}
+    if not w.get("enabled"):
+        return None
+    try:
+        import wandb
+    except ImportError:
+        sys.exit("wandb가 없습니다: pip install -r finetune/requirements.txt (안 쓰려면 --set wandb.enabled=false)")
+    os.environ["WANDB_LOG_MODEL"] = "false"     # 체크포인트를 올리지 않는다
+    os.environ["WANDB_WATCH"] = "false"         # 가중치·기울기 분포를 올리지 않는다
+    di = data_info or {}
+    summary = {"train_kept": train_stat["kept"], "train_too_long": train_stat["too_long"], "val_kept": val_stat["kept"],
+               "val_too_long": val_stat["too_long"], "answer_cut": train_stat["how"],
+               "tokens_all": train_stat["lengths"].get("all"),
+               "student_tag": di.get("student_tag"), "rows_sections": di.get("rows_sections"),
+               "json_mode": di.get("json_mode"), "prompt_version": di.get("prompt_version"),
+               "teacher_models": [t.get("model_tag") for t in di.get("teacher_runs") or []],
+               "examples_by_section": di.get("sections"), "dropped_when_building": di.get("dropped")}
+    run = wandb.init(project=w.get("project") or "to21-msds-qlora", entity=w.get("entity") or None,
+                     name=cfg["run_name"], tags=list(w.get("tags") or []),
+                     config={k: cfg.get(k) for k in ("base_model", "chat_template_kwargs", "max_seq_len", "quantization",
+                                                     "lora", "train")} | {"data": summary})
+    rows = [[sec, s["total"]["n"], s["total"]["median"], s["total"]["p95"], s["total"]["max"],
+             s["completion"]["median"], s["completion"]["max"]]
+            for sec, s in train_stat["lengths"].items() if s["total"]]
+    run.log({"data/lengths": wandb.Table(columns=["항", "예시", "전체 중앙값", "전체 95%", "전체 최대", "정답 중앙값", "정답 최대"],
+                                         data=rows)})
+    return run
+
+
 def print_lengths(stats: dict, max_len: int) -> None:
     print(f"\n예시 길이(토큰). max_seq_len {max_len}")
     print("항   예시  전체 중앙값  전체 95%  전체 최대  정답 중앙값  정답 최대")
@@ -263,6 +299,8 @@ def main():
         sys.exit("4bit(QLoRA)는 NVIDIA GPU가 필요합니다. CPU 시험은 --no-4bit로 돌립니다.")
     out = Path(cfg["output_dir"]) / cfg["run_name"]
     out.mkdir(parents=True, exist_ok=True)
+    data_info = yaml.safe_load((data / "data_info.yaml").read_text(encoding="utf-8")) if (data / "data_info.yaml").exists() else None
+    wb = start_wandb(cfg, train_stat, val_stat, data_info)
     t0 = time.time()
     model = add_lora(load_model(cfg, use_4bit), cfg, use_4bit)
     model.print_trainable_parameters()
@@ -276,7 +314,8 @@ def main():
         eval_strategy="steps" if val_x else "no", eval_steps=tr.get("eval_steps", 25),
         save_strategy="steps", save_steps=tr.get("save_steps", 50), save_total_limit=2, save_only_model=True,
         bf16=bool(tr.get("bf16", True)) and cuda, optim=tr.get("optim", "paged_adamw_8bit") if cuda else "adamw_torch",
-        report_to="none", remove_unused_columns=False, seed=tr.get("seed", 2026), use_cpu=not cuda,
+        report_to="wandb" if wb else "none", run_name=cfg["run_name"], remove_unused_columns=False,
+        seed=tr.get("seed", 2026), use_cpu=not cuda,
     )
     trainer = Trainer(model=model, args=args, train_dataset=ListDataset(train_x),
                       eval_dataset=ListDataset(val_x) if val_x else None, data_collator=Collator(tok.pad_token_id))
@@ -286,7 +325,6 @@ def main():
     model.save_pretrained(out / "adapter")
     tok.save_pretrained(out / "adapter")
 
-    data_info = yaml.safe_load((data / "data_info.yaml").read_text(encoding="utf-8")) if (data / "data_info.yaml").exists() else None
     info = {
         "run_name": cfg["run_name"], "config": cfg, "data_dir": str(data), "data_info": data_info,
         "train_examples": train_stat, "val_examples": val_stat,
@@ -294,12 +332,18 @@ def main():
         "eval_loss_after": after.get("eval_loss") if after else None,
         "train_loss": result.training_loss, "steps": result.global_step, "seconds": round(time.time() - t0),
         "versions": versions(), "git_commit": git_commit(), "smoke_test": bool(a.no_4bit or a.max_steps > 0),
+        "wandb_url": getattr(wb, "url", None) if wb else None,
     }
     (out / "train_info.yaml").write_text(yaml.safe_dump(info, allow_unicode=True, sort_keys=False), encoding="utf-8")
     (out / "log_history.json").write_text(json.dumps(trainer.state.log_history, ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"\n검증 손실 {info['eval_loss_before']} → {info['eval_loss_after']}, 학습 손실 {result.training_loss:.4f}, "
           f"{result.global_step}단계, {info['seconds']}초")
     print(f"LoRA: {out / 'adapter'}")
+    if wb:
+        wb.summary.update({"eval_loss_before": info["eval_loss_before"], "eval_loss_after": info["eval_loss_after"],
+                           "seconds": info["seconds"]})
+        wb.finish()
+        print(f"W&B: {info['wandb_url'] or '오프라인 기록(wandb sync로 올림)'}")
 
 
 if __name__ == "__main__":
