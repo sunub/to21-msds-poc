@@ -21,6 +21,7 @@ dependencies = [
   "python-dotenv==1.2.4",    # .env 읽기 (extract/client)
   "fastapi==0.162.0",        # 추출 API (api/extract_app), 지식DB 조회 API (api/htodb_app)
   "uvicorn==0.54.0",         # API 실행
+  "python-multipart==0.0.20", # 추출 API의 PDF 업로드(Form/File) 해석 (api/extraction_app)
   "psycopg[binary]==3.3.6",  # 지식DB(PostgreSQL) 접속 (compliance/htodb)
   "psycopg-pool==3.3.3",     # 조회 API 연결 풀
 ]
@@ -50,11 +51,11 @@ default-groups = ["dev"]
 environments = ["sys_platform == 'darwin'", "sys_platform == 'linux'"]
 
 [tool.uv.sources]
-paddlepaddle-gpu = { index = "paddle-cu118" }
+paddlepaddle-gpu = { index = "paddle-cu129" }
 
 [[tool.uv.index]]
-name = "paddle-cu118"
-url = "https://www.paddlepaddle.org.cn/packages/stable/cu118/"
+name = "paddle-cu129"
+url = "https://www.paddlepaddle.org.cn/packages/stable/cu129/"
 explicit = true
 
 # 패키지 설치용이 아니라 pytest 가 src/msds 를 찾게 하는 최소 설정이다.
