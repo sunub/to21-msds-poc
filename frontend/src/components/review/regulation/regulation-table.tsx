@@ -12,6 +12,10 @@ export const FLOAT_TABLE = "gap-0 rounded-lg border-[#dfe8f6] bg-tint p-1.5";
 export const FLOAT_HEAD = "rounded-md border-b-0 bg-tint";
 // 행 구분선: 각 행(과 접힘 줄) 위에 좌우 12px 안쪽의 1px 선. 머리줄과 첫 행 사이·접힘 줄 위도 이 선이고, 마지막 행 아래에는 없다.
 // 고른 행의 위 선과, 고른 행 바로 다음 행의 위 선은 숨겨 고른 행이 떠 보이게 한다.
+// 스크롤하는 표: 위쪽 패딩을 머리줄이 대신 맡아(pt) 머리줄 위로 행이 비치는 틈이 없다.
+// 머리줄은 좌우 패딩(6px)까지 덮고(-mx) 모서리는 상자의 둥근 모서리에 맡긴다. px 는 행 글자와 열을 맞추려고 16+6px.
+export const FLOAT_TABLE_SCROLL = `${FLOAT_TABLE} pt-0 max-lg:pt-1.5`;
+export const FLOAT_HEAD_STICKY = "-mx-1.5 rounded-none border-b-0 bg-tint px-[22px] pt-[15px]";
 export const FLOAT_ROW =
   "relative rounded-md border-b-0 bg-transparent hover:bg-white/60 before:pointer-events-none before:absolute before:inset-x-3 before:top-0 before:h-px before:bg-line2 [[aria-current]+&]:before:hidden";
 const FLOAT_SHADOW_ROW = "shadow-[0_2px_10px_rgba(37,99,235,.18),0_0_0_1px_#cfe0ff]";
@@ -139,8 +143,8 @@ export function RegulationTable({
           처리 필요만
         </label>
       </div>
-      <ScrollTable follow={selectedId} className={FLOAT_TABLE}>
-        <TableHead sticky className={cn("max-lg:hidden", FLOAT_HEAD)}>
+      <ScrollTable follow={selectedId} className={FLOAT_TABLE_SCROLL}>
+        <TableHead sticky className={cn("max-lg:hidden", FLOAT_HEAD_STICKY)}>
           <div className="w-18 flex-none">법령</div>
           <div className={CELL}>규제 항목</div>
           <div className={CELL}>성분 (함량)</div>

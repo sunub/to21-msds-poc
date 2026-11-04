@@ -7,7 +7,7 @@ import { downloadJudgmentReport, type ReportFormat } from "@/api/judgment-report
 import { Button, PillTabs, ScrollTable, StatusLabel, TableHead, TableRow } from "@/components/ui";
 import { cn } from "@/lib/cn";
 import { buildHazardTable, hazardFilterItems, type HazardFilter } from "@/lib/hazard";
-import { FLOAT_HEAD, FLOAT_ROW, FLOAT_TABLE, floatRow } from "../regulation/regulation-table";
+import { FLOAT_HEAD_STICKY, FLOAT_ROW, FLOAT_TABLE_SCROLL, floatRow } from "../regulation/regulation-table";
 import { noteBreakdown, regulationCounts, reviewText, verdictText, verdictTone } from "@/lib/regulation";
 
 const WIDE = "min-w-0 flex-[3_1_0] max-lg:basis-[45%]";
@@ -97,8 +97,8 @@ export function HazardTable({
         </div>
         <ReportButtons docId={docId} />
       </div>
-      <ScrollTable follow={selected?.id} className={FLOAT_TABLE}>
-        <TableHead sticky className={cn("max-lg:hidden", FLOAT_HEAD)}>
+      <ScrollTable follow={selected?.id} className={FLOAT_TABLE_SCROLL}>
+        <TableHead sticky className={cn("max-lg:hidden", FLOAT_HEAD_STICKY)}>
           <div className={WIDE}>유해성 항목</div>
           <div className={NARROW}>MSDS 기재</div>
           <div className={WIDE}>검증 결과</div>
