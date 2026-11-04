@@ -55,7 +55,7 @@ export function RegulationDetail({
 
   return (
     <Pane fill title={`${finding.label}${finding.law_label ? ` (${finding.law_label})` : ""}`} aside={<StatusLabel tone={verdictTone(finding)}>{verdictText(finding)}</StatusLabel>}>
-      {hidden && <p className="rounded-sm bg-blue-soft px-3 py-2 text-sm text-blue2">거르기로 표에서 숨겨진 항목입니다.</p>}
+      {hidden && <p className="rounded-sm bg-blue-soft px-3 py-2 text-sm text-blue2">현재 필터 조건에 맞지 않아 목록에서는 보이지 않는 항목입니다.</p>}
       {review?.stale && (
         <p className="rounded-sm bg-tint px-3 py-2 text-sm text-stale">
           판정이 바뀌어 다시 확인이 필요합니다. 이전 처리: {review.status}
