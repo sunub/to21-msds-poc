@@ -11,6 +11,7 @@ import { Foot, Pane, Workspace } from "@/components/shell/layout";
 import { Button, Input, Skeleton, StatusLabel, buttonStyles } from "@/components/ui";
 import { usePageParam } from "@/hooks/use-page-param";
 import { cn } from "@/lib/cn";
+import { describeProblem } from "@/lib/problem-text";
 import { useReviewer } from "@/lib/reviewer";
 import { routes } from "@/lib/routes";
 
@@ -224,16 +225,35 @@ const PROBLEMS_SHOWN = 5;
 
 function Problems({ problems }: { problems: string[] }) {
   const [all, setAll] = useState(false);
+  const [open, setOpen] = useState<number[]>([]);
   const shown = all ? problems : problems.slice(0, PROBLEMS_SHOWN);
   return (
     <div className="rounded-sm bg-tint px-3 py-2 text-sm">
-      <p className="font-medium text-amb-text">자동 검사에서 {problems.length}건이 나왔습니다</p>
-      <ul className="m-0 mt-1 list-none p-0 text-sub">
-        {shown.map((p, i) => (
-          <li key={i} className="break-words">
-            {p}
-          </li>
-        ))}
+      <p className="font-medium text-amb-text">확인이 필요한 값 {problems.length}건</p>
+      <ul className="m-0 mt-1 flex list-none flex-col gap-1 p-0 text-sub">
+        {shown.map((p, i) => {
+          const d = describeProblem(p);
+          const expanded = open.includes(i);
+          return (
+            <li key={i} className="break-words">
+              <div className="flex items-baseline justify-between gap-2">
+                <span>
+                  {d.where && <b className="font-bold">{d.where} </b>}
+                  {d.summary}
+                </span>
+                <Button
+                  variant="link"
+                  className="min-h-0 shrink-0 text-xs"
+                  aria-expanded={expanded}
+                  onClick={() => setOpen(expanded ? open.filter((x) => x !== i) : [...open, i])}
+                >
+                  원문
+                </Button>
+              </div>
+              {expanded && <p className="m-0 mt-0.5 break-words text-xs text-mut">{d.raw}</p>}
+            </li>
+          );
+        })}
       </ul>
       {problems.length > PROBLEMS_SHOWN && (
         <Button variant="link" className="min-h-0" onClick={() => setAll(!all)}>
