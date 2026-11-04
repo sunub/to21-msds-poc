@@ -12,7 +12,7 @@ export function AppHeader({
   doc,
   note,
   center,
-  right,
+  badge,
   width = "max-w-page",
 }: {
   doc?: string;
@@ -20,8 +20,8 @@ export function AppHeader({
   note?: string;
   /** 제목과 검토자 사이(가운데)에 그릴 내용. 문서 화면의 단계 알약 */
   center?: ReactNode;
-  /** 검토자 앞(오른쪽 끝 쪽)에 그릴 내용. 문서 화면의 기준일 알약 */
-  right?: ReactNode;
+  /** 문서 이름 바로 뒤에 그릴 알약. 문서 화면의 기준일 */
+  badge?: ReactNode;
   width?: string;
 }) {
   return (
@@ -33,7 +33,7 @@ export function AppHeader({
           width,
         )}
       >
-        <div className={cn("flex items-center gap-2.5", center ? "min-w-0 flex-1" : "flex-wrap")}>
+        <div className={cn("flex items-center gap-2.5", center ? "min-w-0 max-w-full flex-1" : "flex-wrap")}>
           <Link href={routes.home()} className="text-lg font-bold text-ink no-underline">
             MSDS 검수
           </Link>
@@ -45,15 +45,19 @@ export function AppHeader({
               <strong className="min-w-0 truncate text-lg" title={doc}>
                 {doc}
               </strong>
+              {badge && <span className="shrink-0">{badge}</span>}
               {note && <span className="text-sm text-mut">{note}</span>}
             </>
           )}
         </div>
         {center && <div className="shrink-0">{center}</div>}
-        <div className={cn("flex flex-wrap items-center justify-end gap-3", center && "lg:justify-self-end")}>
-          {right}
+        {center ? (
+          <div className="lg:justify-self-end">
+            <ReviewerBadge />
+          </div>
+        ) : (
           <ReviewerBadge />
-        </div>
+        )}
       </div>
     </header>
   );

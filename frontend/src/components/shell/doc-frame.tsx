@@ -52,9 +52,9 @@ export function DocFrame({
       <AppHeader
         doc={data ? stem(data.filename) : (doc ?? undefined)}
         center={<Stepper variant="pill" steps={STAGES.map((s) => ({ ...s, note: stageNotes[s.id] }))} current={stage} />}
-        right={
+        badge={
           stage === "review" && data?.as_of ? (
-            <span className="inline-flex items-center rounded-full border border-line bg-white px-2.5 py-1 text-xs text-mut">
+            <span className="inline-flex items-center whitespace-nowrap rounded-full border border-line bg-white px-2.5 py-1 text-xs text-mut">
               기준일 {data.as_of}
             </span>
           ) : undefined
