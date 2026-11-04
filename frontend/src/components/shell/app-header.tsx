@@ -34,7 +34,7 @@ export function AppHeader({
         )}
       >
         <div className={cn("flex items-center gap-2.5", center ? "min-w-0 max-w-full flex-1" : "flex-wrap")}>
-          <Link href={routes.home()} className="text-lg font-bold text-ink no-underline">
+          <Link href={routes.home()} className="shrink-0 whitespace-nowrap text-lg font-bold text-ink no-underline">
             MSDS 검수
           </Link>
           {doc && (
@@ -45,7 +45,7 @@ export function AppHeader({
               <strong className="min-w-0 truncate text-lg" title={doc}>
                 {doc}
               </strong>
-              {badge && <span className="shrink-0">{badge}</span>}
+              {badge && <span className="min-w-0 overflow-hidden">{badge}</span>}
               {note && <span className="text-sm text-mut">{note}</span>}
             </>
           )}
