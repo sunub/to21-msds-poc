@@ -47,7 +47,7 @@ export function documentRow(doc: DocumentSummary, judgment: JudgmentBatchItem | 
 
 function names(doc: DocumentSummary): Pick<DocumentRowView, "title" | "subtitle"> {
   const product = doc.document_extras?.product_name?.trim();
-  const meta = [doc.id, doc.page_count != null ? `${doc.page_count}쪽` : null].filter(Boolean).join(" · ");
+  const meta = [doc.id, doc.page_count != null ? `${doc.page_count}페이지` : null].filter(Boolean).join(" · ");
   return product ? { title: product, subtitle: `${doc.filename} · ${meta}` } : { title: doc.filename, subtitle: meta };
 }
 

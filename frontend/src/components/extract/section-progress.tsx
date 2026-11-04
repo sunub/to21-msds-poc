@@ -35,7 +35,7 @@ export function SectionProgressTable({
       <TableHead className="sticky top-0 px-3.5 py-2">
         <span className="w-8">항</span>
         <span className="min-w-0 flex-1">제목</span>
-        <span className="w-14">쪽</span>
+        <span className="w-14">페이지</span>
         <span className="w-20">상태</span>
       </TableHead>
       {groups.map(([index, sections]) => (

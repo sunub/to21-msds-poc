@@ -295,7 +295,7 @@ function SourceLines({
         <span className="min-w-0">{hit.text}</span>
       </p>
       <Button variant="link" className="min-h-0 text-xs" onClick={() => onSource(page, hit.text)}>
-        {page}쪽에서 보기
+        {page}페이지에서 보기
       </Button>
     </div>
   );
@@ -330,7 +330,7 @@ const FieldRow = memo(function FieldRow({
         </span>
         {field.page !== null && (
           <Button variant="link" className="min-h-0 text-sm" onClick={() => onSource(field.page, field.source_text)}>
-            원문 {field.page}쪽
+            원문 {field.page}페이지
           </Button>
         )}
         {field.state === "confirmed" && <StatusLabel tone="success">확인함</StatusLabel>}

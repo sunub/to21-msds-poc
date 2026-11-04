@@ -36,7 +36,7 @@ export function describeProblem(raw: string): {
   if (w) {
     page = Number(w[1]);
     line = Number(w[2]);
-    const place = `${w[1]}쪽 ${w[2]}줄`;
+    const place = `${w[1]}페이지 ${w[2]}줄`;
     where = w[3] ? `${ITEM_NAMES[w[3]] ?? w[3]} · ${place}` : place;
   }
 

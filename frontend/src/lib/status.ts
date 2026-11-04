@@ -96,7 +96,7 @@ export function stageMessage(doc: Pick<DocumentSummary, "status" | "stage">) {
   if (doc.status === "queued") return "앞 문서가 끝나기를 기다리고 있습니다";
   switch (doc.stage) {
     case "preprocess":
-      return "쪽 이미지와 텍스트를 만드는 중입니다";
+      return "페이지 이미지와 텍스트를 만드는 중입니다";
     case "sections":
       return "항목을 나누는 중입니다";
     case "extract":
@@ -124,10 +124,11 @@ export function sectionLabel(section: SectionProgress, docStatus: JobStatus): { 
   }
 }
 
+/** 항 진행 표의 '페이지' 칸 값. 칸 이름에 단위가 있어 숫자만 쓴다 (칸 폭 w-14) */
 export function pagesLabel(pages: number[]) {
   if (pages.length === 0) return "-";
   const [first, last] = [pages[0], pages[pages.length - 1]];
-  return first === last ? `${first}쪽` : `${first}~${last}쪽`;
+  return first === last ? `${first}` : `${first}~${last}`;
 }
 
 /** 텍스트층을 입력 유형으로 (2.1). 정상이면 글자를 그대로 읽은 PDF 이고, 나머지는 잘못 읽힌 칸이 있을 수 있다 */
@@ -140,7 +141,7 @@ export function inputType(textLayer: DocumentSummary["text_layer"]): { label: st
     case "글꼴깨짐":
       return { label: "글자가 깨진 PDF", note: "파일의 글자가 깨져 있어 잘못 읽힌 칸이 있을 수 있습니다.", recommendValues: true };
     case "혼합":
-      return { label: "글자와 이미지가 섞인 PDF", note: "이미지로 된 쪽에 잘못 읽힌 칸이 있을 수 있습니다.", recommendValues: true };
+      return { label: "글자와 이미지가 섞인 PDF", note: "이미지로 된 페이지에 잘못 읽힌 칸이 있을 수 있습니다.", recommendValues: true };
     case null:
       return { label: "판정 전", note: "입력 유형을 판정하지 못했습니다.", recommendValues: true };
   }

@@ -151,9 +151,9 @@ test("항은 모두 확인했어도 손대지 않은 칸이 남으면 저장 화
 
 test("제품명을 알면 제목으로 쓰고 파일명은 아래 줄로 내린다", () => {
   const named = documentRow(doc({ document_extras: { ...doc().document_extras!, product_name: "가상 세정액 B" } }), undefined);
-  assert.deepEqual([named.title, named.subtitle], ["가상 세정액 B", `a.pdf · ${ID} · 4쪽`]);
+  assert.deepEqual([named.title, named.subtitle], ["가상 세정액 B", `a.pdf · ${ID} · 4페이지`]);
   const plain = documentRow(doc(), undefined);
-  assert.deepEqual([plain.title, plain.subtitle], ["a.pdf", `${ID} · 4쪽`]);
+  assert.deepEqual([plain.title, plain.subtitle], ["a.pdf", `${ID} · 4페이지`]);
 });
 
 test("실패 원인은 사람이 읽는 말로 바꾸고 원래 오류는 따로 남긴다", () => {
