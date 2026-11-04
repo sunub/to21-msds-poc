@@ -162,5 +162,8 @@ def preprocess_v17(pdf_path: Path, doc_id: str, dpi: int = DPI, force: bool = Fa
         final = (out_dir / page["text_file"]).read_text(encoding="utf-8")
         if source == "OCR":
             page_ocr_input(doc_id, page["page"], pages_root=pages_root).write_text(final, encoding="utf-8")
-        page_match_txt(doc_id, page["page"], pages_root=pages_root).write_text(strip_line_numbers(final), encoding="utf-8")
+        match_path = page_match_txt(doc_id, page["page"], pages_root=pages_root)
+        match_path.write_text(strip_line_numbers(final), encoding="utf-8")
+        page["match_file"] = match_path.name   # render.load_pages가 이 이름이 있을 때만 대조 글로 읽는다
+    (out_dir / "meta.json").write_text(json.dumps(meta, ensure_ascii=False, indent=2), encoding="utf-8")
     return meta

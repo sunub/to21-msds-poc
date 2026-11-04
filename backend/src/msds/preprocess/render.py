@@ -391,7 +391,7 @@ def load_pages(doc_id: str, *, pages_root: Path | None = None) -> dict:
             text_full = page_ocr_input(doc_id, n, pages_root=pages_root).read_text(encoding="utf-8")
             match_text = text_full
             mt = page_match_txt(doc_id, n, pages_root=pages_root)
-            if "preprocess_version" not in meta and mt.exists():   # version17: 줄 번호를 뗀 대조용 글
+            if p.get("match_file") and mt.exists():   # version17이 meta에 적어 둔, 줄 번호를 뗀 대조용 글
                 match_text = mt.read_text(encoding="utf-8")
             text = text_full if normal else ""
         elif source == "텍스트층":
