@@ -189,9 +189,11 @@ async def lifespan(app: FastAPI):
     detach(app)
 
 
+# 화면 개발 서버(다른 포트)가 읽어야 하는 응답 머리글: 내려받기 파일 이름, PDF 뷰어(pdf.js)의 부분 받기
+CORS_EXPOSE = ["Content-Disposition", "Accept-Ranges", "Content-Range", "Content-Length"]
 app = FastAPI(title="MSDS 판정·저장 API", lifespan=lifespan)
 # 단독으로 띄울 때 화면 개발 서버(next dev)가 다른 포트에서 부른다. 값은 extract_app과 같다
-app.add_middleware(CORSMiddleware, allow_methods=["*"], allow_headers=["*"],
+app.add_middleware(CORSMiddleware, allow_methods=["*"], allow_headers=["*"], expose_headers=CORS_EXPOSE,
                    allow_origins=[o.strip() for o in os.environ.get("MSDS_CORS_ORIGINS", "http://localhost:3000,http://127.0.0.1:3000,"
                                                                      "http://localhost:3101,http://127.0.0.1:3101").split(",") if o.strip()])
 app.include_router(router)
