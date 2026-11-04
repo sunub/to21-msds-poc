@@ -11,7 +11,7 @@
 | # | 문제 | 담당 |
 |---|---|---|
 | 7 | 엔진 쪽 남은 차이와 우진과 정할 것은 `decisions.md` "엔진 쪽 남은 차이" | B·우진 |
-| 10 | 화면이 저장 개요(`/api/judgments/{job_id}/save-overview`)와 요약(`/api/judgments/summary`)을 아직 부르지 않는다. `history`·`reports`는 연결됨. 서버 경로는 있다 | 화면 |
+| 10 | 저장 화면은 연결됨(sunub #163). 남은 것: ① 화면이 저장 개요의 `last_review_event_id`를 최신 저장본과 비교해야 저장 뒤 검토 처리를 "바뀜"으로 보여 준다(서버 칸은 B가 더함). ② 넘김을 다시 판정하는 중에는 저장 버튼을 막아야 한다(지금은 409가 반복). ③ 목록이 요약(`/api/judgments/summary`)을 아직 부르지 않는다 | 화면 |
 | 28 | 지식DB 원본 수정 11건. 판정에 영향 있는 것은 엔진이 읽을 때 고침(B-43, `rules/htodb_fixes.csv`). 원본이 고쳐지면 보정 행을 지운다 | 지식DB 담당 |
 | 36 | 검토자 이름 길이: 계약(`common.schema.json` `reviewer`)은 50자, 추출 API(`extract_app.py`의 `FieldReview`·`SectionReview`·`ToJudgment`)와 화면은 40자, 판정 API(`judge_app.py` `Reviewer`)는 계약과 같은 50자. 41~50자는 추출 API 3곳에서만 422. 앱 안에서는 일관돼 시연을 막지 않는다. 계약 문서를 40자로 맞출지 팀에 알리고 정한다 | 계약 공용 |
 
