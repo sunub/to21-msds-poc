@@ -60,6 +60,8 @@ export const documentListQuery = (status: DocumentFilter = "all") =>
   queryOptions({
     queryKey: documentKeys.list(status),
     queryFn: ({ signal }) => requestJson(documentListResponseSchema, "/api/documents", { query: { status }, signal }),
+    // 검수 진행(document_extras·review_stage)은 다른 화면에서 바뀐다. 목록으로 돌아오면 바로 새로 받는다
+    staleTime: 0,
     refetchInterval: (query) => ((query.state.data?.counts.active ?? 0) > 0 ? LIST_POLL_MS : false),
   });
 

@@ -239,6 +239,36 @@ class PostgresJobStore:
                               .format(self.table)).fetchall()
         return [r['progress_json'] for r in rows]
 
+    def handed_off(self, job_ids: list[str]) -> set[str]:
+        """사람이 지금 결과를 판정으로 넘긴 작업. 표가 아직 없는 DB면 빈 집합.
+
+        추출 직후 자동 넘김(extraction_done)은 사람이 넘긴 것이 아니고, 다시 추출하기 전의 넘김은
+        이전 결과의 것이라 세지 않는다(넘김 기록은 지우지 않는다). 지금 결과는 마지막으로 끝난 시도 뒤의 것이다."""
+        if not job_ids:
+            return set()
+        table = sql.Identifier(self.schema, 'handoff')
+        with self._connect() as db:
+            if not db.execute('SELECT to_regclass(%s)', (table.as_string(db),)).fetchone()['to_regclass']:
+                return set()
+            rows = db.execute(sql.SQL("""SELECT DISTINCT h.job_id FROM {} h JOIN {} j ON j.job_id = h.job_id
+                WHERE h.job_id = ANY(%s) AND h.reason IN ('values_reviewed', 'value_edited')
+                AND h.created_at >= COALESCE((SELECT max((a->>'finished_at')::timestamptz)
+                                     FROM jsonb_array_elements(j.attempts_json) a WHERE a->>'status' = 'done'),
+                                     '-infinity')""")
+                .format(table, self.table), (list(job_ids),)).fetchall()
+        return {r['job_id'] for r in rows}
+
+    def review_records(self, states: list[dict]) -> dict[str, dict]:
+        """끝난 작업들의 검수 기록을 연결 하나로. 그사이 다시 실행돼 결과가 없는 작업은 빠진다."""
+        out = {}
+        with self._connect() as db:
+            for state in states:
+                try:
+                    out[state['id']] = self._load_review_locked(db, state['id'], state)[0]
+                except ReviewNotReady:
+                    continue
+        return out
+
     def requeue(self, doc_id: str) -> dict | None:
         with self._connect() as db:
             row = db.execute(sql.SQL("SELECT * FROM {} WHERE job_id=%s FOR UPDATE").format(self.table),
@@ -344,8 +374,11 @@ class PostgresJobStore:
     def artifact_paths(self, doc_id: str) -> dict[str, Path] | None:
         """Return only paths published by a currently valid worker lease."""
         state = self.get(doc_id)
-        if state is None:
-            return None
+        return None if state is None else self.artifact_paths_for(state)
+
+    def artifact_paths_for(self, state: dict) -> dict[str, Path] | None:
+        """artifact_paths for an already-read state (the list reads every state in one query)."""
+        doc_id = state['id']
         prepared = state.get('_prepared_token') or state.get('_active_token')
         if not prepared:
             return None
