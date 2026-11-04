@@ -256,9 +256,12 @@ def prepare_for_training(model, cfg: dict, use_4bit: bool):
     return model, info
 
 
-def add_lora(model, cfg: dict):
-    from peft import LoraConfig, get_peft_model
+def add_lora(model, cfg: dict, init_adapter: str | None = None):
+    """새 LoRA를 붙인다. init_adapter가 있으면 이미 학습한 LoRA를 이어서 학습하도록 불러온다(2단계 학습: 교사 답 → 골드)."""
+    from peft import LoraConfig, PeftModel, get_peft_model
 
+    if init_adapter:
+        return PeftModel.from_pretrained(model, init_adapter, is_trainable=True)
     lo = cfg["lora"]
     config = LoraConfig(r=lo["r"], lora_alpha=lo["alpha"], lora_dropout=lo.get("dropout", 0.0), bias="none",
                         task_type="CAUSAL_LM", target_modules=lo["target_modules"],
@@ -439,6 +442,7 @@ def main():
     ap.add_argument("--check-memory", action="store_true",
                     help="모델을 올리고 가장 긴 예시로 한 걸음만 돌려 최대 GPU 메모리와 시간을 잰다(학습·저장 안 함)")
     ap.add_argument("--max-steps", type=int, default=-1, help="시험용: 이 단계에서 멈춘다")
+    ap.add_argument("--init-adapter", help="이미 학습한 LoRA 폴더에서 이어서 학습한다(lora 설정은 그 폴더의 것을 쓴다)")
     ap.add_argument("--no-4bit", action="store_true", help="4bit 양자화 없이 올린다(CPU 시험용. GPU에서는 quantization.load_in_4bit=false와 같다)")
     a = ap.parse_args()
 
@@ -482,7 +486,7 @@ def main():
     model = load_model(cfg, use_4bit)
     after_load = gpu_gb()
     model, prep = prepare_for_training(model, cfg, use_4bit)
-    model = add_lora(model, cfg)
+    model = add_lora(model, cfg, a.init_adapter)
     model.print_trainable_parameters()
     params, cov = param_breakdown(model), lora_coverage(model)
     print_model_report(params, prep, cov, after_load)
@@ -537,7 +541,7 @@ def main():
         "eval_loss_before": before.get("eval_loss") if before else None,
         "eval_loss_after": after.get("eval_loss") if after else None,
         "train_loss": result.training_loss, "steps": result.global_step, "seconds": round(time.time() - t0),
-        "model": model_info, "peak_gb": gpu_gb(peak=True),
+        "model": model_info, "peak_gb": gpu_gb(peak=True), "init_adapter": a.init_adapter,
         "versions": versions(), "git_commit": git_commit(), "smoke_test": bool(a.no_4bit or a.max_steps > 0),
         "wandb_url": getattr(wb, "url", None) if wb else None,
     }
