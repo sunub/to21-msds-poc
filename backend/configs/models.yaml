@@ -134,7 +134,7 @@ models:
 
   # 회사 GPU(48GB급으로 추정, 11/3) 대신 쓰는 RunPod 48GB 시험대. 모델·요청 방식은 qwen36_35b_runpod와 같고
   # 서버 설정(server)만 다르다. pod_up.py --tag로 띄우면 이 값으로 vLLM을 띄운다.
-  # 48GB에서 FP8 가중치(약 36GB)를 빼면 KV에 약 10GB가 남아 48k 요청을 8개 안팎 받는다.
+  # 48GB에서 FP8 가중치(약 35GiB)를 빼면 KV는 207,736토큰이다. 49k 요청 기준 최대 동시 4.23개(2026-11-04 L40S vLLM 시작 로그). 짧은 요청은 더 많이(최대 max_num_seqs 8개) 함께 처리한다
   qwen36_35b_runpod_48g:
     model: Qwen/Qwen3.6-35B-A3B-FP8
     base_url_env: RUNPOD_VLLM_BASE_URL
