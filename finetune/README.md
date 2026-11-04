@@ -35,7 +35,8 @@ GPT·Claude(교사)가 새 MSDS를 추출한 결과를, 우리 오픈소스 모�
 |---|---|---|---|---|---|
 | Qwen3.6-35B-A3B | 팀원 | `configs/qwen36_35b_a3b.yaml` | `20261104_qwen36_35b_runpod` | H200 141GB × 1 | `ft_base_qwen36`·`ft_lora_qwen36` |
 | Qwen3.8-27B | 팀원 | `configs/qwen38_27b.yaml` | `20261104_qwen38` | A100 80GB × 1 | `ft_base_qwen38`·`ft_lora_qwen38` |
-| Qwen3.5-122B-A10B | F | `configs/qwen35_122b_a10b.yaml` | `20261104_qwen36_35b_runpod`(35B와 같음) | H200 141GB × 4 | `ft_base_qwen35_122b`·`ft_lora_qwen35_122b` |
+| Qwen3.5-122B-A10B FP8 | F | `configs/qwen35_122b_a10b_fp8.yaml` | `20261104_qwen36_35b_runpod`(35B와 같음) | B200 180GB × 1 (없으면 RTX PRO 6000 96GB × 2 + `--set device_map=auto`) | `ft_base_qwen35_122b_fp8`·`ft_lora_qwen35_122b_fp8` |
+| (대안) Qwen3.5-122B-A10B bf16 | F | `configs/qwen35_122b_a10b.yaml` | 위와 같음 | H200 141GB × 4 | `ft_base_qwen35_122b`·`ft_lora_qwen35_122b` |
 | Qwen3-30B-A3B(되면) | F | `configs/qwen3_30b_a3b.yaml` | `20261104_qwen3_30b_a3b_rngd` | A100 80GB × 1 | `ft_base_qwen3_30b`·`ft_lora_qwen3_30b` |
 
 - 디스크(`/workspace` 볼륨): 35B·27B·30B는 200GB, 122B는 700GB.
@@ -116,7 +117,8 @@ cat /workspace/vllm_api_key                                                  # P
 |---|---|---|
 | 35B | `Qwen/Qwen3.6-35B-A3B-FP8`(운영과 같은 FP8) | 없음 |
 | 27B | `Qwen/Qwen3.8-27B` | 앞에 `MAX_MODEL_LEN=65536` |
-| 122B | `Qwen/Qwen3.5-122B-A10B` | 없음(GPU 4장에 자동으로 나눈다) |
+| 122B FP8 | `Qwen/Qwen3.5-122B-A10B-FP8` | 없음(B200 한 장, 학습 원본과 같다) |
+| 122B bf16 | `Qwen/Qwen3.5-122B-A10B` | 없음(GPU 4장에 자동으로 나눈다) |
 | 30B | `Qwen/Qwen3-30B-A3B-Instruct-2507-FP8` | 앞에 `MM_LIMIT=`(글 전용 모델) |
 
 - FP8 원본에 LoRA가 안 붙으면(`serve.log`에 LoRA·양자화 오류) bf16 원본(`Qwen/Qwen3.6-35B-A3B` 등, 학습에 쓴 것)으로 띄우고, PC의 `ft_base_*` 태그 `model`도 그 이름으로 바꾼다. 전후 둘 다 같은 서버에서 돌리면 비교는 그대로 성립한다.
@@ -127,6 +129,9 @@ PC에서:
 2. 추출에 쓰는 `.env`(지금 `RUNPOD_VLLM_API_KEY`가 있는 파일)에 두 줄을 더한다: `FT_VLLM_BASE_URL=http://127.0.0.1:18000/v1`, `FT_VLLM_API_KEY=<Pod 키>`
 3. `finetune/eval_tags.yaml`에서 맡은 모델의 두 태그를 `backend/configs/models.yaml`의 `models:` 아래에 붙인다(커밋하지 않는다).
 4. 개발 10건의 쪽 글자(`data/pages/`)가 있어야 한다. 없으면 `python scripts/preprocess.py --purpose 개발`(원본 PDF 필요).
+5. main의 `run_sections.py`는 쪽 글자 첫 줄이 `L001 …` 꼴인지 먼저 검사한다. 10/29 전처리 판(학습 데이터와 같은 판)은 줄번호가 없어 "줄번호 없는 쪽 글자"로 멈춘다.
+   그러면 줄번호를 붙인 사본을 만들고 `--pages-dir ..\data\pages\_numbered`로 돌린다. 모델이 받는 줄 id와 글은 그대로다(`--check`로 확인).
+   `backend\.venv\Scripts\python finetune\number_pages.py --src data\pages --dst data\pages\_numbered --docs <문서들> --check`
 
 ```powershell
 cd backend
@@ -138,7 +143,10 @@ backend\.venv\Scripts\python backend\scripts\score.py --pred runs\<날짜>_secti
 backend\.venv\Scripts\python backend\scripts\compare_scores.py --title ft_qwen36_전후 base=runs\<날짜>_score_ft_base_qwen36_개발 lora=runs\<날짜>_score_ft_lora_qwen36_개발
 ```
 
-- bf16 원본으로도 LoRA를 못 붙이면 4장의 합치기 방법으로 바꾸고 F에게 알린다. Qwen3.5 구조의 DeltaNet 층 LoRA를 vLLM이 받는지는 확인이 필요하다.
+- **LoRA가 실제로 붙었는지 꼭 확인한다.** 학습 전 이름과 `to21-ft`에 같은 질문을 temperature 0으로 보내 답이나 확률(logprobs)이 달라야 한다.
+  - Qwen3.5·3.6·3.8 계열(이미지까지 받는 모델)은 LoRA 층 이름이 학습 때와 vLLM에서 다르다. 이름이 다르면 vLLM이 오류 없이 "불러왔다"고 하지만 아무 층에도 붙지 않는다.
+  - `serve_lora.sh`가 `adapter_for_vllm.py`로 이름을 바꾼 사본(`adapter_vllm/`)을 만들어 띄운다(11/04 122B에서 확인: 바꾸기 전에는 전후 출력이 소수점까지 같았고, 바꾼 뒤 달라졌다).
+- DeltaNet 층 LoRA는 vLLM 0.32.0이 받는다(11/04 122B FP8 확인). FP8 원본에 LoRA가 안 붙으면 bf16 원본으로, 그래도 안 되면 4장의 합치기 방법으로 바꾸고 F에게 알린다.
 - 평가셋 11건은 돌리지 않는다. 설정을 고정한 뒤 F가 한 번만 채점한다(D-43).
 
 ### 마. 넘기고 정리 (담당자)
@@ -180,7 +188,8 @@ backend\.venv\Scripts\python backend\scripts\score.py --pred runs\<날짜>_secti
 | `configs/qwen3_30b_a3b.yaml` | Qwen3-30B-A3B-Instruct-2507 (RNGD 운영 모델 원본) | MoE 128전문가 48층 | bf16 LoRA | `qwen3_30b_a3b_rngd` | 가중치 약 61GB + 학습 중 약 5~10GB | A100 80GB 한 장(먼저 `--check-memory`) |
 | `configs/qwen36_35b_a3b.yaml` | Qwen3.6-35B-A3B (RunPod 추론 모델 원본) | MoE 256전문가 40층, DeltaNet 30층 | bf16 LoRA | `qwen36_35b_runpod` | 가중치 약 69GB + 학습 중 약 5~10GB | A100 80GB는 빠듯. H200 141GB 한 장 권장 |
 | `configs/qwen38_27b.yaml` | Qwen3.8-27B (기준선) | 밀집 64층, DeltaNet 48층 | 4bit QLoRA | `qwen38` | 4bit 본체 약 13GB + 임베딩·출력층(fp32) 약 10GB + 학습 중 | A100 80GB 한 장이면 넉넉 |
-| `configs/qwen35_122b_a10b.yaml` | Qwen3.5-122B-A10B (큰 모델 비교 한 번) | MoE 256전문가 48층, DeltaNet 36층 | bf16 LoRA, GPU 여러 장(`device_map: auto`) | `qwen36_35b_runpod`(35B와 같은 데이터) | 가중치 약 244GB + 학습 중 약 15~20GB | H200 141GB × 4 권장(B200 × 2, 80GB × 4는 빠듯) |
+| `configs/qwen35_122b_a10b_fp8.yaml` | Qwen3.5-122B-A10B-FP8 (큰 모델 비교 한 번, 11/04 B200 한 장) | MoE 256전문가 48층, DeltaNet 36층 | FP8 원본 위 LoRA(transformers 5.22 지원) | `qwen36_35b_runpod` | FP8 가중치 약 125GB + 학습 중 약 10~15GB | B200 180GB × 1. `kernels` 패키지 필요 |
+| `configs/qwen35_122b_a10b.yaml` | Qwen3.5-122B-A10B (bf16 대안) | MoE 256전문가 48층, DeltaNet 36층 | bf16 LoRA, GPU 여러 장(`device_map: auto`) | `qwen36_35b_runpod`(35B와 같은 데이터) | 가중치 약 244GB + 학습 중 약 15~20GB | H200 141GB × 4 권장(B200 × 2, 80GB × 4는 빠듯) |
 
 - 예상 메모리는 매개변수 수로 계산한 값이다(확인 필요). 실제 값은 Pod에서 `--check-memory`로 잰다(3.3).
 - 122B는 운영 후보가 아니라 '같은 계열에서 모델만 키우면 얼마나 나아지나'를 보는 비교 실험이다. 학습해도 RNGD·온프레미스 서버에 올릴 수 있는지는 확인이 필요하다. 'Qwen3.6-122B'는 11/04 현재 공개되지 않아 같은 구조의 3.5판을 쓴다.
