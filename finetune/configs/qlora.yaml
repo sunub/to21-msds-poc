@@ -47,3 +47,12 @@ train:
   save_steps: 50
   eval_before: true                 # 학습 전 검증 손실도 남긴다(전후 비교)
   seed: 2026
+
+# 학습 곡선 보기(선택). 켜려면 enabled: true 또는 실행할 때 --set wandb.enabled=true
+# 키는 RunPod에서 `export WANDB_API_KEY=...`(또는 wandb login)로만 둔다. 저장소·채팅·노션에 적지 않는다.
+# 보내는 것: 손실·학습률·기울기 크기·GPU 사용량, 설정, 예시 수·길이 통계(숫자). 학습 글과 모델 파일은 보내지 않는다(D-47).
+wandb:
+  enabled: false
+  project: to21-msds-qlora
+  entity: null                      # 팀 W&B 조직에 남기려면 그 이름
+  tags: []

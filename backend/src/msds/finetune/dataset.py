@@ -1,8 +1,11 @@
 """추출 파인튜닝 학습 데이터: 교사 모델(GPT·Claude)의 항목별 추출 결과 → 학생 모델의 학습 예시 (11/03 F).
 
-교사 결과는 scripts/run_sections.py --model gpt|claude 로 만든 실행 폴더 runs/<실행>/ 를 쓴다.
-  run_info.yaml                      교사가 본 쪽 글자 폴더(pages_dir). 같은 폴더로 입력을 다시 만들어야 줄 번호가 맞는다
-  raw/<문서>_m<i>_s<NN>.json         항별 응답. 재추출했으면 고른 시도가 맨 위에 있다(section_runner._raw_record)
+교사 결과는 두 가지를 받는다.
+  TeacherRun  scripts/run_sections.py --model gpt|claude 로 만든 실행 폴더 runs/<실행>/ (항목별 방식)
+              run_info.yaml의 pages_dir(교사가 본 쪽 글자 폴더)로 입력을 다시 만들어야 줄 번호가 맞는다
+              raw/<문서>_m<i>_s<NN>.json: 항별 응답. 재추출했으면 고른 시도가 맨 위에 있다(section_runner._raw_record)
+  SilverSet   묶음 방식 실버·골드 폴더 data/silver/<모델>/, data/gold/ (완성 TO21 문서, 11/03 팀원 p6 실버 59건)
+              from_silver.convert_section이 근거 원문 조각으로 줄 번호를 되찾아 항별 중간 형식으로 되돌린다
 
 예시 하나 = 실제 추출 때 학생 모델이 받는 메시지와 같은 system·user + 정답 assistant
   system     section_prompts.build_system(no, rows). 행 형식 여부는 학생 설정의 rows_sections로 정한다.
@@ -15,6 +18,8 @@
 
 버리는 예시와 이유(보고서에 센다)
   교사 실패        교사 항이 ok가 아니거나 검사 문제(check_problems)가 있다
+  근거 줄 못 찾음   실버·골드를 되돌릴 때 줄 번호를 못 찾은 행이 있다(그 항 전체를 뺀다)
+  MSDS 건수 다름    실버의 MSDS 건수와 쪽 글자로 나눈 건수가 다르다
   줄 번호 다름      정답의 줄 번호가 다시 만든 입력에 없다(쪽 글자가 교사 실행 때와 다르다)
   형식 검사 실패    정답 글을 실제 추출과 같은 방법으로 다시 읽으면(행: parse_rows, JSON: json.loads) 오류·스키마 위반·행 수 차이가 난다
   이미지 항        학생 설정이 2항에 쪽 이미지를 붙이면(image_input) 2항은 뺀다. 이미지 없이 그림문자 정답을 배우면 지어내게 된다
@@ -38,6 +43,7 @@ from msds.common import manifest
 from msds.common.paths import DATA, ROOT
 from msds.common.schema import to_strict, validate
 from msds.extract.client import relax_required
+from msds.finetune.from_silver import convert_section
 from msds.extract.inputs import EXTRACT_SECTIONS, load_document, model_lines, section_lines
 from msds.extract.rows import ROWS_SECTIONS_DEFAULT, _tables, parse_qm, parse_rows
 from msds.extract.section_prompts import SECTION_PROMPT_VERSION, build_system, build_user, prompt_hash
@@ -215,6 +221,8 @@ def drop_pictograms(parsed: dict) -> dict:
     out.pop("pictograms", None)
     if isinstance(out.get("hazard"), dict):
         out["hazard"].pop("pictograms", None)
+        if isinstance(out["hazard"].get("lines"), dict):
+            out["hazard"]["lines"].pop("pictograms", None)
     return out
 
 
@@ -266,12 +274,73 @@ class TeacherRun:
     def name(self) -> str:
         return self.path.name
 
+    @property
+    def model_tag(self) -> str | None:
+        return self.info.get("model_tag")
+
     def records(self):
         """(문서, MSDS 번호, 항, raw 기록). 파일 이름 순서."""
         for f in sorted((self.path / "raw").glob("*.json")):
             m = _RAW_NAME.match(f.name)
             if m:
                 yield m["doc"], int(m["m"]), int(m["s"]), json.loads(f.read_text(encoding="utf-8"))
+
+    def doc_ids(self) -> list[str]:
+        return sorted({m["doc"] for f in (self.path / "raw").glob("*.json") if (m := _RAW_NAME.match(f.name))})
+
+    def answers(self, doc_id: str, doc, sections: tuple[int, ...]):
+        """(MSDS 번호, 항, 기록). 교사 응답을 그대로 쓴다(doc은 쓰지 않는다)."""
+        for d, mi, no, rec in self.records():
+            if d == doc_id and no in sections:
+                yield mi, no, rec
+
+    def describe(self) -> dict:
+        return {"run": self.name, "kind": "항목별 실행", "model_tag": self.model_tag, "model": self.info.get("model"),
+                "prompt_version": self.info.get("prompt_version"), "pages_dir": str(self.info.get("pages_dir"))}
+
+
+@dataclass
+class SilverSet:
+    """묶음 방식 실버·골드 폴더(<문서>.json, 완성 TO21 문서). 근거 원문 조각으로 줄 번호를 되찾아 항별 정답으로 바꾼다."""
+    path: Path
+    pages_dir: Path
+    tag: str | None = None
+
+    @property
+    def name(self) -> str:
+        return self.path.name
+
+    @property
+    def model_tag(self) -> str | None:
+        return self.tag or self.path.name
+
+    def doc_ids(self) -> list[str]:
+        return sorted(f.name[:-5] for f in Path(self.path).glob("*.json") if f.name.count(".") == 1)
+
+    def load(self, doc_id: str) -> dict:
+        return json.loads((Path(self.path) / f"{doc_id}.json").read_text(encoding="utf-8"))
+
+    def answers(self, doc_id: str, doc, sections: tuple[int, ...]):
+        data = self.load(doc_id)
+        items = data.get("msds") or []
+        for mi, item in enumerate(items):
+            for no in sections:
+                if isinstance(doc, Exception):
+                    yield mi, no, {"ok": False, "reason": "입력 없음(쪽 글자)", "errors": [f"{type(doc).__name__}: {doc}"[:120]]}
+                elif len(items) != len(doc.msds):
+                    yield mi, no, {"ok": False, "reason": "MSDS 건수 다름",
+                                   "errors": [f"실버 {len(items)}건, 쪽 글자로 나눈 {len(doc.msds)}건"]}
+                else:
+                    parsed, problems, notes = convert_section(item, no, doc, mi)
+                    yield mi, no, ({"ok": True, "parsed": parsed, "notes": notes} if not problems else
+                                   {"ok": False, "reason": "근거 줄 못 찾음", "errors": problems, "notes": notes})
+
+    def describe(self) -> dict:
+        engine = None
+        for doc_id in self.doc_ids()[:1]:
+            engine = ((self.load(doc_id).get("doc") or {}).get("extraction") or {}).get("engine")
+        return {"run": self.name, "kind": "묶음 실버·골드", "model_tag": self.model_tag, "model": engine,
+                "prompt_version": None, "pages_dir": str(self.pages_dir)}
 
 
 @dataclass
@@ -281,6 +350,9 @@ class BuildResult:
     drop_samples: dict[str, list[str]]
     excluded_docs: dict[str, str]
     sections: Counter
+    tried: Counter = field(default_factory=Counter)     # 문서별로 바꿔 본 항 수
+    made: Counter = field(default_factory=Counter)      # 문서별로 예시가 된 항 수
+    notes: Counter = field(default_factory=Counter)     # 예시가 된 항에서 이 항이 볼 수 없어 뺀 행·칸(실버·골드)
 
 
 def _held_out() -> dict[str, str]:
@@ -291,13 +363,14 @@ def _held_out() -> dict[str, str]:
     return {r["doc_id"]: r["purpose"] for r in rows if r.get("purpose") in HELD_OUT_PURPOSES}
 
 
-def build_examples(runs: list[TeacherRun], student: Student, sections_dir: Path = DATA / "sections",
+def build_examples(runs: list, student: Student, sections_dir: Path = DATA / "sections",
                    codes_dir: Path = DATA / "codes", allow_held_out: bool = False,
-                   sections: tuple[int, ...] = EXTRACT_SECTIONS) -> BuildResult:
-    """교사 실행들 → 학습 예시. 같은 (문서, MSDS, 항)이 여러 실행에 있으면 앞에 준 실행의 것을 쓰고,
-    그 실행의 것이 버려졌으면 다음 실행의 것을 쓴다. 버린 수는 실행마다 센다."""
+                   sections: tuple[int, ...] = EXTRACT_SECTIONS, only_docs: set[str] | None = None) -> BuildResult:
+    """교사 실행·실버 폴더들 → 학습 예시. 같은 (문서, MSDS, 항)이 여러 곳에 있으면 앞에 준 것을 쓰고,
+    그것이 버려졌으면 다음 것을 쓴다. 버린 수는 곳마다 센다. only_docs를 주면 그 문서만 쓴다."""
     held = {} if allow_held_out else _held_out()
     examples, dropped, samples, excluded, used = [], Counter(), {}, {}, set()
+    tried, made, notes = Counter(), Counter(), Counter()
     docs: dict[tuple[str, Path], object] = {}
     systems: dict[int, str] = {}
 
@@ -307,18 +380,11 @@ def build_examples(runs: list[TeacherRun], student: Student, sections_dir: Path 
             samples[reason].append(f"{key} {detail}".strip())
 
     for run in runs:
-        for doc_id, mi, no, rec in run.records():
-            key = f"{doc_id}_m{mi}_s{no:02d}"
-            if no not in sections or (doc_id, mi, no) in used:
+        for doc_id in run.doc_ids():
+            if only_docs is not None and doc_id not in only_docs:
                 continue
             if doc_id in held:
                 excluded[doc_id] = held[doc_id]
-                continue
-            if no == IMAGE_SECTION and student.image_input:
-                drop("이미지 항(2항) 제외", key)
-                continue
-            if not rec.get("ok") or rec.get("check_problems") or not isinstance(rec.get("parsed"), dict):
-                drop("교사 실패·검사 문제", key, "; ".join((rec.get("errors") or rec.get("check_problems") or [])[:1]))
                 continue
             if (doc_id, run.pages_dir) not in docs:
                 try:
@@ -326,36 +392,52 @@ def build_examples(runs: list[TeacherRun], student: Student, sections_dir: Path 
                 except (FileNotFoundError, KeyError) as e:
                     docs[(doc_id, run.pages_dir)] = e
             doc = docs[(doc_id, run.pages_dir)]
-            if isinstance(doc, Exception):
-                drop("입력 없음(쪽 글자)", key, f"{type(doc).__name__}: {doc}"[:120])
-                continue
-            if mi >= len(doc.msds):
-                drop("입력 없음(쪽 글자)", key, "MSDS 건수가 교사 실행과 다름")
-                continue
-            allowed = {l.id for l in section_lines(doc, mi, no)}
-            parsed = rec["parsed"]
-            if no == IMAGE_SECTION:
-                parsed = drop_pictograms(parsed)
-            rows = student.is_rows(no)
-            target = rows_text(parsed, no) if rows else json_text(parsed, no)
-            problems = target_problems(target, parsed, no, rows, allowed)
-            if problems:
-                reason = "줄 번호 다름" if all("원문에 없는 줄 번호" in p for p in problems) else "형식 검사 실패"
-                drop(reason, key, problems[0][:160])
-                continue
-            if no not in systems:
-                systems[no] = system_prompt(no, student)
-            user = build_user(no, model_lines(doc, mi, no))
-            examples.append({
-                "id": key, "doc_id": doc_id, "msds_index": mi, "section": no, "format": "rows" if rows else "json",
-                "teacher": run.info.get("model_tag"), "teacher_run": run.name,
-                "messages": [{"role": "system", "content": systems[no]},
-                             {"role": "user", "content": "\n".join(p["text"] for p in user if p.get("type") == "text")},
-                             {"role": "assistant", "content": target}],
-            })
-            used.add((doc_id, mi, no))
+            for mi, no, rec in run.answers(doc_id, doc, sections):
+                key = f"{doc_id}_m{mi}_s{no:02d}"
+                if (doc_id, mi, no) in used:
+                    continue
+                if no == IMAGE_SECTION and student.image_input:
+                    drop("이미지 항(2항) 제외", key)
+                    continue
+                tried[doc_id] += 1
+                if rec.get("reason"):
+                    drop(rec["reason"], key, "; ".join(rec.get("errors") or [])[:160])
+                    continue
+                if not rec.get("ok") or rec.get("check_problems") or not isinstance(rec.get("parsed"), dict):
+                    drop("교사 실패·검사 문제", key, "; ".join((rec.get("errors") or rec.get("check_problems") or [])[:1]))
+                    continue
+                if isinstance(doc, Exception):
+                    drop("입력 없음(쪽 글자)", key, f"{type(doc).__name__}: {doc}"[:120])
+                    continue
+                if mi >= len(doc.msds):
+                    drop("입력 없음(쪽 글자)", key, "MSDS 건수가 교사 실행과 다름")
+                    continue
+                allowed = {l.id for l in section_lines(doc, mi, no)}
+                parsed = rec["parsed"]
+                if no == IMAGE_SECTION:
+                    parsed = drop_pictograms(parsed)
+                rows = student.is_rows(no)
+                target = rows_text(parsed, no) if rows else json_text(parsed, no)
+                problems = target_problems(target, parsed, no, rows, allowed)
+                if problems:
+                    reason = "줄 번호 다름" if all("원문에 없는 줄 번호" in p for p in problems) else "형식 검사 실패"
+                    drop(reason, key, problems[0][:160])
+                    continue
+                if no not in systems:
+                    systems[no] = system_prompt(no, student)
+                user = build_user(no, model_lines(doc, mi, no))
+                examples.append({
+                    "id": key, "doc_id": doc_id, "msds_index": mi, "section": no, "format": "rows" if rows else "json",
+                    "teacher": run.model_tag, "teacher_run": run.name,
+                    "messages": [{"role": "system", "content": systems[no]},
+                                 {"role": "user", "content": "\n".join(p["text"] for p in user if p.get("type") == "text")},
+                                 {"role": "assistant", "content": target}],
+                })
+                used.add((doc_id, mi, no))
+                made[doc_id] += 1
+                notes.update(" ".join(n.split(" ")[:-1]) for n in rec.get("notes") or [])
     counts = Counter(e["section"] for e in examples)
-    return BuildResult(examples, dropped, samples, excluded, counts)
+    return BuildResult(examples, dropped, samples, excluded, counts, tried, made, notes)
 
 
 def split_by_doc(examples: list[dict], val_ratio: float = 0.1, seed: int = 2026) -> tuple[list[dict], list[dict], list[str]]:
@@ -368,7 +450,7 @@ def split_by_doc(examples: list[dict], val_ratio: float = 0.1, seed: int = 2026)
     return train, val, val_docs
 
 
-def data_info(runs: list[TeacherRun], student: Student, result: BuildResult, val_docs: list[str]) -> dict:
+def data_info(runs: list, student: Student, result: BuildResult, val_docs: list[str], val: BuildResult | None = None) -> dict:
     """학습 데이터와 함께 둘 기록. 안내문 글은 넣지 않고 판·해시만 남긴다(D-47)."""
     used = sorted({no for no in result.sections})
     return {
@@ -376,25 +458,41 @@ def data_info(runs: list[TeacherRun], student: Student, result: BuildResult, val
         "image_input": student.image_input, "chat_template_kwargs": student.chat_template_kwargs,
         "prompt_version": SECTION_PROMPT_VERSION,
         "prompt_hashes": {no: prompt_hash(no, student.is_rows(no)) for no in used},
-        "teacher_runs": [{"run": r.name, "model_tag": r.info.get("model_tag"), "model": r.info.get("model"),
-                          "prompt_version": r.info.get("prompt_version"), "pages_dir": str(r.info.get("pages_dir"))}
-                         for r in runs],
+        "teacher_runs": [r.describe() for r in runs],
         "examples": len(result.examples), "sections": dict(sorted(result.sections.items())),
+        "yield": {"tried": sum(result.tried.values()), "made": sum(result.made.values()),
+                  "by_doc": {d: [result.made[d], result.tried[d]] for d in sorted(result.tried)}},
+        "removed_rows": dict(result.notes),
         "dropped": dict(result.dropped), "excluded_docs": result.excluded_docs, "val_docs": val_docs,
+        "val_from": "골드(개발 문서)" if val is not None else "학습 문서에서 문서 단위로 뗌",
+        "val_yield": [sum(val.made.values()), sum(val.tried.values())] if val is not None else None,
+        "val_dropped": dict(val.dropped) if val is not None else None,
     }
 
 
 def report_md(info: dict, result: BuildResult, n_train: int, n_val: int) -> str:
+    y = info["yield"]
+    pct = lambda a, b: f"{a}/{b} ({100 * a / b:.0f}%)" if b else "-"  # noqa: E731
     lines = ["# 추출 파인튜닝 학습 데이터", "",
              f"- 학생 설정: {info['student_tag'] or '기본(RNGD와 같음)'} · 행 형식 항 {info['rows_sections']} · JSON 방식 {info['json_mode']}"
              f" · 이미지 {'있음(2항 제외)' if info['image_input'] else '없음(2항 그림문자 뺌)'}",
              f"- 안내문 판 {info['prompt_version']}",
-             "- 교사 실행: " + ", ".join(f"{r['run']}({r['model_tag']})" for r in info["teacher_runs"]),
-             f"- 예시 {info['examples']}개 = 학습 {n_train} + 검증 {n_val} (검증 문서 {len(info['val_docs'])}건: {', '.join(info['val_docs'])})",
-             "", "| 항 | 예시 |", "|---|---|", *(f"| {k} | {v} |" for k, v in info["sections"].items()),
-             "", "## 버린 예시", "", "| 이유 | 수 |", "|---|---|", *(f"| {k} | {v} |" for k, v in result.dropped.items())]
+             "- 교사: " + ", ".join(f"{r['run']}({r['kind']}, {r['model'] or r['model_tag']})" for r in info["teacher_runs"]),
+             f"- 학습 예시로 바뀐 항: {pct(y['made'], y['tried'])}",
+             f"- 예시 {info['examples']}개 = 학습 {n_train} + 검증 {n_val}. 검증: {info['val_from']}"
+             + (f" {len(info['val_docs'])}건({', '.join(info['val_docs'])})" if info["val_docs"] else ""),
+             "", "| 항 | 예시 |", "|---|---|", *(f"| {k} | {v} |" for k, v in info["sections"].items())]
+    if info.get("val_yield"):
+        lines += ["", f"검증(골드) 항: {pct(*info['val_yield'])}, 버린 이유 {info['val_dropped']}"]
+    lines += ["", "## 문서별로 학습 예시가 된 항", "", "| 문서 | 예시 / 시도 |", "|---|---|",
+              *(f"| {d} | {pct(m, t)} |" for d, (m, t) in y["by_doc"].items())]
+    lines += ["", "## 버린 예시(항 단위)", "", "| 이유 | 수 |", "|---|---|", *(f"| {k} | {v} |" for k, v in result.dropped.items())]
     for reason, xs in result.drop_samples.items():
         lines += ["", f"### {reason} (앞 5개)", *(f"- {x}" for x in xs)]
+    if result.notes:
+        lines += ["", "## 예시 안에서 뺀 행·칸 (이 항 호출이 볼 수 없는 값)", "",
+                  "이 항 줄 밖: 16항의 작성일처럼 다른 항에 적힌 값. 근거 글 없는 행: 펼치기가 만드는 '미기재' 행 등", "",
+                  "| 종류 | 수 |", "|---|---|", *(f"| {k} | {v} |" for k, v in result.notes.most_common())]
     if result.excluded_docs:
         lines += ["", "## 뺀 문서 (manifest 개발·평가, D-43)", *(f"- {d}: {p}" for d, p in sorted(result.excluded_docs.items()))]
     return "\n".join(lines) + "\n"
