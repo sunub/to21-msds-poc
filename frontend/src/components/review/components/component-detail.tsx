@@ -18,6 +18,7 @@ import {
   sourcesAgree,
   type AteEntry,
 } from "@/lib/components";
+import { FLOAT_CARD } from "../regulation/regulation-table";
 
 const ACUTE: Record<AteEntry["route"], string> = { oral: "HH_ACUTE_ORAL", dermal: "HH_ACUTE_DERMAL", inhal: "HH_ACUTE_INHAL" };
 
@@ -36,7 +37,7 @@ export function ComponentDetail({
 }) {
   const name = component.name ?? component.cas ?? `성분 ${component.comp_ref}`;
   return (
-    <Card className="flex min-w-0 flex-col gap-4 lg:h-full lg:min-h-0 lg:overflow-y-auto">
+    <Card className={cn(FLOAT_CARD, "flex min-w-0 flex-col gap-4 lg:h-full lg:min-h-0 lg:overflow-y-auto")}>
       <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1">
         <h2 className="text-lg font-bold">{name}</h2>
         <span className="text-mut">{componentHeadline(component)}</span>

@@ -15,6 +15,7 @@ import { Pane } from "@/components/shell/layout";
 import { AiChip, Button, Skeleton, StatusLabel, Textarea } from "@/components/ui";
 import { actionsFor, commentRequired, isNote, verdictText, verdictTone } from "@/lib/regulation";
 import { useReviewer } from "@/lib/reviewer";
+import { verdictCard } from "./regulation-table";
 
 export type LockReason = "rerun" | "new" | "offline" | null;
 
@@ -54,19 +55,19 @@ export function RegulationDetail({
   const reviewed = !!review && review.status !== "미검토";
 
   return (
-    <Pane fill title={`${finding.label}${finding.law_label ? ` (${finding.law_label})` : ""}`} aside={<StatusLabel tone={verdictTone(finding)}>{verdictText(finding)}</StatusLabel>}>
-      {hidden && <p className="rounded-sm bg-blue-soft px-3 py-2 text-sm text-blue2">현재 필터 조건에 맞지 않아 목록에서는 보이지 않는 항목입니다.</p>}
+    <Pane fill className={verdictCard(finding.verdict)} title={`${finding.label}${finding.law_label ? ` (${finding.law_label})` : ""}`} aside={<StatusLabel tone={verdictTone(finding)}>{verdictText(finding)}</StatusLabel>}>
+      {hidden && <p className="rounded-md bg-blue-soft px-3 py-2 text-sm text-blue2">현재 필터 조건에 맞지 않아 목록에서는 보이지 않는 항목입니다.</p>}
       {review?.stale && (
-        <p className="rounded-sm bg-tint px-3 py-2 text-sm text-stale">
+        <p className="rounded-md bg-tint px-3 py-2 text-sm text-stale">
           판정이 바뀌어 다시 확인이 필요합니다. 이전 처리: {review.status}
           {review.reviewer && ` · ${review.reviewer}`}
           {review.comment && ` — ${review.comment}`}
         </p>
       )}
       <div className="flex flex-wrap items-center gap-2 font-bold">
-        <span className="rounded-xs bg-tint px-2 py-0.5">MSDS: {display.msds}</span>
+        <span className="rounded-sm bg-tint px-2 py-0.5">MSDS: {display.msds}</span>
         <span aria-hidden="true">→</span>
-        <span className="rounded-xs bg-tint px-2 py-0.5 text-amb-text">규제DB: {display.expected}</span>
+        <span className="rounded-sm bg-tint px-2 py-0.5 text-amb-text">규제DB: {display.expected}</span>
       </div>
       <p className="text-sm text-mut">{display.component ?? "제품"}</p>
 
@@ -75,7 +76,7 @@ export function RegulationDetail({
       {display.basis_lines.length > 0 && (
         <details open={!view.explanations[finding.id]}>
           <summary className="cursor-pointer font-medium text-blue2">판단 근거 · 규제DB 기준</summary>
-          <div className="mt-2 rounded-sm bg-tint px-3 py-2.5 text-sm">
+          <div className="mt-2 rounded-md bg-tint px-3 py-2.5 text-sm">
             {display.basis_lines.map((line, i) => (
               <p key={i}>{line}</p>
             ))}
@@ -205,7 +206,7 @@ export function ReviewControls({
   return (
     <div className="flex flex-col gap-2.5 border-t border-line pt-3">
       {reviewed && (
-        <p className="rounded-sm bg-blue-soft px-3 py-2 text-sm text-blue2">
+        <p className="rounded-md bg-blue-soft px-3 py-2 text-sm text-blue2">
           {review.status}
           {review.reviewer && ` · ${review.reviewer}`}
           {review.comment && ` — ${review.comment}`}

@@ -7,14 +7,35 @@ import { cn } from "@/lib/cn";
 import { buildTable, lawCounts, noteBreakdown, regulationCounts, reviewText, verdictText, verdictTone } from "@/lib/regulation";
 
 /** 검토 화면 세 표가 같이 쓰는 "떠 있는 행" 스타일. 컨테이너·머리줄·행·고른 행 */
-export const FLOAT_TABLE = "gap-0 rounded-xl border-blue-line bg-tint p-1.5";
+export const FLOAT_TABLE = "gap-0 rounded-lg border-[#dfe8f6] bg-tint p-1.5";
 // 머리줄은 위에 붙어 스크롤하므로 완전 투명 대신 컨테이너와 같은 색으로 (겹쳐 비치지 않게)
-export const FLOAT_HEAD = "rounded-[10px] border-b-0 bg-tint";
+export const FLOAT_HEAD = "rounded-md border-b-0 bg-tint";
 // 행 구분선: 각 행(과 접힘 줄) 위에 좌우 12px 안쪽의 1px 선. 머리줄과 첫 행 사이·접힘 줄 위도 이 선이고, 마지막 행 아래에는 없다.
 // 고른 행의 위 선과, 고른 행 바로 다음 행의 위 선은 숨겨 고른 행이 떠 보이게 한다.
 export const FLOAT_ROW =
-  "relative rounded-[10px] border-b-0 bg-transparent hover:bg-white/60 before:pointer-events-none before:absolute before:inset-x-3 before:top-0 before:h-px before:bg-line2 [[aria-current]+&]:before:hidden";
-const FLOAT_ROW_ON = "bg-white before:hidden shadow-[0_2px_10px_rgba(37,99,235,.18),0_0_0_1px_#cfe0ff] hover:bg-white";
+  "relative rounded-md border-b-0 bg-transparent hover:bg-white/60 before:pointer-events-none before:absolute before:inset-x-3 before:top-0 before:h-px before:bg-line2 [[aria-current]+&]:before:hidden";
+const FLOAT_SHADOW_ROW = "shadow-[0_2px_10px_rgba(37,99,235,.18),0_0_0_1px_#cfe0ff]";
+const FLOAT_ROW_ON = `bg-white before:hidden ${FLOAT_SHADOW_ROW} hover:bg-white`;
+/** 상세 카드: 테두리 없이 판정 색 그림자로 구분한다 (클래스는 정적 문자열이어야 Tailwind 가 만든다) */
+const CARD_SHADOW = {
+  danger: "shadow-[0_0_0_1px_#f6d3cf,0_8px_28px_rgba(196,40,28,.18)]",
+  warning: "shadow-[0_0_0_1px_#f5e2bf,0_8px_28px_rgba(194,120,3,.18)]",
+  lacking: "shadow-[0_0_0_1px_#e1e6ee,0_8px_28px_rgba(86,98,117,.14)]",
+  plain: "shadow-[0_0_0_1px_#dfe8f6,0_6px_22px_rgba(37,99,235,.12)]",
+} as const;
+
+export function verdictCardShadow(verdict: Finding["verdict"]) {
+  if (verdict === "불일치") return CARD_SHADOW.danger;
+  if (verdict === "경계" || verdict === "경고") return CARD_SHADOW.warning;
+  if (verdict === "근거부족") return CARD_SHADOW.lacking;
+  return CARD_SHADOW.plain;
+}
+
+/** 판정 그림자를 입힌 상세 카드: 테두리 없음, 12px, 흰 배경 */
+export const verdictCard = (verdict: Finding["verdict"]) => cn("rounded-lg border-0 bg-white", verdictCardShadow(verdict));
+
+/** 성분 카드처럼 판정이 없는 카드: 표의 고른 행과 같은 결의 옅은 음영 */
+export const FLOAT_CARD = "rounded-lg border-blue-line bg-white shadow-[0_2px_12px_rgba(37,99,235,.10),0_0_0_1px_#dfe8f6]";
 export const floatRow = (selected: boolean, ...more: string[]) => cn(FLOAT_ROW, selected && FLOAT_ROW_ON, ...more);
 
 const CELL = "min-w-0 flex-[2_1_0] max-lg:basis-[45%]";

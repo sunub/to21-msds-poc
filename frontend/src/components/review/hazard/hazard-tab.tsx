@@ -134,18 +134,18 @@ function HazardLoaded({
   return (
     <div className="flex flex-col gap-5">
       {pending && (
-        <p role="status" className="rounded-sm bg-blue-soft px-4 py-2.5 text-sm text-blue2">
+        <p role="status" className="rounded-md bg-blue-soft px-4 py-2.5 text-sm text-blue2">
           추출값이 바뀌어 다시 판정하는 중입니다. 아래는 이전 판정이며 처리는 잠시 잠급니다.
         </p>
       )}
       {!pending && newer && (
-        <div role="status" className="flex flex-wrap items-center justify-between gap-3 rounded-sm border border-amb bg-tint px-4 py-2.5 text-sm text-amb-text">
+        <div role="status" className="flex flex-wrap items-center justify-between gap-3 rounded-md border border-amb bg-tint px-4 py-2.5 text-sm text-amb-text">
           <span>새 판정이 있습니다. 쓰던 의견은 그대로 남습니다.</span>
           <Button onClick={onNewest}>새 판정 보기</Button>
         </div>
       )}
       {lock === "offline" && (
-        <p role="status" className="rounded-sm border border-amb bg-tint px-4 py-2.5 text-sm text-amb-text">
+        <p role="status" className="rounded-md border border-amb bg-tint px-4 py-2.5 text-sm text-amb-text">
           서버와 연결이 끊겼습니다. 아래는 마지막으로 받은 내용입니다.
         </p>
       )}
@@ -188,7 +188,7 @@ function HazardLoaded({
               />
             )}
             {selected && !selected.msds.present && (
-              <p className="rounded-sm bg-tint px-3 py-2 text-sm text-amb-text">이 항목은 MSDS 2항에 적혀 있지 않습니다. 2항 첫 쪽을 보여 줍니다.</p>
+              <p className="rounded-md bg-tint px-3 py-2 text-sm text-amb-text">이 항목은 MSDS 2항에 적혀 있지 않습니다. 2항 첫 쪽을 보여 줍니다.</p>
             )}
           </SourceViewer>
         </div>

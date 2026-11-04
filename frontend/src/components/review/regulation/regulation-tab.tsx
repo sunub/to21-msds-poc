@@ -164,18 +164,18 @@ function RegulationLoaded({
   return (
     <div className="flex flex-col gap-5">
       {pending && (
-        <p role="status" className="rounded-sm bg-blue-soft px-4 py-2.5 text-sm text-blue2">
+        <p role="status" className="rounded-md bg-blue-soft px-4 py-2.5 text-sm text-blue2">
           추출값이 바뀌어 다시 판정하는 중입니다. 아래는 이전 판정이며 처리는 잠시 잠급니다.
         </p>
       )}
       {!pending && newer && (
-        <div role="status" className="flex flex-wrap items-center justify-between gap-3 rounded-sm border border-amb bg-tint px-4 py-2.5 text-sm text-amb-text">
+        <div role="status" className="flex flex-wrap items-center justify-between gap-3 rounded-md border border-amb bg-tint px-4 py-2.5 text-sm text-amb-text">
           <span>새 판정이 있습니다. 쓰던 의견은 그대로 남습니다.</span>
           <Button onClick={onNewest}>새 판정 보기</Button>
         </div>
       )}
       {lock === "offline" && (
-        <p role="status" className="rounded-sm border border-amb bg-tint px-4 py-2.5 text-sm text-amb-text">
+        <p role="status" className="rounded-md border border-amb bg-tint px-4 py-2.5 text-sm text-amb-text">
           서버와 연결이 끊겼습니다. 아래는 마지막으로 받은 내용입니다.
         </p>
       )}
@@ -205,7 +205,7 @@ function RegulationLoaded({
       <p className="text-sm text-mut">구버전은 시행일 자료가 없어 PoC 판정에서 제외하고 참고로만 보여 줍니다.</p>
       {/* 원문 칸 안에 두면 원문 카드만 내려가 옆 판정 카드와 위아래가 어긋난다 */}
       {absentInSource && (
-        <p role="status" className="rounded-sm bg-tint px-3 py-2 text-sm text-amb-text">이 항목은 원문에 없습니다. 15항 첫 쪽을 보여 줍니다.</p>
+        <p role="status" className="rounded-md bg-tint px-3 py-2 text-sm text-amb-text">이 항목은 원문에 없습니다. 15항 첫 쪽을 보여 줍니다.</p>
       )}
 
       <Workspace viewport className="lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)]">
