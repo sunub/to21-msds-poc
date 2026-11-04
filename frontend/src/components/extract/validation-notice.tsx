@@ -16,11 +16,13 @@ export function ValidationNotice({ status, counts, validation }: {
     : counts.needs_review > 0 && base.tone === "success"
       ? { tone: "warning" as const, label: "추출값 검토 필요", detail: `검토가 필요한 항목이 ${counts.needs_review}개 있습니다.` }
       : base;
+  // validationLabel 의 건수 요약(스키마 오류 N건 · …)은 여기서 보이지 않게 한다. 이 파일에서 정한 문구는 그대로 둔다
+  const showDetail = info !== base || !/검증 오류|검토 필요|검증 통과/.test(base.label);
   return (
     <div className="flex flex-col gap-1.5 rounded-md border border-line bg-white px-5 py-3.5 text-sm print:hidden"
          role={info.tone === "danger" ? "alert" : "status"}>
       <StatusLabel tone={info.tone}>{info.label}</StatusLabel>
-      <p className="text-sub">{info.detail}</p>
+      {showDetail && <p className="text-sub">{info.detail}</p>}
       <p className="text-mut">이 검사는 추출값의 형식과 내용을 확인하며, HTODB 기준 정합성 판정과는 별도입니다.</p>
     </div>
   );
