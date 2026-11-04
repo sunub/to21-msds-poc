@@ -4,7 +4,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 import { memo, useCallback, useState } from "react";
 import { ApiRequestError } from "@/api/client";
-import { documentDetailQuery, documentKeys, reviewQuery, saveFieldReview, saveSectionReview } from "@/api/documents";
+import { documentDetailQuery, documentKeys, pageLinesQuery, reviewQuery, saveFieldReview, saveSectionReview } from "@/api/documents";
 import type { DocumentDetail, FieldReviewRequest, ReviewField, ReviewResponse, ReviewSection, SectionReviewRequest } from "@/api/schemas";
 import { SourceViewer } from "@/components/extract/source-viewer";
 import { Foot, Pane, Workspace } from "@/components/shell/layout";
@@ -180,7 +180,7 @@ function SectionBlock({
       </button>
       {open && (
         <div id={panelId} className="flex flex-col gap-3 border-t border-line2 px-3.5 py-3">
-          {section.problems.length > 0 && <Problems problems={section.problems} />}
+          {section.problems.length > 0 && <Problems docId={docId} problems={section.problems} onSource={onSource} />}
           {section.field_count === 0 ? (
             <p className="text-sm text-mut">이 항에는 추출된 값이 없습니다. 원문과 맞춰 봐 주세요.</p>
           ) : (
@@ -223,7 +223,15 @@ function SectionBlock({
 
 const PROBLEMS_SHOWN = 5;
 
-function Problems({ problems }: { problems: string[] }) {
+function Problems({
+  docId,
+  problems,
+  onSource,
+}: {
+  docId: string;
+  problems: string[];
+  onSource: (page: number | null, text: string | null) => void;
+}) {
   const [all, setAll] = useState(false);
   const [open, setOpen] = useState<number[]>([]);
   const shown = all ? problems : problems.slice(0, PROBLEMS_SHOWN);
@@ -241,16 +249,18 @@ function Problems({ problems }: { problems: string[] }) {
                   {d.where && <b className="font-bold">{d.where} </b>}
                   {d.summary}
                 </span>
-                <Button
-                  variant="link"
-                  className="min-h-0 shrink-0 text-xs"
-                  aria-expanded={expanded}
-                  onClick={() => setOpen(expanded ? open.filter((x) => x !== i) : [...open, i])}
-                >
-                  원문
-                </Button>
+                {d.page !== null && (
+                  <Button
+                    variant="link"
+                    className="min-h-0 shrink-0 text-xs"
+                    aria-expanded={expanded}
+                    onClick={() => setOpen(expanded ? open.filter((x) => x !== i) : [...open, i])}
+                  >
+                    원문
+                  </Button>
+                )}
               </div>
-              {expanded && <p className="m-0 mt-0.5 break-words text-xs text-mut">{d.raw}</p>}
+              {expanded && d.page !== null && <SourceLines docId={docId} page={d.page} line={d.line} onSource={onSource} />}
             </li>
           );
         })}
@@ -260,6 +270,37 @@ function Problems({ problems }: { problems: string[] }) {
           {all ? "줄이기" : `${problems.length - PROBLEMS_SHOWN}건 더 보기`}
         </Button>
       )}
+    </div>
+  );
+}
+
+/** 오류가 가리키는 줄과 앞뒤 1줄. 펼쳤을 때만 그려지므로 그때만 요청한다 */
+function SourceLines({
+  docId,
+  page,
+  line,
+  onSource,
+}: {
+  docId: string;
+  page: number;
+  line: number | null;
+  onSource: (page: number | null, text: string | null) => void;
+}) {
+  const { data, isPending, isError } = useQuery(pageLinesQuery(docId, page));
+  if (isPending) return <p className="m-0 mt-1 text-xs text-mut">원문을 불러오는 중</p>;
+  if (isError) return <p className="m-0 mt-1 text-xs text-mut">원문을 불러오지 못했습니다</p>;
+  const at = data.lines.findIndex((l) => l.no === line);
+  if (at < 0) return <p className="m-0 mt-1 text-xs text-mut">원문을 불러오지 못했습니다</p>;
+  const hit = data.lines[at];
+  return (
+    <div className="mt-1 flex flex-col items-start gap-1">
+      <p className="m-0 flex w-full gap-2 break-words bg-tint px-1 py-0.5 text-xs font-medium text-ink">
+        <span className="w-6 shrink-0 text-right text-mut tabular-nums">{hit.no}</span>
+        <span className="min-w-0">{hit.text}</span>
+      </p>
+      <Button variant="link" className="min-h-0 text-xs" onClick={() => onSource(page, hit.text)}>
+        {page}쪽에서 보기
+      </Button>
     </div>
   );
 }
