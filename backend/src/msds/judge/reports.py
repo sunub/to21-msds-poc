@@ -17,6 +17,7 @@ from openpyxl import Workbook
 from openpyxl.cell import Cell
 
 from msds.checks.validator import load_to21_module
+from msds.service.regenerated import _NONE, MISSING
 
 from .display import finding_display
 
@@ -107,7 +108,8 @@ def _regenerated_lines(extraction: dict) -> tuple[list[str], str | None]:
         with tempfile.TemporaryDirectory() as folder:
             db = mod.to_db(doc, str(Path(folder) / "msds.db"))
             try:
-                return [str(x) for i in range(len(doc.get("msds") or [])) for x in mod.regenerate(db, i + 1)], None
+                # 화면(service/regenerated)과 같이 스크립트가 찍은 None 을 '값 없음'으로 보인다
+                return [_NONE.sub(MISSING, str(x)) for i in range(len(doc.get("msds") or [])) for x in mod.regenerate(db, i + 1)], None
             finally:
                 db.close()
     except Exception as e:  # 재생성이 안 돼도 판정 표는 내려받을 수 있어야 한다
