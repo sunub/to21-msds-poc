@@ -57,7 +57,8 @@ def apply_event(state: dict, event: dict) -> dict:
         n = event["page_count"]
         state.update(page_count=n, text_layer=event.get("text_layer"), preprocess={"done": n, "total": n})
         if state["text_layer"] in UNTRUSTED_TEXT_LAYERS:
-            state["warnings"].append(f"텍스트층 {state['text_layer']}: 일부 쪽은 OCR로 읽었습니다. "
+            # 전처리 방식(version17 OCR / 예전 방식은 쪽 이미지만)에 따라 다르므로 OCR을 썼다고 단정하지 않는다
+            state["warnings"].append(f"텍스트층 {state['text_layer']}: 일부 쪽 글자를 믿기 어렵습니다(OCR로 읽었거나 쪽 이미지만 봤습니다). "
                                      "그 쪽의 추출값은 원문과 꼭 맞춰 보세요")
     elif kind == "stage":
         if event["stage"] not in STAGES:
