@@ -224,7 +224,7 @@ export function ReviewControls({
           if (missing === "comment") setMissing(null);
         }}
       />
-      <div className="flex flex-wrap items-center gap-2">
+      <div className="flex flex-wrap items-center justify-end gap-2">
         {reviewed ? (
           <>
             <Button disabled={locked} onClick={() => submit("의견")}>
