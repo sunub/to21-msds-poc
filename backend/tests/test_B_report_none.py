@@ -14,3 +14,8 @@ def test_재생성_줄의_None은_값_없음으로(monkeypatch):
     lines, error = reports._regenerated_lines({"msds": [{}]})
     assert error is None
     assert lines == ["최초 작성일: 값 없음 최종 개정일: 값 없음", "NoneType 그대로"]
+
+
+def test_리포트_시각은_읽기_쉬운_꼴로():
+    assert reports._when("2026-11-04T23:18:45+09:00") == "2026-11-04 23:18"
+    assert reports._when(None) == "" and reports._when("모름") == "모름"
