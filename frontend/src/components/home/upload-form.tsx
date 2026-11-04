@@ -43,13 +43,13 @@ const uploadFormSchema = z.object({
     // 이름만 .pdf 인 파일을 서버까지 보내지 않도록 앞 5바이트를 읽어 본다
     .refine(async (f) => (await f.slice(0, PDF_MAGIC.length).text()) === PDF_MAGIC, "PDF 파일이 아닙니다. 내용이 PDF 인 파일을 골라 주세요."),
   /** 비우면 서버가 기준일 없이 처리한다 */
-  as_of: z.union([z.iso.date({ message: "기준일은 YYYY-MM-DD 로 적어 주세요." }), z.literal("")]),
+  as_of: z.union([z.iso.date({ message: "기준일은 YYYY-MM-DD 형식으로 입력해 주세요." }), z.literal("")]),
   /** 서버로 보내지 않는다. 수정 기록과 결과 PDF에 남길 이름이라 비우고는 시작하지 않는다 */
   reviewer: z
     .string()
     .trim()
-    .min(1, "검토자 이름을 적어 주세요.")
-    .max(40, "검토자 이름은 40자 이하로 적어 주세요."),
+    .min(1, "검토자 이름을 입력해 주세요.")
+    .max(40, "검토자 이름은 40자 이내로 입력해 주세요."),
 });
 
 type UploadInput = z.input<typeof uploadFormSchema>;

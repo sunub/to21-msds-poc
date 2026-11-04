@@ -146,7 +146,7 @@ test("저장까지 끝낸 문서에는 추출 직후 검사 문구를 붙이지 
 test("항은 모두 확인했어도 손대지 않은 칸이 남으면 저장 화면처럼 '완료'라 하지 않는다", () => {
   const most = values({ state: "완료", sections_confirmed: 9, fields_checked: 120 });
   const row = documentRow(doc({ document_extras: { ...doc().document_extras!, values_review: most } }), undefined);
-  assert.equal(row.progress.detail, "추출값 9 / 9항 확인 · 칸 120 / 154");
+  assert.equal(row.progress.detail, "추출값 9 / 9항 확인 · 120 / 154칸 확인");
 });
 
 test("제품명을 알면 제목으로 쓰고 파일명은 아래 줄로 내린다", () => {
@@ -158,11 +158,11 @@ test("제품명을 알면 제목으로 쓰고 파일명은 아래 줄로 내린�
 
 test("실패 원인은 사람이 읽는 말로 바꾸고 원래 오류는 따로 남긴다", () => {
   const raw = "RuntimeError: .env에 RUNPOD_VLLM_BASE_URL가 없습니다.";
-  assert.deepEqual(failureMessage(raw, "failed"), { text: "추출 모델 서버에 연결하지 못했습니다. 잠시 뒤 다시 시도해 주세요.", detail: raw });
-  assert.equal(failureMessage("APIConnectionError: Connection error.", "failed")?.text, "추출 모델 서버에 연결하지 못했습니다. 잠시 뒤 다시 시도해 주세요.");
-  assert.equal(failureMessage("ReadTimeout: timed out", "failed")?.text, "추출 모델 서버가 제때 답하지 않았습니다. 잠시 뒤 다시 시도해 주세요.");
-  assert.equal(failureMessage("PdfReadError: EOF marker not found", "failed")?.text, "PDF를 읽지 못했습니다. 파일이 손상되었거나 암호가 걸려 있는지 확인해 주세요.");
-  assert.equal(failureMessage("server restarted", "interrupted")?.text, "서버가 다시 시작되어 처리가 멈췄습니다. 다시 시도해 주세요.");
-  assert.equal(failureMessage("KeyError: 'x'", "failed")?.text, "처리하는 중 오류가 났습니다. 다시 시도해 주세요.");
+  assert.deepEqual(failureMessage(raw, "failed"), { text: "서버에 연결하지 못했습니다. 잠시 후 다시 시도해 주세요.", detail: raw });
+  assert.equal(failureMessage("APIConnectionError: Connection error.", "failed")?.text, "서버에 연결하지 못했습니다. 잠시 후 다시 시도해 주세요.");
+  assert.equal(failureMessage("ReadTimeout: timed out", "failed")?.text, "서버 응답이 지연되고 있습니다. 잠시 후 다시 시도해 주세요.");
+  assert.equal(failureMessage("PdfReadError: EOF marker not found", "failed")?.text, "PDF 파일을 열 수 없습니다. 파일이 손상되었거나 비밀번호가 걸려 있는지 확인해 주세요.");
+  assert.equal(failureMessage("server restarted", "interrupted")?.text, "서버가 재시작되어 처리가 중단되었습니다. 다시 시도해 주세요.");
+  assert.equal(failureMessage("KeyError: 'x'", "failed")?.text, "처리 중 오류가 발생했습니다. 다시 시도해 주세요.");
   assert.equal(failureMessage(null, "failed"), null);
 });

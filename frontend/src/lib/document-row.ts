@@ -124,7 +124,7 @@ function reviewDetail(doc: DocumentSummary, judgment: JudgmentBatchItem | undefi
       values.state === "미검수" ? "추출값 미검수"
         : values.state === "완료" && values.fields_checked >= values.fields_total ? "추출값 확인 완료"
           // 항은 모두 확인했어도 손대지 않은 칸이 남으면 저장 화면은 '일부 확인'이다 (judge/service.py value_counts)
-          : values.state === "완료" ? `추출값 ${values.sections_confirmed} / ${values.sections_total}항 확인 · 칸 ${values.fields_checked} / ${values.fields_total}`
+          : values.state === "완료" ? `추출값 ${values.sections_confirmed} / ${values.sections_total}항 확인 · ${values.fields_checked} / ${values.fields_total}칸 확인`
           : `추출값 확인 ${values.sections_confirmed} / ${values.sections_total}항`,
     );
   }
@@ -143,16 +143,16 @@ function continueAction(doc: DocumentSummary): RowAction {
   }
 }
 
-const SERVER = "추출 모델 서버에 연결하지 못했습니다. 잠시 뒤 다시 시도해 주세요.";
+const SERVER = "서버에 연결하지 못했습니다. 잠시 후 다시 시도해 주세요.";
 
 /** 서버 오류 원문은 개발자용이다. 사용자에게는 원인과 할 일을 말하고, 원문은 detail 로 따로 둔다 */
 export function failureMessage(error: string | null, status: DocumentSummary["status"]): { text: string; detail: string } | null {
   if (!error) return null;
   const text =
-    status === "interrupted" ? "서버가 다시 시작되어 처리가 멈췄습니다. 다시 시도해 주세요."
+    status === "interrupted" ? "서버가 재시작되어 처리가 중단되었습니다. 다시 시도해 주세요."
       : /\.env에 .+ 없습니다|connect|connection|refused|unreachable|503|502/i.test(error) ? SERVER
-        : /timeout|timed out|시간 초과/i.test(error) ? "추출 모델 서버가 제때 답하지 않았습니다. 잠시 뒤 다시 시도해 주세요."
-          : /pdf|encrypt|암호/i.test(error) ? "PDF를 읽지 못했습니다. 파일이 손상되었거나 암호가 걸려 있는지 확인해 주세요."
-            : "처리하는 중 오류가 났습니다. 다시 시도해 주세요.";
+        : /timeout|timed out|시간 초과/i.test(error) ? "서버 응답이 지연되고 있습니다. 잠시 후 다시 시도해 주세요."
+          : /pdf|encrypt|암호/i.test(error) ? "PDF 파일을 열 수 없습니다. 파일이 손상되었거나 비밀번호가 걸려 있는지 확인해 주세요."
+            : "처리 중 오류가 발생했습니다. 다시 시도해 주세요.";
   return { text, detail: error };
 }
