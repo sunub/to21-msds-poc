@@ -111,7 +111,7 @@ function UnreviewedSection({
   view: UseQueryResult<import("@/api/judgment").JudgmentView>;
 }) {
   const box = (title: string, body?: React.ReactNode, tone?: "alert") => (
-    <section className="flex flex-col gap-2.5 rounded-md border border-line bg-white px-5 py-4" role={tone === "alert" ? "alert" : undefined}>
+    <section className="flex flex-col gap-2.5 rounded-lg border border-line bg-white px-5 py-4" role={tone === "alert" ? "alert" : undefined}>
       <h2 className="text-base font-bold">{title}</h2>
       {body}
     </section>
@@ -209,12 +209,12 @@ function HistoryTable({
   return (
     <section className="flex flex-col gap-3" aria-label="검토 이력">
       {missing.length > 0 && (
-        <p role="status" className="rounded-sm border border-amb bg-tint px-4 py-2.5 text-sm text-amb-text">
+        <p role="status" className="rounded-md border border-amb bg-tint px-4 py-2.5 text-sm text-amb-text">
           {missing.map((s) => s.name).join("·")} 이력은 아직 연결되지 않아 아래 표와 건수에 포함되지 않았습니다.
         </p>
       )}
       {failed.map((s) => (
-        <div key={s.name} role="alert" className="flex flex-wrap items-center justify-between gap-3 rounded-sm border border-line bg-white px-4 py-2.5">
+        <div key={s.name} role="alert" className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-line bg-white px-4 py-2.5">
           <span className="text-sm font-medium">{s.name} 이력</span>
           <RetryLine error={s.query.error} onRetry={() => void s.query.refetch()} />
         </div>

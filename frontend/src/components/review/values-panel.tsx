@@ -236,7 +236,7 @@ function Problems({
   const [open, setOpen] = useState<number[]>([]);
   const shown = all ? problems : problems.slice(0, PROBLEMS_SHOWN);
   return (
-    <div className="rounded-sm bg-tint px-3 py-2 text-sm">
+    <div className="rounded-md bg-tint px-3 py-2 text-sm">
       <p className="font-medium text-amb-text">확인이 필요한 값 {problems.length}건</p>
       <ul className="m-0 mt-1 flex list-none flex-col gap-1 p-0 text-sub">
         {shown.map((p, i) => {

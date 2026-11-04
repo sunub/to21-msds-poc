@@ -22,7 +22,7 @@ export function LimitationList({
         {cards.length > 0 && <span className="text-sm text-mut">근거부족과 경계 사유를 한곳에 모았습니다. 먼저 확인해 주세요.</span>}
       </div>
       {cards.length === 0 ? (
-        <div role="status" className="rounded-md border border-line bg-white px-4 py-3.5">
+        <div role="status" className="rounded-lg border border-line bg-white px-4 py-3.5">
           <b>제약사항 없음</b>
           <p className="text-sm text-mut">근거부족이나 경계로 남은 판정이 없습니다.</p>
         </div>
@@ -31,7 +31,7 @@ export function LimitationList({
           {cards.map((card) => {
             const href = hrefFor(card);
             return (
-              <li key={card.key} className="flex flex-col gap-1.5 rounded-md border border-line bg-white px-4 py-3.5">
+              <li key={card.key} className="flex flex-col gap-1.5 rounded-lg border border-line bg-white px-4 py-3.5">
                 <div className="flex items-center justify-between gap-2">
                   <b className="break-words">{card.title}</b>
                   {card.verdict && <StatusLabel tone={verdictTone(card.verdict)}>{card.verdict}</StatusLabel>}
