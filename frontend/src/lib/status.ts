@@ -22,21 +22,25 @@ export function validationLabel(validation: ValidationSummary | null | undefined
   if ([schema_errors, validator_errors, validator_warnings, validator_exceptions].some((value) => value === undefined)
       || !failed_sections || !needs_review || !unmapped_findings) {
     if (validation.status === "invalid") {
-      return { tone: "danger", label: "추출값 검증 오류", detail: "검증 오류가 보고됐지만 세부 결과를 확인할 수 없습니다." };
+      return { tone: "danger", label: "추출 오류", detail: "검증 오류가 보고됐지만 세부 결과를 확인할 수 없습니다." };
     }
     if (validation.status === "needs_review") {
-      return { tone: "warning", label: "추출값 검토 필요", detail: "검토가 필요하지만 세부 결과를 확인할 수 없습니다." };
+      return { tone: "warning", label: "검토 필요", detail: "검토가 필요하지만 세부 결과를 확인할 수 없습니다." };
     }
     return { tone: "warning", label: "검증 미확인", detail: "추출값 검증 결과가 완전하지 않습니다." };
   }
   const detail = `스키마 오류 ${schema_errors}건 · TO21 오류 ${validator_errors}건 · 경고 ${validator_warnings}건 · 검사 예외 ${validator_exceptions}건 · 추출 실패 ${failed_sections.length}항`;
-  if (validation.status === "invalid" || schema_errors! > 0 || validator_errors! > 0 || validator_exceptions! > 0 || failed_sections.length > 0) {
-    return { tone: "danger", label: "추출값 검증 오류", detail };
+  // invalid 는 누락·깨진 항 기록, 잘못된 MSDS 때문에도 온다. TO21 오류 때문이 아니면 추출 오류로 본다
+  if (schema_errors! > 0 || validator_exceptions! > 0 || failed_sections.length > 0 || (validation.status === "invalid" && validator_errors === 0)) {
+    return { tone: "danger", label: "추출 오류", detail };
   }
-  if (validation.status === "needs_review" || validator_warnings! > 0 || needs_review.length > 0 || unmapped_findings.length > 0) {
-    return { tone: "warning", label: "추출값 검토 필요", detail };
+  if (validator_errors! > 0) {
+    return { tone: "warning", label: `값 확인 ${validator_errors! + validator_warnings!}건`, detail };
   }
-  return { tone: "success", label: "추출값 검증 통과", detail };
+  if (validator_warnings! > 0 || needs_review.length > 0 || unmapped_findings.length > 0) {
+    return { tone: "warning", label: "검토 필요", detail };
+  }
+  return { tone: "success", label: "검증 통과", detail };
 }
 
 /** 목록의 "단계" 칸 */
@@ -56,7 +60,7 @@ export function statusLabel(doc: Pick<DocumentSummary, "status" | "stage" | "cou
       {
         const validation = validationLabel(doc.validation);
         if (doc.counts.needs_review > 0 && validation.tone === "success") {
-          return { tone: "warning", label: "추출값 검토 필요" };
+          return { tone: "warning", label: "검토 필요" };
         }
         return validation;
       }
