@@ -27,6 +27,8 @@ runs/<실행 이름>/ 에 남는 것
 """
 from __future__ import annotations
 
+import hashlib
+import copy
 import json
 import os
 import subprocess
@@ -39,8 +41,9 @@ from pathlib import Path
 import yaml
 
 from msds.checks.validator import run_to21_validator
+from msds.checks.final_validation import retryable_findings
 from msds.common import manifest
-from msds.common.merge import SCHEMA_VERSION, now_kst
+from msds.common.merge import SCHEMA_VERSION, DICTIONARY_VERSION, now_kst
 from msds.common.paths import DATA, PAGES, ROOT, RUNS
 from msds.common.schema import validate, validate_to21
 from msds.extract.client import ChatClient, load_model_config
@@ -268,6 +271,12 @@ def run_document(doc_id: str, model_tag: str, run_name: str, client=None, *,
     emit = on_event or (lambda event: None)
     t_start = time.perf_counter()
     cfg = load_model_config(model_tag)
+    info_path = Path(runs_dir) / run_name / "run_info.yaml"
+    if info_path.is_file():
+        recorded = yaml.safe_load(info_path.read_text(encoding="utf-8")) or {}
+        digest = recorded.get("model_config_sha256")
+        if digest is not None and digest != model_config_sha256(cfg):
+            raise RuntimeError("추출 시작 후 모델 설정이 바뀌어 실행을 중단합니다")
     client = client or ChatClient(cfg)
     meta_warnings: list[str] = []
     try:
@@ -353,6 +362,70 @@ def run_document(doc_id: str, model_tag: str, run_name: str, client=None, *,
     pictogram_check = [{"msds_index": i, **check_msds(m, hazard_map)} for i, m in enumerate(out["msds"])]
     stage("checks", time.perf_counter() - t)
 
+    # The section runner has already retried failed calls and line checks once.
+    # A mapped official validation error may only become visible after expansion;
+    # give those sections one call if they have not used their retry yet.
+    outcomes_by_section = {(res.msds_index, res.section_no): (res, first, second)
+                           for res, first, second in outcomes}
+
+    def error_count(schema_issues, findings):
+        return len(schema_issues) + sum(item.get('level') in ('오류', '예외')
+                                        for item in findings if isinstance(item, dict))
+
+    for (index, no), messages in sorted(retryable_findings(out, validator).items()):
+        prior = outcomes_by_section.get((index, no))
+        if prior is None or prior[2] is not None or (index, no) not in retryable_findings(out, validator):
+            continue
+        res, first, _ = prior
+        lines = model_lines(doc, index, no)
+        allowed = {line.id for line in section_lines(doc, index, no)}
+        images = section_images(doc, index, pages_dir)[0] if cfg.get('image_input') and no == IMAGE_SECTION else []
+        retry = _attempt(client, no, prompts[no][0],
+                         build_user(no, lines, '\n'.join(f'- {message}' for message in messages[:_FEEDBACK_MAX]), images),
+                         prompts[no][1], allowed, no in rows, cfg.get('rows_max_tokens'))
+        stage('final_reextract', retry['seconds'], index, no, retry['usage'])
+        # Every call consumes time and tokens, even when its output is rejected.
+        res.seconds = round(res.seconds + retry['seconds'], 3)
+        res.usage = _sum_usage(res.usage, retry['usage'])
+        res.attempts += retry['attempts']
+        check = next(item for item in section_checks
+                     if (item['msds_index'], item['section']) == (index, no))
+        check.update(attempts=res.attempts, seconds=res.seconds, usage=res.usage)
+        accepted = False
+        if retry['ok'] and not _problems(retry):
+            candidate_ok = False
+            try:
+                candidate_parts = copy.deepcopy(parts)
+                candidate_parts[index][no] = retry['parsed']
+                candidate, candidate_expand = to_to21(row, candidate_parts, doc.lines, f"{model_tag}:{cfg['model']}")
+                candidate_schema = validate_to21(candidate)
+                candidate_validator = run_to21_validator(candidate)
+                candidate_ok = True
+            except Exception:
+                # An expansion or validation failure cannot replace the original result.
+                pass
+            if (candidate_ok and len(candidate_schema) <= len(schema_errors)
+                    and error_count(candidate_schema, candidate_validator) < error_count(schema_errors, validator)):
+                accepted = True
+                parts, out, expand_problems = candidate_parts, candidate, candidate_expand
+                schema_errors, validator = candidate_schema, candidate_validator
+                pictogram_check = [{'msds_index': i, **check_msds(m, hazard_map)}
+                                   for i, m in enumerate(out['msds'])]
+                res.parsed, res.ok, res.errors, res.reextracted = retry['parsed'], True, retry['errors'], True
+                check.update(ok=True, mode=retry['mode'], errors=retry['errors'], check_problems=retry['check_problems'],
+                             reextracted=True)
+        raw_file = raw_path(run, doc_id, index, no)
+        raw = json.loads(raw_file.read_text(encoding='utf-8'))
+        raw['final_validation_attempt'] = retry
+        if accepted:
+            raw.update({key: retry[key] for key in ('ok', 'parsed', 'raw_text', 'mode', 'finish_reason',
+                                                   'usage', 'attempts', 'errors', 'requests', 'seconds',
+                                                   'check_problems')})
+            raw['first_attempt'] = first
+            raw['reextracted'] = True
+        _write_json(raw_file, raw)
+        emit(_section_done_event(res, first, retry))
+
     total = time.perf_counter() - t_start
     warnings = meta_warnings + list(doc.warnings) + image_warnings
     if total > DOC_TIME_LIMIT:
@@ -402,6 +475,13 @@ def workers(cfg: dict, max_workers: int | None = None) -> int:
     return max_workers or cfg.get("concurrency") or 16
 
 
+def model_config_sha256(cfg: dict) -> str:
+    """Hash the actual model entry, excluding the added tag and shared run config."""
+    model = {key: value for key, value in cfg.items() if key not in ("tag", "run")}
+    data = json.dumps(model, sort_keys=True, separators=(",", ":"), ensure_ascii=False, allow_nan=False)
+    return hashlib.sha256(data.encode("utf-8")).hexdigest()
+
+
 def save_run_info(run: Path, model_tag: str, pages_dir=PAGES, max_workers: int | None = None) -> None:
     """같은 조건으로 다시 돌릴 수 있게 모델·프롬프트·스키마 버전과 쪽 글자 폴더를 남긴다.
     주소·키·환경변수 값은 쓰지 않는다. 쪽 글자 폴더는 저장소 기준 상대 경로로 쓴다."""
@@ -410,6 +490,7 @@ def save_run_info(run: Path, model_tag: str, pages_dir=PAGES, max_workers: int |
     info = {
         "model_tag": model_tag,
         "model": cfg["model"],
+        "model_config_sha256": model_config_sha256(cfg),
         "prompt_version": SECTION_PROMPT_VERSION,
         "rows_sections": sorted(rows),
         "skipped_sections": list(SKIPPED_SECTIONS),          # 부르지 않는 항 (추출 목표 밖)
@@ -417,6 +498,7 @@ def save_run_info(run: Path, model_tag: str, pages_dir=PAGES, max_workers: int |
         "image_input": bool(cfg.get("image_input")),
         "prompt_hashes": {no: prompt_hash(no, no in rows) for no in EXTRACT_SECTIONS},   # 실제로 보내는 안내문의 해시
         "schema_version": SCHEMA_VERSION,
+        "dictionary_version": DICTIONARY_VERSION,
         "pages_dir": os.path.relpath(pages_dir, ROOT),
         "concurrency": workers(cfg, max_workers),
         "started_at": now_kst(),

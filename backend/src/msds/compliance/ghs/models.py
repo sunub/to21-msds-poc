@@ -27,6 +27,7 @@ class GhsInputs(_Contract):
     doc_id: str | None = None
     msds_index: int = Field(ge=0)
     as_of_date: str | None = None
+    revision_date: str | None = None
     composition: Composition = Field(default_factory=Composition)
     components: list[Component] = Field(default_factory=list)
     hazard: GhsHazardInput = Field(default_factory=GhsHazardInput)

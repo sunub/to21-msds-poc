@@ -17,7 +17,12 @@ def load_to21_module(kind: str):
     path = to21_file(kind)
     spec = importlib.util.spec_from_file_location(f"to21_{kind}", path)
     mod = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(mod)
+    try:
+        spec.loader.exec_module(mod)
+    except SyntaxError:
+        # shortcut: 재생성 스크립트 main()(명령줄 실행용)이 3.12 문법이라 3.11에서 못 읽는다(B-15). 쓰는 함수는 main 앞에 있어 그 앞만 읽는다. 팀이 3.12로 가면 지운다
+        source = path.read_text(encoding="utf-8").split("\ndef main():")[0]
+        exec(compile(source, str(path), "exec"), mod.__dict__)
     return mod
 
 

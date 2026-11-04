@@ -66,7 +66,7 @@ def test_피부_부식성_결과_모양():
     assert r["rule"]["id"] == "SKIN-PH" and "prop(\"PH\")" in r["rule"]["formula"]
     sul, water = r["inputs"]
     assert (sul["used_as"], sul["excluded"]) == (["1"], None)
-    assert (water["used_as"], water["excluded"]) == ([], "분류 정보 없음")
+    assert (water["used_as"], water["excluded"]) == ([], "무독성")
     assert r["calc"]["values"]["low"]['prop("PH")'] == 1.0 and r["calc"]["include_min"] == 1.0
     assert r["thresholds"][0] == {"side": "low", "category": "1", "rule_id": "SKIN-PH",
                                   "when": RULES["classes"]["HH_SKIN_CORR"]["rules"][0]["when"], "result": True}

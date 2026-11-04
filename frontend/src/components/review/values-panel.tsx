@@ -7,7 +7,7 @@ import { ApiRequestError } from "@/api/client";
 import { documentDetailQuery, documentKeys, reviewQuery, saveFieldReview, saveSectionReview } from "@/api/documents";
 import type { DocumentDetail, FieldReviewRequest, ReviewField, ReviewResponse, ReviewSection, SectionReviewRequest } from "@/api/schemas";
 import { SourceViewer } from "@/components/extract/source-viewer";
-import { Foot, Pane, Row } from "@/components/shell/layout";
+import { Foot, Pane, Workspace } from "@/components/shell/layout";
 import { Button, Input, Skeleton, StatusLabel, buttonStyles } from "@/components/ui";
 import { usePageParam } from "@/hooks/use-page-param";
 import { cn } from "@/lib/cn";
@@ -79,44 +79,46 @@ function Values({ doc }: { doc: DocumentDetail }) {
 
   return (
     <>
-      <Row>
-        <SourceViewer doc={doc} page={page} onPage={setPage} highlight={evidence} className="lg:sticky lg:top-4" />
-        <Pane
-          title="재생성 MSDS"
-          className="basis-105"
-          aside={
-            <span className="text-sm text-mut tabular-nums">
-              {total}항 중 {confirmed}항 확인{edited > 0 && ` · 수정 ${edited}칸`} · 항을 눌러 펼칩니다
-            </span>
-          }
-        >
-          {!reviewer && (
-            <p role="alert" className="text-sm text-amb-text">
-              위쪽에서 검토자 이름을 정하면 확인하고 고칠 수 있습니다. 기록에 이 이름이 남습니다.
-            </p>
-          )}
-          {data.msds.map((m) => (
-            <div key={m.msds_index} role="group" aria-label={`MSDS ${m.msds_index + 1}건`} className="flex flex-col gap-2">
-              {data.msds.length > 1 && <h3 className="font-bold">MSDS {m.msds_index + 1}건 · {m.info.product_name}</h3>}
-              {m.sections.map((s) => {
-                const key = `${m.msds_index}:${s.section}`;
-                return (
-                  <SectionBlock
-                    key={key}
-                    docId={doc.id}
-                    msdsIndex={m.msds_index}
-                    section={s}
-                    open={openKey === key}
-                    reviewer={reviewer}
-                    onToggle={() => setOpen(openKey === key ? "" : key)}
-                    onSource={showSource}
-                  />
-                );
-              })}
-            </div>
-          ))}
-        </Pane>
-      </Row>
+      <Workspace>
+        <SourceViewer doc={doc} page={page} onPage={setPage} highlight={evidence} />
+        <div className="min-w-0 lg:min-h-0">
+          <Pane
+            title="재생성 MSDS"
+            fill
+            aside={
+              <span className="text-sm text-mut tabular-nums">
+                {total}항 중 {confirmed}항 확인{edited > 0 && ` · 수정 ${edited}칸`} · 항을 눌러 펼칩니다
+              </span>
+            }
+          >
+            {!reviewer && (
+              <p role="alert" className="text-sm text-amb-text">
+                위쪽에서 검토자 이름을 정하면 확인하고 고칠 수 있습니다. 기록에 이 이름이 남습니다.
+              </p>
+            )}
+            {data.msds.map((m) => (
+              <div key={m.msds_index} role="group" aria-label={`MSDS ${m.msds_index + 1}건`} className="flex flex-col gap-2">
+                {data.msds.length > 1 && <h3 className="font-bold">MSDS {m.msds_index + 1}건 · {m.info.product_name}</h3>}
+                {m.sections.map((s) => {
+                  const key = `${m.msds_index}:${s.section}`;
+                  return (
+                    <SectionBlock
+                      key={key}
+                      docId={doc.id}
+                      msdsIndex={m.msds_index}
+                      section={s}
+                      open={openKey === key}
+                      reviewer={reviewer}
+                      onToggle={() => setOpen(openKey === key ? "" : key)}
+                      onSource={showSource}
+                    />
+                  );
+                })}
+              </div>
+            ))}
+          </Pane>
+        </div>
+      </Workspace>
       <Foot>
         <p className="text-mut">
           {total}항 중 {confirmed}항을 확인했습니다.
@@ -316,13 +318,14 @@ const FieldRow = memo(function FieldRow({
       ) : (
         <div className="mt-1 flex flex-wrap gap-x-3">
           {field.state !== "confirmed" && field.state !== "edited" && (
-            <Button variant="link" className="min-h-0 text-sm" disabled={!reviewer || write.isPending} onClick={() => send("confirm")}>
+            <Button variant="outline" size="md" className="px-2.5 text-sm" disabled={!reviewer || write.isPending} onClick={() => send("confirm")}>
               확인함
             </Button>
           )}
           <Button
-            variant="link"
-            className="min-h-0 text-sm"
+            variant="outline"
+            size="md"
+            className="px-2.5 text-sm"
             disabled={!reviewer || write.isPending}
             onClick={() => {
               setDraft(field.value === null ? "" : String(field.value));
@@ -332,7 +335,7 @@ const FieldRow = memo(function FieldRow({
             고치기
           </Button>
           {field.state !== "unchecked" && (
-            <Button variant="link" className="min-h-0 text-sm" disabled={!reviewer || write.isPending} onClick={() => send("reset")}>
+            <Button variant="default" size="md" className="px-2.5 text-sm" disabled={!reviewer || write.isPending} onClick={() => send("reset")}>
               되돌리기
             </Button>
           )}
