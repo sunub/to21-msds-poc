@@ -238,6 +238,21 @@ models:
       extra_body:
         chat_template_kwargs: {enable_thinking: false}
 
+  # ft_q38 서버의 원본 이름(LoRA 없이)으로 판정 설명을 쓴다. 추출용 LoRA로 설명 문장을 만든 적이 없어 원본이 안전하다.
+  # 체험 서버: pod_start.sh가 ADAPTER로 띄우면 MSDS_EXPLAIN_MODEL=q38_base_explain 을 .env에 넣는다 (추출에는 쓰지 않는다)
+  q38_base_explain:
+    model: Qwen/Qwen3.8-27B
+    base_url_env: RUNPOD_VLLM_BASE_URL
+    api_key_env: RUNPOD_VLLM_API_KEY
+    structured: [none]
+    max_tokens: 8192
+    concurrency: 16
+    image_input: true
+    params:
+      temperature: 0
+      extra_body:
+        chat_template_kwargs: {enable_thinking: false}
+
 run:
   max_retries: 2            # 스키마 검증 실패 시 재시도 횟수
   request_timeout: 600      # 초
