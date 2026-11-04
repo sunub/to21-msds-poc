@@ -184,9 +184,10 @@ def make_llm():
 
     gate_kind: A1의 ChatClient 가 호출마다 잡는 창구 종류. A1이 이 값을 읽어야 추출 우선이 지켜진다 (open-issues 참고).
     """
-    tag = os.environ.get("MSDS_EXPLAIN_MODEL", EXPLAIN_MODEL_DEFAULT)
     try:
-        from msds.extract.client import load_model_config
+        from msds.extract.client import load_model_config  # 가져올 때 .env를 읽으므로 태그는 그 뒤에 읽는다
+        # 따로 정하지 않으면 추출과 같은 모델 서버를 쓴다 (48GB 태그로 띄운 서버를 80GB 기본 태그로 부르지 않게)
+        tag = os.environ.get("MSDS_EXPLAIN_MODEL") or os.environ.get("MSDS_SERVICE_MODEL") or EXPLAIN_MODEL_DEFAULT
         cfg = load_model_config(tag)
         if not os.environ.get(cfg.get("base_url_env") or ""):
             return None

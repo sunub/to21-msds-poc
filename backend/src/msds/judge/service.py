@@ -480,9 +480,10 @@ class JudgeService:
     def save_overview(self, job_id: str) -> dict:
         with self.pool.connection() as conn:
             latest = self._job_or_404(conn, job_id)
+            # 저장본을 처리 기록보다 먼저 읽는다. 그 사이 다른 사람이 처리하고 저장해도 거짓 "저장 뒤 바뀜"이 나오지 않는다
+            snaps = self.snapshots(conn, job_id)
             events = self._events(conn, job_id)
             handoff = self._handoff_of_version(conn, latest)
-            snaps = self.snapshots(conn, job_id)
         findings = _findings(latest["consistency"])
         c = self._counts(findings, events, handoff)
         reviews = {k: c["by_status"].get(k, 0) for k in ("불일치 확정", "예외 승인", "확인")}
@@ -490,7 +491,9 @@ class JudgeService:
                 "verdicts": {"total": _count(findings),
                              "by_section": {s: _count([f for f in findings if f["section"] == s]) for s in ("2", "15")}},
                 "reviews": {"미검토": len(c["unreviewed"]), **reviews, "unreviewed_ids": c["unreviewed"]},
-                "values": c["values"], "snapshots": snaps}
+                "values": c["values"], "snapshots": snaps,
+                # 저장본의 같은 칸과 비교해 저장 뒤 더한 검토 처리를 알린다 (판정 버전·넘김 번호만으로는 모른다)
+                "last_review_event_id": events[-1]["event_id"] if events else None}
 
     def _grade_of(self, conn, job_id: str, latest: dict, snaps: list[dict]) -> str:
         return _grade(snaps, latest["version"], self._handoff(conn, job_id)["handoff_seq"], self._events(conn, job_id),
