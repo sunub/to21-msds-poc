@@ -31,11 +31,7 @@ export MSDS_PREPROCESS_WORKERS="${MSDS_PREPROCESS_WORKERS:-1}"
 export MSDS_EXTRACT_WORKERS="${MSDS_EXTRACT_WORKERS:-1}"
 export MSDS_MODEL_MAX_INFLIGHT="${MSDS_MODEL_MAX_INFLIGHT:-8}" # 48GB 서버의 max_num_seqs. 같은 컴퓨터의 다른 프로세스와 값이 같아야 한다
 
-# 판정 설명도 추출과 같은 모델 서버를 쓴다. 기본값(80GB 태그)으로 48GB 서버를 부르지 않게 맞춘다
-if [ -z "${MSDS_EXPLAIN_MODEL:-}" ] && [ -f "$ROOT/.env" ]; then
-  tag="$(sed -n 's/^MSDS_SERVICE_MODEL=//p' "$ROOT/.env" | tail -1)"
-  [ -n "$tag" ] && export MSDS_EXPLAIN_MODEL="$tag"
-fi
+# 판정 설명 모델은 MSDS_EXPLAIN_MODEL이 없으면 MSDS_SERVICE_MODEL(추출 모델)을 따른다 (judge/explain.make_llm, .env는 python-dotenv가 읽는다)
 
 cd "$BACKEND"
 args=(--app-dir src msds.api.extract_app:app --host 127.0.0.1 --port "${MSDS_API_PORT:-8020}")

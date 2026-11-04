@@ -1,8 +1,9 @@
 """judge 스키마를 만든다. 관리자 계정으로 migrations/b2_*.sql 을 차례로 돌리고 judge_writer 비밀번호를 맞춘다.
 
-    python scripts/b2_migrate.py           # A2의 extract.handoff 가 이미 있을 때
-    python scripts/b2_migrate.py --dev     # 개발용 extract.handoff 대역도 만든다
-    python scripts/b2_migrate.py --dev --database judge_test   # 시험용 DB
+    python scripts/b2_migrate.py --database msds_service   # 서비스 DB (A의 apply_erd_migrations.py 뒤에)
+    python scripts/b2_migrate.py --dev --database judge_test   # 시험용 DB. 개발용 extract.handoff 대역도 만든다
+
+서비스 DB에는 --dev 를 쓰지 않는다. 대역 표가 있으면 A의 a2_0003 마이그레이션이 실패한다 (docs/A1_작업_흐름_실행.md).
 
 JUDGE_PG_PASSWORD 가 deploy/htodb/.env 에 없으면 만들어 적는다 (값은 출력하지 않는다).
 """
