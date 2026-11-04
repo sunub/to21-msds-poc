@@ -231,14 +231,15 @@ export function ReviewControls({
         }}
       />
       <div className="flex flex-wrap items-center justify-between gap-2">
-        {onPrev !== undefined ? (
-          <Button disabled={!onPrev} onClick={onPrev ?? undefined}>
-            이전 미처리
-          </Button>
-        ) : (
-          <span />
-        )}
-        <div className="flex flex-wrap items-center justify-end gap-2">
+        <div className="flex items-center gap-2">
+          {onPrev !== undefined && (
+            <Button disabled={!onPrev} onClick={onPrev ?? undefined}>
+              이전 미처리
+            </Button>
+          )}
+          {nextButton}
+        </div>
+        <div className="flex items-center gap-2">
           {reviewed ? (
             <>
               <Button disabled={locked} onClick={() => submit("의견")}>
@@ -255,7 +256,6 @@ export function ReviewControls({
               </Button>
             ))
           )}
-          {nextButton}
         </div>
       </div>
       {lock && <p className="text-sm text-mut">{LOCK_TEXT[lock]}</p>}
