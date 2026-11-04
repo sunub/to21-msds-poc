@@ -26,14 +26,17 @@ models | grep -q "\"id\":\"$MODEL\"" || { echo "vLLM이 $MODEL 로 떠 있지 �
 grep -E "Maximum concurrency" $W/serve_vllm.log | tail -1 || true
 
 # 앱 설정: 모델 주소·키·태그(키 값은 화면에 내지 않는다)
-{ echo "RUNPOD_VLLM_BASE_URL=http://127.0.0.1:8000/v1"; echo "RUNPOD_VLLM_API_KEY=$(cat $W/vllm_api_key)"; echo "MSDS_SERVICE_MODEL=$TAG"; } > $APP/.env
+# 전처리는 예전 방식(legacy). version17(#172 기본값)은 OCR 패키지가 필요한데 체험 서버는 OCR 그룹을 깔지 않아
+# 글꼴 깨짐·스캔 PDF가 실패한다. legacy는 그런 쪽을 이미지로 넘긴다. OCR을 깔고 확인한 뒤에만 PREPROCESS= 로 바꾼다
+{ echo "RUNPOD_VLLM_BASE_URL=http://127.0.0.1:8000/v1"; echo "RUNPOD_VLLM_API_KEY=$(cat $W/vllm_api_key)"; echo "MSDS_SERVICE_MODEL=$TAG"
+  echo "MSDS_PREPROCESS=${PREPROCESS-legacy}"; } > $APP/.env
 
 if [ "${RESTART_APP:-0}" = "1" ] && pgrep -f "[u]vicorn --app-dir src msds.api.extract_app" >/dev/null; then
   kill $(pgrep -f "[u]vicorn --app-dir src msds.api.extract_app")
   for _ in $(seq 1 30); do pgrep -f "[u]vicorn --app-dir src msds.api.extract_app" >/dev/null || break; sleep 1; done
 fi
 if ! curl -s -m 3 http://127.0.0.1:8020/api/health | grep -q '"ok":true'; then
-  ( cd $APP && MSDS_EXTRACT_WORKERS=3 MSDS_PREPROCESS_WORKERS=2 setsid bash backend/scripts/serve_api.sh > $W/app.log 2>&1 < /dev/null & )
+  ( cd $APP && MSDS_PREPROCESS="${PREPROCESS-legacy}" MSDS_EXTRACT_WORKERS=3 MSDS_PREPROCESS_WORKERS=2 setsid bash backend/scripts/serve_api.sh > $W/app.log 2>&1 < /dev/null & )
   for _ in $(seq 1 30); do curl -s -m 3 http://127.0.0.1:8020/api/health | grep -q '"ok":true' && break; sleep 2; done
 fi
 HEALTH=$(curl -s -m 3 http://127.0.0.1:8020/api/health || true)
