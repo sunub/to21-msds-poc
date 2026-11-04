@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import type { JudgmentBatchItem } from "@/api/judgment";
 import type { DocumentSummary, ValuesReview } from "@/api/schemas";
-import { type CheckLabel, documentRow as rowOf } from "./document-row.ts";
+import { type CheckLabel, documentRow as rowOf, failureMessage } from "./document-row.ts";
 
 /* 검사 문구는 lib/status.ts validationLabel 이 정한다 (tests/a2-validation.test.cjs). 여기서는 그 결과를 받는 쪽만 본다 */
 const OK: CheckLabel = { tone: "success", label: "검증 통과", detail: "스키마 오류 0건" };
@@ -135,4 +135,34 @@ test("실패한 문서는 멈춘 단계와 다시 시도", () => {
   assert.deepEqual(row.stage, { tone: "danger", label: "실패" });
   assert.deepEqual([row.progress.text, row.progress.percent], ["3 / 4단계에서 멈춤", 50]);
   assert.deepEqual(row.action, { kind: "retry" });
+});
+
+test("저장까지 끝낸 문서에는 추출 직후 검사 문구를 붙이지 않는다", () => {
+  const row = documentRow(doc({ review_stage: "판정으로 넘김" }), judged({ saved_snapshot: 1 }), VALUES);
+  assert.equal(row.stage.label, "완료");
+  assert.equal(row.note, null);
+});
+
+test("항은 모두 확인했어도 손대지 않은 칸이 남으면 저장 화면처럼 '완료'라 하지 않는다", () => {
+  const most = values({ state: "완료", sections_confirmed: 9, fields_checked: 120 });
+  const row = documentRow(doc({ document_extras: { ...doc().document_extras!, values_review: most } }), undefined);
+  assert.equal(row.progress.detail, "추출값 9 / 9항 확인 · 칸 120 / 154");
+});
+
+test("제품명을 알면 제목으로 쓰고 파일명은 아래 줄로 내린다", () => {
+  const named = documentRow(doc({ document_extras: { ...doc().document_extras!, product_name: "가상 세정액 B" } }), undefined);
+  assert.deepEqual([named.title, named.subtitle], ["가상 세정액 B", `a.pdf · ${ID} · 4쪽`]);
+  const plain = documentRow(doc(), undefined);
+  assert.deepEqual([plain.title, plain.subtitle], ["a.pdf", `${ID} · 4쪽`]);
+});
+
+test("실패 원인은 사람이 읽는 말로 바꾸고 원래 오류는 따로 남긴다", () => {
+  const raw = "RuntimeError: .env에 RUNPOD_VLLM_BASE_URL가 없습니다.";
+  assert.deepEqual(failureMessage(raw, "failed"), { text: "추출 모델 서버에 연결하지 못했습니다. 잠시 뒤 다시 시도해 주세요.", detail: raw });
+  assert.equal(failureMessage("APIConnectionError: Connection error.", "failed")?.text, "추출 모델 서버에 연결하지 못했습니다. 잠시 뒤 다시 시도해 주세요.");
+  assert.equal(failureMessage("ReadTimeout: timed out", "failed")?.text, "추출 모델 서버가 제때 답하지 않았습니다. 잠시 뒤 다시 시도해 주세요.");
+  assert.equal(failureMessage("PdfReadError: EOF marker not found", "failed")?.text, "PDF를 읽지 못했습니다. 파일이 손상되었거나 암호가 걸려 있는지 확인해 주세요.");
+  assert.equal(failureMessage("server restarted", "interrupted")?.text, "서버가 다시 시작되어 처리가 멈췄습니다. 다시 시도해 주세요.");
+  assert.equal(failureMessage("KeyError: 'x'", "failed")?.text, "처리하는 중 오류가 났습니다. 다시 시도해 주세요.");
+  assert.equal(failureMessage(null, "failed"), null);
 });

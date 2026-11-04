@@ -21,6 +21,9 @@ export type RowAction =
   | { kind: "retry" };
 
 export type DocumentRowView = {
+  /** 제품명을 알면 제품명, 모르면 파일명 */
+  title: string;
+  subtitle: string;
   stage: Label;
   /** 단계 아래 작은 글. title 은 마우스를 올렸을 때 보이는 설명 */
   note: { tone: Tone; text: string; title: string } | null;
@@ -39,6 +42,16 @@ const STAGE_LABEL: Record<JobStage, string> = {
 const CHECK_TITLE = "추출 직후 모델이 뽑은 값을 자동으로 검사한 결과입니다. 사람이 검수해도 이 결과는 바뀌지 않습니다.";
 
 export function documentRow(doc: DocumentSummary, judgment: JudgmentBatchItem | undefined, check: CheckLabel): DocumentRowView {
+  return { ...names(doc), ...stateOf(doc, judgment, check) };
+}
+
+function names(doc: DocumentSummary): Pick<DocumentRowView, "title" | "subtitle"> {
+  const product = doc.document_extras?.product_name?.trim();
+  const meta = [doc.id, doc.page_count != null ? `${doc.page_count}쪽` : null].filter(Boolean).join(" · ");
+  return product ? { title: product, subtitle: `${doc.filename} · ${meta}` } : { title: doc.filename, subtitle: meta };
+}
+
+function stateOf(doc: DocumentSummary, judgment: JudgmentBatchItem | undefined, check: CheckLabel): Omit<DocumentRowView, "title" | "subtitle"> {
   const allFailed = doc.counts.total > 0 && doc.counts.failed === doc.counts.total;
   if (doc.status !== "done" || allFailed) {
     return {
@@ -52,7 +65,8 @@ export function documentRow(doc: DocumentSummary, judgment: JudgmentBatchItem | 
   const saved = judgment?.saved_snapshot != null && doc.review_stage === "판정으로 넘김";
   return {
     stage: saved ? { tone: "success", label: "완료" } : { tone: "info", label: "검수 중" },
-    note: checkNote(doc, check),
+    // 저장까지 끝낸 문서에 추출 직후 검사 문구를 붙이면 아직 할 일이 남은 것처럼 읽힌다
+    note: saved ? null : checkNote(doc, check),
     progress: {
       text: `${doc.counts.done} / ${doc.counts.total}항`,
       percent: doc.counts.total > 0 ? (doc.counts.done / doc.counts.total) * 100 : 0,
@@ -108,7 +122,9 @@ function reviewDetail(doc: DocumentSummary, judgment: JudgmentBatchItem | undefi
   if (values) {
     parts.push(
       values.state === "미검수" ? "추출값 미검수"
-        : values.state === "완료" ? "추출값 확인 완료"
+        : values.state === "완료" && values.fields_checked >= values.fields_total ? "추출값 확인 완료"
+          // 항은 모두 확인했어도 손대지 않은 칸이 남으면 저장 화면은 '일부 확인'이다 (judge/service.py value_counts)
+          : values.state === "완료" ? `추출값 ${values.sections_confirmed} / ${values.sections_total}항 확인 · 칸 ${values.fields_checked} / ${values.fields_total}`
           : `추출값 확인 ${values.sections_confirmed} / ${values.sections_total}항`,
     );
   }
@@ -125,4 +141,18 @@ function continueAction(doc: DocumentSummary): RowAction {
     default:
       return { kind: "link", label: "검수하기", href: routes.reviewMode(doc.id), primary: true };
   }
+}
+
+const SERVER = "추출 모델 서버에 연결하지 못했습니다. 잠시 뒤 다시 시도해 주세요.";
+
+/** 서버 오류 원문은 개발자용이다. 사용자에게는 원인과 할 일을 말하고, 원문은 detail 로 따로 둔다 */
+export function failureMessage(error: string | null, status: DocumentSummary["status"]): { text: string; detail: string } | null {
+  if (!error) return null;
+  const text =
+    status === "interrupted" ? "서버가 다시 시작되어 처리가 멈췄습니다. 다시 시도해 주세요."
+      : /\.env에 .+ 없습니다|connect|connection|refused|unreachable|503|502/i.test(error) ? SERVER
+        : /timeout|timed out|시간 초과/i.test(error) ? "추출 모델 서버가 제때 답하지 않았습니다. 잠시 뒤 다시 시도해 주세요."
+          : /pdf|encrypt|암호/i.test(error) ? "PDF를 읽지 못했습니다. 파일이 손상되었거나 암호가 걸려 있는지 확인해 주세요."
+            : "처리하는 중 오류가 났습니다. 다시 시도해 주세요.";
+  return { text, detail: error };
 }

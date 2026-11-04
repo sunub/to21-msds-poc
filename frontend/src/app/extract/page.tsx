@@ -15,6 +15,7 @@ import { Foot, Pane, Workspace } from "@/components/shell/layout";
 import { Progress, Skeleton, StatusLabel, Table, TableHead, buttonStyles } from "@/components/ui";
 import { useDocumentTransitions } from "@/hooks/use-document-transitions";
 import { usePageParam } from "@/hooks/use-page-param";
+import { failureMessage } from "@/lib/document-row";
 import { routes } from "@/lib/routes";
 import { allSectionsFailed, stageMessage } from "@/lib/status";
 
@@ -159,15 +160,20 @@ function DocumentNotices({ doc }: { doc: DocumentDetail }) {
   const failedAll = doc.status === "done" && allSectionsFailed(doc);
   const failedSome = !failedAll && doc.status === "done" && doc.counts.failed > 0;
   const firstError = doc.sections.find((s) => s.errors.length)?.errors[0];
+  const failure = failureMessage(doc.error, doc.status);
   if (!doc.error && !failedAll && !failedSome && warnings.length === 0 && doc.duplicate_of.length === 0) {
     return null;
   }
   return (
     <div className="flex flex-col gap-1.5 rounded-md border border-line bg-white px-5 py-3.5 text-sm print:hidden">
-      {doc.error && (
-        <p role="alert" className="break-words text-red">
-          {doc.status === "interrupted" ? "처리가 멈췄습니다" : "처리하지 못했습니다"}: {doc.error}
-        </p>
+      {failure && (
+        <div role="alert" className="text-red">
+          <p className="break-keep">{failure.text}</p>
+          <details className="mt-1 text-sub">
+            <summary className="cursor-pointer text-sm">오류 원문</summary>
+            <p className="break-words">{failure.detail}</p>
+          </details>
+        </div>
       )}
       {failedAll && (
         <p role="alert" className="break-words text-red">
