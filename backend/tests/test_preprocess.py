@@ -6,6 +6,17 @@ import pytest
 from msds.common import manifest, paths
 from msds.preprocess.render import preprocess
 
+def _raw_pdf(doc_id):
+    """manifest(data/manifest.csv)와 원본 PDF(data/raw/)는 저장소 밖 자료다(D-47). 둘 중 하나라도 없으면 건너뛴다."""
+    if not paths.MANIFEST.exists():
+        pytest.skip("data/manifest.csv 없음")
+    row = manifest.get(doc_id)
+    try:
+        return row, manifest.raw_pdf(row)
+    except FileNotFoundError:
+        pytest.skip(f"data/raw/에 {row['source_file']} 없음")
+
+
 CASES = {"T21-S016": "정상", "T21-S003": "글꼴깨짐", "T21-043": "글꼴깨짐", "T21-S013": "정상"}
 
 
@@ -30,11 +41,7 @@ def isolate_preprocess_outputs(tmp_path, monkeypatch):
 
 @pytest.mark.parametrize("doc_id,expected", CASES.items())
 def test_text_layer(doc_id, expected):
-    row = manifest.get(doc_id)
-    try:
-        pdf = manifest.raw_pdf(row)
-    except FileNotFoundError:
-        pytest.skip(f"data/raw/에 {row['source_file']} 없음")
+    row, pdf = _raw_pdf(doc_id)
     m = preprocess(pdf, doc_id, force=True)
     assert m["text_layer"] == expected
     assert m["page_count"] == int(row["pages"])
@@ -91,11 +98,7 @@ def test_overstrike_recorded_and_match_text_deduplicated():
     from msds.preprocess.render import load_pages
 
     for doc_id, expect in (("T21-045", True), ("T21-S016", False)):
-        row = manifest.get(doc_id)
-        try:
-            pdf = manifest.raw_pdf(row)
-        except FileNotFoundError:
-            pytest.skip(f"data/raw/에 {row['source_file']} 없음")
+        row, pdf = _raw_pdf(doc_id)
         m = preprocess(pdf, doc_id, force=True)
         assert (m["overstrike"] > 0) is expect
         p1 = load_pages(doc_id)["pages"][0]
@@ -108,11 +111,7 @@ def test_page_text_follows_reading_order_with_indent():
     # 앞 공백으로 쓴 들여쓰기는 남긴다
     from msds.preprocess.render import PREPROCESS_VERSION, load_pages
 
-    row = manifest.get("T21-S001")
-    try:
-        pdf = manifest.raw_pdf(row)
-    except FileNotFoundError:
-        pytest.skip(f"data/raw/에 {row['source_file']} 없음")
+    row, pdf = _raw_pdf("T21-S001")
     m = preprocess(pdf, "T21-S001", force=True)
     assert m["preprocess_version"] == PREPROCESS_VERSION
     p2 = load_pages("T21-S001")["pages"][1]
@@ -127,11 +126,7 @@ def test_ruled_table_row_is_one_line():
     # S001 3쪽 성분 표: 관용명 칸만 두 줄이라 줄 단위로 읽으면 한 행이 네 줄로 흩어졌다. 그려진 선의 칸으로 한 줄에 묶는다
     from msds.preprocess.render import load_pages
 
-    row = manifest.get("T21-S001")
-    try:
-        pdf = manifest.raw_pdf(row)
-    except FileNotFoundError:
-        pytest.skip(f"data/raw/에 {row['source_file']} 없음")
+    row, pdf = _raw_pdf("T21-S001")
     preprocess(pdf, "T21-S001", force=True)
     p3 = load_pages("T21-S001")["pages"][2]
     for text in (p3["text"], p3["match_text"]):

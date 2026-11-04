@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from msds.common import manifest
+from msds.common import manifest, paths
 from msds.extract.inputs import pages_problems
 
 SCRIPTS = Path(__file__).resolve().parents[1] / "scripts"
@@ -59,6 +59,8 @@ def test_missing_folder_and_unnumbered_pages_are_reported(tmp_path):
 
 
 def test_run_sections_stops_before_running(tmp_path):
+    if not paths.MANIFEST.exists():
+        pytest.skip("data/manifest.csv 없음 (저장소 밖 자료, D-47)")
     write_page(tmp_path, "T21-S016", "p001.txt", "번호 없는 글\n")
     done = subprocess.run([sys.executable, str(SCRIPTS / "run_sections.py"), "--model", "없는태그", "--docs", "T21-S016",
                            "--pages-dir", str(tmp_path)], capture_output=True, text=True)
