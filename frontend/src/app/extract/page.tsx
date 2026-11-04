@@ -150,12 +150,12 @@ function SkeletonTable() {
   );
 }
 
-/** 업로드 문서는 항상 manifest 밖이라 나오는 내부 안내 경고는 숨긴다 */
-const HIDDEN_WARNING_PREFIX = "manifest에 없는 문서";
+/** 사용자에게 의미 없는 내부 진단 경고. 하나라도 맞으면 숨긴다 */
+const HIDDEN_WARNINGS: RegExp[] = [/^manifest에 없는 문서/, /^\d+항: 분할 실패/];
 
 /** 실패 사유, 경고, 같은 PDF 안내 */
 function DocumentNotices({ doc }: { doc: DocumentDetail }) {
-  const warnings = doc.warnings.filter((w) => !w.startsWith(HIDDEN_WARNING_PREFIX));
+  const warnings = doc.warnings.filter((w) => !HIDDEN_WARNINGS.some((re) => re.test(w)));
   const failedAll = doc.status === "done" && allSectionsFailed(doc);
   const failedSome = !failedAll && doc.status === "done" && doc.counts.failed > 0;
   const firstError = doc.sections.find((s) => s.errors.length)?.errors[0];
