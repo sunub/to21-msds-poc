@@ -9,6 +9,7 @@ frontend/out(정적 빌드)이 있으면 같은 주소의 / 에서 화면을 낸
 POST /api/documents?filename=&as_of=      본문이 PDF 바이트 그대로(application/pdf). 202와 진행 상태
 GET  /api/documents?status=all|active|done|failed   목록(항별 목록 없이 개수만)과 상태별 개수
 GET  /api/documents/{id}                   진행 상태 전체(단계, 전처리 쪽 수, 항별 상태, 경고)
+GET  /api/documents/{id}/pdf               올린 원본 PDF (화면에서 직접 그린다)
 GET  /api/documents/{id}/pages/{n}/image   쪽 이미지 (전처리 뒤)
 GET  /api/documents/{id}/pages/{n}/lines   줄 번호 붙은 쪽 글 (근거 줄 p2:L23과 같은 번호)
 GET  /api/documents/{id}/result            끝난 뒤 TO21 JSON과 사람이 볼 항. 끝나기 전에는 409
