@@ -11,6 +11,7 @@ import { cn } from "@/lib/cn";
 import { formatBytes } from "@/lib/format";
 import { stageNote } from "@/lib/status";
 import { AppHeader } from "./app-header";
+import { PageMain } from "./layout";
 import { Slot } from "./slot";
 
 export type Stage = "extract" | "review" | "save";
@@ -35,11 +36,14 @@ export function DocFrame({
   stage,
   notes,
   width = "max-w-page",
+  fill,
   children,
 }: {
   stage: Stage;
   notes?: Partial<Record<Stage, string>>;
   width?: string;
+  /** 본문을 화면 높이에 꼭 맞춘다 (PageMain) */
+  fill?: boolean;
   children: (doc: string) => ReactNode;
 }) {
   const doc = useDocId();
@@ -53,7 +57,7 @@ export function DocFrame({
           <Stepper steps={STAGES.map((s) => ({ ...s, note: stageNotes[s.id] }))} current={stage} />
         </div>
       </div>
-      <main className={cn("mx-auto flex flex-col gap-5 px-8 pt-7 pb-14 print:max-w-none print:p-0", width)}>
+      <PageMain width={width} fill={fill} className="print:max-w-none print:p-0">
         {!doc ? (
           <Slot title="문서를 고르지 않았습니다" note="목록에서 문서를 골라 들어와 주세요." />
         ) : !data && error ? (
@@ -65,7 +69,7 @@ export function DocFrame({
         ) : (
           children(doc)
         )}
-      </main>
+      </PageMain>
     </>
   );
 }

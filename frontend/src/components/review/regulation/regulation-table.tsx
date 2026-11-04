@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import type { Finding, JudgmentView } from "@/api/judgment";
-import { Button, PillTabs, StatusLabel, Table, TableHead, TableRow } from "@/components/ui";
+import { Button, PillTabs, ScrollTable, StatusLabel, TableHead, TableRow } from "@/components/ui";
 import { cn } from "@/lib/cn";
 import { buildTable, lawCounts, noteBreakdown, regulationCounts, reviewText, verdictText, verdictTone } from "@/lib/regulation";
 
@@ -32,7 +32,7 @@ export function RegulationTable({
   const { reviews, display } = view;
   const table = buildTable(findings, display, { law, todoOnly });
   const counts = regulationCounts(findings, reviews);
-  const toggle = (key: string) => setOpen((prev) => ({ ...prev, [key]: !prev[key] }));
+
   const isEmpty = !table.todo.length && !table.matches.length && !table.notes.length;
 
   const row = (f: Finding) => {
@@ -60,19 +60,23 @@ export function RegulationTable({
     );
   };
 
-  const group = (key: string, title: string, rows: Finding[]) => (
-    <div key={key}>
-      <button
-        type="button"
-        aria-expanded={!!open[key]}
-        onClick={() => toggle(key)}
-        className="block w-full border-b border-line2 bg-white px-4 py-2.5 text-left text-mut"
-      >
-        {open[key] ? "▾" : "▸"} {title}
-      </button>
-      {open[key] && rows.map(row)}
-    </div>
-  );
+  /** 고른 줄이 묶음 안에 있으면 처음부터 펼쳐 둔다 (검토 이력에서 바로 온 경우). 2항 표와 같다 */
+  const group = (key: string, title: string, rows: Finding[]) => {
+    const expanded = open[key] ?? rows.some((f) => f.id === selectedId);
+    return (
+      <div key={key}>
+        <button
+          type="button"
+          aria-expanded={expanded}
+          onClick={() => setOpen((prev) => ({ ...prev, [key]: !expanded }))}
+          className="block w-full border-b border-line2 bg-white px-4 py-2.5 text-left text-mut"
+        >
+          {expanded ? "▾" : "▸"} {title}
+        </button>
+        {expanded && rows.map(row)}
+      </div>
+    );
+  };
 
   return (
     <section className="flex flex-col gap-3" aria-label="15항 판정 표">
@@ -103,8 +107,8 @@ export function RegulationTable({
           처리 필요만
         </label>
       </div>
-      <Table>
-        <TableHead className="max-lg:hidden">
+      <ScrollTable follow={selectedId}>
+        <TableHead sticky className="max-lg:hidden">
           <div className="w-18 flex-none">법령</div>
           <div className={CELL}>규제 항목</div>
           <div className={CELL}>성분 (함량)</div>
@@ -134,7 +138,7 @@ export function RegulationTable({
             )}
           </div>
         )}
-      </Table>
+      </ScrollTable>
     </section>
   );
 }

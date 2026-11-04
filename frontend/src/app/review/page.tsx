@@ -22,7 +22,7 @@ function ReviewBody({ doc }: { doc: string }) {
   const [regulationDrafts, setRegulationDrafts] = useState<Record<string, string>>({});
 
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex min-h-0 flex-1 flex-col gap-5">
       <div className="border-b border-line">
         <UnderlineTabs
           label="검수 구역"
@@ -63,11 +63,21 @@ function ReviewBody({ doc }: { doc: string }) {
   );
 }
 
+/** 추출값 탭은 표가 없어 화면에 꼭 맞추고, 나머지 탭은 표와 원문·판정 칸이 이어져 스크롤한다 */
+function ReviewFrame() {
+  const fill = useSearchParams().get("tab") === "values";
+  return (
+    <DocFrame stage="review" fill={fill}>
+      {(doc) => <ReviewBody doc={doc} />}
+    </DocFrame>
+  );
+}
+
 /** 2 검수: 탭(2항, 15항, 성분별 요약, 검토 이력, 추출값)을 언제든 오간다. 탭은 ?tab= 에 남긴다. */
 export default function ReviewPage() {
   return (
     <Suspense>
-      <DocFrame stage="review">{(doc) => <ReviewBody doc={doc} />}</DocFrame>
+      <ReviewFrame />
     </Suspense>
   );
 }

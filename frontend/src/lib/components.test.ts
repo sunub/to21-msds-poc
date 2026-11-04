@@ -8,7 +8,9 @@ import {
   classesText,
   componentFindings,
   componentHeadline,
-  defaultRoute,
+  ateKey,
+  ateTabLabel,
+  defaultAteKey,
   formatContent,
   groupBySource,
   hitsText,
@@ -119,13 +121,30 @@ test("ATE 순서: 쓴 단계 앞은 없음, 뒤는 해당 없음", () => {
 
 test("처음 보여 줄 경로는 값을 쓴 경로", () => {
   assert.equal(
-    defaultRoute([
+    defaultAteKey([
       { route: "oral", value: null, unit: null, form: null, source: null, step: 6, excluded: "자료 없음" },
       { route: "dermal", value: 2000, unit: "mg/kg", form: null, source: "가상", step: 1, excluded: null },
     ]),
     "dermal",
   );
-  assert.equal(defaultRoute([]), null);
+  assert.equal(defaultAteKey([]), null);
+});
+
+test("흡입은 형태(가스·증기·분진·미스트)마다 따로 고른다", () => {
+  // 판정 API는 흡입 ATE를 형태별로 한 줄씩 준다. 경로만으로 고르면 둘째 형태를 볼 수 없다
+  const ate = [
+    { route: "oral" as const, value: null, unit: null, form: null, source: null, step: 6, excluded: "자료 없음" },
+    { route: "inhal" as const, value: null, unit: null, form: "분진·미스트" as const, source: null, step: 6, excluded: "자료 없음" },
+    { route: "inhal" as const, value: 3.1, unit: "mg/L", form: "증기" as const, source: "가상", step: 1, excluded: null },
+  ];
+  const keys = ate.map(ateKey);
+  assert.equal(new Set(keys).size, ate.length);
+  assert.deepEqual(ate.map(ateTabLabel), ["경구", "흡입(분진·미스트)", "흡입(증기)"]);
+  assert.equal(defaultAteKey(ate), "inhal:증기");
+  assert.equal(
+    ateSummary(ate, "혼합물"),
+    "경구 제외(자료 없음) · 흡입(분진·미스트) 제외(자료 없음) · 흡입 3.1 mg/L 증기 (가상, 1단계)",
+  );
 });
 
 test("성분의 판정은 comp_ref 또는 CAS로 찾고 항으로 거른다", () => {

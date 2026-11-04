@@ -228,17 +228,26 @@ def _norm(s: str | None) -> str:
     return re.sub(r"\s+", "", s or "").casefold()
 
 
+def _key_in_text(key: str, text: str | None) -> bool:
+    """성분 이름·CAS가 줄에 보이는가. 공백을 뺀 글에서 찾되, 한 글자 이름은 낱말 전체만 본다
+    ('물'이 '노출기준설정물질' 안에서 맞으면 항목 제목이 성분 줄이 된다. 공백을 빼면 낱말 경계가 사라져 원문에서 본다)."""
+    if len(key) == 1:
+        return bool(
+            re.search(rf"(?<!\w){re.escape(key)}(?!\w)", (text or "").casefold())
+        )
+    return key in _norm(text)
+
+
 def _component_in_line(text: str | None, by_key: dict[str, dict]) -> dict | None:
     """줄에 보이는 성분이 하나면 그 성분. 다른 이름 안에 든 이름(을 ⊂ 을 염)은 세지 않는다."""
-    t = _norm(text)
-    found = [k for k in by_key if k in t]
+    found = [k for k in by_key if _key_in_text(k, text)]
     found = [k for k in found if not any(k != o and k in o for o in found)]
     hits = {by_key[k]["seq"]: by_key[k] for k in found}
     return next(iter(hits.values())) if len(hits) == 1 else None
 
 
 def _any_component(text: str | None, by_key: dict[str, dict]) -> bool:
-    return any(k in _norm(text) for k in by_key)
+    return any(_key_in_text(k, text) for k in by_key)
 
 
 def link_components(rows: list[dict], components: list[dict], lines_by_id: dict[str, Line] | None = None) -> list[dict]:
@@ -403,6 +412,8 @@ def recode_regulations(rows: list[dict], lines_by_id: dict[str, Line], component
         if num is not None and f"{num:g}" not in text.replace(",", ""):
             continue                         # 기준농도가 근거 줄에 없다: 줄 번호가 틀린 행 (S016)
         if listed(text):
+            if r.get("item_code") in _reg_codes_in(text):
+                continue  # 모델 코드의 항목명이 이 줄에 적혀 있다. 제목보다 가깝다 (23번 '기존화학물질, 유독물질 (염화 수소…)')
             value = re.split(r"[:：|]", text, maxsplit=1)[1] if re.search(r"[:：|]", text) else ""
             if _any_component(text, keys) and value.strip() and not is_status(value):
                 codes = _reg_codes_in(value)

@@ -51,7 +51,7 @@ export function RegulationDetail({
   const reviewed = !!review && review.status !== "미검토";
 
   return (
-    <Pane title={`${finding.label}${finding.law_label ? ` (${finding.law_label})` : ""}`} aside={<StatusLabel tone={verdictTone(finding)}>{verdictText(finding)}</StatusLabel>}>
+    <Pane fill title={`${finding.label}${finding.law_label ? ` (${finding.law_label})` : ""}`} aside={<StatusLabel tone={verdictTone(finding)}>{verdictText(finding)}</StatusLabel>}>
       {hidden && <p className="rounded-sm bg-blue-soft px-3 py-2 text-sm text-blue2">거르기로 표에서 숨겨진 항목입니다.</p>}
       {review?.stale && (
         <p className="rounded-sm bg-tint px-3 py-2 text-sm text-stale">
@@ -161,14 +161,21 @@ export function ReviewControls({
 
   const mutation = useMutation({
     mutationFn: ({ action, comment }: { action: ReviewAction; comment: string | null }) =>
-      postJudgmentReview(docId, { finding_id: finding.id, action, comment, reviewer, seen_version: view.version }),
+      postJudgmentReview(docId, {
+        finding_id: finding.id,
+        action,
+        comment,
+        reviewer,
+        seen_version: view.version,
+        seen_event_id: review?.last_event_id ?? null,
+      }),
     onSuccess: () => {
       onDraft("");
       return client.invalidateQueries({ queryKey: judgmentKeys.all(docId) });
     },
     onError: (error) => {
-      // 새 판정이 있으면 상태를 다시 받아 위쪽 띠가 뜨게 한다. 쓰던 의견은 지우지 않는다
-      if (isVersionConflict(error)) void client.invalidateQueries({ queryKey: judgmentKeys.status(docId) });
+      // 새 판정이면 위쪽 띠가, 다른 검토자의 처리면 이 줄의 새 상태가 뜨게 다시 받는다. 쓰던 의견은 지우지 않는다
+      if (isVersionConflict(error)) void client.invalidateQueries({ queryKey: judgmentKeys.all(docId) });
     },
   });
 
@@ -245,7 +252,7 @@ export function ReviewControls({
       {error && (
         <p role="alert" className="text-sm break-words text-red">
           {isVersionConflict(error)
-            ? "처리되지 않았습니다. 그 사이 새 판정이 만들어졌습니다. 쓰던 의견은 남겨 두었습니다."
+            ? `처리되지 않았습니다. ${error.message}. 최신 내용을 다시 받았으니 확인해 주세요. 쓰던 의견은 남겨 두었습니다.`
             : `처리하지 못했습니다${error instanceof ApiRequestError ? `: ${error.message}` : ". 연결을 확인해 주세요"}. 쓰던 의견은 남겨 두었습니다.`}
         </p>
       )}
