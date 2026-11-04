@@ -37,6 +37,7 @@ const summary = {
   status: "done", stage: "done", error: null, page_count: 1, text_layer: "정상", msds_count: 1,
   stage_index: 4, stage_total: 4,
   counts: { total: 9, queued: 0, running: 0, done: 9, failed: 0, needs_review: 0 }, can_retry: false,
+  queue_position: null, eta_seconds: null, review_stage: "검수 대기", document_extras: null,
 };
 const valid = {
   status: "passed", schema_errors: 0, validator_errors: 0, validator_warnings: 0,

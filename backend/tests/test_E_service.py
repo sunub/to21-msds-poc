@@ -82,6 +82,30 @@ def test_finalize_done_and_failed():
     assert t["status"] == "failed" and t["error"] == "ValueError: 깨짐"
 
 
+def test_done_marks_sections_flagged_by_final_validation():
+    """목록의 '확인 n항'과 항별 표시는 최종 검증의 검수 필요 항을 따른다 (펼치기 문제·검증기 위치로 더해진 항 포함)."""
+    s = fresh()
+    progress.apply_event(s, plan_event())
+    for no in (1, 2, 3):
+        progress.apply_event(s, {"type": "section_done", "msds_index": 0, "section": no, "ok": True,
+                                 "reextracted": False, "needs_review": no == 1, "seconds": 1, "errors": []})
+    validation = {"status": "needs_review", "needs_review": [
+        {"msds_index": 0, "section": 1}, {"msds_index": 0, "section": 3}, {"msds_index": 5, "section": 9}]}
+    progress.apply_event(s, {"type": "done", "summary": {"validation": validation}})
+    v = progress.view(s)
+    assert [x["needs_review"] for x in v["sections"]] == [True, False, True]
+    assert v["counts"]["needs_review"] == 2
+
+
+def test_done_without_validation_keeps_section_flags():
+    s = fresh()
+    progress.apply_event(s, plan_event())
+    progress.apply_event(s, {"type": "section_done", "msds_index": 0, "section": 2, "ok": True,
+                             "reextracted": False, "needs_review": True, "seconds": 1, "errors": []})
+    progress.apply_event(s, {"type": "done", "summary": {}})
+    assert [x["needs_review"] for x in s["sections"]] == [False, True, False]
+
+
 def test_requeue_clears_run_but_keeps_upload():
     s = fresh()
     progress.apply_event(s, plan_event())

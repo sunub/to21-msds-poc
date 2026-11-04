@@ -264,3 +264,45 @@ def test_retry_waits_for_review_update_and_preserves_review_of_previous_version(
     with pytest.raises(ReviewNotReady):
         store.update_review(job['id'], lambda record: None)
 
+
+
+def _finish_attempt(store, job_id, finished_at):
+    with psycopg.connect(store.dsn, autocommit=True) as db:
+        db.execute(sql.SQL('UPDATE {} SET attempts_json = attempts_json || %s WHERE job_id = %s').format(store.table),
+                   (Jsonb([{'attempt': 1, 'status': 'done', 'finished_at': finished_at}]), job_id))
+
+
+def _handoff(store, job_id, seq, reason, created_at):
+    with psycopg.connect(store.dsn, autocommit=True) as db:
+        db.execute(sql.SQL('INSERT INTO {} VALUES (%s, %s, %s, %s)').format(sql.Identifier(store.schema, 'handoff')),
+                   (job_id, seq, reason, created_at))
+
+
+def test_handed_off_counts_only_human_handoffs_of_current_result(store):
+    reviewed, auto_only, rerun = new_job(store), new_job(store, 'b.pdf'), new_job(store, 'c.pdf')
+    ids = [reviewed['id'], auto_only['id'], rerun['id']]
+    assert store.handed_off(ids) == set()     # 넘김 표가 없는 스키마
+    with psycopg.connect(store.dsn, autocommit=True) as db:
+        db.execute(sql.SQL('CREATE TABLE {} (job_id text, handoff_seq int, reason text, created_at timestamptz)')
+                   .format(sql.Identifier(store.schema, 'handoff')))
+    for job in ids:
+        _finish_attempt(store, job, '2026-11-04T10:00:00+09:00')
+    _handoff(store, reviewed['id'], 1, 'extraction_done', '2026-11-04T10:00:01+09:00')
+    _handoff(store, reviewed['id'], 2, 'values_reviewed', '2026-11-04T10:30:00+09:00')
+    _handoff(store, auto_only['id'], 1, 'extraction_done', '2026-11-04T10:00:01+09:00')   # 추출 직후 자동 넘김
+    _handoff(store, rerun['id'], 1, 'value_edited', '2026-11-04T10:30:00+09:00')
+    _finish_attempt(store, rerun['id'], '2026-11-04T11:00:00+09:00')                   # 그 뒤 다시 추출
+    assert store.handed_off(ids) == {reviewed['id']}
+    _handoff(store, rerun['id'], 2, 'values_reviewed', '2026-11-04T11:10:00+09:00')
+    assert store.handed_off(ids) == {reviewed['id'], rerun['id']}
+    assert store.handed_off([]) == set()
+    legacy = new_job(store, 'd.pdf')                                                   # 끝난 시각 기록이 없는 작업
+    _handoff(store, legacy['id'], 1, 'values_reviewed', '2026-11-04T09:00:00+09:00')
+    assert legacy['id'] in store.handed_off([legacy['id']])
+
+
+def test_review_records_reads_done_jobs_and_skips_unpublished(store):
+    job = new_job(store)
+    assert store.review_records([job]) == {}       # 게시된 결과가 없으면 기록도 없다
+    published = {**job, '_active_token': uuid.uuid4().hex}
+    assert store.review_records([published]) == {job['id']: {'fields': {}, 'sections': {}, 'log': []}}
