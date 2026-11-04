@@ -253,7 +253,7 @@ export function PdfViewer({
     return (
       <div className={cn("flex flex-1 flex-col items-center justify-center gap-2 rounded-md bg-paper p-6 text-center", className)}>
         <p>원본 PDF를 열지 못했습니다.</p>
-        <p className="text-sm text-mut">&quot;추출 글&quot;로 바꾸면 전처리에서 읽은 글을 볼 수 있습니다.</p>
+        <p className="text-sm text-mut">&quot;추출 텍스트&quot;로 바꾸면 PDF에서 읽어 낸 텍스트를 볼 수 있습니다.</p>
       </div>
     );
   }

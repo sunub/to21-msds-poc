@@ -10,12 +10,12 @@ import { parsePage, scrollWithin } from "@/lib/viewer";
 import { PdfViewer } from "./pdf-viewer";
 
 type Mode = "pdf" | "text";
-// 원본/추출 글 선택은 탭을 옮겨도 그대로 둔다
+// 원본/추출 텍스트 선택은 탭을 옮겨도 그대로 둔다
 let lastMode: Mode = "pdf";
 
 /**
  * 원문 칸. 기본은 올린 원본 PDF를 그대로 그린다 (pdf-viewer). 근거 글은 원본 글자 위에 강조한다.
- * "추출 글"로 바꾸면 전처리에서 읽은 쪽 글(근거 줄 번호 p2:L23과 같은 번호)을 본다. 이건 전처리가 끝난 쪽만 있다.
+ * "추출 텍스트"로 바꾸면 전처리에서 읽은 쪽 글(근거 줄 번호 p2:L23과 같은 번호)을 본다. 이건 전처리가 끝난 쪽만 있다.
  * 넓은 화면에서는 Workspace 칸 높이를 채우고, 위아래로 쌓이는 좁은 화면에서는 본문 높이의 80%를 쓴다.
  */
 export function SourceViewer({
@@ -55,7 +55,7 @@ export function SourceViewer({
             label="원문 보기 방식"
             items={[
               { id: "pdf", label: "원본 PDF" },
-              { id: "text", label: "추출 글" },
+              { id: "text", label: "추출 텍스트" },
             ]}
             value={mode}
             onChange={(id) => setMode(id as Mode)}
@@ -114,8 +114,8 @@ function ExtractedText({ doc, page, total, highlight }: { doc: DocumentDetail; p
   if (page > doc.preprocess.done) {
     return (
       <Paper fill className="items-center justify-center gap-4">
-        <Spinner label="쪽 글을 읽는 중" />
-        <span className="text-base">{doc.status === "queued" ? "차례를 기다리고 있습니다" : "쪽 글을 읽는 중입니다"}</span>
+        <Spinner label="텍스트를 읽는 중" />
+        <span className="text-base">{doc.status === "queued" ? "차례를 기다리고 있습니다" : "텍스트를 읽는 중입니다"}</span>
         {total > 0 && (
           <div className="w-full">
             <Progress value={(doc.preprocess.done / total) * 100} label="전처리 진행" />
@@ -162,7 +162,7 @@ function PageLines({
       </div>
     );
   }
-  if (isError) return <p className="text-mut">이 쪽의 글을 읽지 못했습니다.</p>;
+  if (isError) return <p className="text-mut">이 쪽의 텍스트를 읽지 못했습니다.</p>;
   const isHit = (text: string) => !!highlight && text.trim().length > 1 && highlight.includes(text.trim());
   const first = data.lines.find((l) => isHit(l.text))?.id;
   return data.lines.map((line) => (
