@@ -388,8 +388,12 @@ def load_pages(doc_id: str, *, pages_root: Path | None = None) -> dict:
         source = p.get("text_source") or (p.get("input_source", "텍스트층") if normal else "없음")
         text = match_text = ""
         if source == "OCR":
-            match_text = page_ocr_input(doc_id, n, pages_root=pages_root).read_text(encoding="utf-8")
-            text = match_text if normal else ""
+            text_full = page_ocr_input(doc_id, n, pages_root=pages_root).read_text(encoding="utf-8")
+            match_text = text_full
+            mt = page_match_txt(doc_id, n, pages_root=pages_root)
+            if "preprocess_version" not in meta and mt.exists():   # version17: 줄 번호를 뗀 대조용 글
+                match_text = mt.read_text(encoding="utf-8")
+            text = text_full if normal else ""
         elif source == "텍스트층":
             text = (doc_dir / f"p{n:03d}.txt").read_text(encoding="utf-8")
             mt = page_match_txt(doc_id, n, pages_root=pages_root)
