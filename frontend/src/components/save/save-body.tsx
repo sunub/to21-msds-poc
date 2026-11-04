@@ -179,7 +179,7 @@ function DatabaseCard({ docId, doc, ov, state }: { docId: string; doc: DocumentD
         <dt className="text-mut">저장한 사람</dt>
         <dd>{snap?.saved_by ?? "—"}</dd>
         <dt className="text-mut">저장본</dt>
-        <dd>{snap ? `${snap.snapshot_no}번째 저장 · 판정 버전 ${snap.version}` : "—"}</dd>
+        <dd>{snap ? `${snap.snapshot_no}번째 저장` : "—"}</dd>
         <dt className="text-mut">저장 내용</dt>
         <dd>최종 값, 값의 출처, 2차 판정, 처리 상태, 의견</dd>
       </dl>
