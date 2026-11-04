@@ -107,6 +107,14 @@ export function nextUnreviewedId(findings: Finding[], reviews: Reviews, currentI
   return (others.find((f) => all.indexOf(f) > from) ?? others[0]).id;
 }
 
+/** 지금 줄 앞쪽에서 가장 가까운 미처리 줄. 앞쪽에 없으면 null (다음과 달리 돌아가지 않는다) */
+export function prevUnreviewedId(findings: Finding[], reviews: Reviews, currentId: string | null) {
+  const all = findings.filter(needsAction).sort(byPriority);
+  const from = all.findIndex((f) => f.id === currentId);
+  if (from < 0) return null;
+  return all.slice(0, from).findLast((f) => isUnreviewed(f, reviews))?.id ?? null;
+}
+
 /** 문서 전체(모든 MSDS, 2항·15항)에서 처리할 차례인 판정. 처리할 순서로 */
 export function unreviewedFindings(view: JudgmentView) {
   return view.consistency.results.flatMap((r) => r.findings.filter((f) => isUnreviewed(f, view.reviews)).sort(byPriority));

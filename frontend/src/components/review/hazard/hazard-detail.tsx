@@ -7,6 +7,7 @@ import { cn } from "@/lib/cn";
 import { basisTitle, valueEmphasis } from "@/lib/hazard";
 import { isNote, verdictText, verdictTone } from "@/lib/regulation";
 import { ExplanationBlock, ReviewControls, type LockReason } from "../regulation/regulation-detail";
+import { verdictCard } from "../regulation/regulation-table";
 
 const VALUE_STYLE = {
   differ: { msds: "bg-red-soft text-red line-through", expected: "bg-grn-soft text-grn" },
@@ -24,6 +25,7 @@ export function HazardDetail({
   draft,
   onDraft,
   onNext,
+  onPrev,
   onPin,
 }: {
   docId: string;
@@ -34,6 +36,7 @@ export function HazardDetail({
   draft: string;
   onDraft: (text: string) => void;
   onNext: (() => void) | null;
+  onPrev: (() => void) | null;
   onPin: () => void;
 }) {
   const display = view.display[finding.id];
@@ -46,12 +49,12 @@ export function HazardDetail({
     <Pane
       title={finding.label}
       fill
-      className={cn(finding.verdict === "불일치" && "border-l-4 border-red")}
+      className={verdictCard(finding.verdict)}
       aside={<StatusLabel tone={verdictTone(finding)}>{verdictText(finding)}</StatusLabel>}
     >
-      {hidden && <p className="rounded-sm bg-blue-soft px-3 py-2 text-sm text-blue2">거르기로 표에서 숨겨진 항목입니다.</p>}
+      {hidden && <p className="rounded-md bg-blue-soft px-3 py-2 text-sm text-blue2">현재 필터 조건에 맞지 않아 목록에서는 보이지 않는 항목입니다.</p>}
       {review?.stale && (
-        <p className="rounded-sm bg-tint px-3 py-2 text-sm text-stale">
+        <p className="rounded-md bg-tint px-3 py-2 text-sm text-stale">
           판정이 바뀌어 다시 확인이 필요합니다. 이전 처리: {review.status}
           {review.reviewer && ` · ${review.reviewer}`}
           {review.comment && ` — ${review.comment}`}
@@ -59,12 +62,12 @@ export function HazardDetail({
       )}
 
       <div className="flex flex-wrap items-center gap-2 font-bold">
-        <span className={cn("rounded-xs px-2 py-0.5", VALUE_STYLE[emphasis].msds)}>
+        <span className={cn("rounded-sm px-2 py-0.5", VALUE_STYLE[emphasis].msds)}>
           <span className="sr-only">MSDS 기재: </span>
           {display.msds}
         </span>
         <span aria-hidden="true">→</span>
-        <span className={cn("rounded-xs px-2 py-0.5", VALUE_STYLE[emphasis].expected)}>
+        <span className={cn("rounded-sm px-2 py-0.5", VALUE_STYLE[emphasis].expected)}>
           <span className="sr-only">검증 결과: </span>
           {display.expected}
         </span>
@@ -75,7 +78,7 @@ export function HazardDetail({
       {hasBasis && (
         <details open={!view.explanations[finding.id]}>
           <summary className="cursor-pointer font-medium text-blue2">{basisTitle(display)}</summary>
-          <div className="mt-2 flex flex-col gap-1 rounded-sm bg-tint px-3 py-2.5 text-sm">
+          <div className="mt-2 flex flex-col gap-1 rounded-md bg-tint px-3 py-2.5 text-sm">
             {display.basis_lines.map((line, i) => (
               <p key={`basis-${i}`}>{line}</p>
             ))}
@@ -101,6 +104,7 @@ export function HazardDetail({
           draft={draft}
           onDraft={onDraft}
           onNext={onNext}
+          onPrev={onPrev}
           onPin={onPin}
         />
       )}

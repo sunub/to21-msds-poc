@@ -2,7 +2,7 @@
 
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { documentListQuery } from "@/api/documents";
 import type { DocumentFilter, DocumentSummary } from "@/api/schemas";
 import { RetryButton } from "@/components/documents/retry-button";
@@ -33,17 +33,57 @@ const COL = {
   progress: "min-w-0 flex-2",
   layer: "w-28",
   updated: "w-35",
-  action: "flex w-25 justify-end",
+  action: "flex w-32 justify-end",
 };
 
 const ROW = "flex items-center gap-3 border-b border-line2 px-5 py-3.5 last:border-b-0";
+
+const HIDDEN_KEY = "msds.hiddenDocs";
+
+/** 숨긴 문서 id. 저장소를 못 써도 화면은 동작해야 하므로 읽기·쓰기 모두 try/catch */
+function readHidden(): string[] {
+  try {
+    const parsed: unknown = JSON.parse(localStorage.getItem(HIDDEN_KEY) ?? "[]");
+    return Array.isArray(parsed) ? parsed.filter((x): x is string => typeof x === "string") : [];
+  } catch {
+    return [];
+  }
+}
+
+function writeHidden(ids: string[]) {
+  try {
+    localStorage.setItem(HIDDEN_KEY, JSON.stringify(ids));
+  } catch {
+    // 저장하지 못하면 새로고침 때 다시 보인다
+  }
+}
 
 /** 1.1 작업한 문서: 보기 전환, 목록, 행마다 다음 행동. */
 export function DocumentList() {
   const [view, setView] = useState<DocumentFilter>("all");
   // 보기를 바꾸는 동안 이전 목록을 남겨 깜빡이지 않게 한다
   const list = useQuery({ ...documentListQuery(view), placeholderData: keepPreviousData });
-  const counts = list.data?.counts;
+  // 화면에서만 숨긴다 (서버 데이터는 그대로). 서버 렌더와 어긋나지 않게 마운트 뒤에 읽는다
+  const [hidden, setHidden] = useState<string[]>([]);
+  const [confirmId, setConfirmId] = useState<string | null>(null);
+  useEffect(() => setHidden(readHidden()), []);
+  const updateHidden = (ids: string[]) => {
+    setHidden(ids);
+    writeHidden(ids);
+  };
+  // 집계에서 숨긴 문서를 빼려면 어느 보기에서든 전체 목록이 필요하다 (보기가 전체면 같은 요청이다)
+  const all = useQuery({ ...documentListQuery("all"), placeholderData: keepPreviousData, enabled: hidden.length > 0 });
+  const visibleAll = all.data?.items.filter((d) => !hidden.includes(d.id));
+  const counts =
+    hidden.length > 0 && visibleAll
+      ? {
+          all: visibleAll.length,
+          active: visibleAll.filter((d) => d.status === "queued" || d.status === "running").length,
+          done: visibleAll.filter((d) => d.status === "done").length,
+          failed: visibleAll.filter((d) => d.status === "failed" || d.status === "interrupted").length,
+        }
+      : list.data?.counts;
+  const items = list.data?.items.filter((d) => !hidden.includes(d.id));
 
   return (
     <section className="flex flex-col gap-3">
@@ -82,20 +122,54 @@ export function DocumentList() {
               <p className="text-mut">문서 목록을 불러오지 못했습니다. 서버가 켜져 있는지 확인해 주세요.</p>
               <Button onClick={() => void list.refetch()}>다시 불러오기</Button>
             </div>
-          ) : list.data.items.length === 0 ? (
+          ) : !items || items.length === 0 ? (
             <p className="px-5 py-8 text-center text-mut">{EMPTY[view]}</p>
           ) : (
-            list.data.items.map((doc) => <DocumentRow key={doc.id} doc={doc} />)
+            items.map((doc) => (
+              <DocumentRow
+                key={doc.id}
+                doc={doc}
+                confirming={confirmId === doc.id}
+                onAskHide={() => setConfirmId(doc.id)}
+                onCancelHide={() => setConfirmId(null)}
+                onHide={() => {
+                  updateHidden([...hidden, doc.id]);
+                  setConfirmId(null);
+                }}
+              />
+            ))
           )}
         </div>
       </Table>
+      {hidden.length > 0 && (
+        <div className="flex justify-end text-sm text-mut">
+          <span className="self-center">숨긴 문서 {hidden.length}건</span>
+          <button type="button" className={buttonStyles({ variant: "link" })} onClick={() => updateHidden([])}>
+            모두 다시 보이기
+          </button>
+        </div>
+      )}
     </section>
   );
 }
 
-function DocumentRow({ doc }: { doc: DocumentSummary }) {
+function DocumentRow({
+  doc,
+  confirming,
+  onAskHide,
+  onCancelHide,
+  onHide,
+}: {
+  doc: DocumentSummary;
+  confirming: boolean;
+  onAskHide: () => void;
+  onCancelHide: () => void;
+  onHide: () => void;
+}) {
   const status = statusLabel(doc);
   const progress = progressLabel(doc);
+  // 처리 중인 문서는 숨기지 않는다
+  const canHide = doc.status !== "queued" && doc.status !== "running";
 
   return (
     <div className={ROW}>
@@ -108,6 +182,30 @@ function DocumentRow({ doc }: { doc: DocumentSummary }) {
         {doc.error && (doc.status === "failed" || doc.status === "interrupted") && (
           <div className="truncate text-sm text-red" title={doc.error}>
             {doc.error}
+          </div>
+        )}
+        {confirming && (
+          <div role="group" aria-label="목록에서 숨기기 확인" className="mt-1 flex flex-wrap items-center gap-x-2 text-sm">
+            <span className="text-sub">목록에서 숨길까요? 서버의 데이터는 그대로 남습니다</span>
+            <Button
+              size="md"
+              className="min-h-7 px-2.5"
+              onClick={(e) => {
+                e.stopPropagation();
+                onHide();
+              }}
+            >
+              숨기기
+            </Button>
+            <Button
+              variant="link"
+              onClick={(e) => {
+                e.stopPropagation();
+                onCancelHide();
+              }}
+            >
+              취소
+            </Button>
           </div>
         )}
       </div>
@@ -127,8 +225,35 @@ function DocumentRow({ doc }: { doc: DocumentSummary }) {
         {doc.text_layer ?? <span className="text-mut">판정 전</span>}
       </div>
       <div className={cn(COL.updated, "text-sm text-mut")}>{formatDateTime(doc.updated_at)}</div>
-      <div className={COL.action}>
+      <div className={cn(COL.action, "items-center gap-1")}>
         <RowAction doc={doc} />
+        {canHide ? (
+          <button
+            type="button"
+            aria-label="목록에서 숨기기"
+            title="목록에서 숨기기"
+            className="inline-flex size-6 shrink-0 items-center justify-center rounded-md text-[#C0C0C0] hover:bg-tint hover:text-mut"
+            onClick={(e) => {
+              e.stopPropagation();
+              onAskHide();
+            }}
+          >
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 12 12"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              aria-hidden="true"
+            >
+              <path d="M2 2l8 8M10 2L2 10" />
+            </svg>
+          </button>
+        ) : (
+          <span className="size-6 shrink-0" aria-hidden="true" />
+        )}
       </div>
     </div>
   );

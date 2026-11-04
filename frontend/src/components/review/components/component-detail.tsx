@@ -18,6 +18,7 @@ import {
   sourcesAgree,
   type AteEntry,
 } from "@/lib/components";
+import { FLOAT_CARD } from "../regulation/regulation-table";
 
 const ACUTE: Record<AteEntry["route"], string> = { oral: "HH_ACUTE_ORAL", dermal: "HH_ACUTE_DERMAL", inhal: "HH_ACUTE_INHAL" };
 
@@ -36,7 +37,7 @@ export function ComponentDetail({
 }) {
   const name = component.name ?? component.cas ?? `성분 ${component.comp_ref}`;
   return (
-    <Card className="flex min-w-0 flex-col gap-4 lg:h-full lg:min-h-0 lg:overflow-y-auto">
+    <Card className={cn(FLOAT_CARD, "flex min-w-0 flex-col gap-4 lg:h-full lg:min-h-0 lg:overflow-y-auto")}>
       <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1">
         <h2 className="text-lg font-bold">{name}</h2>
         <span className="text-mut">{componentHeadline(component)}</span>
@@ -56,8 +57,8 @@ export function ComponentDetail({
 
       {component.notes.length > 0 && (
         <ul className="flex list-disc flex-col gap-1 pl-5 text-sm text-mut">
-          {component.notes.map((n) => (
-            <li key={n}>{n}</li>
+          {component.notes.map((n, i) => (
+            <li key={`${i}-${n}`}>{n}</li>
           ))}
         </ul>
       )}
@@ -86,8 +87,8 @@ function Chips({ chips }: { chips: string[] }) {
   if (chips.length === 0) return <p className="text-sm text-mut">분류 없음</p>;
   return (
     <ul className="flex flex-wrap gap-1.5">
-      {chips.map((c) => (
-        <li key={c} className="rounded-xs bg-tint px-2 py-0.5 text-sm">
+      {chips.map((c, i) => (
+        <li key={`${i}-${c}`}className="rounded-xs bg-tint px-2 py-0.5 text-sm">
           {c}
         </li>
       ))}

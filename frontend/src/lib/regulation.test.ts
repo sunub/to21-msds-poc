@@ -11,6 +11,7 @@ import {
   lawCounts,
   nextUnreviewedId,
   noteBreakdown,
+  prevUnreviewedId,
   regulationCounts,
   reviewText,
   verdictText,
@@ -112,6 +113,16 @@ test("다음 미처리: 뒤로 찾고, 끝이면 앞으로 돌아가고, 없으�
   assert.equal(nextUnreviewedId(all, {}, lacking.id), high.id);
   const onlyOne = Object.fromEntries([low, border, lacking].map((x) => [x.id, review()]));
   assert.equal(nextUnreviewedId(all, onlyOne, high.id), null);
+});
+
+test("이전 미처리: 앞으로 찾고, 처리한 줄은 건너뛰고, 앞에 없으면 없음", () => {
+  // 처리할 순서: high, low, border, lacking
+  assert.equal(prevUnreviewedId(all, {}, high.id), null);
+  assert.equal(prevUnreviewedId(all, {}, low.id), high.id);
+  assert.equal(prevUnreviewedId(all, {}, lacking.id), border.id);
+  assert.equal(prevUnreviewedId(all, { [border.id]: review() }, lacking.id), low.id);
+  assert.equal(prevUnreviewedId(all, { [high.id]: review() }, low.id), null);
+  assert.equal(prevUnreviewedId(all, {}, null), null);
 });
 
 test("처리 표기와 의견 필수 규칙", () => {
