@@ -28,10 +28,16 @@ backend/src/msds/extract/prompts/b*.md
 # TO21 확인 전까지 올리지 않는다 (D-47). 확인 후 이 줄을 지운다.
 docs/prd/*E_*
 
-# 실험 결과는 올리되 이미지는 제외
-runs/**/*.png
-runs/**/*.jpg
-runs/**/*.jpeg
+# TO21 문서에서 나온 정답·실버·검수 시트·문서 목록·실험 결과는 공개 저장소에 올리지 않는다 (D-47).
+# 폴더 자리만 .gitkeep 으로 남긴다. 각자 팀 공유 위치에서 받아 같은 자리에 둔다.
+data/gold/*
+!data/gold/.gitkeep
+data/silver/
+data/review/*
+!data/review/.gitkeep
+data/manifest.csv
+runs/
+backend/tests/e2e/T21-025_*.json
 
 # 이전 키트: 자체 .git 이 있어 저장소 안의 저장소가 되므로 제외
 msds-bench/
