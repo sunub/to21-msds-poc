@@ -39,8 +39,8 @@ export const documentKeys = {
   result: (id: string) => [...documentKeys.detail(id), "result"] as const,
   review: (id: string) => [...documentKeys.detail(id), "review"] as const,
   regenerated: (id: string) => [...documentKeys.detail(id), "regenerated"] as const,
-  section: (id: string, msdsIndex: number, section: number) =>
-    [...documentKeys.detail(id), "section", msdsIndex, section] as const,
+  section: (id: string, msdsIndex: number, section: number, reextracted = false) =>
+    [...documentKeys.detail(id), "section", msdsIndex, section, reextracted] as const,
 };
 
 /* ── 읽기 ───────────────────────────────────────────────── */
@@ -80,8 +80,8 @@ export const documentDetailQuery = (id: string) =>
     },
   });
 
-/** 4. 쪽 이미지는 <img src> 로 바로 쓴다. 전처리 전이면 404 라 onError 로 자리 표시를 보여 준다. */
-export const pageImageUrl = (id: string, page: number) => apiUrl(`${doc(id)}/pages/${page}/image`);
+/** 올린 원본 PDF. 원문 칸이 직접 그린다 */
+export const pdfUrl = (id: string) => apiUrl(`${doc(id)}/pdf`);
 
 /** 5. 원문 칸 */
 export const pageLinesQuery = (id: string, page: number) =>
@@ -109,11 +109,11 @@ export const regeneratedQuery = (id: string) =>
 /**
  * 끝난 항 하나의 값 (추출 중에도 받는다). 안 끝난 항이면 409 이므로
  * 진행 상태의 sections[].status 가 done·failed 인 항에만 켠다(enabled).
- * 다시 돌리면 값이 바뀌므로 staleTime 을 무한으로 두지 않는다.
+ * 최종 검증 뒤 재추출값을 채택하면 키를 바꿔 열린 미리보기도 새 값을 받는다.
  */
-export const sectionResultQuery = (id: string, msdsIndex: number, section: number) =>
+export const sectionResultQuery = (id: string, msdsIndex: number, section: number, reextracted = false) =>
   queryOptions({
-    queryKey: documentKeys.section(id, msdsIndex, section),
+    queryKey: documentKeys.section(id, msdsIndex, section, reextracted),
     queryFn: ({ signal }) =>
       requestJson(sectionResultResponseSchema, `${doc(id)}/sections/${msdsIndex}/${section}`, { signal }),
   });

@@ -1,0 +1,2726 @@
+[
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "doc.language",
+    "page": 1,
+    "source_text": "물질안전보건자료(MSDS) | 1. 화학제품과 회사에 관한 정보",
+    "rules": [],
+    "note": "본문 언어를 한국어로 기록함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "doc.msds_count",
+    "page": 14,
+    "source_text": "페이지 14 / 14",
+    "rules": [
+      "R16"
+    ],
+    "note": "1~14쪽이 동일 제품의 MSDS 한 건으로 이어짐."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.revision_no",
+    "page": 1,
+    "source_text": "개정번호 | REV.5",
+    "rules": [],
+    "note": "REV.5에서 개정 횟수 5를 분리함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.revision_label",
+    "page": 1,
+    "source_text": "개정번호 | REV.5",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.header_product_name",
+    "page": 1,
+    "source_text": "한화토탈 폴리프로필렌 호모폴리머\nHU300",
+    "rules": [],
+    "note": "두 줄로 인쇄된 머리글 제품명을 연결함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.first_issue_date",
+    "page": 1,
+    "source_text": "제 정 일 | 2011.09.23",
+    "rules": [
+      "R01"
+    ],
+    "note": "날짜를 YYYY-MM-DD 형식으로 정규화함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.last_revision_date",
+    "page": 14,
+    "source_text": "라. 개정횟수 및 최종 개정일자: 5회, 2020-05-07",
+    "rules": [
+      "R01"
+    ],
+    "note": "최종 개정일자로 명시된 값을 기록했으며 머리글의 개정일 2020.05.06과 불일치함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.last_revision_date",
+    "page": 1,
+    "source_text": "개 정 일 | 2020.05.06",
+    "rules": [],
+    "note": "머리글 개정일은 14쪽에 명시된 최종 개정일자 2020-05-07과 불일치함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.page_start",
+    "page": 1,
+    "source_text": "페이지 1 / 14",
+    "rules": [
+      "R16"
+    ],
+    "note": "MSDS 시작 쪽을 기록함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.page_end",
+    "page": 14,
+    "source_text": "페이지 14 / 14",
+    "rules": [
+      "R16"
+    ],
+    "note": "MSDS 끝 쪽을 기록함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "product.name",
+    "page": 1,
+    "source_text": "○ 제품명 : 한화토탈 폴리프로필렌 호모폴리머 HU300",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "product.uses[0]",
+    "page": 1,
+    "source_text": "○ 용도 : 플라스틱 성형품",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "product.restrictions[0]",
+    "page": 1,
+    "source_text": "○ 사용상의 제한 : 자료없음",
+    "rules": [],
+    "note": "별도 status 필드가 없는 문자열 목록이므로 원문 '자료없음'을 보존함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "companies[0]",
+    "page": 1,
+    "source_text": "- 제조자 정보\n회사명 | 한화토탈(주)\n주소 | 31900 충청남도 서산시 대산읍 독곶 2 로 103\n전화 | 041-660-6190 | FAX | 041-660-6189",
+    "rules": [
+      "R12"
+    ],
+    "note": "제조자 정보에서 우편번호와 주소를 분리하고 전화와 FAX를 각각 대표·팩스 연락처로 기록함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classified",
+    "page": 1,
+    "source_text": "1) 물리적 위험성 : 분류되지 않음\n2) 건강 유해성 : 분류되지 않음\n3) 환경 유해성 : 분류되지 않음",
+    "rules": [],
+    "note": "세 유해성 구분 모두 '분류되지 않음'으로 기재되어 false로 기록함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classes[0]",
+    "page": 1,
+    "source_text": "1) 물리적 위험성 : 분류되지 않음",
+    "rules": [],
+    "note": "맞는 값 없음: 개별 분류 코드에 대응하지 않는 물리적 위험성 총괄 행이므로 class_code와 category는 null로 두고 원문을 보존함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classes[1]",
+    "page": 1,
+    "source_text": "2) 건강 유해성 : 분류되지 않음",
+    "rules": [],
+    "note": "맞는 값 없음: 개별 분류 코드에 대응하지 않는 건강 유해성 총괄 행이므로 class_code와 category는 null로 두고 원문을 보존함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classes[2]",
+    "page": 1,
+    "source_text": "3) 환경 유해성 : 분류되지 않음",
+    "rules": [],
+    "note": "맞는 값 없음: 개별 분류 코드에 대응하지 않는 환경 유해성 총괄 행이므로 class_code와 category는 null로 두고 원문을 보존함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.signal_word",
+    "page": 1,
+    "source_text": "2) 신호어 : 해당없음",
+    "rules": [],
+    "note": "신호어 '해당없음'을 허용된 열거값 '없음'으로 기록함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.pictograms",
+    "page": 1,
+    "source_text": "1) 그림문자 : 해당없음",
+    "rules": [],
+    "note": "그림문자가 해당없음으로 기재되어 있고 실제 GHS 그림이 없어 빈 목록으로 기록함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.h_statements[0]",
+    "page": 1,
+    "source_text": "3) 유해·위험 문구 | : 해당없음",
+    "rules": [],
+    "note": "이미지에서 행을 확인했으며 H 코드 없이 기재된 '해당없음'을 보존함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[0]",
+    "page": 1,
+    "source_text": "■ 예방 : 해당없음",
+    "rules": [],
+    "note": "P 코드는 null로 두고 원문의 예방 구획과 '해당없음' 행을 보존함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[1]",
+    "page": 1,
+    "source_text": "■ 대응 : 해당없음",
+    "rules": [],
+    "note": "P 코드는 null로 두고 원문의 대응 구획과 '해당없음' 행을 보존함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[2]",
+    "page": 1,
+    "source_text": "■ 저장 : 해당없음",
+    "rules": [],
+    "note": "P 코드는 null로 두고 원문의 저장 구획과 '해당없음' 행을 보존함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[3]",
+    "page": 1,
+    "source_text": "■ 폐기 : 해당없음",
+    "rules": [],
+    "note": "P 코드는 null로 두고 원문의 폐기 구획과 '해당없음' 행을 보존함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.other_hazards[0]",
+    "page": 1,
+    "source_text": "- 자료없음",
+    "rules": [
+      "R14"
+    ],
+    "note": "기타 유해성 항목의 불릿을 분리하고 '자료없음'을 원문대로 보존함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "composition.no_hazardous_component",
+    "page": 2,
+    "source_text": "호모폴리프로필렌 | 1-프로펜, 호모중합물 | 9003-07-0 / KE-29389 | ≥ 99%\n첨가제2) | Additive | 해당없음 | < 1%",
+    "rules": [],
+    "note": "성분표가 존재하므로 성분표 없이 '유해성분 없음' 문구만 있는 경우에 해당하지 않음."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "components[0]",
+    "page": 2,
+    "source_text": "호모폴리프로필렌 | 1-프로펜, 호모중합물 | 9003-07-0 / KE-29389 | ≥ 99%",
+    "rules": [
+      "R02",
+      "R03",
+      "R04",
+      "R06",
+      "R11",
+      "R13",
+      "R19"
+    ],
+    "note": "이명과 CAS·KE 번호를 분리하고 함유량을 하한 99(>=), 단위 %, dp=0으로 기록했으며 함유량 기준과 영업비밀 표기는 없음."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "components[1]",
+    "page": 2,
+    "source_text": "첨가제2) | Additive | 해당없음 | < 1%",
+    "rules": [
+      "R04",
+      "R06",
+      "R13",
+      "R19"
+    ],
+    "note": "2)는 주석 표시이며 Additive는 이명 열에 기록되어 있고 식별번호는 해당없음이므로 null로 두었으며 함유량은 상한 1(<), 단위 %, dp=0으로 분해함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[0]",
+    "page": 4,
+    "source_text": "1) 국내 노출기준\n- [호모폴리프로필렌] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "성분명으로 comp_ref='1'을 연결하고 해당없음을 상태로 저장했으며, 기준 종류 표기가 없어 limit_type은 null로 둠."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[1]",
+    "page": 4,
+    "source_text": "- [첨가제] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "국내 노출기준의 첨가제를 comp_ref='2'로 연결하고 해당없음을 상태로 저장했으며, 기준 종류 표기가 없어 limit_type은 null로 둠."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[2]",
+    "page": 4,
+    "source_text": "2) ACGIH 노출기준\n- [호모폴리프로필렌] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "성분명으로 comp_ref='1'을 연결하고 해당없음을 상태로 저장했으며, 기준 종류 표기가 없어 limit_type은 null로 둠."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[3]",
+    "page": 4,
+    "source_text": "- [첨가제] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "ACGIH 노출기준의 첨가제를 comp_ref='2'로 연결하고 해당없음을 상태로 저장했으며, 기준 종류 표기가 없어 limit_type은 null로 둠."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[4]",
+    "page": 4,
+    "source_text": "3) 생물학적 노출기준\n- [호모폴리프로필렌] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "성분명으로 comp_ref='1'을 연결하고 해당없음을 상태로 저장했으며, 기준 종류 표기가 없어 limit_type은 null로 둠."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[5]",
+    "page": 5,
+    "source_text": "- [첨가제] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "4쪽에서 이어지는 생물학적 노출기준의 첨가제를 comp_ref='2'로 연결하고 해당없음을 상태로 저장했으며, 기준 종류 표기가 없어 limit_type은 null로 둠."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[0]",
+    "page": 5,
+    "source_text": "가. 외관(물리적 상태, 색 등) : 펠렛",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "외관을 APPEARANCE_STATE로 매핑하고 제품 전체의 텍스트 값으로 저장함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[1]",
+    "page": 5,
+    "source_text": "나. 냄새 : 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "냄새를 ODOR로 매핑하고 제품 전체의 자료없음 상태로 저장함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[2]",
+    "page": 5,
+    "source_text": "다. 냄새 역치 : 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "냄새 역치를 ODOR_THRESHOLD로 매핑하고 제품 전체의 자료없음 상태로 저장함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[3]",
+    "page": 5,
+    "source_text": "라. pH : 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "pH를 PH로 매핑하고 제품 전체의 자료없음 상태로 저장함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[4]",
+    "page": 5,
+    "source_text": "마. 녹는점/어는점 : 150~170℃",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10",
+      "R25"
+    ],
+    "note": "제품 전체의 녹는점/어는점을 하한 150(>=), 상한 170(<=)으로 분해하고 단위를 C, 소수 자릿수를 0으로 저장함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[5]",
+    "page": 5,
+    "source_text": "바. 초기 끓는점과 끓는점 범위 : 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "초기 끓는점과 끓는점 범위를 BOILING으로 매핑하고 제품 전체의 자료없음 상태로 저장함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[6]",
+    "page": 6,
+    "source_text": "사. 인화점 : 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "인화점을 FLASH_POINT로 매핑하고 제품 전체의 자료없음 상태로 저장함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[7]",
+    "page": 6,
+    "source_text": "아. 증발 속도 : 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "증발 속도를 EVAP_RATE로 매핑하고 제품 전체의 자료없음 상태로 저장함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[8]",
+    "page": 6,
+    "source_text": "자. 인화성(고체, 기체) : 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "인화성(고체, 기체)을 FLAMMABILITY로 매핑하고 제품 전체의 자료없음 상태로 저장함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[9]",
+    "page": 6,
+    "source_text": "차. 인화 또는 폭발 범위의 상한/하한 : 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "상한/하한 결합 항목을 두 행으로 나누어 상한을 UEL로 매핑하고 제품 전체의 자료없음 상태로 저장함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[10]",
+    "page": 6,
+    "source_text": "차. 인화 또는 폭발 범위의 상한/하한 : 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "상한/하한 결합 항목을 두 행으로 나누어 하한을 LEL로 매핑하고 제품 전체의 자료없음 상태로 저장함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[11]",
+    "page": 6,
+    "source_text": "카. 증기압 : 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "증기압을 VAPOR_PRESSURE로 매핑하고 제품 전체의 자료없음 상태로 저장함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[12]",
+    "page": 6,
+    "source_text": "타. 용해도 : 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "용해도를 SOLUBILITY로 매핑하고 제품 전체의 자료없음 상태로 저장함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[13]",
+    "page": 6,
+    "source_text": "파. 증기밀도 : 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "증기밀도를 VAPOR_DENSITY로 매핑하고 제품 전체의 자료없음 상태로 저장함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[14]",
+    "page": 6,
+    "source_text": "하. 비중 : 0.89 ~ 0.92",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "제품 전체의 비중을 하한 0.89(>=), 상한 0.92(<=)로 분해하고 소수 자릿수를 2로 저장함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[15]",
+    "page": 6,
+    "source_text": "가. n·옥탄올/물 분배계수 : 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "n·옥탄올/물 분배계수를 LOG_KOW로 매핑하고 제품 전체의 자료없음 상태로 저장함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[16]",
+    "page": 6,
+    "source_text": "나. 자연발화온도 : > 380℃",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10",
+      "R25"
+    ],
+    "note": "제품 전체의 자연발화온도를 하한 380(>)으로 분해하고 단위를 C, 소수 자릿수를 0으로 저장함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[17]",
+    "page": 6,
+    "source_text": "다. 분해 온도 : 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "분해 온도를 DECOMPOSITION으로 매핑하고 제품 전체의 자료없음 상태로 저장함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[18]",
+    "page": 6,
+    "source_text": "라. 점도 : 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "점도를 VISCOSITY로 매핑하고 제품 전체의 자료없음 상태로 저장함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[19]",
+    "page": 6,
+    "source_text": "마. 분자량 : > 1,000",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "제품 전체의 분자량을 하한 1000(>)으로 분해하고 천단위 콤마를 제거했으며, 소수 자릿수를 0으로 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[0]",
+    "page": 7,
+    "source_text": "• 경구 : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "제품 전체 경구 급성독성 행으로 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[1]",
+    "page": 7,
+    "source_text": "• 경구 : 자료없음\n- [호모폴리프로필렌] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "경구 항목의 호모폴리프로필렌을 성분 1에 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[2]",
+    "page": 7,
+    "source_text": "• 경구 : 자료없음\n- [호모폴리프로필렌] : 자료없음\n- [첨가제] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "경구 항목의 첨가제를 성분 2에 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[3]",
+    "page": 7,
+    "source_text": "• 경피 : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "제품 전체 경피 급성독성 행으로 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[4]",
+    "page": 7,
+    "source_text": "• 경피 : 자료없음\n- [호모폴리프로필렌] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "경피 항목의 호모폴리프로필렌을 성분 1에 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[5]",
+    "page": 7,
+    "source_text": "• 경피 : 자료없음\n- [호모폴리프로필렌] : 자료없음\n- [첨가제] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "경피 항목의 첨가제를 성분 2에 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[6]",
+    "page": 7,
+    "source_text": "• 흡입 : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "제품 전체 흡입 급성독성 행으로 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[7]",
+    "page": 7,
+    "source_text": "• 흡입 : 자료없음\n- [호모폴리프로필렌] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "흡입 항목의 호모폴리프로필렌을 성분 1에 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[8]",
+    "page": 7,
+    "source_text": "• 흡입 : 자료없음\n- [호모폴리프로필렌] : 자료없음\n- [첨가제] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "흡입 항목의 첨가제를 성분 2에 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[9]",
+    "page": 7,
+    "source_text": "2) 피부 부식성 또는 자극성 : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "제품 전체 피부 부식성 또는 자극성 행으로 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[10]",
+    "page": 7,
+    "source_text": "2) 피부 부식성 또는 자극성 : 자료없음\n- [호모폴리프로필렌] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "피부 부식성 또는 자극성 항목의 성분 1 행으로 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[11]",
+    "page": 7,
+    "source_text": "2) 피부 부식성 또는 자극성 : 자료없음\n- [호모폴리프로필렌] : 자료없음\n- [첨가제] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "피부 부식성 또는 자극성 항목의 성분 2 행으로 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[12]",
+    "page": 7,
+    "source_text": "3) 심한 눈 손상 또는 자극성 : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "제품 전체 심한 눈 손상 또는 자극성 행으로 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[13]",
+    "page": 7,
+    "source_text": "3) 심한 눈 손상 또는 자극성 : 자료없음\n- [호모폴리프로필렌] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "심한 눈 손상 또는 자극성 항목의 성분 1 행으로 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[14]",
+    "page": 7,
+    "source_text": "3) 심한 눈 손상 또는 자극성 : 자료없음\n- [호모폴리프로필렌] : 자료없음\n- [첨가제] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "심한 눈 손상 또는 자극성 항목의 성분 2 행으로 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[15]",
+    "page": 7,
+    "source_text": "4) 호흡기 과민성 : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "제품 전체 호흡기 과민성 행으로 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[16]",
+    "page": 7,
+    "source_text": "4) 호흡기 과민성 : 자료없음\n- [호모폴리프로필렌] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "호흡기 과민성 항목의 성분 1 행으로 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[17]",
+    "page": 7,
+    "source_text": "4) 호흡기 과민성 : 자료없음\n- [호모폴리프로필렌] : 자료없음\n- [첨가제] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "호흡기 과민성 항목의 성분 2 행으로 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[18]",
+    "page": 7,
+    "source_text": "5) 피부 과민성 : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "제품 전체 피부 과민성 행으로 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[19]",
+    "page": 7,
+    "source_text": "5) 피부 과민성 : 자료없음\n- [호모폴리프로필렌] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "피부 과민성 항목의 성분 1 행으로 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[20]",
+    "page": 7,
+    "source_text": "5) 피부 과민성 : 자료없음\n- [호모폴리프로필렌] : 자료없음\n- [첨가제] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "피부 과민성 항목의 성분 2 행으로 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[21]",
+    "page": 7,
+    "source_text": "6) 발암성 : 분류되지 않음",
+    "rules": [
+      "R10"
+    ],
+    "note": "제품 전체 발암성 분류 결과로 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[22]",
+    "page": 8,
+    "source_text": "7) 생식세포 변이원성 : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "제품 전체 생식세포 변이원성 행으로 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[23]",
+    "page": 8,
+    "source_text": "7) 생식세포 변이원성 : 자료없음\n- [호모폴리프로필렌] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "생식세포 변이원성 항목의 성분 1 행으로 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[24]",
+    "page": 8,
+    "source_text": "7) 생식세포 변이원성 : 자료없음\n- [호모폴리프로필렌] : 자료없음\n- [첨가제] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "생식세포 변이원성 항목의 성분 2 행으로 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[25]",
+    "page": 8,
+    "source_text": "8) 생식독성 : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "제품 전체 생식독성 행으로 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[26]",
+    "page": 8,
+    "source_text": "8) 생식독성 : 자료없음\n- [호모폴리프로필렌] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "생식독성 항목의 성분 1 행으로 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[27]",
+    "page": 8,
+    "source_text": "8) 생식독성 : 자료없음\n- [호모폴리프로필렌] : 자료없음\n- [첨가제] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "생식독성 항목의 성분 2 행으로 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[28]",
+    "page": 8,
+    "source_text": "9) 특정 표적장기 독성 (1회노출) : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "제품 전체 특정 표적장기 독성 1회노출 행으로 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[29]",
+    "page": 8,
+    "source_text": "9) 특정 표적장기 독성 (1회노출) : 자료없음\n- [호모폴리프로필렌] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "특정 표적장기 독성 1회노출 항목의 성분 1 행으로 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[30]",
+    "page": 8,
+    "source_text": "9) 특정 표적장기 독성 (1회노출) : 자료없음\n- [호모폴리프로필렌] : 자료없음\n- [첨가제] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "특정 표적장기 독성 1회노출 항목의 성분 2 행으로 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[31]",
+    "page": 8,
+    "source_text": "10) 특정 표적장기 독성 (반복노출) : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "제품 전체 특정 표적장기 독성 반복노출 행으로 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[32]",
+    "page": 8,
+    "source_text": "10) 특정 표적장기 독성 (반복노출) : 자료없음\n- [호모폴리프로필렌] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "특정 표적장기 독성 반복노출 항목의 성분 1 행으로 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[33]",
+    "page": 8,
+    "source_text": "10) 특정 표적장기 독성 (반복노출) : 자료없음\n- [호모폴리프로필렌] : 자료없음\n- [첨가제] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "특정 표적장기 독성 반복노출 항목의 성분 2 행으로 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[34]",
+    "page": 8,
+    "source_text": "11) 흡인유해성 : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "제품 전체 흡인유해성 행으로 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[35]",
+    "page": 8,
+    "source_text": "11) 흡인유해성 : 자료없음\n- [호모폴리프로필렌] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "흡인유해성 항목의 성분 1 행으로 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[36]",
+    "page": 8,
+    "source_text": "11) 흡인유해성 : 자료없음\n- [호모폴리프로필렌] : 자료없음\n- [첨가제] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "흡인유해성 항목의 성분 2 행으로 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[0]",
+    "page": 7,
+    "source_text": "* 환경부 화학물질관리법\n- [호모폴리프로필렌] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "환경부 화학물질관리법을 KR_CCA로 연결하고 성분 1의 발암성 해당없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[1]",
+    "page": 7,
+    "source_text": "* 환경부 화학물질관리법\n- [호모폴리프로필렌] : 해당없음\n- [첨가제] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "환경부 화학물질관리법을 KR_CCA로 연결하고 성분 2의 발암성 해당없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[2]",
+    "page": 7,
+    "source_text": "* 고용노동부 고시\n- [호모폴리프로필렌] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "고용노동부 고시를 KR_OSH로 연결하고 성분 1의 발암성 해당없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[3]",
+    "page": 7,
+    "source_text": "* 고용노동부 고시\n- [호모폴리프로필렌] : 해당없음\n- [첨가제] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "고용노동부 고시를 KR_OSH로 연결하고 성분 2의 발암성 해당없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[4]",
+    "page": 7,
+    "source_text": "* IARC\n- [호모폴리프로필렌] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "IARC 발암성 항목의 성분 1 행으로 연결하고 해당없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[5]",
+    "page": 7,
+    "source_text": "* IARC\n- [호모폴리프로필렌] : 해당없음\n- [첨가제] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "IARC 발암성 항목의 성분 2 행으로 연결하고 해당없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[6]",
+    "page": 8,
+    "source_text": "- [호모폴리프로필렌] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "7쪽 말미 OSHA 소제목에 이어지는 성분 1의 발암성 해당없음 행으로 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[7]",
+    "page": 8,
+    "source_text": "- [첨가제] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "7쪽 말미 OSHA 소제목에 이어지는 성분 2의 발암성 해당없음 행으로 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[8]",
+    "page": 8,
+    "source_text": "* ACGIH\n- [호모폴리프로필렌] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "ACGIH 발암성 항목의 성분 1 행으로 연결하고 해당없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[9]",
+    "page": 8,
+    "source_text": "* ACGIH\n- [호모폴리프로필렌] : 해당없음\n- [첨가제] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "ACGIH 발암성 항목의 성분 2 행으로 연결하고 해당없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[10]",
+    "page": 8,
+    "source_text": "* NTP\n- [호모폴리프로필렌] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "NTP 발암성 항목의 성분 1 행으로 연결하고 해당없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[11]",
+    "page": 8,
+    "source_text": "* NTP\n- [호모폴리프로필렌] : 해당없음\n- [첨가제] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "NTP 발암성 항목의 성분 2 행으로 연결하고 해당없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[12]",
+    "page": 8,
+    "source_text": "* EU CLP\n- [호모폴리프로필렌] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "EU CLP를 EU_CLP로 연결하고 성분 1의 발암성 해당없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[13]",
+    "page": 8,
+    "source_text": "* EU CLP\n- [호모폴리프로필렌] : 해당없음\n- [첨가제] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "EU CLP를 EU_CLP로 연결하고 성분 2의 발암성 해당없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[0]",
+    "page": 8,
+    "source_text": "1) 어류\n- [호모폴리프로필렌] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "어류 항목의 성분 1 행으로 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[1]",
+    "page": 8,
+    "source_text": "1) 어류\n- [호모폴리프로필렌] : 자료없음\n- [첨가제] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "어류 항목의 성분 2 행으로 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[2]",
+    "page": 8,
+    "source_text": "2) 갑각류\n- [호모폴리프로필렌] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "갑각류 항목의 성분 1 행으로 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[3]",
+    "page": 9,
+    "source_text": "- [첨가제]  : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "8쪽 갑각류 항목에 이어지는 성분 2 행으로 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[4]",
+    "page": 9,
+    "source_text": "3) 조류\n- [호모폴리프로필렌]  : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "조류 항목의 성분 1 행으로 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[5]",
+    "page": 9,
+    "source_text": "3) 조류\n- [호모폴리프로필렌]  : 자료없음\n- [첨가제]  : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "조류 항목의 성분 2 행으로 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[6]",
+    "page": 9,
+    "source_text": "1) 잔류성\n- [호모폴리프로필렌]  : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "잔류성 항목의 성분 1 행을 ECO_PERSIST에 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[7]",
+    "page": 9,
+    "source_text": "1) 잔류성\n- [호모폴리프로필렌]  : 자료없음\n- [첨가제]  : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "잔류성 항목의 성분 2 행을 ECO_PERSIST에 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[8]",
+    "page": 9,
+    "source_text": "2) 분해성\n- [호모폴리프로필렌]  : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "분해성 항목의 성분 1 행을 ECO_PERSIST에 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[9]",
+    "page": 9,
+    "source_text": "2) 분해성\n- [호모폴리프로필렌]  : 자료없음\n- [첨가제]  : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "분해성 항목의 성분 2 행을 ECO_PERSIST에 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[10]",
+    "page": 9,
+    "source_text": "1) 생물 농축성\n- [호모폴리프로필렌]  : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "생물 농축성 항목의 성분 1 행으로 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[11]",
+    "page": 9,
+    "source_text": "1) 생물 농축성\n- [호모폴리프로필렌]  : 자료없음\n- [첨가제]  : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "생물 농축성 항목의 성분 2 행으로 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[12]",
+    "page": 9,
+    "source_text": "2) 생분해성\n- [호모폴리프로필렌]  : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "생물 농축성 아래 생분해성 항목의 성분 1 행을 ECO_PERSIST에 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[13]",
+    "page": 9,
+    "source_text": "2) 생분해성\n- [호모폴리프로필렌]  : 자료없음\n- [첨가제]  : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "생물 농축성 아래 생분해성 항목의 성분 2 행을 ECO_PERSIST에 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[14]",
+    "page": 9,
+    "source_text": "라. 토양 이동성\n- [호모폴리프로필렌]  : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "토양 이동성 항목의 성분 1 행으로 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[15]",
+    "page": 9,
+    "source_text": "라. 토양 이동성\n- [호모폴리프로필렌]  : 자료없음\n- [첨가제]  : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "토양 이동성 항목의 성분 2 행으로 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[16]",
+    "page": 9,
+    "source_text": "마. 오존층 유해성\n- [첨가제]  : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "오존층 유해성 항목의 성분 2 행으로 연결하고 해당없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[17]",
+    "page": 9,
+    "source_text": "마. 오존층 유해성\n- [첨가제]  : 해당없음\n- [호모폴리프로필렌]  : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "오존층 유해성 항목의 성분 1 행으로 연결하고 해당없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[18]",
+    "page": 9,
+    "source_text": "바. 기타 유해영향\n- [호모폴리프로필렌]  : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "기타 유해영향 항목의 성분 1 행을 ECO_OTHER에 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[19]",
+    "page": 9,
+    "source_text": "바. 기타 유해영향\n- [호모폴리프로필렌]  : 자료없음\n- [첨가제]  : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "기타 유해영향 항목의 성분 2 행을 ECO_OTHER에 연결하고 자료없음 상태를 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[0]",
+    "page": 10,
+    "source_text": "가. 유엔번호 : 해당없음 | 나. 유엔 적정 선적명 : 해당없음 | 다. 운송에서의 위험성 등급 : 해당없음 | 라. 용기등급(해당하는 경우) : 해당없음 | 마. 해양오염물질(해당/비해당) : 해당없음 | - 화재 시 비상조치의 종류 : 자료없음 | - 유출 시 비상조치의 종류 : 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "운송 방식 구분이 없어 공통으로 기록하고 해당없음을 regulated=false 및 해양오염물질 비해당으로 매핑했으며, 실제 번호·명칭·등급·EmS 코드가 없는 칸은 null로 둠."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[0]",
+    "page": 11,
+    "source_text": "1) 작업환경측정물질\n- [호모폴리프로필렌] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "항목을 OSH_MEASURE로 매핑하고 성분 1에 연결하며 해당없음을 비해당으로 기록."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[1]",
+    "page": 11,
+    "source_text": "1) 작업환경측정물질 | - [첨가제] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "항목을 OSH_MEASURE로 매핑하고 성분 2에 연결하며 해당없음을 비해당으로 기록."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[2]",
+    "page": 11,
+    "source_text": "2) 노출기준설정물질\n- [호모폴리프로필렌] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "항목을 OSH_EXPOSURE_STD로 매핑하고 성분 1에 연결하며 해당없음을 비해당으로 기록."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[3]",
+    "page": 11,
+    "source_text": "2) 노출기준설정물질 | - [첨가제] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "항목을 OSH_EXPOSURE_STD로 매핑하고 성분 2에 연결하며 해당없음을 비해당으로 기록."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[4]",
+    "page": 11,
+    "source_text": "3) 관리대상유해물질\n- [호모폴리프로필렌] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "항목을 OSH_MANAGED로 매핑하고 성분 1에 연결하며 해당없음을 비해당으로 기록."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[5]",
+    "page": 11,
+    "source_text": "3) 관리대상유해물질 | - [첨가제] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "항목을 OSH_MANAGED로 매핑하고 성분 2에 연결하며 해당없음을 비해당으로 기록."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[6]",
+    "page": 11,
+    "source_text": "4) 특수건강검진대상물질\n- [호모폴리프로필렌] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "항목을 OSH_HEALTH_EXAM으로 매핑하고 성분 1에 연결하며 해당없음을 비해당으로 기록."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[7]",
+    "page": 11,
+    "source_text": "4) 특수건강검진대상물질 | - [첨가제] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "항목을 OSH_HEALTH_EXAM으로 매핑하고 성분 2에 연결하며 해당없음을 비해당으로 기록."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[8]",
+    "page": 11,
+    "source_text": "5) 허용기준설정물질\n- [호모폴리프로필렌] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "항목을 OSH_PERMISSIBLE로 매핑하고 성분 1에 연결하며 해당없음을 비해당으로 기록."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[9]",
+    "page": 11,
+    "source_text": "5) 허용기준설정물질 | - [첨가제] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "항목을 OSH_PERMISSIBLE로 매핑하고 성분 2에 연결하며 해당없음을 비해당으로 기록."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[10]",
+    "page": 11,
+    "source_text": "6) 제조등금지물질\n- [호모폴리프로필렌] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "항목을 OSH_PROHIBIT으로 매핑하고 성분 1에 연결하며 해당없음을 비해당으로 기록."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[11]",
+    "page": 11,
+    "source_text": "6) 제조등금지물질 | - [첨가제] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "항목을 OSH_PROHIBIT으로 매핑하고 성분 2에 연결하며 해당없음을 비해당으로 기록."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[12]",
+    "page": 11,
+    "source_text": "7) 허가대상물질\n- [호모폴리프로필렌] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "항목을 OSH_PERMIT으로 매핑하고 성분 1에 연결하며 해당없음을 비해당으로 기록."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[13]",
+    "page": 11,
+    "source_text": "7) 허가대상물질 | - [첨가제] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "항목을 OSH_PERMIT으로 매핑하고 성분 2에 연결하며 해당없음을 비해당으로 기록."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[14]",
+    "page": 11,
+    "source_text": "8) PSM대상물질\n- [호모폴리프로필렌] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "항목을 OSH_PSM으로 매핑하고 성분 1에 연결하며 해당없음을 비해당으로 기록."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[15]",
+    "page": 11,
+    "source_text": "8) PSM대상물질 | - [첨가제] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "항목을 OSH_PSM으로 매핑하고 성분 2에 연결하며 해당없음을 비해당으로 기록."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[16]",
+    "page": 11,
+    "source_text": "1) 등록대상기존화학물질\n- [호모폴리프로필렌] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "항목을 KREACH_REG로 매핑하고 성분 1에 연결하며 해당없음을 비해당으로 기록."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[17]",
+    "page": 11,
+    "source_text": "1) 등록대상기존화학물질 | - [첨가제] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "항목을 KREACH_REG로 매핑하고 성분 2에 연결하며 해당없음을 비해당으로 기록."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[18]",
+    "page": 11,
+    "source_text": "2) 중점관리물질\n- [호모폴리프로필렌] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "항목을 KREACH_PRIORITY로 매핑하고 성분 1에 연결하며 해당없음을 비해당으로 기록."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[19]",
+    "page": 11,
+    "source_text": "2) 중점관리물질 | - [첨가제] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "항목을 KREACH_PRIORITY로 매핑하고 성분 2에 연결하며 해당없음을 비해당으로 기록."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[20]",
+    "page": 12,
+    "source_text": "3) CMR(발암성, 생식세포변이원성, 생식독성) 및 CMR 우려 물질\n- [호모폴리프로필렌] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "항목을 KREACH_CMR로 매핑하고 성분 1에 연결하며 해당없음을 비해당으로 기록."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[21]",
+    "page": 12,
+    "source_text": "3) CMR(발암성, 생식세포변이원성, 생식독성) 및 CMR 우려 물질 | - [첨가제] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "항목을 KREACH_CMR로 매핑하고 성분 2에 연결하며 해당없음을 비해당으로 기록."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[22]",
+    "page": 12,
+    "source_text": "1) 유독물질\n- [호모폴리프로필렌] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "항목을 CCA_TOXIC으로 매핑하고 성분 1에 연결하며 해당없음을 비해당으로 기록."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[23]",
+    "page": 12,
+    "source_text": "1) 유독물질 | - [첨가제] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "항목을 CCA_TOXIC으로 매핑하고 성분 2에 연결하며 해당없음을 비해당으로 기록."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[24]",
+    "page": 12,
+    "source_text": "2) 배출량조사대상화학물질\n- [호모폴리프로필렌] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "항목을 CCA_PRTR로 매핑하고 성분 1에 연결하며 해당없음을 비해당으로 기록."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[25]",
+    "page": 12,
+    "source_text": "2) 배출량조사대상화학물질 | - [첨가제] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "항목을 CCA_PRTR로 매핑하고 성분 2에 연결하며 해당없음을 비해당으로 기록."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[26]",
+    "page": 12,
+    "source_text": "3) 사고대비물질\n- [호모폴리프로필렌] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "항목을 CCA_ACCIDENT로 매핑하고 성분 1에 연결하며 해당없음을 비해당으로 기록."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[27]",
+    "page": 12,
+    "source_text": "3) 사고대비물질 | - [첨가제] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "항목을 CCA_ACCIDENT로 매핑하고 성분 2에 연결하며 해당없음을 비해당으로 기록."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[28]",
+    "page": 12,
+    "source_text": "4) 제한물질\n- [호모폴리프로필렌] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "항목을 CCA_RESTRICT로 매핑하고 성분 1에 연결하며 해당없음을 비해당으로 기록."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[29]",
+    "page": 12,
+    "source_text": "4) 제한물질 | - [첨가제] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "항목을 CCA_RESTRICT로 매핑하고 성분 2에 연결하며 해당없음을 비해당으로 기록."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[30]",
+    "page": 12,
+    "source_text": "5) 허가물질\n- 해당 없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 지정이 없는 허가물질 행을 제품 전체 MIX에 연결하고 해당 없음을 비해당으로 기록."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[31]",
+    "page": 12,
+    "source_text": "6) 금지물질\n- [호모폴리프로필렌] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "항목을 CCA_PROHIBIT으로 매핑하고 성분 1에 연결하며 해당없음을 비해당으로 기록."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[32]",
+    "page": 12,
+    "source_text": "6) 금지물질 | - [첨가제] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "항목을 CCA_PROHIBIT으로 매핑하고 성분 2에 연결하며 해당없음을 비해당으로 기록."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[33]",
+    "page": 12,
+    "source_text": "라. 위험물안전관리법에 의한 규제\n- 위험물에 해당되지 않음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "제품 전체 MIX의 DG_HAZMAT 행으로 기록하고 위험물에 해당되지 않음을 비해당으로 매핑."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[34]",
+    "page": 12,
+    "source_text": "마. 폐기물관리법에 의한 규제\n- 본 제품은 사업장에서 발생하는 폐기물 중 폐기물관리법시행령[별표1]에\n의한 지정폐기물에 해당되지 않으며 사업장폐기물 중 일반폐기물에 해당됨",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "제품 전체 MIX의 지정폐기물 여부를 비해당으로 기록하고 원문 문장을 value_raw에 보존."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[35]",
+    "page": 12,
+    "source_text": "1) 잔류성 유기오염물질 관리법 : 규제되지 않음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "제품 전체 MIX의 POPS 행으로 매핑하고 규제되지 않음을 비해당으로 기록하며 값 원문을 보존."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[36]",
+    "page": 12,
+    "source_text": "2) EU 분류 정보\n* 확정분류 결과 : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "제품 전체 MIX의 INTL_EU 행으로 기록하고 세부 구분은 확정분류 결과, 국가는 EU, 해당 여부는 비해당으로 매핑."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[37]",
+    "page": 13,
+    "source_text": "3) 미국 관리 정보\n* OSHA 규정 (29CFR1910.119) : 규제되지 않음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "제품 전체 MIX의 INTL_US 행으로 기록하고 국가는 US, 규제되지 않음은 비해당으로 매핑하며 값 원문을 보존."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[38]",
+    "page": 13,
+    "source_text": "3) 미국 관리 정보 | * CERCLA 103 규정 (40CFR302.4) : 규제되지 않음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "제품 전체 MIX의 INTL_US 행으로 기록하고 국가는 US, 규제되지 않음은 비해당으로 매핑하며 값 원문을 보존."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[39]",
+    "page": 13,
+    "source_text": "3) 미국 관리 정보 | * EPCRA 302 규정 (40CFR355.30) : 규제되지 않음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "제품 전체 MIX의 INTL_US 행으로 기록하고 국가는 US, 규제되지 않음은 비해당으로 매핑하며 값 원문을 보존."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[40]",
+    "page": 13,
+    "source_text": "3) 미국 관리 정보 | * EPCRA 304 규정 (40CFR355.40) : 규제되지 않음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "제품 전체 MIX의 INTL_US 행으로 기록하고 국가는 US, 규제되지 않음은 비해당으로 매핑하며 값 원문을 보존."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[41]",
+    "page": 13,
+    "source_text": "3) 미국 관리 정보 | * EPCRA 313 규정 (40CFR372.65) : 규제되지 않음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "제품 전체 MIX의 INTL_US 행으로 기록하고 국가는 US, 규제되지 않음은 비해당으로 매핑하며 값 원문을 보존."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[42]",
+    "page": 13,
+    "source_text": "4) 로테르담 협약 물질 : 규제되지 않음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "제품 전체 MIX의 INTL_TREATY 행으로 매핑하고 규제되지 않음을 비해당으로 기록하며 값 원문을 보존."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[43]",
+    "page": 13,
+    "source_text": "5) 스톡홀름 협약 물질 : 규제되지 않음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "제품 전체 MIX의 INTL_TREATY 행으로 매핑하고 규제되지 않음을 비해당으로 기록하며 값 원문을 보존."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[44]",
+    "page": 13,
+    "source_text": "6) 몬트리올 의정서 물질 : 규제되지 않음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "제품 전체 MIX의 INTL_TREATY 행으로 매핑하고 규제되지 않음을 비해당으로 기록하며 값 원문을 보존."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "dangerous_goods[0]",
+    "page": 12,
+    "source_text": "라. 위험물안전관리법에 의한 규제\n- 위험물에 해당되지 않음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "제품 전체 MIX에 연결하고 위험물에 해당되지 않음을 class=해당없음으로 매핑."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "waste[0]",
+    "page": 12,
+    "source_text": "마. 폐기물관리법에 의한 규제\n- 본 제품은 사업장에서 발생하는 폐기물 중 폐기물관리법시행령[별표1]에\n의한 지정폐기물에 해당되지 않으며 사업장폐기물 중 일반폐기물에 해당됨",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "제품 전체 MIX의 지정폐기물 여부를 비해당으로 매핑하고 폐기물 종류는 원문의 일반폐기물로 기록."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[0]",
+    "page": 2,
+    "source_text": "가. 눈에 들어갔을 때\n- 눈을 문지르지 마시오.\n- 많은 양의 물을 사용하여 적어도 15분 동안 눈을 씻어내시오.",
+    "rules": [
+      "R04",
+      "R08",
+      "R14"
+    ],
+    "note": "불릿별로 분리하고 '적어도 15분'을 하한 15(>=), 단위 min으로 분해함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[1]",
+    "page": 2,
+    "source_text": "나. 피부에 접촉했을 때\n- 오염된 의복 및 신발을 벗고 즉시 적어도 15분 동안 비누와 물로 씻어내\n시오.\n- 오염된 피복은 재사용 전에 (충분히) 세탁하시오",
+    "rules": [
+      "R04",
+      "R08",
+      "R14"
+    ],
+    "note": "줄바꿈을 연결하여 불릿별로 분리하고 '적어도 15분'을 하한 15(>=), 단위 min으로 분해함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[2]",
+    "page": 2,
+    "source_text": "다. 흡입했을 때\n- 다량의 증기나 미스트에 노출되었을 경우 맑은 공기가 있는 곳으로 이동\n하시오.\n- 필요에 따른 조치를 취하시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "줄바꿈을 연결하고 불릿별로 분리함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[3]",
+    "page": 2,
+    "source_text": "라. 먹었을 때\n- 구토를 유발해야 하는지에 대해서 의사의 조언을 받으시오.\n- 즉시 물로 입을 씻어내시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿별로 분리함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[4]",
+    "page": 2,
+    "source_text": "마. 기타 의사의 주의사항\n- 오염상황을 의료관계자에게 알려 그들도 적절한 보호조치를 취하도록 하\n시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "줄바꿈으로 나뉜 문장을 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[5]",
+    "page": 3,
+    "source_text": "가. 적절한 (및 부적절한) 소화제\n- 적절한 소화제: 안개, 미세한 물 분무, 화학 건조제, 이산화탄소, 포말을\n사용할 것\n- 부적절한 소화제: 직사주수를 사용한 소화는 피하시오.",
+    "rules": [
+      "R14",
+      "R25"
+    ],
+    "note": "제목을 S5_MEDIA로 매핑하고 소화제 종류를 key/value로 분리함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[5].statements[2]",
+    "page": 3,
+    "source_text": "- 화재 진압 시 방화복, 소방용 구조헬멧, 소방용 안전화, 소방용 안전장\n갑, 공기호흡기를 착용하시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "원문 소화제 항목 안의 불릿 위치를 유지하고 줄바꿈을 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[6]",
+    "page": 3,
+    "source_text": "나. 화학물질로부터 생기는 특정 유해성\n- 열분해 또는 연소에 의해 자극성 가스, 탄소 산화물을 발생함",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿을 서술 문장으로 분리함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[7]",
+    "page": 3,
+    "source_text": "다. 화재 진압 시 착용할 보호구 및 예방조치\n- 위험하지 않다면 화재지역에서 용기를 옮기시오\n- 누출물은 오염을 유발할 수 있음\n- 접촉 시 피부와 눈에 화상을 입힐 수 있음",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿별로 분리함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[7]",
+    "page": 3,
+    "source_text": "- 탱크가 화염에 휩싸였을 경우에는 접근하지 마시오.\n- 필요시 적절한 보호장비를 착용하시오.\n- 일부는 고온으로 운송될 수 있음\n- 위험하지 않다면 화재지역에서 용기를 옮기시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "원문에 반복된 용기 이동 문장도 별도 불릿으로 보존함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[8]",
+    "page": 3,
+    "source_text": "가. 인체를 보호하기 위해 필요한 조치사항 및 보호구\n- 작업자는 적절한 보호구(『８. 노출방지 및 개인보호구』항 참조)를 착용\n하여, 눈 피부에의 접촉과 흡입을 피할 것.",
+    "rules": [
+      "R14"
+    ],
+    "note": "줄바꿈으로 나뉜 문장을 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[8]",
+    "page": 3,
+    "source_text": "- 위험하지 않다면 누출을 멈추시오\n- 피해야 할 물질 및 조건에 유의하시오\n- 오염지역을 환기하시오\n- 노출물을 만지거나 걸어다니지 마시오\n- 분진 형성을 방지하시오.\n- 모든 점화원을 제거하시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿별로 분리함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[9]",
+    "page": 3,
+    "source_text": "나. 환경을 보호하기 위해 필요한 조치사항\n- 누출물이 하수시설, 수계에 유입되지 않도록 차단시키시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "다음 쪽으로 이어지는 동일 항목을 하나로 묶음."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[9].statements[1]",
+    "page": 4,
+    "source_text": "- 누출량이 많은 경우 119나 환경부, 지방환경관리청, 시·도(환경지도과)\n에 신고하시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "앞 쪽의 환경 보호 조치 항목에 연결하고 줄바꿈을 이어 붙임."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[10]",
+    "page": 4,
+    "source_text": "다. 정화 또는 제거방법\n- 다량누출: 저지대를 피하고 바람과 반대방향에 있도록 하시오. 누출물질\n의 처리를 위해 제방을 축조하여 관리하시오.\n- 기준량 이상 배출 시 중앙정부, 지방자치단체에 배출 내용을 통지하시오.",
+    "rules": [
+      "R14",
+      "R25"
+    ],
+    "note": "제목을 S6_CLEANUP으로 매핑하고 다량누출을 key로 분리함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[10]",
+    "page": 4,
+    "source_text": "- 폐기물관리법(환경부)에 의해 처리하시오.\n- 누출된 물질의 처분을 위해 적당한 용기에 수거하시오.\n- 작은 고체상 유출: 누출된 물질의 처분을 위해 적당한 용기에 수거하시\n오.\n- 누출된 물질은 적당한 용기에 쓸어 담고 오염된 장소를 청소하시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿별로 나누고 작은 고체상 유출을 key로 분리함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[11]",
+    "page": 4,
+    "source_text": "가. 안전취급요령\n- 취급 후 철저히 씻으시오\n- 공학적 관리 및 개인보호구를 참조하여 작업하시오\n- 고온에 주의하시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿별로 분리함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[12]",
+    "page": 4,
+    "source_text": "나. 안전한 저장 방법\n- 밀폐하여 보관하시오\n- 서늘하고 건조한 장소에 저장하시오\n- 피해야할 물질 및 조건에 유의하시오",
+    "rules": [
+      "R14",
+      "R25"
+    ],
+    "note": "제목을 S7_STORAGE로 매핑하고 불릿별로 분리함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[13]",
+    "page": 5,
+    "source_text": "나. 적절한 공학적 관리\n- 가스, 증기, 미스트, 흄 또는 분진이 발산되는 작업장에 대하여는 공기\n중에 이들 함유농도가 보건상 유해한 정도를 초과하지 않기를 권장함",
+    "rules": [
+      "R14"
+    ],
+    "note": "줄바꿈으로 나뉜 문장을 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[14]",
+    "page": 5,
+    "source_text": "1) 호흡기 보호\n- 해당물질에 직접적인 노출 또는 노출 가능성이 있는 경우, 한국산업안\n전보건공단 인증을 받은 방진마스크를 착용할 것.\n- 호흡보호는 최소농도부터 최대농도까지 분류됨.\n- 사용전에 경고 특성을 고려하시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "줄바꿈을 연결하고 불릿별로 분리함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[14]",
+    "page": 5,
+    "source_text": "- 방독마스크(직결식 소형, 유기 화합물용)\n- 공기여과식 호흡보호구(유기 화합물용 정화통 및 전면형)\n- 미지농도 또는 기타 생명이나 건강에 급박한 위험이 있는 경우: 송기마\n스크(복합식 에어라인 마스크), 공기호흡기(전면형)",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿별로 분리하고 콜론 앞의 조건을 key로 보존함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[15]",
+    "page": 5,
+    "source_text": "2) 눈 보호\n- 해당물질에 직접적인 노출 또는 노출 가능성이 있는 경우, 한국산업안\n전보건공단 인증을 받은 화학물질용 보안경을 착용할 것.\n- 작업장 가까운 곳에 세안설비와 비상세척설비(샤워식)를 설치하시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "줄바꿈을 연결하고 불릿별로 분리함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[16]",
+    "page": 5,
+    "source_text": "3) 손 보호\n- 해당물질에 직접적인 노출 또는 노출 가능성이 있는 경우, 한국산업안\n전보건공단 인증을 받은 화학물질용 안전 장갑을 착용할 것.",
+    "rules": [
+      "R14"
+    ],
+    "note": "줄바꿈으로 나뉜 문장을 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[17]",
+    "page": 5,
+    "source_text": "4) 신체 보호\n- 해당물질에 직접적인 노출 또는 노출 가능성이 있는 경우, 한국산업안\n전보건공단 인증을 받은 화학물질용 보호복을 착용할 것",
+    "rules": [
+      "R14"
+    ],
+    "note": "줄바꿈으로 나뉜 문장을 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[18]",
+    "page": 6,
+    "source_text": "가. 화학적 안정성 및 유해 반응의 가능성\n- 권장된 보관과 취급, 온도와 압력, 정상상태에서 안정함.\n- 상온, 상압에서 유해중합반응을 일으키지 않음.",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿별로 분리함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[19]",
+    "page": 6,
+    "source_text": "나. 피해야 할 조건\n- 혼합금지 물질 및 조건을 피하시오.\n- 열, 불꽃, 화염 또는 기타 점화원과 접촉을 피하시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿별로 분리함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[20]",
+    "page": 6,
+    "source_text": "다. 피해야 할 물질\n- 가연성 물질",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿을 서술 문장으로 분리함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[21]",
+    "page": 6,
+    "source_text": "라. 분해시 생성되는 유해물질\n- 열분해생성물 → 탄소산화물",
+    "rules": [
+      "R14",
+      "R25"
+    ],
+    "note": "제목을 S10_DECOMP로 매핑하고 원문의 화살표를 보존함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[22]",
+    "page": 6,
+    "source_text": "가. 가능성이 높은 노출 경로에 관한 정보\n○ 호흡기를 통한 흡입 : 자료없음\n○ 입을 통한 섭취 : 구분 외\n○ 피부/눈 접촉 : 구분 외",
+    "rules": [
+      "R14"
+    ],
+    "note": "노출 경로별 key/value로 분리하고 각 원문 값을 보존함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[23]",
+    "page": 10,
+    "source_text": "가. 폐기방법\n- 고체 상태로 다른 물질과 혼합되지 않은 상태로 배출시 재활용이 가능한\n       경우 폐기물재활용처리업자에게 위임하여 처리하시오",
+    "rules": [
+      "R14",
+      "R25"
+    ],
+    "note": "제목을 S13_METHOD로 매핑하고 줄바꿈을 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[23].statements[1]",
+    "page": 10,
+    "source_text": "- 재활용 처리가 불가한 경우 국가에서 규정한 처리방법(소각, 매립)에\n       따라 폐기물처리업자에게 위임하여 처리 하시오",
+    "rules": [
+      "R14"
+    ],
+    "note": "줄바꿈으로 나뉜 문장을 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[23].statements[2]",
+    "page": 10,
+    "source_text": "- 지정폐기물 혼합되어 배출하는 경우 국가에서 규정한 지정폐기물\n       처리방법에 따라 폐기물처리업자에게 위임하여 처리 하시오",
+    "rules": [
+      "R14"
+    ],
+    "note": "줄바꿈으로 나뉜 문장을 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[24]",
+    "page": 10,
+    "source_text": "나. 폐기시 주의사항\n- 포장용기 및 포장백 등이 터져 내용물이 유출되지 않도록 주의하시오\n     - 반응성이 있는 물질과 혼합 또는 혼재하여 폐기하지 마시오",
+    "rules": [
+      "R14",
+      "R25"
+    ],
+    "note": "제목을 S13_CAUTION으로 매핑하고 불릿별로 분리함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[24]",
+    "page": 10,
+    "source_text": "- 다른 물질과 혼재되어 배출하는 경우 반응이 일어나지 않도록 안정화\n       한 후 국가에서 정한 규정에 따라 적법하고 안전하게 폐기 하시오\n- 폐기 처리시 반드시 관련 국가 및 정부의 폐기물 처리방법에 따라\n  적법하게 처리하시오",
+    "rules": [
+      "R14"
+    ],
+    "note": "줄바꿈을 연결하고 불릿별로 분리함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[25]",
+    "page": 10,
+    "source_text": "바. 사용자가 운송 또는 운송 수단에 관련해 알 필요가 있거나 필요한 특별한\n안전대책\n- 지역 운송 시 위험물안전관리법에 따름.\n- DOT 및 기타 규정에 맞게 포장 및 운송.\n- 화재 시 비상조치의 종류 : 자료없음\n- 유출 시 비상조치의 종류 : 자료없음",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿별로 분리하고 비상조치 종류는 key/value로 보존함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[26]",
+    "page": 12,
+    "source_text": "마. 폐기물관리법에 의한 규제\n- 본 제품은 사업장에서 발생하는 폐기물 중 폐기물관리법시행령[별표1]에\n의한 지정폐기물에 해당되지 않으며 사업장폐기물 중 일반폐기물에 해당됨",
+    "rules": [
+      "R14"
+    ],
+    "note": "폐기물 규제 서술을 S15_WASTE로 보존하고 줄바꿈을 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[27]",
+    "page": 13,
+    "source_text": "가. 자료의 출처\n- 본 MSDS는 산업안전보건법 제 110조에 근거하여 국내 관련 규제 법규 현\n황 등을 고려하여 작성함.\n- 본 MSDS는 KOSHA, NITE, ESIS, NLM, SIDS, IPCS, NCIS 등을 근거로 작성\n하였음.",
+    "rules": [
+      "R14"
+    ],
+    "note": "줄바꿈을 연결하고 불릿별로 분리함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[28]",
+    "page": 13,
+    "source_text": "나. 주요 약어 및 두문자어\n- ACGIH(American Conference of Governmental Industrial Hygienists); 미\n국 산업위생전문가 위원회",
+    "rules": [
+      "R14"
+    ],
+    "note": "주요 약어 설명을 S16_OTHER로 묶고 원래 소제목을 문장의 key로 보존함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[28].statements[1]",
+    "page": 13,
+    "source_text": "- ECHA(European Chemicals Agency) – 유럽화학물질청",
+    "rules": [
+      "R14"
+    ],
+    "note": "원래 소제목을 key로 보존함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[28].statements[2]",
+    "page": 13,
+    "source_text": "- OECD(Organisation for Economic Co-operation and Development) -국제경\n제협력개발기구",
+    "rules": [
+      "R14"
+    ],
+    "note": "줄바꿈을 연결하고 원래 소제목을 key로 보존함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[28].statements[3]",
+    "page": 13,
+    "source_text": "- CERCLA(Comprehensive Environmental Response, Compensation, and\nLiability Act);미국 종합환경대응책임법",
+    "rules": [
+      "R14"
+    ],
+    "note": "줄바꿈을 연결하고 원래 소제목을 key로 보존함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[28].statements[4]",
+    "page": 13,
+    "source_text": "- IARC(International Agency for Research on Cancer) - 국제 암 연구기관",
+    "rules": [
+      "R14"
+    ],
+    "note": "원래 소제목을 key로 보존함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[28].statements[5]",
+    "page": 13,
+    "source_text": "- NIOSH(National Institute for Occupational Safety and Health) - 미국\n국립산업안전보건 연구원",
+    "rules": [
+      "R14"
+    ],
+    "note": "줄바꿈을 연결하고 원래 소제목을 key로 보존함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[28].statements[6]",
+    "page": 13,
+    "source_text": "- OSHA(Occupational Safety and Health Administration) - 미국 노동안전\n보건국",
+    "rules": [
+      "R14"
+    ],
+    "note": "줄바꿈을 연결하고 원래 소제목을 key로 보존함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[28].statements[7]",
+    "page": 13,
+    "source_text": "- NTP(National Toxicology Program) - 미국 국가독성 프로그램",
+    "rules": [
+      "R14"
+    ],
+    "note": "원래 소제목을 key로 보존함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[28].statements[8]",
+    "page": 13,
+    "source_text": "- TSCA(Toxic Substances Control Act) - 연방 독성물질규제법",
+    "rules": [
+      "R14"
+    ],
+    "note": "원래 소제목을 key로 보존함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[28].statements[9]",
+    "page": 13,
+    "source_text": "- NFPA(National Fire Protection Association) - 화재로 인해 발생하는 인\n명이나 재산상의 손실을 막기 위한 안전지수",
+    "rules": [
+      "R14"
+    ],
+    "note": "줄바꿈을 연결하고 원래 소제목을 key로 보존함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[28].statements[10]",
+    "page": 14,
+    "source_text": "- LC50 (Lethal Concentration 50% kill) – 반수치사농도",
+    "rules": [
+      "R14"
+    ],
+    "note": "앞 쪽의 주요 약어 및 두문자어 항목에 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[28].statements[11]",
+    "page": 14,
+    "source_text": "- LD50 (Lethal Dose 50% kill) - 반수치사량",
+    "rules": [
+      "R14"
+    ],
+    "note": "앞 쪽의 주요 약어 및 두문자어 항목에 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[28].statements[12]",
+    "page": 14,
+    "source_text": "- EC50(50% Effect Concentration) – 반수영향농도",
+    "rules": [
+      "R14"
+    ],
+    "note": "앞 쪽의 주요 약어 및 두문자어 항목에 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[28].statements[13]",
+    "page": 14,
+    "source_text": "- STEL(Short Term Exposure Limit) – 단기 허용 노출농도",
+    "rules": [
+      "R14"
+    ],
+    "note": "앞 쪽의 주요 약어 및 두문자어 항목에 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[28].statements[14]",
+    "page": 14,
+    "source_text": "- TWA(Time weight Average) – 시간 가중 평균 허용농도",
+    "rules": [
+      "R14"
+    ],
+    "note": "앞 쪽의 주요 약어 및 두문자어 항목에 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[28].statements[15]",
+    "page": 14,
+    "source_text": "- TLV(Threshold Limit Value) – 작업장 허용농도 (ACGIH에 의해 권고됨)",
+    "rules": [
+      "R14"
+    ],
+    "note": "앞 쪽의 주요 약어 및 두문자어 항목에 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[28].statements[16]",
+    "page": 14,
+    "source_text": "마. 기타\n- 이 정보는 근로자 건강, 환경, 안전을 보호하고자, 현재 가용할 수 있는\nDB를 근거로 하여 작성하였음.",
+    "rules": [
+      "R14"
+    ],
+    "note": "동일한 S16_OTHER 묶음에 추가하고 원래 소제목 '마. 기타'를 key로 보존함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[0]",
+    "page": 2,
+    "source_text": "※주1) 식별번호: KE(한국기존화학물질 등록 번호)",
+    "rules": [
+      "R14",
+      "R24"
+    ],
+    "note": "식별번호 설명 주석을 extras에 보존하고 key/value로 분리함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[1]",
+    "page": 2,
+    "source_text": "※주2) 첨가제 구성 성분 중 1% 이상의 관리대상유해물질은 없으며, 0.1% 이상의 발암성물질\n       및 생식세포 변이원성 물질, 0.2% 이상의 호흡기 과민성 물질(가스), 0.3% 이상의\n       생식독성 물질은 없음",
+    "rules": [
+      "R04",
+      "R10",
+      "R14",
+      "R24"
+    ],
+    "note": "첨가제 주석 하나를 보존하면서 네 조건별 조각으로 나누고 각 기준을 statements[].cond의 하한(>=)으로 분해함."
+  }
+]

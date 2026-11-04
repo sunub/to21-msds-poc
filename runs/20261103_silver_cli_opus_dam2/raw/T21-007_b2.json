@@ -1,0 +1,864 @@
+{
+  "doc_id": "T21-007",
+  "bundle": "b2",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 72968,
+    "completion_tokens": 7487,
+    "cached_tokens": 6909,
+    "reasoning_tokens": 1325,
+    "notional_cost_usd": 0.6795858
+  },
+  "seconds": 54.4,
+  "request_usage": [
+    {
+      "prompt_tokens": 72968,
+      "completion_tokens": 7487,
+      "cached_tokens": 6909,
+      "reasoning_tokens": 1325,
+      "notional_cost_usd": 0.6795858
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "exposure_limits": [
+          {
+            "comp_ref": "1",
+            "standard": "국내",
+            "limit_type": null,
+            "kr_basis": "노출기준",
+            "notations": [],
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "comp_ref": "1",
+            "standard": "OSHA",
+            "limit_type": null,
+            "notations": [],
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "comp_ref": "1",
+            "standard": "ACGIH",
+            "limit_type": null,
+            "notations": [],
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "comp_ref": "2",
+            "standard": "국내",
+            "limit_type": "TWA",
+            "kr_basis": "노출기준",
+            "notations": [],
+            "q": {
+              "raw": "TWA: 2 ppm",
+              "value": 2,
+              "unit": "ppm",
+              "status": "값있음"
+            }
+          },
+          {
+            "comp_ref": "2",
+            "standard": "국내",
+            "limit_type": "STEL",
+            "kr_basis": "노출기준",
+            "notations": [],
+            "q": {
+              "raw": "STEL: 4 ppm",
+              "value": 4,
+              "unit": "ppm",
+              "status": "값있음"
+            }
+          },
+          {
+            "comp_ref": "2",
+            "standard": "OSHA",
+            "limit_type": null,
+            "notations": [],
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "comp_ref": "2",
+            "standard": "ACGIH",
+            "limit_type": "TWA",
+            "notations": [],
+            "q": {
+              "raw": "TWA: 2 ppm",
+              "value": 2,
+              "unit": "ppm",
+              "status": "값있음"
+            }
+          },
+          {
+            "comp_ref": "2",
+            "standard": "ACGIH",
+            "limit_type": "STEL",
+            "notations": [],
+            "q": {
+              "raw": "STEL: 4 ppm",
+              "value": 4,
+              "unit": "ppm",
+              "status": "값있음"
+            }
+          },
+          {
+            "comp_ref": "3",
+            "standard": "국내",
+            "limit_type": "TWA",
+            "kr_basis": "노출기준",
+            "form": "dust and mist",
+            "notations": [],
+            "q": {
+              "raw": "TWA: 1 mg/m³; dust and mist",
+              "value": 1,
+              "unit": "mg/m3",
+              "status": "값있음"
+            }
+          },
+          {
+            "comp_ref": "3",
+            "standard": "국내",
+            "limit_type": "TWA",
+            "kr_basis": "노출기준",
+            "form": "fume",
+            "notations": [],
+            "q": {
+              "raw": "TWA: 0.1 mg/m³; fume",
+              "value": 0.1,
+              "dp": 1,
+              "unit": "mg/m3",
+              "status": "값있음"
+            }
+          },
+          {
+            "comp_ref": "3",
+            "standard": "국내",
+            "limit_type": "STEL",
+            "kr_basis": "노출기준",
+            "form": "dust and mist",
+            "notations": [],
+            "q": {
+              "raw": "STEL: 2 mg/m³; dust and mist",
+              "value": 2,
+              "unit": "mg/m3",
+              "status": "값있음"
+            }
+          },
+          {
+            "comp_ref": "3",
+            "standard": "OSHA",
+            "limit_type": null,
+            "notations": [],
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "comp_ref": "3",
+            "standard": "ACGIH",
+            "limit_type": "TWA",
+            "form": "fume",
+            "notations": [],
+            "q": {
+              "raw": "TWA: 0.2 mg/m³ fume",
+              "value": 0.2,
+              "dp": 1,
+              "unit": "mg/m3",
+              "status": "값있음"
+            }
+          },
+          {
+            "comp_ref": "1",
+            "standard": "생물학적",
+            "limit_type": null,
+            "notations": [],
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "comp_ref": "2",
+            "standard": "생물학적",
+            "limit_type": null,
+            "notations": [],
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "comp_ref": "3",
+            "standard": "생물학적",
+            "limit_type": null,
+            "notations": [],
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            }
+          }
+        ],
+        "physchem": [
+          {
+            "prop_code": "APPEARANCE_STATE",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "text_value": "액체",
+            "q": null
+          },
+          {
+            "prop_code": "APPEARANCE_STATE",
+            "comp_ref": "MIX",
+            "seq": 2,
+            "text_value": "액체",
+            "q": null
+          },
+          {
+            "prop_code": "APPEARANCE_COLOR",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "text_value": "무색",
+            "q": null
+          },
+          {
+            "prop_code": "ODOR",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "text_value": "무취",
+            "q": null
+          },
+          {
+            "prop_code": "ODOR_THRESHOLD",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "PH",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "MELT_FREEZE",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "BOILING",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "FLASH_POINT",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "EVAP_RATE",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "FLAMMABILITY",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "UEL",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "LEL",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "VAPOR_PRESSURE",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "SOLUBILITY",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "q": {
+              "raw": "",
+              "status": "미기재",
+              "note": "수용해도"
+            }
+          },
+          {
+            "prop_code": "SOLUBILITY",
+            "comp_ref": "MIX",
+            "seq": 2,
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음",
+              "note": "다른 용제에서의 용해도"
+            }
+          },
+          {
+            "prop_code": "VAPOR_DENSITY",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "RELATIVE_DENSITY",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "LOG_KOW",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "AUTOIGNITION",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "DECOMPOSITION",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "q": {
+              "raw": "",
+              "status": "미기재"
+            }
+          },
+          {
+            "prop_code": "VISCOSITY",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음",
+              "note": "동적 점도"
+            }
+          },
+          {
+            "prop_code": "VISCOSITY_KIN",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "MOL_WEIGHT",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            }
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[0]",
+        "page": 5,
+        "source_text": "물 | 자료 없음 | 자료 없음 | 자료 없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "OEL 열을 국내 노출기준으로 보고 자료없음 처리; 기준 종류 표시 없어 limit_type null"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[1]",
+        "page": 5,
+        "source_text": "물 | 자료 없음 | 자료 없음 | 자료 없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "PEL 열을 OSHA로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[2]",
+        "page": 5,
+        "source_text": "물 | 자료 없음 | 자료 없음 | 자료 없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "ACGIH TLV 열"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[3]",
+        "page": 5,
+        "source_text": "질산 | TWA: 2 ppm STEL: 4 ppm | 자료 없음 | TWA: 2 ppm STEL: 4 ppm",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "OEL 열 TWA 행"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[4]",
+        "page": 5,
+        "source_text": "질산 | TWA: 2 ppm STEL: 4 ppm | 자료 없음 | TWA: 2 ppm STEL: 4 ppm",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "OEL 열 STEL을 별도 행으로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[5]",
+        "page": 5,
+        "source_text": "질산 | TWA: 2 ppm STEL: 4 ppm | 자료 없음 | TWA: 2 ppm STEL: 4 ppm",
+        "rules": [
+          "R15"
+        ],
+        "note": "PEL 열 자료없음"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[6]",
+        "page": 5,
+        "source_text": "질산 | TWA: 2 ppm STEL: 4 ppm | 자료 없음 | TWA: 2 ppm STEL: 4 ppm",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "ACGIH TWA"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[7]",
+        "page": 5,
+        "source_text": "질산 | TWA: 2 ppm STEL: 4 ppm | 자료 없음 | TWA: 2 ppm STEL: 4 ppm",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "ACGIH STEL"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[8]",
+        "page": 5,
+        "source_text": "구리 | TWA: 1 mg/m3; dust and mist TWA: 0.1 mg/m3; fume STEL: 2 mg/m3; dust and mist | 자료 없음 | TWA: 0.2 mg/m3 fume",
+        "rules": [
+          "R04",
+          "R08",
+          "R10",
+          "R17"
+        ],
+        "note": "OEL TWA 1 mg/m3, form 'dust and mist'"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[9]",
+        "page": 5,
+        "source_text": "구리 | TWA: 1 mg/m3; dust and mist TWA: 0.1 mg/m3; fume STEL: 2 mg/m3; dust and mist | 자료 없음 | TWA: 0.2 mg/m3 fume",
+        "rules": [
+          "R04",
+          "R06",
+          "R08",
+          "R10"
+        ],
+        "note": "OEL TWA 0.1 mg/m3, form 'fume'"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[10]",
+        "page": 5,
+        "source_text": "구리 | TWA: 1 mg/m3; dust and mist TWA: 0.1 mg/m3; fume STEL: 2 mg/m3; dust and mist | 자료 없음 | TWA: 0.2 mg/m3 fume",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "OEL STEL 2 mg/m3, form 'dust and mist'"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[11]",
+        "page": 5,
+        "source_text": "구리 | ... | 자료 없음 | TWA: 0.2 mg/m3 fume",
+        "rules": [
+          "R15"
+        ],
+        "note": "PEL 열 자료없음"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[12]",
+        "page": 5,
+        "source_text": "구리 | ... | 자료 없음 | TWA: 0.2 mg/m3 fume",
+        "rules": [
+          "R04",
+          "R06",
+          "R08",
+          "R10"
+        ],
+        "note": "ACGIH TWA 0.2 mg/m3, form 'fume'"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[13]",
+        "page": 5,
+        "source_text": "물 7732-18-5 | 자료 없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "생물학적 작업 노출 기준 표(ACGIH)"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[14]",
+        "page": 5,
+        "source_text": "질산 7697-37-2 | 자료 없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "생물학적 작업 노출 기준 표(ACGIH)"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[15]",
+        "page": 5,
+        "source_text": "구리 7440-50-8 | 자료 없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "생물학적 작업 노출 기준 표(ACGIH)"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[0]",
+        "page": 6,
+        "source_text": "A. 외관 액체",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[1]",
+        "page": 6,
+        "source_text": "물리적 상태 액체",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[2]",
+        "page": 6,
+        "source_text": "색 무색",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[3]",
+        "page": 6,
+        "source_text": "B. 냄새 무취",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[4]",
+        "page": 6,
+        "source_text": "다. 냄새 역치 자료 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[5]",
+        "page": 6,
+        "source_text": "라. pH 자료 없음 알려진 것 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[6]",
+        "page": 6,
+        "source_text": "마. 녹는점 / 어는점 자료 없음 알려진 것 없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[7]",
+        "page": 6,
+        "source_text": "바. 초기 끓는점과 끓는점 범위 자료 없음 알려진 것 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[8]",
+        "page": 6,
+        "source_text": "사. 인화점 자료 없음 알려진 것 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[9]",
+        "page": 6,
+        "source_text": "아. 증발 속도 자료 없음 알려진 것 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[10]",
+        "page": 6,
+        "source_text": "자. 인화성 자료 없음 알려진 것 없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[11]",
+        "page": 6,
+        "source_text": "인화 또는 폭발 범위의 상한 자료 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[12]",
+        "page": 6,
+        "source_text": "인화 또는 폭발 범위의 하한 자료 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[13]",
+        "page": 6,
+        "source_text": "카. 증기압 자료 없음 알려진 것 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[14]",
+        "page": 6,
+        "source_text": "수용해도 알려진 것 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "수치 열이 비어 있어 미기재; '알려진 것 없음'은 참조·방법 열 값"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[15]",
+        "page": 6,
+        "source_text": "다른 용제에서의 용해도 자료 없음 알려진 것 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[16]",
+        "page": 6,
+        "source_text": "파. 상대 증기 밀도 자료 없음 알려진 것 없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[17]",
+        "page": 6,
+        "source_text": "하. 비중 자료 없음 알려진 것 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "벌크 밀도·액체 밀도 행은 동의어 사전에 없어 넣지 않음"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[18]",
+        "page": 6,
+        "source_text": "거. n 옥탄올/물 분배계수 자료 없음 알려진 것 없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[19]",
+        "page": 6,
+        "source_text": "너. 자연발화 온도 자료 없음 알려진 것 없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[20]",
+        "page": 6,
+        "source_text": "더. 분해 온도 알려진 것 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "수치 열이 비어 있어 미기재"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[21]",
+        "page": 7,
+        "source_text": "동적 점도 자료 없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "러. 점도 아래 동적 점도 행"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[22]",
+        "page": 7,
+        "source_text": "동점성 자료 없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[23]",
+        "page": 7,
+        "source_text": "머. 분자량 자료 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"exposure_limits\": [{\"comp_ref\": \"1\", \"standard\": \"국내\", \"limit_type\": null, \"kr_basis\": \"노출기준\", \"notations\": [], \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}}, {\"comp_ref\": \"1\", \"standard\": \"OSHA\", \"limit_type\": null, \"notations\": [], \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}}, {\"comp_ref\": \"1\", \"standard\": \"ACGIH\", \"limit_type\": null, \"notations\": [], \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}}, {\"comp_ref\": \"2\", \"standard\": \"국내\", \"limit_type\": \"TWA\", \"kr_basis\": \"노출기준\", \"notations\": [], \"q\": {\"raw\": \"TWA: 2 ppm\", \"value\": 2, \"unit\": \"ppm\", \"status\": \"값있음\"}}, {\"comp_ref\": \"2\", \"standard\": \"국내\", \"limit_type\": \"STEL\", \"kr_basis\": \"노출기준\", \"notations\": [], \"q\": {\"raw\": \"STEL: 4 ppm\", \"value\": 4, \"unit\": \"ppm\", \"status\": \"값있음\"}}, {\"comp_ref\": \"2\", \"standard\": \"OSHA\", \"limit_type\": null, \"notations\": [], \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}}, {\"comp_ref\": \"2\", \"standard\": \"ACGIH\", \"limit_type\": \"TWA\", \"notations\": [], \"q\": {\"raw\": \"TWA: 2 ppm\", \"value\": 2, \"unit\": \"ppm\", \"status\": \"값있음\"}}, {\"comp_ref\": \"2\", \"standard\": \"ACGIH\", \"limit_type\": \"STEL\", \"notations\": [], \"q\": {\"raw\": \"STEL: 4 ppm\", \"value\": 4, \"unit\": \"ppm\", \"status\": \"값있음\"}}, {\"comp_ref\": \"3\", \"standard\": \"국내\", \"limit_type\": \"TWA\", \"kr_basis\": \"노출기준\", \"form\": \"dust and mist\", \"notations\": [], \"q\": {\"raw\": \"TWA: 1 mg/m³; dust and mist\", \"value\": 1, \"unit\": \"mg/m3\", \"status\": \"값있음\"}}, {\"comp_ref\": \"3\", \"standard\": \"국내\", \"limit_type\": \"TWA\", \"kr_basis\": \"노출기준\", \"form\": \"fume\", \"notations\": [], \"q\": {\"raw\": \"TWA: 0.1 mg/m³; fume\", \"value\": 0.1, \"dp\": 1, \"unit\": \"mg/m3\", \"status\": \"값있음\"}}, {\"comp_ref\": \"3\", \"standard\": \"국내\", \"limit_type\": \"STEL\", \"kr_basis\": \"노출기준\", \"form\": \"dust and mist\", \"notations\": [], \"q\": {\"raw\": \"STEL: 2 mg/m³; dust and mist\", \"value\": 2, \"unit\": \"mg/m3\", \"status\": \"값있음\"}}, {\"comp_ref\": \"3\", \"standard\": \"OSHA\", \"limit_type\": null, \"notations\": [], \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}}, {\"comp_ref\": \"3\", \"standard\": \"ACGIH\", \"limit_type\": \"TWA\", \"form\": \"fume\", \"notations\": [], \"q\": {\"raw\": \"TWA: 0.2 mg/m³ fume\", \"value\": 0.2, \"dp\": 1, \"unit\": \"mg/m3\", \"status\": \"값있음\"}}, {\"comp_ref\": \"1\", \"standard\": \"생물학적\", \"limit_type\": null, \"notations\": [], \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}}, {\"comp_ref\": \"2\", \"standard\": \"생물학적\", \"limit_type\": null, \"notations\": [], \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}}, {\"comp_ref\": \"3\", \"standard\": \"생물학적\", \"limit_type\": null, \"notations\": [], \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}}], \"physchem\": [{\"prop_code\": \"APPEARANCE_STATE\", \"comp_ref\": \"MIX\", \"seq\": 1, \"text_value\": \"액체\", \"q\": null}, {\"prop_code\": \"APPEARANCE_STATE\", \"comp_ref\": \"MIX\", \"seq\": 2, \"text_value\": \"액체\", \"q\": null}, {\"prop_code\": \"APPEARANCE_COLOR\", \"comp_ref\": \"MIX\", \"seq\": 1, \"text_value\": \"무색\", \"q\": null}, {\"prop_code\": \"ODOR\", \"comp_ref\": \"MIX\", \"seq\": 1, \"text_value\": \"무취\", \"q\": null}, {\"prop_code\": \"ODOR_THRESHOLD\", \"comp_ref\": \"MIX\", \"seq\": 1, \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"PH\", \"comp_ref\": \"MIX\", \"seq\": 1, \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"MELT_FREEZE\", \"comp_ref\": \"MIX\", \"seq\": 1, \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"BOILING\", \"comp_ref\": \"MIX\", \"seq\": 1, \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"FLASH_POINT\", \"comp_ref\": \"MIX\", \"seq\": 1, \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"EVAP_RATE\", \"comp_ref\": \"MIX\", \"seq\": 1, \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"FLAMMABILITY\", \"comp_ref\": \"MIX\", \"seq\": 1, \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"UEL\", \"comp_ref\": \"MIX\", \"seq\": 1, \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"LEL\", \"comp_ref\": \"MIX\", \"seq\": 1, \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"VAPOR_PRESSURE\", \"comp_ref\": \"MIX\", \"seq\": 1, \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"SOLUBILITY\", \"comp_ref\": \"MIX\", \"seq\": 1, \"q\": {\"raw\": \"\", \"status\": \"미기재\", \"note\": \"수용해도\"}}, {\"prop_code\": \"SOLUBILITY\", \"comp_ref\": \"MIX\", \"seq\": 2, \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\", \"note\": \"다른 용제에서의 용해도\"}}, {\"prop_code\": \"VAPOR_DENSITY\", \"comp_ref\": \"MIX\", \"seq\": 1, \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"RELATIVE_DENSITY\", \"comp_ref\": \"MIX\", \"seq\": 1, \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"LOG_KOW\", \"comp_ref\": \"MIX\", \"seq\": 1, \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"AUTOIGNITION\", \"comp_ref\": \"MIX\", \"seq\": 1, \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"DECOMPOSITION\", \"comp_ref\": \"MIX\", \"seq\": 1, \"q\": {\"raw\": \"\", \"status\": \"미기재\"}}, {\"prop_code\": \"VISCOSITY\", \"comp_ref\": \"MIX\", \"seq\": 1, \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\", \"note\": \"동적 점도\"}}, {\"prop_code\": \"VISCOSITY_KIN\", \"comp_ref\": \"MIX\", \"seq\": 1, \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"MOL_WEIGHT\", \"comp_ref\": \"MIX\", \"seq\": 1, \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"exposure_limits[0]\", \"page\": 5, \"source_text\": \"물 | 자료 없음 | 자료 없음 | 자료 없음\", \"rules\": [\"R10\", \"R15\"], \"note\": \"OEL 열을 국내 노출기준으로 보고 자료없음 처리; 기준 종류 표시 없어 limit_type null\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[1]\", \"page\": 5, \"source_text\": \"물 | 자료 없음 | 자료 없음 | 자료 없음\", \"rules\": [\"R10\", \"R15\"], \"note\": \"PEL 열을 OSHA로 둠\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[2]\", \"page\": 5, \"source_text\": \"물 | 자료 없음 | 자료 없음 | 자료 없음\", \"rules\": [\"R10\", \"R15\"], \"note\": \"ACGIH TLV 열\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[3]\", \"page\": 5, \"source_text\": \"질산 | TWA: 2 ppm STEL: 4 ppm | 자료 없음 | TWA: 2 ppm STEL: 4 ppm\", \"rules\": [\"R04\", \"R10\"], \"note\": \"OEL 열 TWA 행\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[4]\", \"page\": 5, \"source_text\": \"질산 | TWA: 2 ppm STEL: 4 ppm | 자료 없음 | TWA: 2 ppm STEL: 4 ppm\", \"rules\": [\"R04\", \"R10\"], \"note\": \"OEL 열 STEL을 별도 행으로 나눔\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[5]\", \"page\": 5, \"source_text\": \"질산 | TWA: 2 ppm STEL: 4 ppm | 자료 없음 | TWA: 2 ppm STEL: 4 ppm\", \"rules\": [\"R15\"], \"note\": \"PEL 열 자료없음\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[6]\", \"page\": 5, \"source_text\": \"질산 | TWA: 2 ppm STEL: 4 ppm | 자료 없음 | TWA: 2 ppm STEL: 4 ppm\", \"rules\": [\"R04\", \"R10\"], \"note\": \"ACGIH TWA\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[7]\", \"page\": 5, \"source_text\": \"질산 | TWA: 2 ppm STEL: 4 ppm | 자료 없음 | TWA: 2 ppm STEL: 4 ppm\", \"rules\": [\"R04\", \"R10\"], \"note\": \"ACGIH STEL\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[8]\", \"page\": 5, \"source_text\": \"구리 | TWA: 1 mg/m3; dust and mist TWA: 0.1 mg/m3; fume STEL: 2 mg/m3; dust and mist | 자료 없음 | TWA: 0.2 mg/m3 fume\", \"rules\": [\"R04\", \"R08\", \"R10\", \"R17\"], \"note\": \"OEL TWA 1 mg/m3, form 'dust and mist'\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[9]\", \"page\": 5, \"source_text\": \"구리 | TWA: 1 mg/m3; dust and mist TWA: 0.1 mg/m3; fume STEL: 2 mg/m3; dust and mist | 자료 없음 | TWA: 0.2 mg/m3 fume\", \"rules\": [\"R04\", \"R06\", \"R08\", \"R10\"], \"note\": \"OEL TWA 0.1 mg/m3, form 'fume'\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[10]\", \"page\": 5, \"source_text\": \"구리 | TWA: 1 mg/m3; dust and mist TWA: 0.1 mg/m3; fume STEL: 2 mg/m3; dust and mist | 자료 없음 | TWA: 0.2 mg/m3 fume\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": \"OEL STEL 2 mg/m3, form 'dust and mist'\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[11]\", \"page\": 5, \"source_text\": \"구리 | ... | 자료 없음 | TWA: 0.2 mg/m3 fume\", \"rules\": [\"R15\"], \"note\": \"PEL 열 자료없음\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[12]\", \"page\": 5, \"source_text\": \"구리 | ... | 자료 없음 | TWA: 0.2 mg/m3 fume\", \"rules\": [\"R04\", \"R06\", \"R08\", \"R10\"], \"note\": \"ACGIH TWA 0.2 mg/m3, form 'fume'\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[13]\", \"page\": 5, \"source_text\": \"물 7732-18-5 | 자료 없음\", \"rules\": [\"R10\", \"R15\"], \"note\": \"생물학적 작업 노출 기준 표(ACGIH)\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[14]\", \"page\": 5, \"source_text\": \"질산 7697-37-2 | 자료 없음\", \"rules\": [\"R10\", \"R15\"], \"note\": \"생물학적 작업 노출 기준 표(ACGIH)\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[15]\", \"page\": 5, \"source_text\": \"구리 7440-50-8 | 자료 없음\", \"rules\": [\"R10\", \"R15\"], \"note\": \"생물학적 작업 노출 기준 표(ACGIH)\"}, {\"msds_index\": 0, \"field\": \"physchem[0]\", \"page\": 6, \"source_text\": \"A. 외관 액체\", \"rules\": [\"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[1]\", \"page\": 6, \"source_text\": \"물리적 상태 액체\", \"rules\": [\"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[2]\", \"page\": 6, \"source_text\": \"색 무색\", \"rules\": [\"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[3]\", \"page\": 6, \"source_text\": \"B. 냄새 무취\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[4]\", \"page\": 6, \"source_text\": \"다. 냄새 역치 자료 없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[5]\", \"page\": 6, \"source_text\": \"라. pH 자료 없음 알려진 것 없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[6]\", \"page\": 6, \"source_text\": \"마. 녹는점 / 어는점 자료 없음 알려진 것 없음\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[7]\", \"page\": 6, \"source_text\": \"바. 초기 끓는점과 끓는점 범위 자료 없음 알려진 것 없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[8]\", \"page\": 6, \"source_text\": \"사. 인화점 자료 없음 알려진 것 없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[9]\", \"page\": 6, \"source_text\": \"아. 증발 속도 자료 없음 알려진 것 없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[10]\", \"page\": 6, \"source_text\": \"자. 인화성 자료 없음 알려진 것 없음\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[11]\", \"page\": 6, \"source_text\": \"인화 또는 폭발 범위의 상한 자료 없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[12]\", \"page\": 6, \"source_text\": \"인화 또는 폭발 범위의 하한 자료 없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[13]\", \"page\": 6, \"source_text\": \"카. 증기압 자료 없음 알려진 것 없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[14]\", \"page\": 6, \"source_text\": \"수용해도 알려진 것 없음\", \"rules\": [\"R15\"], \"note\": \"수치 열이 비어 있어 미기재; '알려진 것 없음'은 참조·방법 열 값\"}, {\"msds_index\": 0, \"field\": \"physchem[15]\", \"page\": 6, \"source_text\": \"다른 용제에서의 용해도 자료 없음 알려진 것 없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[16]\", \"page\": 6, \"source_text\": \"파. 상대 증기 밀도 자료 없음 알려진 것 없음\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[17]\", \"page\": 6, \"source_text\": \"하. 비중 자료 없음 알려진 것 없음\", \"rules\": [\"R15\"], \"note\": \"벌크 밀도·액체 밀도 행은 동의어 사전에 없어 넣지 않음\"}, {\"msds_index\": 0, \"field\": \"physchem[18]\", \"page\": 6, \"source_text\": \"거. n 옥탄올/물 분배계수 자료 없음 알려진 것 없음\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[19]\", \"page\": 6, \"source_text\": \"너. 자연발화 온도 자료 없음 알려진 것 없음\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[20]\", \"page\": 6, \"source_text\": \"더. 분해 온도 알려진 것 없음\", \"rules\": [\"R15\"], \"note\": \"수치 열이 비어 있어 미기재\"}, {\"msds_index\": 0, \"field\": \"physchem[21]\", \"page\": 7, \"source_text\": \"동적 점도 자료 없음\", \"rules\": [\"R15\", \"R25\"], \"note\": \"러. 점도 아래 동적 점도 행\"}, {\"msds_index\": 0, \"field\": \"physchem[22]\", \"page\": 7, \"source_text\": \"동점성 자료 없음\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[23]\", \"page\": 7, \"source_text\": \"머. 분자량 자료 없음\", \"rules\": [\"R15\"], \"note\": null}]}"
+}

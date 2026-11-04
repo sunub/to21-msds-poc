@@ -1,0 +1,1449 @@
+{
+  "doc_id": "T21-M003",
+  "bundle": "b3",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 61581,
+    "completion_tokens": 12072,
+    "cached_tokens": 8451,
+    "reasoning_tokens": 1488,
+    "notional_cost_usd": 0.6681622
+  },
+  "seconds": 85.3,
+  "request_usage": [
+    {
+      "prompt_tokens": 61581,
+      "completion_tokens": 12072,
+      "cached_tokens": 8451,
+      "reasoning_tokens": 1488,
+      "notional_cost_usd": 0.6681622
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "toxicity": [
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ORAL",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_DERMAL",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_DERMAL",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_DERMAL",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "TX_DERMAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "LD50 > 2,000 ㎎/㎏ Rat",
+              "lower_op": ">",
+              "lower": 2000,
+              "unit": "mg/kg",
+              "status": "값있음"
+            },
+            "species": "Rat",
+            "sex": "미표기",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_INHAL",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "가스 LC50 800,000 ppm 15 min Rat",
+              "value": 800000,
+              "unit": "ppm",
+              "status": "값있음"
+            },
+            "species": "Rat",
+            "sex": "미표기",
+            "duration_value": 15,
+            "duration_unit": "min",
+            "physical_form": "가스",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_INHAL",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "TX_INHAL",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "LC50 280,000 mg/㎥ 4 hr Rat",
+              "value": 280000,
+              "unit": "mg/m3",
+              "status": "값있음"
+            },
+            "species": "Rat",
+            "sex": "미표기",
+            "duration_value": 4,
+            "duration_unit": "hr",
+            "physical_form": null,
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_SKIN",
+            "descriptor": "결과기술",
+            "species": "rabbit",
+            "data_source": "IUCLID",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "자료없음 (EU Directive 67/548). rabbit /irritating 래빗/자극( IUCLID)",
+                "text": "자료없음 (EU Directive 67/548). rabbit /irritating 래빗/자극( IUCLID)",
+                "refs": [
+                  "1"
+                ]
+              }
+            ]
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_SKIN",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "TX_SKIN",
+            "descriptor": "결과기술",
+            "species": "Rabbit",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "비자극성 (Rabbit)",
+                "text": "비자극성 (Rabbit)",
+                "refs": [
+                  "3"
+                ]
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_EYE",
+            "descriptor": "결과기술",
+            "species": "Rabbit",
+            "data_source": "IUCLID",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "자료없음(EU Directive 67/548/EEC). Rabbit/not irritating 래빗/무자극(IUCLID)",
+                "text": "자료없음(EU Directive 67/548/EEC). Rabbit/not irritating 래빗/무자극(IUCLID)",
+                "refs": [
+                  "1"
+                ]
+              }
+            ]
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_EYE",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "TX_EYE",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "고농도의 증기가 눈을 자극함.",
+                "text": "고농도의 증기가 눈을 자극함.",
+                "refs": [
+                  "3"
+                ]
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_RESP_SENS",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN_SENS",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_MUTA",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_MUTA",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "TX_MUTA",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "in vivo 포유류 골수 소핵시험 음성",
+                "text": "in vivo 포유류 골수 소핵시험 음성",
+                "refs": [
+                  "3"
+                ]
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_REPRO",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_REPRO",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_REPRO",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "TX_REPRO",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "1세대 생식독성시험 결과 모친동물 및 차세대 동물에서 독성학적 영향은 관찰되지 않았으며(1,000 ㎎/㎏), 다만 부친동물에서 매우 경미한 영향 (체중 감소 및 신장의 변성/재생)이 관찰됨",
+                "text": "1세대 생식독성시험 결과 모친동물 및 차세대 동물에서 독성학적 영향은 관찰되지 않았으며(1,000 ㎎/㎏), 다만 부친동물에서 매우 경미한 영향 (체중 감소 및 신장의 변성/재생)이 관찰됨",
+                "refs": [
+                  "3"
+                ]
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_STOT_SE",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_STOT_SE",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "TX_STOT_SE",
+            "descriptor": "결과기술",
+            "species": "흰쥐, 마우스",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "흰쥐, 마우스 흡입 노출시 마취 작용이 보고됨.",
+                "text": "흰쥐, 마우스 흡입 노출시 마취 작용이 보고됨.",
+                "refs": [
+                  "3"
+                ]
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_STOT_RE",
+            "descriptor": "결과기술",
+            "data_source": "TOMES",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "자료없음(EU Directive 67/548/EEC). Central nervous system:신경계 영향(TOMES)",
+                "text": "자료없음(EU Directive 67/548/EEC). Central nervous system:신경계 영향(TOMES)",
+                "refs": [
+                  "1"
+                ]
+              }
+            ]
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_STOT_RE",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "TX_STOT_RE",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ASP",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": null,
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "기타 유해성 영향",
+                "value": "자료없음",
+                "text": "기타 유해성 영향 자료없음"
+              }
+            ]
+          }
+        ],
+        "cmr": [
+          {
+            "comp_ref": "MIX",
+            "hazard": "발암성",
+            "agency": "KR_OSH",
+            "class": null,
+            "status": "자료없음",
+            "note": "산업안전보건법"
+          },
+          {
+            "comp_ref": "MIX",
+            "hazard": "발암성",
+            "agency": "KR_OSH",
+            "class": null,
+            "status": "자료없음",
+            "note": "고용노동부고시"
+          },
+          {
+            "comp_ref": "MIX",
+            "hazard": "발암성",
+            "agency": "IARC",
+            "class": null,
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "hazard": "발암성",
+            "agency": "OSHA",
+            "class": null,
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "hazard": "발암성",
+            "agency": "ACGIH",
+            "class": null,
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "hazard": "발암성",
+            "agency": "NTP",
+            "class": null,
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "hazard": "발암성",
+            "agency": "EU_CLP",
+            "class": null,
+            "status": "자료없음"
+          }
+        ],
+        "ecotox": [
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_FISH",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "LC50 > 100 ㎎/ℓ 96 hr 기타 ((시험종 : Fish TLm))",
+              "lower_op": ">",
+              "lower": 100,
+              "unit": "mg/L",
+              "status": "값있음"
+            },
+            "species": "Fish TLm",
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_FISH",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "LC50 29.535 ㎎/ℓ 96 hr 기타 (ECOSAR: Neutral Organics)",
+              "value": 29.535,
+              "dp": 3,
+              "unit": "mg/L",
+              "status": "값있음"
+            },
+            "species": "기타",
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "data_source": "ECOSAR: Neutral Organics",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "ECO_FISH",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_CRUST",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "LC50 52.157 ㎎/ℓ 48 hr",
+              "value": 52.157,
+              "dp": 3,
+              "unit": "mg/L",
+              "status": "값있음"
+            },
+            "duration_value": 48,
+            "duration_unit": "hr",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_CRUST",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "LC50 17.133 ㎎/ℓ 48 hr Daphnia magna (ECOSAR: Neutral Organics)",
+              "value": 17.133,
+              "dp": 3,
+              "unit": "mg/L",
+              "status": "값있음"
+            },
+            "species": "Daphnia magna",
+            "duration_value": 48,
+            "duration_unit": "hr",
+            "data_source": "ECOSAR: Neutral Organics",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "ECO_CRUST",
+            "descriptor": "EC50",
+            "q": {
+              "raw": "EC50 2.3 ㎎/ℓ 48 hr",
+              "value": 2.3,
+              "dp": 1,
+              "unit": "mg/L",
+              "status": "값있음"
+            },
+            "duration_value": 48,
+            "duration_unit": "hr",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_ALGAE",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "LC50 32.252 ㎎/ℓ 96 hr",
+              "value": 32.252,
+              "dp": 3,
+              "unit": "mg/L",
+              "status": "값있음"
+            },
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_ALGAE",
+            "descriptor": "EC50",
+            "q": {
+              "raw": "EC50 13.946 ㎎/ℓ 96 hr 기타 (ECOSAR: Neutral Organics)",
+              "value": 13.946,
+              "dp": 3,
+              "unit": "mg/L",
+              "status": "값있음"
+            },
+            "species": "기타",
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "data_source": "ECOSAR: Neutral Organics",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "ECO_ALGAE",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "logKow",
+            "q": {
+              "raw": "log Kow 2.36",
+              "value": 2.36,
+              "dp": 2,
+              "status": "값있음"
+            },
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "logKow",
+            "q": {
+              "raw": "log Kow 2.76",
+              "value": 2.76,
+              "dp": 2,
+              "status": "값있음"
+            },
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "logKow",
+            "q": {
+              "raw": "log Kow 2.30",
+              "value": 2.3,
+              "dp": 2,
+              "status": "값있음"
+            },
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "분해성",
+                "value": "자료없음",
+                "text": "분해성 자료없음"
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": "BCF",
+            "q": {
+              "raw": "BCF 13",
+              "value": 13,
+              "status": "값있음"
+            },
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": "BCF",
+            "q": {
+              "raw": "BCF 30.76",
+              "value": 30.76,
+              "dp": 2,
+              "status": "값있음"
+            },
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "분해율",
+            "q": {
+              "raw": "65.7 (%) 35 day",
+              "value": 65.7,
+              "dp": 1,
+              "unit": "%",
+              "status": "값있음"
+            },
+            "duration_value": 35,
+            "duration_unit": "day",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "생분해성",
+                "value": "(난분해성)",
+                "text": "(난분해성)",
+                "refs": [
+                  "2"
+                ]
+              }
+            ]
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "생분해성",
+                "value": "자료없음",
+                "text": "이소펜탄 자료없음"
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_SOIL",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_OTHER",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "toxicity[0]",
+        "page": 6,
+        "source_text": "경구 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "성분 구분 없이 기재되어 MIX로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[1]",
+        "page": 7,
+        "source_text": "경피 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "항목 머리 줄의 자료없음을 MIX 행으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[2]",
+        "page": 7,
+        "source_text": "프로판 | 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[3]",
+        "page": 7,
+        "source_text": "부탄 혼합물 | 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[4]",
+        "page": 7,
+        "source_text": "이소펜탄 | LD50 > 2,000 ㎎/㎏ Rat",
+        "rules": [
+          "R04",
+          "R06",
+          "R08",
+          "R10"
+        ],
+        "note": "'> 2,000'을 하한 2000(>)으로, ㎎/㎏→mg/kg"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[5]",
+        "page": 7,
+        "source_text": "프로판 | 가스 LC50 800,000 ppm 15 min Rat",
+        "rules": [
+          "R04",
+          "R06",
+          "R10"
+        ],
+        "note": "'가스'를 physical_form, 15 min을 노출시간으로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[6]",
+        "page": 7,
+        "source_text": "부탄 혼합물 | 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[7]",
+        "page": 7,
+        "source_text": "이소펜탄 | LC50 280,000 mg/㎥ 4 hr Rat",
+        "rules": [
+          "R04",
+          "R06",
+          "R08",
+          "R10"
+        ],
+        "note": "흡입 형태 표기 없어 physical_form null"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[8]",
+        "page": 7,
+        "source_text": "프로판 | 자료없음 (EU Directive 67/548). rabbit /irritating 래빗/자극( IUCLID)",
+        "rules": [
+          "R10"
+        ],
+        "note": "시험 결과가 함께 적혀 결과기술로 원문 문장 보존"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[9]",
+        "page": 7,
+        "source_text": "부탄 혼합물 | 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[10]",
+        "page": 7,
+        "source_text": "이소펜탄 | 비자극성 (Rabbit)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[11]",
+        "page": 7,
+        "source_text": "프로판 | 자료없음(EU Directive 67/548/EEC). Rabbit/not irritating 래빗/무자극(IUCLID)",
+        "rules": [
+          "R10"
+        ],
+        "note": "결과기술로 원문 보존"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[12]",
+        "page": 7,
+        "source_text": "부탄 혼합물 | 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[13]",
+        "page": 7,
+        "source_text": "이소펜탄 | 고농도의 증기가 눈을 자극함.",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[14]",
+        "page": 7,
+        "source_text": "호흡기과민성 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[15]",
+        "page": 7,
+        "source_text": "피부과민성 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[16]",
+        "page": 7,
+        "source_text": "프로판 | 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "생식세포변이원성"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[17]",
+        "page": 7,
+        "source_text": "부탄 혼합물 | 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "생식세포변이원성"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[18]",
+        "page": 7,
+        "source_text": "이소펜탄 | in vivo 포유류 골수 소핵시험 음성",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[19]",
+        "page": 7,
+        "source_text": "생식독성 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "항목 머리 줄을 MIX 행으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[20]",
+        "page": 7,
+        "source_text": "프로판 | 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "생식독성"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[21]",
+        "page": 7,
+        "source_text": "부탄 혼합물 | 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "생식독성"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[22]",
+        "page": 7,
+        "source_text": "이소펜탄 | 1세대 생식독성시험 결과 모친동물 및 차세대 동물에서 독성학적 영향은 관찰되지 않았으며(1,000 ㎎/㎏), 다만 부친동물에서 매우 경미한 영향",
+        "rules": [
+          "R10"
+        ],
+        "note": "지표 명시 없어 결과기술로 문장 보존"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[23]",
+        "page": 7,
+        "source_text": "프로판 | 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "특정 표적장기 독성(1회 노출)"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[24]",
+        "page": 7,
+        "source_text": "부탄 혼합물 | 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "특정 표적장기 독성(1회 노출)"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[25]",
+        "page": 7,
+        "source_text": "이소펜탄 | 흰쥐, 마우스 흡입 노출시 마취 작용이 보고됨.",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[26]",
+        "page": 7,
+        "source_text": "프로판 | 자료없음(EU Directive 67/548/EEC). Central nervous system:신경계 영향(TOMES)",
+        "rules": [
+          "R10"
+        ],
+        "note": "결과기술로 원문 보존"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[27]",
+        "page": 7,
+        "source_text": "부탄 혼합물 | 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "특정 표적장기 독성(반복 노출)"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[28]",
+        "page": 7,
+        "source_text": "이소펜탄 | 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "특정 표적장기 독성(반복 노출)"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[29]",
+        "page": 7,
+        "source_text": "흡인유해성 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[30]",
+        "page": 7,
+        "source_text": "기타 유해성 영향 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "맞는 값 없음: C5에 11항 기타 유해성 영향 코드가 없어 endpoint null"
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[0]",
+        "page": 7,
+        "source_text": "산업안전보건법 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[1]",
+        "page": 7,
+        "source_text": "고용노동부고시 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "고용노동부 고시를 KR_OSH로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[2]",
+        "page": 7,
+        "source_text": "IARC | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[3]",
+        "page": 7,
+        "source_text": "OSHA | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[4]",
+        "page": 7,
+        "source_text": "ACGIH | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[5]",
+        "page": 7,
+        "source_text": "NTP | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[6]",
+        "page": 7,
+        "source_text": "EU CLP | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[0]",
+        "page": 8,
+        "source_text": "프로판 | LC50 > 100 ㎎/ℓ 96 hr 기타 ((시험종 : Fish TLm))",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "시험종 'Fish TLm'을 species로"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[1]",
+        "page": 8,
+        "source_text": "부탄 혼합물 | LC50 29.535 ㎎/ℓ 96 hr 기타 (ECOSAR: Neutral Organics)",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[2]",
+        "page": 8,
+        "source_text": "이소펜탄 | 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "어류"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[3]",
+        "page": 8,
+        "source_text": "프로판 | LC50 52.157 ㎎/ℓ 48 hr",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[4]",
+        "page": 8,
+        "source_text": "부탄 혼합물 | LC50 17.133 ㎎/ℓ 48 hr Daphnia magna (ECOSAR: Neutral Organics)",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[5]",
+        "page": 8,
+        "source_text": "이소펜탄 | EC50 2.3 ㎎/ℓ 48 hr",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[6]",
+        "page": 8,
+        "source_text": "프로판 | LC50 32.252 ㎎/ℓ 96 hr",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[7]",
+        "page": 8,
+        "source_text": "부탄 혼합물 | EC50 13.946 ㎎/ℓ 96 hr 기타 (ECOSAR: Neutral Organics)",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[8]",
+        "page": 8,
+        "source_text": "이소펜탄 | 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "조류"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[9]",
+        "page": 8,
+        "source_text": "프로판 | log Kow 2.36",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[10]",
+        "page": 8,
+        "source_text": "부탄 혼합물 | log Kow 2.76",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[11]",
+        "page": 8,
+        "source_text": "이소펜탄 | log Kow 2.30",
+        "rules": [
+          "R04",
+          "R06",
+          "R10"
+        ],
+        "note": "'2.30'을 value 2.3, dp 2로"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[12]",
+        "page": 8,
+        "source_text": "분해성 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[13]",
+        "page": 8,
+        "source_text": "프로판 | BCF 13",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[14]",
+        "page": 8,
+        "source_text": "부탄 혼합물 | BCF 30.76",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[15]",
+        "page": 8,
+        "source_text": "이소펜탄 | 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "농축성"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[16]",
+        "page": 8,
+        "source_text": "프로판 | 65.7 (%) 35 day",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "생물농축성 아래 '생분해성' 소항목이나 분해율이므로 ECO_PERSIST로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[17]",
+        "page": 8,
+        "source_text": "부탄 혼합물 | (난분해성)",
+        "rules": [
+          "R10"
+        ],
+        "note": "생분해성 결과기술, ECO_PERSIST로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[18]",
+        "page": 8,
+        "source_text": "이소펜탄 | 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "생분해성"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[19]",
+        "page": 8,
+        "source_text": "라. 토양이동성 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[20]",
+        "page": 8,
+        "source_text": "마. 기타 유해 영향 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"toxicity\": [{\"comp_ref\": \"MIX\", \"endpoint\": \"TX_ORAL\", \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_DERMAL\", \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_DERMAL\", \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"2\", \"endpoint\": \"TX_DERMAL\", \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"3\", \"endpoint\": \"TX_DERMAL\", \"descriptor\": \"LD50\", \"q\": {\"raw\": \"LD50 > 2,000 ㎎/㎏ Rat\", \"lower_op\": \">\", \"lower\": 2000, \"unit\": \"mg/kg\", \"status\": \"값있음\"}, \"species\": \"Rat\", \"sex\": \"미표기\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_INHAL\", \"descriptor\": \"LC50\", \"q\": {\"raw\": \"가스 LC50 800,000 ppm 15 min Rat\", \"value\": 800000, \"unit\": \"ppm\", \"status\": \"값있음\"}, \"species\": \"Rat\", \"sex\": \"미표기\", \"duration_value\": 15, \"duration_unit\": \"min\", \"physical_form\": \"가스\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"2\", \"endpoint\": \"TX_INHAL\", \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"3\", \"endpoint\": \"TX_INHAL\", \"descriptor\": \"LC50\", \"q\": {\"raw\": \"LC50 280,000 mg/㎥ 4 hr Rat\", \"value\": 280000, \"unit\": \"mg/m3\", \"status\": \"값있음\"}, \"species\": \"Rat\", \"sex\": \"미표기\", \"duration_value\": 4, \"duration_unit\": \"hr\", \"physical_form\": null, \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_SKIN\", \"descriptor\": \"결과기술\", \"species\": \"rabbit\", \"data_source\": \"IUCLID\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"자료없음 (EU Directive 67/548). rabbit /irritating 래빗/자극( IUCLID)\", \"text\": \"자료없음 (EU Directive 67/548). rabbit /irritating 래빗/자극( IUCLID)\", \"refs\": [\"1\"]}]}, {\"comp_ref\": \"2\", \"endpoint\": \"TX_SKIN\", \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"3\", \"endpoint\": \"TX_SKIN\", \"descriptor\": \"결과기술\", \"species\": \"Rabbit\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"비자극성 (Rabbit)\", \"text\": \"비자극성 (Rabbit)\", \"refs\": [\"3\"]}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_EYE\", \"descriptor\": \"결과기술\", \"species\": \"Rabbit\", \"data_source\": \"IUCLID\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"자료없음(EU Directive 67/548/EEC). Rabbit/not irritating 래빗/무자극(IUCLID)\", \"text\": \"자료없음(EU Directive 67/548/EEC). Rabbit/not irritating 래빗/무자극(IUCLID)\", \"refs\": [\"1\"]}]}, {\"comp_ref\": \"2\", \"endpoint\": \"TX_EYE\", \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"3\", \"endpoint\": \"TX_EYE\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"고농도의 증기가 눈을 자극함.\", \"text\": \"고농도의 증기가 눈을 자극함.\", \"refs\": [\"3\"]}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_RESP_SENS\", \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_SKIN_SENS\", \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_MUTA\", \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"2\", \"endpoint\": \"TX_MUTA\", \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"3\", \"endpoint\": \"TX_MUTA\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"in vivo 포유류 골수 소핵시험 음성\", \"text\": \"in vivo 포유류 골수 소핵시험 음성\", \"refs\": [\"3\"]}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_REPRO\", \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_REPRO\", \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"2\", \"endpoint\": \"TX_REPRO\", \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"3\", \"endpoint\": \"TX_REPRO\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"1세대 생식독성시험 결과 모친동물 및 차세대 동물에서 독성학적 영향은 관찰되지 않았으며(1,000 ㎎/㎏), 다만 부친동물에서 매우 경미한 영향 (체중 감소 및 신장의 변성/재생)이 관찰됨\", \"text\": \"1세대 생식독성시험 결과 모친동물 및 차세대 동물에서 독성학적 영향은 관찰되지 않았으며(1,000 ㎎/㎏), 다만 부친동물에서 매우 경미한 영향 (체중 감소 및 신장의 변성/재생)이 관찰됨\", \"refs\": [\"3\"]}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_STOT_SE\", \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"2\", \"endpoint\": \"TX_STOT_SE\", \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"3\", \"endpoint\": \"TX_STOT_SE\", \"descriptor\": \"결과기술\", \"species\": \"흰쥐, 마우스\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"흰쥐, 마우스 흡입 노출시 마취 작용이 보고됨.\", \"text\": \"흰쥐, 마우스 흡입 노출시 마취 작용이 보고됨.\", \"refs\": [\"3\"]}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_STOT_RE\", \"descriptor\": \"결과기술\", \"data_source\": \"TOMES\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"자료없음(EU Directive 67/548/EEC). Central nervous system:신경계 영향(TOMES)\", \"text\": \"자료없음(EU Directive 67/548/EEC). Central nervous system:신경계 영향(TOMES)\", \"refs\": [\"1\"]}]}, {\"comp_ref\": \"2\", \"endpoint\": \"TX_STOT_RE\", \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"3\", \"endpoint\": \"TX_STOT_RE\", \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_ASP\", \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": null, \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": [{\"seq\": 1, \"key\": \"기타 유해성 영향\", \"value\": \"자료없음\", \"text\": \"기타 유해성 영향 자료없음\"}]}], \"cmr\": [{\"comp_ref\": \"MIX\", \"hazard\": \"발암성\", \"agency\": \"KR_OSH\", \"class\": null, \"status\": \"자료없음\", \"note\": \"산업안전보건법\"}, {\"comp_ref\": \"MIX\", \"hazard\": \"발암성\", \"agency\": \"KR_OSH\", \"class\": null, \"status\": \"자료없음\", \"note\": \"고용노동부고시\"}, {\"comp_ref\": \"MIX\", \"hazard\": \"발암성\", \"agency\": \"IARC\", \"class\": null, \"status\": \"자료없음\"}, {\"comp_ref\": \"MIX\", \"hazard\": \"발암성\", \"agency\": \"OSHA\", \"class\": null, \"status\": \"자료없음\"}, {\"comp_ref\": \"MIX\", \"hazard\": \"발암성\", \"agency\": \"ACGIH\", \"class\": null, \"status\": \"자료없음\"}, {\"comp_ref\": \"MIX\", \"hazard\": \"발암성\", \"agency\": \"NTP\", \"class\": null, \"status\": \"자료없음\"}, {\"comp_ref\": \"MIX\", \"hazard\": \"발암성\", \"agency\": \"EU_CLP\", \"class\": null, \"status\": \"자료없음\"}], \"ecotox\": [{\"comp_ref\": \"1\", \"endpoint\": \"ECO_FISH\", \"descriptor\": \"LC50\", \"q\": {\"raw\": \"LC50 > 100 ㎎/ℓ 96 hr 기타 ((시험종 : Fish TLm))\", \"lower_op\": \">\", \"lower\": 100, \"unit\": \"mg/L\", \"status\": \"값있음\"}, \"species\": \"Fish TLm\", \"duration_value\": 96, \"duration_unit\": \"hr\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"2\", \"endpoint\": \"ECO_FISH\", \"descriptor\": \"LC50\", \"q\": {\"raw\": \"LC50 29.535 ㎎/ℓ 96 hr 기타 (ECOSAR: Neutral Organics)\", \"value\": 29.535, \"dp\": 3, \"unit\": \"mg/L\", \"status\": \"값있음\"}, \"species\": \"기타\", \"duration_value\": 96, \"duration_unit\": \"hr\", \"data_source\": \"ECOSAR: Neutral Organics\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"3\", \"endpoint\": \"ECO_FISH\", \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_CRUST\", \"descriptor\": \"LC50\", \"q\": {\"raw\": \"LC50 52.157 ㎎/ℓ 48 hr\", \"value\": 52.157, \"dp\": 3, \"unit\": \"mg/L\", \"status\": \"값있음\"}, \"duration_value\": 48, \"duration_unit\": \"hr\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"2\", \"endpoint\": \"ECO_CRUST\", \"descriptor\": \"LC50\", \"q\": {\"raw\": \"LC50 17.133 ㎎/ℓ 48 hr Daphnia magna (ECOSAR: Neutral Organics)\", \"value\": 17.133, \"dp\": 3, \"unit\": \"mg/L\", \"status\": \"값있음\"}, \"species\": \"Daphnia magna\", \"duration_value\": 48, \"duration_unit\": \"hr\", \"data_source\": \"ECOSAR: Neutral Organics\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"3\", \"endpoint\": \"ECO_CRUST\", \"descriptor\": \"EC50\", \"q\": {\"raw\": \"EC50 2.3 ㎎/ℓ 48 hr\", \"value\": 2.3, \"dp\": 1, \"unit\": \"mg/L\", \"status\": \"값있음\"}, \"duration_value\": 48, \"duration_unit\": \"hr\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_ALGAE\", \"descriptor\": \"LC50\", \"q\": {\"raw\": \"LC50 32.252 ㎎/ℓ 96 hr\", \"value\": 32.252, \"dp\": 3, \"unit\": \"mg/L\", \"status\": \"값있음\"}, \"duration_value\": 96, \"duration_unit\": \"hr\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"2\", \"endpoint\": \"ECO_ALGAE\", \"descriptor\": \"EC50\", \"q\": {\"raw\": \"EC50 13.946 ㎎/ℓ 96 hr 기타 (ECOSAR: Neutral Organics)\", \"value\": 13.946, \"dp\": 3, \"unit\": \"mg/L\", \"status\": \"값있음\"}, \"species\": \"기타\", \"duration_value\": 96, \"duration_unit\": \"hr\", \"data_source\": \"ECOSAR: Neutral Organics\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"3\", \"endpoint\": \"ECO_ALGAE\", \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": \"logKow\", \"q\": {\"raw\": \"log Kow 2.36\", \"value\": 2.36, \"dp\": 2, \"status\": \"값있음\"}, \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"2\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": \"logKow\", \"q\": {\"raw\": \"log Kow 2.76\", \"value\": 2.76, \"dp\": 2, \"status\": \"값있음\"}, \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"3\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": \"logKow\", \"q\": {\"raw\": \"log Kow 2.30\", \"value\": 2.3, \"dp\": 2, \"status\": \"값있음\"}, \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": [{\"seq\": 1, \"key\": \"분해성\", \"value\": \"자료없음\", \"text\": \"분해성 자료없음\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_BIOACC\", \"descriptor\": \"BCF\", \"q\": {\"raw\": \"BCF 13\", \"value\": 13, \"status\": \"값있음\"}, \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"2\", \"endpoint\": \"ECO_BIOACC\", \"descriptor\": \"BCF\", \"q\": {\"raw\": \"BCF 30.76\", \"value\": 30.76, \"dp\": 2, \"status\": \"값있음\"}, \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"3\", \"endpoint\": \"ECO_BIOACC\", \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": \"분해율\", \"q\": {\"raw\": \"65.7 (%) 35 day\", \"value\": 65.7, \"dp\": 1, \"unit\": \"%\", \"status\": \"값있음\"}, \"duration_value\": 35, \"duration_unit\": \"day\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"2\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"생분해성\", \"value\": \"(난분해성)\", \"text\": \"(난분해성)\", \"refs\": [\"2\"]}]}, {\"comp_ref\": \"3\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": [{\"seq\": 1, \"key\": \"생분해성\", \"value\": \"자료없음\", \"text\": \"이소펜탄 자료없음\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_SOIL\", \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_OTHER\", \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"toxicity[0]\", \"page\": 6, \"source_text\": \"경구 | 자료없음\", \"rules\": [\"R15\"], \"note\": \"성분 구분 없이 기재되어 MIX로 둠\"}, {\"msds_index\": 0, \"field\": \"toxicity[1]\", \"page\": 7, \"source_text\": \"경피 | 자료없음\", \"rules\": [\"R15\"], \"note\": \"항목 머리 줄의 자료없음을 MIX 행으로 둠\"}, {\"msds_index\": 0, \"field\": \"toxicity[2]\", \"page\": 7, \"source_text\": \"프로판 | 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[3]\", \"page\": 7, \"source_text\": \"부탄 혼합물 | 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[4]\", \"page\": 7, \"source_text\": \"이소펜탄 | LD50 > 2,000 ㎎/㎏ Rat\", \"rules\": [\"R04\", \"R06\", \"R08\", \"R10\"], \"note\": \"'> 2,000'을 하한 2000(>)으로, ㎎/㎏→mg/kg\"}, {\"msds_index\": 0, \"field\": \"toxicity[5]\", \"page\": 7, \"source_text\": \"프로판 | 가스 LC50 800,000 ppm 15 min Rat\", \"rules\": [\"R04\", \"R06\", \"R10\"], \"note\": \"'가스'를 physical_form, 15 min을 노출시간으로 분리\"}, {\"msds_index\": 0, \"field\": \"toxicity[6]\", \"page\": 7, \"source_text\": \"부탄 혼합물 | 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[7]\", \"page\": 7, \"source_text\": \"이소펜탄 | LC50 280,000 mg/㎥ 4 hr Rat\", \"rules\": [\"R04\", \"R06\", \"R08\", \"R10\"], \"note\": \"흡입 형태 표기 없어 physical_form null\"}, {\"msds_index\": 0, \"field\": \"toxicity[8]\", \"page\": 7, \"source_text\": \"프로판 | 자료없음 (EU Directive 67/548). rabbit /irritating 래빗/자극( IUCLID)\", \"rules\": [\"R10\"], \"note\": \"시험 결과가 함께 적혀 결과기술로 원문 문장 보존\"}, {\"msds_index\": 0, \"field\": \"toxicity[9]\", \"page\": 7, \"source_text\": \"부탄 혼합물 | 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[10]\", \"page\": 7, \"source_text\": \"이소펜탄 | 비자극성 (Rabbit)\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[11]\", \"page\": 7, \"source_text\": \"프로판 | 자료없음(EU Directive 67/548/EEC). Rabbit/not irritating 래빗/무자극(IUCLID)\", \"rules\": [\"R10\"], \"note\": \"결과기술로 원문 보존\"}, {\"msds_index\": 0, \"field\": \"toxicity[12]\", \"page\": 7, \"source_text\": \"부탄 혼합물 | 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[13]\", \"page\": 7, \"source_text\": \"이소펜탄 | 고농도의 증기가 눈을 자극함.\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[14]\", \"page\": 7, \"source_text\": \"호흡기과민성 | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[15]\", \"page\": 7, \"source_text\": \"피부과민성 | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[16]\", \"page\": 7, \"source_text\": \"프로판 | 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": \"생식세포변이원성\"}, {\"msds_index\": 0, \"field\": \"toxicity[17]\", \"page\": 7, \"source_text\": \"부탄 혼합물 | 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": \"생식세포변이원성\"}, {\"msds_index\": 0, \"field\": \"toxicity[18]\", \"page\": 7, \"source_text\": \"이소펜탄 | in vivo 포유류 골수 소핵시험 음성\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[19]\", \"page\": 7, \"source_text\": \"생식독성 | 자료없음\", \"rules\": [\"R15\"], \"note\": \"항목 머리 줄을 MIX 행으로 둠\"}, {\"msds_index\": 0, \"field\": \"toxicity[20]\", \"page\": 7, \"source_text\": \"프로판 | 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": \"생식독성\"}, {\"msds_index\": 0, \"field\": \"toxicity[21]\", \"page\": 7, \"source_text\": \"부탄 혼합물 | 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": \"생식독성\"}, {\"msds_index\": 0, \"field\": \"toxicity[22]\", \"page\": 7, \"source_text\": \"이소펜탄 | 1세대 생식독성시험 결과 모친동물 및 차세대 동물에서 독성학적 영향은 관찰되지 않았으며(1,000 ㎎/㎏), 다만 부친동물에서 매우 경미한 영향\", \"rules\": [\"R10\"], \"note\": \"지표 명시 없어 결과기술로 문장 보존\"}, {\"msds_index\": 0, \"field\": \"toxicity[23]\", \"page\": 7, \"source_text\": \"프로판 | 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": \"특정 표적장기 독성(1회 노출)\"}, {\"msds_index\": 0, \"field\": \"toxicity[24]\", \"page\": 7, \"source_text\": \"부탄 혼합물 | 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": \"특정 표적장기 독성(1회 노출)\"}, {\"msds_index\": 0, \"field\": \"toxicity[25]\", \"page\": 7, \"source_text\": \"이소펜탄 | 흰쥐, 마우스 흡입 노출시 마취 작용이 보고됨.\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[26]\", \"page\": 7, \"source_text\": \"프로판 | 자료없음(EU Directive 67/548/EEC). Central nervous system:신경계 영향(TOMES)\", \"rules\": [\"R10\"], \"note\": \"결과기술로 원문 보존\"}, {\"msds_index\": 0, \"field\": \"toxicity[27]\", \"page\": 7, \"source_text\": \"부탄 혼합물 | 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": \"특정 표적장기 독성(반복 노출)\"}, {\"msds_index\": 0, \"field\": \"toxicity[28]\", \"page\": 7, \"source_text\": \"이소펜탄 | 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": \"특정 표적장기 독성(반복 노출)\"}, {\"msds_index\": 0, \"field\": \"toxicity[29]\", \"page\": 7, \"source_text\": \"흡인유해성 | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[30]\", \"page\": 7, \"source_text\": \"기타 유해성 영향 | 자료없음\", \"rules\": [\"R15\"], \"note\": \"맞는 값 없음: C5에 11항 기타 유해성 영향 코드가 없어 endpoint null\"}, {\"msds_index\": 0, \"field\": \"cmr[0]\", \"page\": 7, \"source_text\": \"산업안전보건법 | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[1]\", \"page\": 7, \"source_text\": \"고용노동부고시 | 자료없음\", \"rules\": [\"R15\"], \"note\": \"고용노동부 고시를 KR_OSH로 둠\"}, {\"msds_index\": 0, \"field\": \"cmr[2]\", \"page\": 7, \"source_text\": \"IARC | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[3]\", \"page\": 7, \"source_text\": \"OSHA | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[4]\", \"page\": 7, \"source_text\": \"ACGIH | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[5]\", \"page\": 7, \"source_text\": \"NTP | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[6]\", \"page\": 7, \"source_text\": \"EU CLP | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[0]\", \"page\": 8, \"source_text\": \"프로판 | LC50 > 100 ㎎/ℓ 96 hr 기타 ((시험종 : Fish TLm))\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": \"시험종 'Fish TLm'을 species로\"}, {\"msds_index\": 0, \"field\": \"ecotox[1]\", \"page\": 8, \"source_text\": \"부탄 혼합물 | LC50 29.535 ㎎/ℓ 96 hr 기타 (ECOSAR: Neutral Organics)\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[2]\", \"page\": 8, \"source_text\": \"이소펜탄 | 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": \"어류\"}, {\"msds_index\": 0, \"field\": \"ecotox[3]\", \"page\": 8, \"source_text\": \"프로판 | LC50 52.157 ㎎/ℓ 48 hr\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[4]\", \"page\": 8, \"source_text\": \"부탄 혼합물 | LC50 17.133 ㎎/ℓ 48 hr Daphnia magna (ECOSAR: Neutral Organics)\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[5]\", \"page\": 8, \"source_text\": \"이소펜탄 | EC50 2.3 ㎎/ℓ 48 hr\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[6]\", \"page\": 8, \"source_text\": \"프로판 | LC50 32.252 ㎎/ℓ 96 hr\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[7]\", \"page\": 8, \"source_text\": \"부탄 혼합물 | EC50 13.946 ㎎/ℓ 96 hr 기타 (ECOSAR: Neutral Organics)\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[8]\", \"page\": 8, \"source_text\": \"이소펜탄 | 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": \"조류\"}, {\"msds_index\": 0, \"field\": \"ecotox[9]\", \"page\": 8, \"source_text\": \"프로판 | log Kow 2.36\", \"rules\": [\"R04\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[10]\", \"page\": 8, \"source_text\": \"부탄 혼합물 | log Kow 2.76\", \"rules\": [\"R04\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[11]\", \"page\": 8, \"source_text\": \"이소펜탄 | log Kow 2.30\", \"rules\": [\"R04\", \"R06\", \"R10\"], \"note\": \"'2.30'을 value 2.3, dp 2로\"}, {\"msds_index\": 0, \"field\": \"ecotox[12]\", \"page\": 8, \"source_text\": \"분해성 | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[13]\", \"page\": 8, \"source_text\": \"프로판 | BCF 13\", \"rules\": [\"R04\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[14]\", \"page\": 8, \"source_text\": \"부탄 혼합물 | BCF 30.76\", \"rules\": [\"R04\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[15]\", \"page\": 8, \"source_text\": \"이소펜탄 | 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": \"농축성\"}, {\"msds_index\": 0, \"field\": \"ecotox[16]\", \"page\": 8, \"source_text\": \"프로판 | 65.7 (%) 35 day\", \"rules\": [\"R04\", \"R10\"], \"note\": \"생물농축성 아래 '생분해성' 소항목이나 분해율이므로 ECO_PERSIST로 둠\"}, {\"msds_index\": 0, \"field\": \"ecotox[17]\", \"page\": 8, \"source_text\": \"부탄 혼합물 | (난분해성)\", \"rules\": [\"R10\"], \"note\": \"생분해성 결과기술, ECO_PERSIST로 둠\"}, {\"msds_index\": 0, \"field\": \"ecotox[18]\", \"page\": 8, \"source_text\": \"이소펜탄 | 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": \"생분해성\"}, {\"msds_index\": 0, \"field\": \"ecotox[19]\", \"page\": 8, \"source_text\": \"라. 토양이동성 | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[20]\", \"page\": 8, \"source_text\": \"마. 기타 유해 영향 | 자료없음\", \"rules\": [\"R15\"], \"note\": null}]}"
+}

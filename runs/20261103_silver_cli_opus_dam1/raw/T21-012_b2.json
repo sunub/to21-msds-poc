@@ -1,0 +1,750 @@
+{
+  "doc_id": "T21-012",
+  "bundle": "b2",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 67270,
+    "completion_tokens": 5746,
+    "cached_tokens": 6909,
+    "reasoning_tokens": 739,
+    "notional_cost_usd": 0.5991818
+  },
+  "seconds": 42.1,
+  "request_usage": [
+    {
+      "prompt_tokens": 67270,
+      "completion_tokens": 5746,
+      "cached_tokens": 6909,
+      "reasoning_tokens": 739,
+      "notional_cost_usd": 0.5991818
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "exposure_limits": [
+          {
+            "comp_ref": "1",
+            "standard": "국내",
+            "limit_type": "기타",
+            "kr_basis": "노출기준",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "4",
+            "standard": "국내",
+            "limit_type": "기타",
+            "kr_basis": "노출기준",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "2",
+            "standard": "국내",
+            "limit_type": "기타",
+            "kr_basis": "노출기준",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "3",
+            "standard": "국내",
+            "limit_type": "TWA",
+            "kr_basis": "노출기준",
+            "q": {
+              "raw": "TWA : 0.2 mg/㎥",
+              "status": "값있음",
+              "value": 0.2,
+              "unit": "mg/m3",
+              "dp": 1
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "3",
+            "standard": "국내",
+            "limit_type": "STEL",
+            "kr_basis": "노출기준",
+            "q": {
+              "raw": "STEL : 0.6 mg/㎥",
+              "status": "값있음",
+              "value": 0.6,
+              "unit": "mg/m3",
+              "dp": 1
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "1",
+            "standard": "ACGIH",
+            "limit_type": "기타",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "4",
+            "standard": "ACGIH",
+            "limit_type": "기타",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "2",
+            "standard": "ACGIH",
+            "limit_type": "기타",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "3",
+            "standard": "ACGIH",
+            "limit_type": "TWA",
+            "form": "Thoracic particulate mass",
+            "q": {
+              "raw": "TWA 0.2 mg/m3",
+              "status": "값있음",
+              "value": 0.2,
+              "unit": "mg/m3",
+              "dp": 1
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "1",
+            "standard": "생물학적",
+            "limit_type": "BEI",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "4",
+            "standard": "생물학적",
+            "limit_type": "BEI",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "2",
+            "standard": "생물학적",
+            "limit_type": "BEI",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "3",
+            "standard": "생물학적",
+            "limit_type": "BEI",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            },
+            "notations": []
+          }
+        ],
+        "physchem": [
+          {
+            "prop_code": "APPEARANCE_STATE",
+            "comp_ref": "MIX",
+            "text_value": "점도 높은 액체",
+            "seq": 1
+          },
+          {
+            "prop_code": "APPEARANCE_COLOR",
+            "comp_ref": "MIX",
+            "text_value": "어두운 갈색",
+            "seq": 1
+          },
+          {
+            "prop_code": "ODOR",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "seq": 1
+          },
+          {
+            "prop_code": "ODOR_THRESHOLD",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "seq": 1
+          },
+          {
+            "prop_code": "PH",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "seq": 1
+          },
+          {
+            "prop_code": "MELT_FREEZE",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "-10℃ (ca.)",
+              "status": "값있음",
+              "value": -10,
+              "unit": "C",
+              "approx": true
+            },
+            "seq": 1
+          },
+          {
+            "prop_code": "BOILING",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "seq": 1
+          },
+          {
+            "prop_code": "FLASH_POINT",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "207℃ (ca.)",
+              "status": "값있음",
+              "value": 207,
+              "unit": "C",
+              "approx": true
+            },
+            "seq": 1
+          },
+          {
+            "prop_code": "EVAP_RATE",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "seq": 1
+          },
+          {
+            "prop_code": "FLAMMABILITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "seq": 1
+          },
+          {
+            "prop_code": "UEL",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "seq": 1
+          },
+          {
+            "prop_code": "LEL",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "seq": 1
+          },
+          {
+            "prop_code": "VAPOR_PRESSURE",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "seq": 1
+          },
+          {
+            "prop_code": "SOLUBILITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "seq": 1
+          },
+          {
+            "prop_code": "VAPOR_DENSITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "seq": 1
+          },
+          {
+            "prop_code": "RELATIVE_DENSITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "1.06 (20℃)",
+              "status": "값있음",
+              "value": 1.06,
+              "dp": 2
+            },
+            "cond": {
+              "temp": 20,
+              "temp_unit": "C"
+            },
+            "seq": 1
+          },
+          {
+            "prop_code": "LOG_KOW",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "seq": 1
+          },
+          {
+            "prop_code": "AUTOIGNITION",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "seq": 1
+          },
+          {
+            "prop_code": "DECOMPOSITION",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "seq": 1
+          },
+          {
+            "prop_code": "VISCOSITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "seq": 1
+          },
+          {
+            "prop_code": "MOL_WEIGHT",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "322.00",
+              "status": "값있음",
+              "value": 322,
+              "dp": 2
+            },
+            "seq": 1
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[0]",
+        "page": 4,
+        "source_text": "- [도데실벤젠 설포닉애씨드] : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "국내노출기준 항목. TWA·STEL 표시가 없어 limit_type은 기타로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[1]",
+        "page": 4,
+        "source_text": "- [물] : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "국내노출기준 항목. limit_type은 기타"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[2]",
+        "page": 4,
+        "source_text": "- [리니어 알킬 벤젠] : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "국내노출기준 항목. limit_type은 기타"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[3]",
+        "page": 4,
+        "source_text": "- [황산] : TWA : 0.2 mg/㎥ STEL : 0.6 mg/㎥",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "한 줄을 TWA·STEL 두 행으로 나눔. 이 행은 TWA"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[4]",
+        "page": 4,
+        "source_text": "- [황산] : TWA : 0.2 mg/㎥ STEL : 0.6 mg/㎥",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "한 줄을 TWA·STEL 두 행으로 나눔. 이 행은 STEL"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[5]",
+        "page": 4,
+        "source_text": "- [도데실벤젠 설포닉애씨드] : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "ACGIH노출기준 항목. limit_type은 기타"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[6]",
+        "page": 4,
+        "source_text": "- [물] : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "ACGIH노출기준 항목"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[7]",
+        "page": 4,
+        "source_text": "- [리니어 알킬 벤젠] : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "ACGIH노출기준 항목"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[8]",
+        "page": 4,
+        "source_text": "- [황산] : TWA 0.2 mg/m3, Thoracic particulate mass",
+        "rules": [
+          "R04",
+          "R10",
+          "R17"
+        ],
+        "note": "입자 형태를 form에 원문대로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[9]",
+        "page": 4,
+        "source_text": "- [도데실벤젠 설포닉애씨드] : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "생물학적 노출기준 항목"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[10]",
+        "page": 4,
+        "source_text": "- [물] : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "생물학적 노출기준 항목"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[11]",
+        "page": 4,
+        "source_text": "- [리니어 알킬 벤젠] : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "생물학적 노출기준 항목"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[12]",
+        "page": 4,
+        "source_text": "- [황산] : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "생물학적 노출기준 항목"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[0]",
+        "page": 5,
+        "source_text": "- 성상 | 점도 높은 액체",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[1]",
+        "page": 5,
+        "source_text": "- 색 | 어두운 갈색",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[2]",
+        "page": 5,
+        "source_text": "나. 냄새 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[3]",
+        "page": 5,
+        "source_text": "다. 냄새역치 | 자료없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[4]",
+        "page": 5,
+        "source_text": "라. pH | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[5]",
+        "page": 5,
+        "source_text": "마. 녹는점/어는점 | -10℃ (ca.)",
+        "rules": [
+          "R04",
+          "R06",
+          "R08"
+        ],
+        "note": "'ca.'를 근사 표기로 보아 approx=true"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[6]",
+        "page": 5,
+        "source_text": "바. 초기 끓는점과 끓는점 범위 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[7]",
+        "page": 5,
+        "source_text": "사. 인화점 | 207℃ (ca.)",
+        "rules": [
+          "R04",
+          "R06",
+          "R08"
+        ],
+        "note": "'ca.'를 근사 표기로 보아 approx=true"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[8]",
+        "page": 5,
+        "source_text": "아. 증발 속도 | 자료없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[9]",
+        "page": 5,
+        "source_text": "자. 인화성 (고체, 기체) | 자료없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[10]",
+        "page": 5,
+        "source_text": "차. 인화 또는 폭발 범위의 상한/하한 | 자료없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "상한/하한 한 줄을 UEL·LEL 두 행으로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[11]",
+        "page": 5,
+        "source_text": "차. 인화 또는 폭발 범위의 상한/하한 | 자료없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "상한/하한 한 줄을 UEL·LEL 두 행으로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[12]",
+        "page": 5,
+        "source_text": "카. 증기압 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[13]",
+        "page": 5,
+        "source_text": "타. 용해도 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[14]",
+        "page": 5,
+        "source_text": "파. 증기밀도 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[15]",
+        "page": 5,
+        "source_text": "하. 비중 | 1.06 (20℃)",
+        "rules": [
+          "R04",
+          "R06",
+          "R08"
+        ],
+        "note": "괄호 속 20℃를 cond 온도로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[16]",
+        "page": 5,
+        "source_text": "거. N-옥탄올/물 분배계수 | 자료없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[17]",
+        "page": 5,
+        "source_text": "너. 자연발화온도 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[18]",
+        "page": 5,
+        "source_text": "더. 분해온도 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[19]",
+        "page": 5,
+        "source_text": "러. 점도 | 자료없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[20]",
+        "page": 5,
+        "source_text": "머. 분자량 | 322.00",
+        "rules": [
+          "R06"
+        ],
+        "note": "'322.00'을 value 322, dp 2로 저장"
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"exposure_limits\": [{\"comp_ref\": \"1\", \"standard\": \"국내\", \"limit_type\": \"기타\", \"kr_basis\": \"노출기준\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}, \"notations\": []}, {\"comp_ref\": \"4\", \"standard\": \"국내\", \"limit_type\": \"기타\", \"kr_basis\": \"노출기준\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}, \"notations\": []}, {\"comp_ref\": \"2\", \"standard\": \"국내\", \"limit_type\": \"기타\", \"kr_basis\": \"노출기준\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}, \"notations\": []}, {\"comp_ref\": \"3\", \"standard\": \"국내\", \"limit_type\": \"TWA\", \"kr_basis\": \"노출기준\", \"q\": {\"raw\": \"TWA : 0.2 mg/㎥\", \"status\": \"값있음\", \"value\": 0.2, \"unit\": \"mg/m3\", \"dp\": 1}, \"notations\": []}, {\"comp_ref\": \"3\", \"standard\": \"국내\", \"limit_type\": \"STEL\", \"kr_basis\": \"노출기준\", \"q\": {\"raw\": \"STEL : 0.6 mg/㎥\", \"status\": \"값있음\", \"value\": 0.6, \"unit\": \"mg/m3\", \"dp\": 1}, \"notations\": []}, {\"comp_ref\": \"1\", \"standard\": \"ACGIH\", \"limit_type\": \"기타\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}, \"notations\": []}, {\"comp_ref\": \"4\", \"standard\": \"ACGIH\", \"limit_type\": \"기타\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}, \"notations\": []}, {\"comp_ref\": \"2\", \"standard\": \"ACGIH\", \"limit_type\": \"기타\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}, \"notations\": []}, {\"comp_ref\": \"3\", \"standard\": \"ACGIH\", \"limit_type\": \"TWA\", \"form\": \"Thoracic particulate mass\", \"q\": {\"raw\": \"TWA 0.2 mg/m3\", \"status\": \"값있음\", \"value\": 0.2, \"unit\": \"mg/m3\", \"dp\": 1}, \"notations\": []}, {\"comp_ref\": \"1\", \"standard\": \"생물학적\", \"limit_type\": \"BEI\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}, \"notations\": []}, {\"comp_ref\": \"4\", \"standard\": \"생물학적\", \"limit_type\": \"BEI\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}, \"notations\": []}, {\"comp_ref\": \"2\", \"standard\": \"생물학적\", \"limit_type\": \"BEI\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}, \"notations\": []}, {\"comp_ref\": \"3\", \"standard\": \"생물학적\", \"limit_type\": \"BEI\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}, \"notations\": []}], \"physchem\": [{\"prop_code\": \"APPEARANCE_STATE\", \"comp_ref\": \"MIX\", \"text_value\": \"점도 높은 액체\", \"seq\": 1}, {\"prop_code\": \"APPEARANCE_COLOR\", \"comp_ref\": \"MIX\", \"text_value\": \"어두운 갈색\", \"seq\": 1}, {\"prop_code\": \"ODOR\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"seq\": 1}, {\"prop_code\": \"ODOR_THRESHOLD\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"seq\": 1}, {\"prop_code\": \"PH\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"seq\": 1}, {\"prop_code\": \"MELT_FREEZE\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"-10℃ (ca.)\", \"status\": \"값있음\", \"value\": -10, \"unit\": \"C\", \"approx\": true}, \"seq\": 1}, {\"prop_code\": \"BOILING\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"seq\": 1}, {\"prop_code\": \"FLASH_POINT\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"207℃ (ca.)\", \"status\": \"값있음\", \"value\": 207, \"unit\": \"C\", \"approx\": true}, \"seq\": 1}, {\"prop_code\": \"EVAP_RATE\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"seq\": 1}, {\"prop_code\": \"FLAMMABILITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"seq\": 1}, {\"prop_code\": \"UEL\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"seq\": 1}, {\"prop_code\": \"LEL\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"seq\": 1}, {\"prop_code\": \"VAPOR_PRESSURE\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"seq\": 1}, {\"prop_code\": \"SOLUBILITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"seq\": 1}, {\"prop_code\": \"VAPOR_DENSITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"seq\": 1}, {\"prop_code\": \"RELATIVE_DENSITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"1.06 (20℃)\", \"status\": \"값있음\", \"value\": 1.06, \"dp\": 2}, \"cond\": {\"temp\": 20, \"temp_unit\": \"C\"}, \"seq\": 1}, {\"prop_code\": \"LOG_KOW\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"seq\": 1}, {\"prop_code\": \"AUTOIGNITION\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"seq\": 1}, {\"prop_code\": \"DECOMPOSITION\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"seq\": 1}, {\"prop_code\": \"VISCOSITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"seq\": 1}, {\"prop_code\": \"MOL_WEIGHT\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"322.00\", \"status\": \"값있음\", \"value\": 322, \"dp\": 2}, \"seq\": 1}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"exposure_limits[0]\", \"page\": 4, \"source_text\": \"- [도데실벤젠 설포닉애씨드] : 해당없음\", \"rules\": [\"R10\", \"R15\"], \"note\": \"국내노출기준 항목. TWA·STEL 표시가 없어 limit_type은 기타로 둠\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[1]\", \"page\": 4, \"source_text\": \"- [물] : 해당없음\", \"rules\": [\"R10\", \"R15\"], \"note\": \"국내노출기준 항목. limit_type은 기타\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[2]\", \"page\": 4, \"source_text\": \"- [리니어 알킬 벤젠] : 해당없음\", \"rules\": [\"R10\", \"R15\"], \"note\": \"국내노출기준 항목. limit_type은 기타\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[3]\", \"page\": 4, \"source_text\": \"- [황산] : TWA : 0.2 mg/㎥ STEL : 0.6 mg/㎥\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": \"한 줄을 TWA·STEL 두 행으로 나눔. 이 행은 TWA\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[4]\", \"page\": 4, \"source_text\": \"- [황산] : TWA : 0.2 mg/㎥ STEL : 0.6 mg/㎥\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": \"한 줄을 TWA·STEL 두 행으로 나눔. 이 행은 STEL\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[5]\", \"page\": 4, \"source_text\": \"- [도데실벤젠 설포닉애씨드] : 해당없음\", \"rules\": [\"R10\", \"R15\"], \"note\": \"ACGIH노출기준 항목. limit_type은 기타\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[6]\", \"page\": 4, \"source_text\": \"- [물] : 해당없음\", \"rules\": [\"R10\", \"R15\"], \"note\": \"ACGIH노출기준 항목\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[7]\", \"page\": 4, \"source_text\": \"- [리니어 알킬 벤젠] : 해당없음\", \"rules\": [\"R10\", \"R15\"], \"note\": \"ACGIH노출기준 항목\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[8]\", \"page\": 4, \"source_text\": \"- [황산] : TWA 0.2 mg/m3, Thoracic particulate mass\", \"rules\": [\"R04\", \"R10\", \"R17\"], \"note\": \"입자 형태를 form에 원문대로 둠\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[9]\", \"page\": 4, \"source_text\": \"- [도데실벤젠 설포닉애씨드] : 해당없음\", \"rules\": [\"R10\", \"R15\"], \"note\": \"생물학적 노출기준 항목\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[10]\", \"page\": 4, \"source_text\": \"- [물] : 해당없음\", \"rules\": [\"R10\", \"R15\"], \"note\": \"생물학적 노출기준 항목\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[11]\", \"page\": 4, \"source_text\": \"- [리니어 알킬 벤젠] : 해당없음\", \"rules\": [\"R10\", \"R15\"], \"note\": \"생물학적 노출기준 항목\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[12]\", \"page\": 4, \"source_text\": \"- [황산] : 해당없음\", \"rules\": [\"R10\", \"R15\"], \"note\": \"생물학적 노출기준 항목\"}, {\"msds_index\": 0, \"field\": \"physchem[0]\", \"page\": 5, \"source_text\": \"- 성상 | 점도 높은 액체\", \"rules\": [\"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[1]\", \"page\": 5, \"source_text\": \"- 색 | 어두운 갈색\", \"rules\": [\"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[2]\", \"page\": 5, \"source_text\": \"나. 냄새 | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[3]\", \"page\": 5, \"source_text\": \"다. 냄새역치 | 자료없음\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[4]\", \"page\": 5, \"source_text\": \"라. pH | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[5]\", \"page\": 5, \"source_text\": \"마. 녹는점/어는점 | -10℃ (ca.)\", \"rules\": [\"R04\", \"R06\", \"R08\"], \"note\": \"'ca.'를 근사 표기로 보아 approx=true\"}, {\"msds_index\": 0, \"field\": \"physchem[6]\", \"page\": 5, \"source_text\": \"바. 초기 끓는점과 끓는점 범위 | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[7]\", \"page\": 5, \"source_text\": \"사. 인화점 | 207℃ (ca.)\", \"rules\": [\"R04\", \"R06\", \"R08\"], \"note\": \"'ca.'를 근사 표기로 보아 approx=true\"}, {\"msds_index\": 0, \"field\": \"physchem[8]\", \"page\": 5, \"source_text\": \"아. 증발 속도 | 자료없음\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[9]\", \"page\": 5, \"source_text\": \"자. 인화성 (고체, 기체) | 자료없음\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[10]\", \"page\": 5, \"source_text\": \"차. 인화 또는 폭발 범위의 상한/하한 | 자료없음\", \"rules\": [\"R15\", \"R25\"], \"note\": \"상한/하한 한 줄을 UEL·LEL 두 행으로 나눔\"}, {\"msds_index\": 0, \"field\": \"physchem[11]\", \"page\": 5, \"source_text\": \"차. 인화 또는 폭발 범위의 상한/하한 | 자료없음\", \"rules\": [\"R15\", \"R25\"], \"note\": \"상한/하한 한 줄을 UEL·LEL 두 행으로 나눔\"}, {\"msds_index\": 0, \"field\": \"physchem[12]\", \"page\": 5, \"source_text\": \"카. 증기압 | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[13]\", \"page\": 5, \"source_text\": \"타. 용해도 | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[14]\", \"page\": 5, \"source_text\": \"파. 증기밀도 | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[15]\", \"page\": 5, \"source_text\": \"하. 비중 | 1.06 (20℃)\", \"rules\": [\"R04\", \"R06\", \"R08\"], \"note\": \"괄호 속 20℃를 cond 온도로 나눔\"}, {\"msds_index\": 0, \"field\": \"physchem[16]\", \"page\": 5, \"source_text\": \"거. N-옥탄올/물 분배계수 | 자료없음\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[17]\", \"page\": 5, \"source_text\": \"너. 자연발화온도 | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[18]\", \"page\": 5, \"source_text\": \"더. 분해온도 | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[19]\", \"page\": 5, \"source_text\": \"러. 점도 | 자료없음\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[20]\", \"page\": 5, \"source_text\": \"머. 분자량 | 322.00\", \"rules\": [\"R06\"], \"note\": \"'322.00'을 value 322, dp 2로 저장\"}]}"
+}

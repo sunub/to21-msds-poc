@@ -15,7 +15,7 @@
   ],
   "properties": {
     "contract": {
-      "const": "consistency/1"
+      "const": "consistency/2"
     },
     "doc_id": {
       "description": "extraction.doc.doc_id 그대로",
@@ -206,7 +206,8 @@
         "label",
         "method",
         "out_of_scope_reason",
-        "law_label"
+        "law_label",
+        "reason"
       ],
       "properties": {
         "id": {
@@ -329,7 +330,8 @@
           "items": {
             "$ref": "common.schema.json#/$defs/cause_code"
           },
-          "uniqueItems": true
+          "uniqueItems": true,
+          "description": "차이 원인 코드. 설명 문장은 trace.cause_texts 에 있다"
         },
         "trace_id": {
           "type": [
@@ -365,6 +367,10 @@
               "type": "null"
             }
           ]
+        },
+        "reason": {
+          "description": "엔진이 적은 판정 이유 원문. 화면 '판정 근거'의 첫 줄",
+          "type": "string"
         }
       }
     },
@@ -497,9 +503,9 @@
       ]
     },
     "trace": {
-      "description": "판정 근거 (설계서 v0.4 'trace 반환 규격'). 계산이 없는 판정(단순 조회·비교)은 steps 만 채운다",
+      "description": "판정 근거 (설계서 v0.4 'trace 반환 규격'). 계산이 없는 판정(단순 조회·비교)은 steps 만 채운다. 계산 종류마다 칸이 달라 inputs·thresholds 의 칸을 강제하지 않는다. 설명 요청이 이 근거를 쓴다 (우진 실측, contracts/README.md 7절)",
       "type": "object",
-      "additionalProperties": false,
+      "additionalProperties": true,
       "required": [
         "kind",
         "rule",
@@ -535,25 +541,15 @@
         },
         "result": {
           "type": "object",
-          "additionalProperties": false,
+          "additionalProperties": true,
           "required": [
             "low",
             "high",
             "status"
           ],
           "properties": {
-            "low": {
-              "type": [
-                "string",
-                "null"
-              ]
-            },
-            "high": {
-              "type": [
-                "string",
-                "null"
-              ]
-            },
+            "low": {},
+            "high": {},
             "status": {
               "enum": [
                 "확정",
@@ -589,119 +585,7 @@
         "inputs": {
           "type": "array",
           "items": {
-            "type": "object",
-            "additionalProperties": false,
-            "required": [
-              "cas",
-              "name"
-            ],
-            "properties": {
-              "cas": {
-                "type": [
-                  "string",
-                  "null"
-                ]
-              },
-              "name": {
-                "type": [
-                  "string",
-                  "null"
-                ]
-              },
-              "content": {
-                "type": "object",
-                "additionalProperties": false,
-                "properties": {
-                  "low": {
-                    "type": [
-                      "number",
-                      "null"
-                    ]
-                  },
-                  "high": {
-                    "type": [
-                      "number",
-                      "null"
-                    ]
-                  }
-                }
-              },
-              "value": {
-                "type": "object",
-                "additionalProperties": false,
-                "properties": {
-                  "type": {
-                    "description": "LD50·LC50·L(E)C50·NOEC 등",
-                    "type": "string"
-                  },
-                  "op": {
-                    "enum": [
-                      "=",
-                      ">",
-                      ">=",
-                      "<",
-                      "<="
-                    ]
-                  },
-                  "v": {
-                    "type": "number"
-                  },
-                  "unit": {
-                    "type": "string"
-                  },
-                  "hours": {
-                    "type": [
-                      "number",
-                      "null"
-                    ]
-                  },
-                  "form": {
-                    "$ref": "common.schema.json#/$defs/route_form"
-                  }
-                }
-              },
-              "ate_used": {
-                "type": [
-                  "number",
-                  "null"
-                ]
-              },
-              "source": {
-                "type": [
-                  "string",
-                  "null"
-                ]
-              },
-              "step": {
-                "description": "ATE 수집 단계 (설계서 v0.4 '성분별 ATE 수집 순서')",
-                "type": [
-                  "integer",
-                  "null"
-                ]
-              },
-              "share": {
-                "description": "기여도 0~1",
-                "type": [
-                  "number",
-                  "null"
-                ],
-                "minimum": 0,
-                "maximum": 1
-              },
-              "flags": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "excluded": {
-                "description": "계산에서 뺀 이유 (예: 무독성, 한계농도 미만)",
-                "type": [
-                  "string",
-                  "null"
-                ]
-              }
-            }
+            "type": "object"
           }
         },
         "calc": {
@@ -714,20 +598,7 @@
         "thresholds": {
           "type": "array",
           "items": {
-            "type": "object",
-            "additionalProperties": false,
-            "required": [
-              "category",
-              "range"
-            ],
-            "properties": {
-              "category": {
-                "type": "string"
-              },
-              "range": {
-                "type": "string"
-              }
-            }
+            "type": "object"
           }
         },
         "assumptions": {
@@ -766,6 +637,40 @@
                 "type": "string"
               }
             }
+          }
+        },
+        "cause_texts": {
+          "description": "원인 코드별 문장 (설명 요청에 그대로 들어간다)",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "code",
+              "text"
+            ],
+            "properties": {
+              "code": {
+                "$ref": "common.schema.json#/$defs/cause_code"
+              },
+              "text": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "basis_lines": {
+          "description": "화면 '판단 근거' 줄의 재료",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "calc_lines": {
+          "description": "화면 '계산 과정' 줄의 재료",
+          "type": "array",
+          "items": {
+            "type": "string"
           }
         }
       }

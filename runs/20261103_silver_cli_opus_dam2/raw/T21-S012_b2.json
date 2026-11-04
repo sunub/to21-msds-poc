@@ -1,0 +1,629 @@
+{
+  "doc_id": "T21-S012",
+  "bundle": "b2",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 54976,
+    "completion_tokens": 5600,
+    "cached_tokens": 6909,
+    "reasoning_tokens": 1090,
+    "notional_cost_usd": 0.49790979999999996
+  },
+  "seconds": 44.7,
+  "request_usage": [
+    {
+      "prompt_tokens": 54976,
+      "completion_tokens": 5600,
+      "cached_tokens": 6909,
+      "reasoning_tokens": 1090,
+      "notional_cost_usd": 0.49790979999999996
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "exposure_limits": [
+          {
+            "comp_ref": "1",
+            "standard": "국내",
+            "limit_type": "TWA",
+            "kr_basis": "노출기준",
+            "notations": [],
+            "q": {
+              "raw": "TWA : 800ppm",
+              "value": 800,
+              "unit": "ppm",
+              "dp": 0,
+              "status": "값있음"
+            }
+          },
+          {
+            "comp_ref": "1",
+            "standard": "ACGIH",
+            "limit_type": "TWA",
+            "notations": [],
+            "q": {
+              "raw": "TWA 1000 ppm",
+              "value": 1000,
+              "unit": "ppm",
+              "dp": 0,
+              "status": "값있음"
+            }
+          },
+          {
+            "comp_ref": "1",
+            "standard": "OSHA",
+            "limit_type": "기타",
+            "notations": [],
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            }
+          },
+          {
+            "comp_ref": "1",
+            "standard": "NIOSH",
+            "limit_type": "기타",
+            "notations": [],
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            }
+          },
+          {
+            "comp_ref": "1",
+            "standard": "EU",
+            "limit_type": "기타",
+            "notations": [],
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            }
+          }
+        ],
+        "physchem": [
+          {
+            "prop_code": "APPEARANCE_STATE",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "text_value": "기체",
+            "data_source": "CRC Handbook",
+            "q": null
+          },
+          {
+            "prop_code": "APPEARANCE_COLOR",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "text_value": "무색",
+            "data_source": "CRC Handbook",
+            "q": null
+          },
+          {
+            "prop_code": "ODOR",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "text_value": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "ODOR_THRESHOLD",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "text_value": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "PH",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "text_value": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "MELT_FREEZE",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "text_value": null,
+            "data_source": "용산화학 제공 자료",
+            "cond": {
+              "pressure": 101.3,
+              "pressure_unit": "kPa"
+            },
+            "q": {
+              "raw": "-138.3 °C (101.3 kPa)",
+              "value": -138.3,
+              "unit": "C",
+              "dp": 1,
+              "status": "값있음"
+            }
+          },
+          {
+            "prop_code": "BOILING",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "text_value": null,
+            "data_source": "용산화학 제공 자료",
+            "cond": {
+              "pressure": 1013,
+              "pressure_unit": "hPa"
+            },
+            "q": {
+              "raw": "-0.5°C (1013 hPa)",
+              "value": -0.5,
+              "unit": "C",
+              "dp": 1,
+              "status": "값있음"
+            }
+          },
+          {
+            "prop_code": "FLASH_POINT",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "text_value": null,
+            "data_source": "CRC Handbook",
+            "q": {
+              "raw": "-60°C",
+              "value": -60,
+              "unit": "C",
+              "dp": 0,
+              "status": "값있음"
+            }
+          },
+          {
+            "prop_code": "EVAP_RATE",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "text_value": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "FLAMMABILITY",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "text_value": "인화성",
+            "q": null
+          },
+          {
+            "prop_code": "UEL",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "text_value": null,
+            "data_source": "CRC Handbook",
+            "q": {
+              "raw": "1.9/8.5%",
+              "status": "값있음",
+              "note": "표제 순서(상한/하한)와 값 크기가 맞지 않아 분해하지 않음"
+            }
+          },
+          {
+            "prop_code": "LEL",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "text_value": null,
+            "data_source": "CRC Handbook",
+            "q": {
+              "raw": "1.9/8.5%",
+              "status": "값있음",
+              "note": "표제 순서(상한/하한)와 값 크기가 맞지 않아 분해하지 않음"
+            }
+          },
+          {
+            "prop_code": "VAPOR_PRESSURE",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "text_value": null,
+            "data_source": "용산화학 제공 자료",
+            "cond": {
+              "temp": 21.85,
+              "temp_unit": "C"
+            },
+            "q": {
+              "raw": "221 kPa (21.85 ℃)",
+              "value": 221,
+              "unit": "kPa",
+              "dp": 0,
+              "status": "값있음"
+            }
+          },
+          {
+            "prop_code": "SOLUBILITY",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "text_value": null,
+            "data_source": "용산화학 제공 자료",
+            "cond": {
+              "temp": 25,
+              "temp_unit": "C"
+            },
+            "q": {
+              "raw": "61.4 ppm (25 ℃, pH 7)",
+              "value": 61.4,
+              "unit": "ppm",
+              "dp": 1,
+              "status": "값있음",
+              "note": "pH 7"
+            }
+          },
+          {
+            "prop_code": "VAPOR_DENSITY",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "text_value": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "RELATIVE_DENSITY",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "text_value": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "LOG_KOW",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "text_value": null,
+            "data_source": "Exploring QSAR",
+            "cond": {
+              "temp": 20,
+              "temp_unit": "C"
+            },
+            "q": {
+              "raw": "Log Kow = 2.89 (20 ℃, pH 7)",
+              "value": 2.89,
+              "dp": 2,
+              "status": "값있음",
+              "note": "pH 7"
+            }
+          },
+          {
+            "prop_code": "AUTOIGNITION",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "text_value": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "DECOMPOSITION",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "text_value": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "VISCOSITY",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "text_value": null,
+            "data_source": "CRC Handbook",
+            "cond": {
+              "temp": 300,
+              "temp_unit": "K"
+            },
+            "q": {
+              "raw": "7.5μPa s (CRC Handbook), (300K, 26.85℃)",
+              "value": 7.5,
+              "unit": "μPa s",
+              "dp": 1,
+              "status": "값있음",
+              "note": "26.85℃"
+            }
+          },
+          {
+            "prop_code": "MOL_WEIGHT",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "text_value": null,
+            "q": {
+              "raw": "58.12",
+              "value": 58.12,
+              "dp": 2,
+              "status": "값있음"
+            }
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[0]",
+        "page": 5,
+        "source_text": "국내규정 : TWA : 800ppm",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "성분이 Butane 하나(100%)여서 comp_ref=1로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[1]",
+        "page": 5,
+        "source_text": "ACGIH 규정 : TWA 1000 ppm",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[2]",
+        "page": 5,
+        "source_text": "OSHA 규정 : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "TWA·STEL 표시가 없어 limit_type=기타"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[3]",
+        "page": 5,
+        "source_text": "NIOSH 규정 : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "TWA·STEL 표시가 없어 limit_type=기타"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[4]",
+        "page": 5,
+        "source_text": "EU 규정 : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "TWA·STEL 표시가 없어 limit_type=기타"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[0]",
+        "page": 6,
+        "source_text": "가. 외관(물리적 상태, 색 등) : 성상 : 기체, 색상 : 무색 (CRC Handbook)",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[1]",
+        "page": 6,
+        "source_text": "가. 외관(물리적 상태, 색 등) : 성상 : 기체, 색상 : 무색 (CRC Handbook)",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[2]",
+        "page": 6,
+        "source_text": "나. 냄새 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[3]",
+        "page": 6,
+        "source_text": "다. 냄새 역치 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[4]",
+        "page": 6,
+        "source_text": "라. pH : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[5]",
+        "page": 6,
+        "source_text": "마. 녹는점/어는점 : -138.3 °C (101.3 kPa) (*출처: 용산화학 제공 자료)",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[6]",
+        "page": 6,
+        "source_text": "바. 초기 끓는점과 끓는점 범위 : -0.5°C (1013 hPa) (*출처: 용산화학 제공 자료)",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[7]",
+        "page": 6,
+        "source_text": "사. 인화점 : -60°C (CRC Handbook)",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[8]",
+        "page": 6,
+        "source_text": "아. 증발속도 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[9]",
+        "page": 6,
+        "source_text": "자. 인화성(고체, 기체) : 인화성",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[10]",
+        "page": 6,
+        "source_text": "차. 인화 또는 폭발 범위의 상한/하한 : 1.9/8.5% (CRC Handbook)",
+        "rules": [
+          "R17",
+          "R25"
+        ],
+        "note": "표제는 상한/하한 순서이나 값 크기와 맞지 않아 raw만 남김"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[11]",
+        "page": 6,
+        "source_text": "차. 인화 또는 폭발 범위의 상한/하한 : 1.9/8.5% (CRC Handbook)",
+        "rules": [
+          "R17",
+          "R25"
+        ],
+        "note": "표제는 상한/하한 순서이나 값 크기와 맞지 않아 raw만 남김"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[12]",
+        "page": 6,
+        "source_text": "카. 증기압 : 221 kPa (21.85 ℃) (*출처: 용산화학 제공 자료)",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[13]",
+        "page": 6,
+        "source_text": "타. 용해도 : 61.4 ppm (25 ℃, pH 7) (*출처: 용산화학 제공 자료)",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": "COND에 pH 칸이 없어 pH 7은 q.note에 적음"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[14]",
+        "page": 6,
+        "source_text": "파. 증기밀도 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[15]",
+        "page": 6,
+        "source_text": "하. 비중 : 자료없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[16]",
+        "page": 6,
+        "source_text": "거. n 옥탄올/물 분배계수 : Log Kow = 2.89 (20 ℃, pH 7) (Exploring QSAR)",
+        "rules": [
+          "R04",
+          "R25"
+        ],
+        "note": "pH 7은 q.note에 적음"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[17]",
+        "page": 6,
+        "source_text": "너. 자연발화 온도 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[18]",
+        "page": 6,
+        "source_text": "더. 분해 온도 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[19]",
+        "page": 6,
+        "source_text": "러. 점도 : 7.5μPa s (CRC Handbook), (300K, 26.85℃)",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": "온도는 300 K로 cond에 넣고 26.85℃는 note에 적음"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[20]",
+        "page": 6,
+        "source_text": "머. 분자량 : 58.12",
+        "rules": [
+          "R04"
+        ],
+        "note": "단위가 적혀 있지 않아 unit=null"
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"exposure_limits\": [{\"comp_ref\": \"1\", \"standard\": \"국내\", \"limit_type\": \"TWA\", \"kr_basis\": \"노출기준\", \"notations\": [], \"q\": {\"raw\": \"TWA : 800ppm\", \"value\": 800, \"unit\": \"ppm\", \"dp\": 0, \"status\": \"값있음\"}}, {\"comp_ref\": \"1\", \"standard\": \"ACGIH\", \"limit_type\": \"TWA\", \"notations\": [], \"q\": {\"raw\": \"TWA 1000 ppm\", \"value\": 1000, \"unit\": \"ppm\", \"dp\": 0, \"status\": \"값있음\"}}, {\"comp_ref\": \"1\", \"standard\": \"OSHA\", \"limit_type\": \"기타\", \"notations\": [], \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}}, {\"comp_ref\": \"1\", \"standard\": \"NIOSH\", \"limit_type\": \"기타\", \"notations\": [], \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}}, {\"comp_ref\": \"1\", \"standard\": \"EU\", \"limit_type\": \"기타\", \"notations\": [], \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}}], \"physchem\": [{\"prop_code\": \"APPEARANCE_STATE\", \"comp_ref\": \"MIX\", \"seq\": 1, \"text_value\": \"기체\", \"data_source\": \"CRC Handbook\", \"q\": null}, {\"prop_code\": \"APPEARANCE_COLOR\", \"comp_ref\": \"MIX\", \"seq\": 1, \"text_value\": \"무색\", \"data_source\": \"CRC Handbook\", \"q\": null}, {\"prop_code\": \"ODOR\", \"comp_ref\": \"MIX\", \"seq\": 1, \"text_value\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"ODOR_THRESHOLD\", \"comp_ref\": \"MIX\", \"seq\": 1, \"text_value\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"PH\", \"comp_ref\": \"MIX\", \"seq\": 1, \"text_value\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"MELT_FREEZE\", \"comp_ref\": \"MIX\", \"seq\": 1, \"text_value\": null, \"data_source\": \"용산화학 제공 자료\", \"cond\": {\"pressure\": 101.3, \"pressure_unit\": \"kPa\"}, \"q\": {\"raw\": \"-138.3 °C (101.3 kPa)\", \"value\": -138.3, \"unit\": \"C\", \"dp\": 1, \"status\": \"값있음\"}}, {\"prop_code\": \"BOILING\", \"comp_ref\": \"MIX\", \"seq\": 1, \"text_value\": null, \"data_source\": \"용산화학 제공 자료\", \"cond\": {\"pressure\": 1013, \"pressure_unit\": \"hPa\"}, \"q\": {\"raw\": \"-0.5°C (1013 hPa)\", \"value\": -0.5, \"unit\": \"C\", \"dp\": 1, \"status\": \"값있음\"}}, {\"prop_code\": \"FLASH_POINT\", \"comp_ref\": \"MIX\", \"seq\": 1, \"text_value\": null, \"data_source\": \"CRC Handbook\", \"q\": {\"raw\": \"-60°C\", \"value\": -60, \"unit\": \"C\", \"dp\": 0, \"status\": \"값있음\"}}, {\"prop_code\": \"EVAP_RATE\", \"comp_ref\": \"MIX\", \"seq\": 1, \"text_value\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"FLAMMABILITY\", \"comp_ref\": \"MIX\", \"seq\": 1, \"text_value\": \"인화성\", \"q\": null}, {\"prop_code\": \"UEL\", \"comp_ref\": \"MIX\", \"seq\": 1, \"text_value\": null, \"data_source\": \"CRC Handbook\", \"q\": {\"raw\": \"1.9/8.5%\", \"status\": \"값있음\", \"note\": \"표제 순서(상한/하한)와 값 크기가 맞지 않아 분해하지 않음\"}}, {\"prop_code\": \"LEL\", \"comp_ref\": \"MIX\", \"seq\": 1, \"text_value\": null, \"data_source\": \"CRC Handbook\", \"q\": {\"raw\": \"1.9/8.5%\", \"status\": \"값있음\", \"note\": \"표제 순서(상한/하한)와 값 크기가 맞지 않아 분해하지 않음\"}}, {\"prop_code\": \"VAPOR_PRESSURE\", \"comp_ref\": \"MIX\", \"seq\": 1, \"text_value\": null, \"data_source\": \"용산화학 제공 자료\", \"cond\": {\"temp\": 21.85, \"temp_unit\": \"C\"}, \"q\": {\"raw\": \"221 kPa (21.85 ℃)\", \"value\": 221, \"unit\": \"kPa\", \"dp\": 0, \"status\": \"값있음\"}}, {\"prop_code\": \"SOLUBILITY\", \"comp_ref\": \"MIX\", \"seq\": 1, \"text_value\": null, \"data_source\": \"용산화학 제공 자료\", \"cond\": {\"temp\": 25, \"temp_unit\": \"C\"}, \"q\": {\"raw\": \"61.4 ppm (25 ℃, pH 7)\", \"value\": 61.4, \"unit\": \"ppm\", \"dp\": 1, \"status\": \"값있음\", \"note\": \"pH 7\"}}, {\"prop_code\": \"VAPOR_DENSITY\", \"comp_ref\": \"MIX\", \"seq\": 1, \"text_value\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"RELATIVE_DENSITY\", \"comp_ref\": \"MIX\", \"seq\": 1, \"text_value\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"LOG_KOW\", \"comp_ref\": \"MIX\", \"seq\": 1, \"text_value\": null, \"data_source\": \"Exploring QSAR\", \"cond\": {\"temp\": 20, \"temp_unit\": \"C\"}, \"q\": {\"raw\": \"Log Kow = 2.89 (20 ℃, pH 7)\", \"value\": 2.89, \"dp\": 2, \"status\": \"값있음\", \"note\": \"pH 7\"}}, {\"prop_code\": \"AUTOIGNITION\", \"comp_ref\": \"MIX\", \"seq\": 1, \"text_value\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"DECOMPOSITION\", \"comp_ref\": \"MIX\", \"seq\": 1, \"text_value\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"VISCOSITY\", \"comp_ref\": \"MIX\", \"seq\": 1, \"text_value\": null, \"data_source\": \"CRC Handbook\", \"cond\": {\"temp\": 300, \"temp_unit\": \"K\"}, \"q\": {\"raw\": \"7.5μPa s (CRC Handbook), (300K, 26.85℃)\", \"value\": 7.5, \"unit\": \"μPa s\", \"dp\": 1, \"status\": \"값있음\", \"note\": \"26.85℃\"}}, {\"prop_code\": \"MOL_WEIGHT\", \"comp_ref\": \"MIX\", \"seq\": 1, \"text_value\": null, \"q\": {\"raw\": \"58.12\", \"value\": 58.12, \"dp\": 2, \"status\": \"값있음\"}}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"exposure_limits[0]\", \"page\": 5, \"source_text\": \"국내규정 : TWA : 800ppm\", \"rules\": [\"R04\", \"R10\"], \"note\": \"성분이 Butane 하나(100%)여서 comp_ref=1로 둠\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[1]\", \"page\": 5, \"source_text\": \"ACGIH 규정 : TWA 1000 ppm\", \"rules\": [\"R04\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"exposure_limits[2]\", \"page\": 5, \"source_text\": \"OSHA 규정 : 해당없음\", \"rules\": [\"R15\"], \"note\": \"TWA·STEL 표시가 없어 limit_type=기타\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[3]\", \"page\": 5, \"source_text\": \"NIOSH 규정 : 해당없음\", \"rules\": [\"R15\"], \"note\": \"TWA·STEL 표시가 없어 limit_type=기타\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[4]\", \"page\": 5, \"source_text\": \"EU 규정 : 해당없음\", \"rules\": [\"R15\"], \"note\": \"TWA·STEL 표시가 없어 limit_type=기타\"}, {\"msds_index\": 0, \"field\": \"physchem[0]\", \"page\": 6, \"source_text\": \"가. 외관(물리적 상태, 색 등) : 성상 : 기체, 색상 : 무색 (CRC Handbook)\", \"rules\": [\"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[1]\", \"page\": 6, \"source_text\": \"가. 외관(물리적 상태, 색 등) : 성상 : 기체, 색상 : 무색 (CRC Handbook)\", \"rules\": [\"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[2]\", \"page\": 6, \"source_text\": \"나. 냄새 : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[3]\", \"page\": 6, \"source_text\": \"다. 냄새 역치 : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[4]\", \"page\": 6, \"source_text\": \"라. pH : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[5]\", \"page\": 6, \"source_text\": \"마. 녹는점/어는점 : -138.3 °C (101.3 kPa) (*출처: 용산화학 제공 자료)\", \"rules\": [\"R04\", \"R08\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[6]\", \"page\": 6, \"source_text\": \"바. 초기 끓는점과 끓는점 범위 : -0.5°C (1013 hPa) (*출처: 용산화학 제공 자료)\", \"rules\": [\"R04\", \"R08\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[7]\", \"page\": 6, \"source_text\": \"사. 인화점 : -60°C (CRC Handbook)\", \"rules\": [\"R04\", \"R08\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[8]\", \"page\": 6, \"source_text\": \"아. 증발속도 : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[9]\", \"page\": 6, \"source_text\": \"자. 인화성(고체, 기체) : 인화성\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[10]\", \"page\": 6, \"source_text\": \"차. 인화 또는 폭발 범위의 상한/하한 : 1.9/8.5% (CRC Handbook)\", \"rules\": [\"R17\", \"R25\"], \"note\": \"표제는 상한/하한 순서이나 값 크기와 맞지 않아 raw만 남김\"}, {\"msds_index\": 0, \"field\": \"physchem[11]\", \"page\": 6, \"source_text\": \"차. 인화 또는 폭발 범위의 상한/하한 : 1.9/8.5% (CRC Handbook)\", \"rules\": [\"R17\", \"R25\"], \"note\": \"표제는 상한/하한 순서이나 값 크기와 맞지 않아 raw만 남김\"}, {\"msds_index\": 0, \"field\": \"physchem[12]\", \"page\": 6, \"source_text\": \"카. 증기압 : 221 kPa (21.85 ℃) (*출처: 용산화학 제공 자료)\", \"rules\": [\"R04\", \"R08\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[13]\", \"page\": 6, \"source_text\": \"타. 용해도 : 61.4 ppm (25 ℃, pH 7) (*출처: 용산화학 제공 자료)\", \"rules\": [\"R04\", \"R08\"], \"note\": \"COND에 pH 칸이 없어 pH 7은 q.note에 적음\"}, {\"msds_index\": 0, \"field\": \"physchem[14]\", \"page\": 6, \"source_text\": \"파. 증기밀도 : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[15]\", \"page\": 6, \"source_text\": \"하. 비중 : 자료없음\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[16]\", \"page\": 6, \"source_text\": \"거. n 옥탄올/물 분배계수 : Log Kow = 2.89 (20 ℃, pH 7) (Exploring QSAR)\", \"rules\": [\"R04\", \"R25\"], \"note\": \"pH 7은 q.note에 적음\"}, {\"msds_index\": 0, \"field\": \"physchem[17]\", \"page\": 6, \"source_text\": \"너. 자연발화 온도 : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[18]\", \"page\": 6, \"source_text\": \"더. 분해 온도 : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[19]\", \"page\": 6, \"source_text\": \"러. 점도 : 7.5μPa s (CRC Handbook), (300K, 26.85℃)\", \"rules\": [\"R04\", \"R08\"], \"note\": \"온도는 300 K로 cond에 넣고 26.85℃는 note에 적음\"}, {\"msds_index\": 0, \"field\": \"physchem[20]\", \"page\": 6, \"source_text\": \"머. 분자량 : 58.12\", \"rules\": [\"R04\"], \"note\": \"단위가 적혀 있지 않아 unit=null\"}]}"
+}

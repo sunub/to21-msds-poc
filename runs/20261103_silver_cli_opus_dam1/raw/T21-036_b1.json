@@ -1,0 +1,325 @@
+{
+  "doc_id": "T21-036",
+  "bundle": "b1",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 53276,
+    "completion_tokens": 3547,
+    "cached_tokens": 11700,
+    "reasoning_tokens": 801,
+    "notional_cost_usd": 0.40588
+  },
+  "seconds": 34.6,
+  "request_usage": [
+    {
+      "prompt_tokens": 53276,
+      "completion_tokens": 3547,
+      "cached_tokens": 11700,
+      "reasoning_tokens": 801,
+      "notional_cost_usd": 0.40588
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "doc": {
+      "language": "ko",
+      "msds_count": 1
+    },
+    "msds": [
+      {
+        "meta": {
+          "msds_no": "AA03681-1220000090",
+          "doc_code": null,
+          "revision_no": 1,
+          "revision_label": "1.0",
+          "header_product_name": "XC 263",
+          "source_note": null,
+          "first_issue_date": "2022-03-10",
+          "last_revision_date": "2022-04-28",
+          "page_start": 1,
+          "page_end": 8
+        },
+        "product": {
+          "name": "XC 263",
+          "code": null,
+          "synonyms": [],
+          "uses": [],
+          "restrictions": [],
+          "use_category_code": "48"
+        },
+        "companies": [
+          {
+            "seq": 1,
+            "role": "공급자",
+            "name": "금호석유화학(주)",
+            "site": "울산수지공장",
+            "address": "울산광역시 남구 처용로 260-257(성암동)",
+            "postcode": null,
+            "department": null,
+            "contacts": [
+              {
+                "type": "대표",
+                "value": "052-279-8852",
+                "hours": null
+              },
+              {
+                "type": "팩스",
+                "value": "052-279-8840",
+                "hours": null
+              }
+            ]
+          }
+        ],
+        "hazard": {
+          "classified": false,
+          "classes": [],
+          "signal_word": "없음",
+          "pictograms": [],
+          "h_statements": [],
+          "p_statements": [],
+          "other_hazards": [
+            {
+              "seq": 1,
+              "key": null,
+              "value": "자료없음",
+              "text": "자료없음"
+            }
+          ],
+          "nfpa": {
+            "health": null,
+            "fire": null,
+            "reactivity": null,
+            "special": null
+          }
+        },
+        "composition": {
+          "type": "혼합물",
+          "no_hazardous_component": false
+        },
+        "components": [
+          {
+            "seq": 1,
+            "name": "2-Propenoic acid butyl ester polymer with ethenylbenzene and 2-propenenitrile",
+            "name_en": "2-Propenoic acid butyl ester polymer with ethenylbenzene and 2-propenenitrile",
+            "synonyms": [],
+            "cas_no": "26299-47-8",
+            "ke_no": "KE-29470",
+            "ec_no": null,
+            "other_id": null,
+            "other_id_type": null,
+            "parent_seq": null,
+            "read_across_cas": null,
+            "content": {
+              "raw": "75 – 85",
+              "status": "값있음",
+              "lower_op": ">=",
+              "lower": 75,
+              "upper_op": "<=",
+              "upper": 85,
+              "unit": "%"
+            },
+            "content_note": null,
+            "content_basis": "미표기",
+            "trade_secret": false,
+            "approval_no": null,
+            "approval_expiry": null
+          },
+          {
+            "seq": 2,
+            "name": "2-Propenenitrile polymer with ethenylbenzene, (1-methylethenyl)benzene and 1-phenyl-1H-pyrrole-2,5-dione",
+            "name_en": "2-Propenenitrile polymer with ethenylbenzene, (1-methylethenyl)benzene and 1-phenyl-1H-pyrrole-2,5-dione",
+            "synonyms": [],
+            "cas_no": "94858-30-7",
+            "ke_no": null,
+            "ec_no": null,
+            "other_id": "2009-3-3928",
+            "other_id_type": "기존화학물질 번호",
+            "parent_seq": null,
+            "read_across_cas": null,
+            "content": {
+              "raw": "15 – 25",
+              "status": "값있음",
+              "lower_op": ">=",
+              "lower": 15,
+              "upper_op": "<=",
+              "upper": 25,
+              "unit": "%"
+            },
+            "content_note": null,
+            "content_basis": "미표기",
+            "trade_secret": false,
+            "approval_no": null,
+            "approval_expiry": null
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "meta.msds_no",
+        "page": 1,
+        "source_text": "MSDS 번호 : AA03681-1220000090",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.first_issue_date",
+        "page": 1,
+        "source_text": "최초 작성일자: 2022-03-10",
+        "rules": [
+          "R01"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.last_revision_date",
+        "page": 1,
+        "source_text": "개정일자: 2022-04-28",
+        "rules": [
+          "R01"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.revision_no",
+        "page": 1,
+        "source_text": "버전: 1.0",
+        "rules": [],
+        "note": "'1.0'을 개정 횟수 1로, 원문은 revision_label에 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.header_product_name",
+        "page": 1,
+        "source_text": "XC 263",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.page_start",
+        "page": 1,
+        "source_text": "KO (한국어) 1/8",
+        "rules": [
+          "R16"
+        ],
+        "note": "1~8쪽 단일 MSDS"
+      },
+      {
+        "msds_index": 0,
+        "field": "product.name",
+        "page": 1,
+        "source_text": "상품명 : XC 263",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "product.use_category_code",
+        "page": 1,
+        "source_text": "사용 용도 48 - 기타",
+        "rules": [],
+        "note": "용도분류 코드 48(기타); 권고 용도·사용상의 제한은 자료없음이라 목록 비움"
+      },
+      {
+        "msds_index": 0,
+        "field": "companies[0]",
+        "page": 1,
+        "source_text": "- 공급자 O 회사명 : 금호석유화학(주) 울산수지공장 O 주소 : 울산광역시 남구 처용로 260-257(성암동) O 전화 : 052-279-8852 O 팩스 : 052-279-8840",
+        "rules": [
+          "R12"
+        ],
+        "note": "회사명과 사업장명(울산수지공장) 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classified",
+        "page": 1,
+        "source_text": "가. 유해성·위험성 분류 해당없음",
+        "rules": [],
+        "note": "'해당없음'이므로 false"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.signal_word",
+        "page": 1,
+        "source_text": "2.2.2. 신호어 (GHS KR) 해당 라벨 없음",
+        "rules": [],
+        "note": "'해당 라벨 없음'을 없음으로"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.pictograms",
+        "page": 1,
+        "source_text": "2.2.1. 그림문자 (GHS KR) 해당 라벨 없음",
+        "rules": [],
+        "note": "그림문자 없음"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.h_statements",
+        "page": 1,
+        "source_text": "2.2.3. 유해∙위험 문구 (GHS KR) 해당 라벨 없음",
+        "rules": [],
+        "note": "H문구 없음"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements",
+        "page": 1,
+        "source_text": "2.2.4. 예방 조치 문구 (GHS KR) 해당 라벨 없음",
+        "rules": [],
+        "note": "P문구 없음"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.other_hazards[0]",
+        "page": 1,
+        "source_text": "다. 유해성•위험성 분류기준에 포함되지 않는 기타 유해성•위험성 자료없음",
+        "rules": [
+          "R14"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "composition.type",
+        "page": 1,
+        "source_text": "제품 형태 : 혼합물",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "components[0]",
+        "page": 1,
+        "source_text": "2-Propenoic acid butyl ester polymer with ethenylbenzene and 2-propenenitrile | - | CAS 번호: 26299-47-8 기존화학물질 번호: KE-29470 | 75 – 85",
+        "rules": [
+          "R02",
+          "R03",
+          "R04"
+        ],
+        "note": "'75 – 85'를 하한 75(>=), 상한 85(<=), 단위 %로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "components[1]",
+        "page": 2,
+        "source_text": "2-Propenenitrile polymer with ethenylbenzene, (1-methylethenyl)benzene and 1-phenyl-1H-pyrrole-2,5-dione | - | CAS 번호: 94858-30-7 기존화학물질 번호: 2009-3-3928 | 15 – 25",
+        "rules": [
+          "R02",
+          "R04"
+        ],
+        "note": "'2009-3-3928'은 KE 형식이 아니어서 other_id로 둠; '15 – 25'를 하한 15(>=), 상한 25(<=)로 나눔"
+      }
+    ]
+  },
+  "raw_text": "{\"doc\": {\"language\": \"ko\", \"msds_count\": 1}, \"msds\": [{\"meta\": {\"msds_no\": \"AA03681-1220000090\", \"doc_code\": null, \"revision_no\": 1, \"revision_label\": \"1.0\", \"header_product_name\": \"XC 263\", \"source_note\": null, \"first_issue_date\": \"2022-03-10\", \"last_revision_date\": \"2022-04-28\", \"page_start\": 1, \"page_end\": 8}, \"product\": {\"name\": \"XC 263\", \"code\": null, \"synonyms\": [], \"uses\": [], \"restrictions\": [], \"use_category_code\": \"48\"}, \"companies\": [{\"seq\": 1, \"role\": \"공급자\", \"name\": \"금호석유화학(주)\", \"site\": \"울산수지공장\", \"address\": \"울산광역시 남구 처용로 260-257(성암동)\", \"postcode\": null, \"department\": null, \"contacts\": [{\"type\": \"대표\", \"value\": \"052-279-8852\", \"hours\": null}, {\"type\": \"팩스\", \"value\": \"052-279-8840\", \"hours\": null}]}], \"hazard\": {\"classified\": false, \"classes\": [], \"signal_word\": \"없음\", \"pictograms\": [], \"h_statements\": [], \"p_statements\": [], \"other_hazards\": [{\"seq\": 1, \"key\": null, \"value\": \"자료없음\", \"text\": \"자료없음\"}], \"nfpa\": {\"health\": null, \"fire\": null, \"reactivity\": null, \"special\": null}}, \"composition\": {\"type\": \"혼합물\", \"no_hazardous_component\": false}, \"components\": [{\"seq\": 1, \"name\": \"2-Propenoic acid butyl ester polymer with ethenylbenzene and 2-propenenitrile\", \"name_en\": \"2-Propenoic acid butyl ester polymer with ethenylbenzene and 2-propenenitrile\", \"synonyms\": [], \"cas_no\": \"26299-47-8\", \"ke_no\": \"KE-29470\", \"ec_no\": null, \"other_id\": null, \"other_id_type\": null, \"parent_seq\": null, \"read_across_cas\": null, \"content\": {\"raw\": \"75 – 85\", \"status\": \"값있음\", \"lower_op\": \">=\", \"lower\": 75, \"upper_op\": \"<=\", \"upper\": 85, \"unit\": \"%\"}, \"content_note\": null, \"content_basis\": \"미표기\", \"trade_secret\": false, \"approval_no\": null, \"approval_expiry\": null}, {\"seq\": 2, \"name\": \"2-Propenenitrile polymer with ethenylbenzene, (1-methylethenyl)benzene and 1-phenyl-1H-pyrrole-2,5-dione\", \"name_en\": \"2-Propenenitrile polymer with ethenylbenzene, (1-methylethenyl)benzene and 1-phenyl-1H-pyrrole-2,5-dione\", \"synonyms\": [], \"cas_no\": \"94858-30-7\", \"ke_no\": null, \"ec_no\": null, \"other_id\": \"2009-3-3928\", \"other_id_type\": \"기존화학물질 번호\", \"parent_seq\": null, \"read_across_cas\": null, \"content\": {\"raw\": \"15 – 25\", \"status\": \"값있음\", \"lower_op\": \">=\", \"lower\": 15, \"upper_op\": \"<=\", \"upper\": 25, \"unit\": \"%\"}, \"content_note\": null, \"content_basis\": \"미표기\", \"trade_secret\": false, \"approval_no\": null, \"approval_expiry\": null}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"meta.msds_no\", \"page\": 1, \"source_text\": \"MSDS 번호 : AA03681-1220000090\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"meta.first_issue_date\", \"page\": 1, \"source_text\": \"최초 작성일자: 2022-03-10\", \"rules\": [\"R01\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"meta.last_revision_date\", \"page\": 1, \"source_text\": \"개정일자: 2022-04-28\", \"rules\": [\"R01\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"meta.revision_no\", \"page\": 1, \"source_text\": \"버전: 1.0\", \"rules\": [], \"note\": \"'1.0'을 개정 횟수 1로, 원문은 revision_label에 둠\"}, {\"msds_index\": 0, \"field\": \"meta.header_product_name\", \"page\": 1, \"source_text\": \"XC 263\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"meta.page_start\", \"page\": 1, \"source_text\": \"KO (한국어) 1/8\", \"rules\": [\"R16\"], \"note\": \"1~8쪽 단일 MSDS\"}, {\"msds_index\": 0, \"field\": \"product.name\", \"page\": 1, \"source_text\": \"상품명 : XC 263\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"product.use_category_code\", \"page\": 1, \"source_text\": \"사용 용도 48 - 기타\", \"rules\": [], \"note\": \"용도분류 코드 48(기타); 권고 용도·사용상의 제한은 자료없음이라 목록 비움\"}, {\"msds_index\": 0, \"field\": \"companies[0]\", \"page\": 1, \"source_text\": \"- 공급자 O 회사명 : 금호석유화학(주) 울산수지공장 O 주소 : 울산광역시 남구 처용로 260-257(성암동) O 전화 : 052-279-8852 O 팩스 : 052-279-8840\", \"rules\": [\"R12\"], \"note\": \"회사명과 사업장명(울산수지공장) 분리\"}, {\"msds_index\": 0, \"field\": \"hazard.classified\", \"page\": 1, \"source_text\": \"가. 유해성·위험성 분류 해당없음\", \"rules\": [], \"note\": \"'해당없음'이므로 false\"}, {\"msds_index\": 0, \"field\": \"hazard.signal_word\", \"page\": 1, \"source_text\": \"2.2.2. 신호어 (GHS KR) 해당 라벨 없음\", \"rules\": [], \"note\": \"'해당 라벨 없음'을 없음으로\"}, {\"msds_index\": 0, \"field\": \"hazard.pictograms\", \"page\": 1, \"source_text\": \"2.2.1. 그림문자 (GHS KR) 해당 라벨 없음\", \"rules\": [], \"note\": \"그림문자 없음\"}, {\"msds_index\": 0, \"field\": \"hazard.h_statements\", \"page\": 1, \"source_text\": \"2.2.3. 유해∙위험 문구 (GHS KR) 해당 라벨 없음\", \"rules\": [], \"note\": \"H문구 없음\"}, {\"msds_index\": 0, \"field\": \"hazard.p_statements\", \"page\": 1, \"source_text\": \"2.2.4. 예방 조치 문구 (GHS KR) 해당 라벨 없음\", \"rules\": [], \"note\": \"P문구 없음\"}, {\"msds_index\": 0, \"field\": \"hazard.other_hazards[0]\", \"page\": 1, \"source_text\": \"다. 유해성•위험성 분류기준에 포함되지 않는 기타 유해성•위험성 자료없음\", \"rules\": [\"R14\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"composition.type\", \"page\": 1, \"source_text\": \"제품 형태 : 혼합물\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"components[0]\", \"page\": 1, \"source_text\": \"2-Propenoic acid butyl ester polymer with ethenylbenzene and 2-propenenitrile | - | CAS 번호: 26299-47-8 기존화학물질 번호: KE-29470 | 75 – 85\", \"rules\": [\"R02\", \"R03\", \"R04\"], \"note\": \"'75 – 85'를 하한 75(>=), 상한 85(<=), 단위 %로 나눔\"}, {\"msds_index\": 0, \"field\": \"components[1]\", \"page\": 2, \"source_text\": \"2-Propenenitrile polymer with ethenylbenzene, (1-methylethenyl)benzene and 1-phenyl-1H-pyrrole-2,5-dione | - | CAS 번호: 94858-30-7 기존화학물질 번호: 2009-3-3928 | 15 – 25\", \"rules\": [\"R02\", \"R04\"], \"note\": \"'2009-3-3928'은 KE 형식이 아니어서 other_id로 둠; '15 – 25'를 하한 15(>=), 상한 25(<=)로 나눔\"}]}"
+}

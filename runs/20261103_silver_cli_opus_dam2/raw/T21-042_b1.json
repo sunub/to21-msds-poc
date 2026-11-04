@@ -1,0 +1,774 @@
+{
+  "doc_id": "T21-042",
+  "bundle": "b1",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 69639,
+    "completion_tokens": 6577,
+    "cached_tokens": 0,
+    "reasoning_tokens": 612,
+    "notional_cost_usd": 0.688644
+  },
+  "seconds": 49.2,
+  "request_usage": [
+    {
+      "prompt_tokens": 69639,
+      "completion_tokens": 6577,
+      "cached_tokens": 0,
+      "reasoning_tokens": 612,
+      "notional_cost_usd": 0.688644
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "doc": {
+      "language": "ko",
+      "msds_count": 1
+    },
+    "msds": [
+      {
+        "meta": {
+          "msds_no": "AA00930-0000000003",
+          "doc_code": null,
+          "revision_no": 9,
+          "revision_label": "R0009",
+          "header_product_name": "요소",
+          "source_note": null,
+          "first_issue_date": "2013-05-18",
+          "last_revision_date": "2026-02-09",
+          "page_start": 1,
+          "page_end": 12
+        },
+        "product": {
+          "name": "요소",
+          "code": null,
+          "synonyms": [],
+          "uses": [
+            "공업용",
+            "접착제",
+            "착색제",
+            "비료",
+            "계면활성제 등"
+          ],
+          "restrictions": [
+            "정해진 용도 이외에는 사용하지 말것."
+          ],
+          "use_category_code": null
+        },
+        "companies": [
+          {
+            "seq": 1,
+            "role": "제조자",
+            "name": "남해화학",
+            "site": null,
+            "address": "전남 여수시 여수산단로 1384번지",
+            "postcode": null,
+            "department": null,
+            "contacts": [
+              {
+                "type": "긴급",
+                "value": "061-688-5772",
+                "hours": null
+              },
+              {
+                "type": "긴급",
+                "value": "061-688-5773",
+                "hours": null
+              },
+              {
+                "type": "긴급",
+                "value": "061-688-5774",
+                "hours": null
+              },
+              {
+                "type": "긴급",
+                "value": "061-688-5775",
+                "hours": null
+              }
+            ]
+          }
+        ],
+        "hazard": {
+          "classified": true,
+          "classes": [
+            {
+              "seq": 1,
+              "group": "건강",
+              "class_code": "HH_SKIN_CORR",
+              "category": "2",
+              "route_form": null,
+              "effect": null,
+              "target_organs": [],
+              "raw": "피부 부식성/피부 자극성 : 구분2"
+            },
+            {
+              "seq": 2,
+              "group": "건강",
+              "class_code": "HH_EYE_DMG",
+              "category": "2",
+              "route_form": null,
+              "effect": null,
+              "target_organs": [],
+              "raw": "심한 눈 손상성/눈 자극성 : 구분2"
+            },
+            {
+              "seq": 3,
+              "group": "건강",
+              "class_code": "HH_STOT_SE",
+              "category": "3",
+              "route_form": null,
+              "effect": "호흡기 자극",
+              "target_organs": [],
+              "raw": "특정표적장기 독성(1회 노출) : 구분3(호흡기 자극)"
+            }
+          ],
+          "signal_word": "경고",
+          "pictograms": [
+            {
+              "code": "GHS07",
+              "detection": "이미지판독"
+            }
+          ],
+          "h_statements": [
+            {
+              "seq": 1,
+              "code": "H315",
+              "system": "GHS",
+              "mark": null,
+              "text": "피부에 자극을 일으킴"
+            },
+            {
+              "seq": 2,
+              "code": "H319",
+              "system": "GHS",
+              "mark": null,
+              "text": "눈에 심한 자극을 일으킴"
+            },
+            {
+              "seq": 3,
+              "code": "H335",
+              "system": "GHS",
+              "mark": null,
+              "text": "호흡기 자극을 일으킬 수 있음"
+            }
+          ],
+          "p_statements": [
+            {
+              "seq": 1,
+              "code": "P261",
+              "type": "예방",
+              "text": "분진/흄의 흡입을 피하시오."
+            },
+            {
+              "seq": 2,
+              "code": "P264",
+              "type": "예방",
+              "text": "취급 후에는 취급 부위를 철저히 씻으시오."
+            },
+            {
+              "seq": 3,
+              "code": "P271",
+              "type": "예방",
+              "text": "옥외 또는 환기가 잘 되는 곳에서만 취급하시오."
+            },
+            {
+              "seq": 4,
+              "code": "P280",
+              "type": "예방",
+              "text": "보호장갑·보호의·보안경·안면보호구를(을) 착용하시오."
+            },
+            {
+              "seq": 5,
+              "code": "P302+P352",
+              "type": "대응",
+              "text": "피부에 묻으면 다량의 물로 씻으시오."
+            },
+            {
+              "seq": 6,
+              "code": "P304+P340",
+              "type": "대응",
+              "text": "흡입하면 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을 취하시오."
+            },
+            {
+              "seq": 7,
+              "code": "P305+P351+P338",
+              "type": "대응",
+              "text": "눈에 묻으면 몇 분간 물로 조심해서 씻으시오. 가능하면 콘택트렌즈를 제거하시오. 계속 씻으시오."
+            },
+            {
+              "seq": 8,
+              "code": "P312",
+              "type": "대응",
+              "text": "불편함을 느끼면 의료기관(의사)의 진찰을 받으시오."
+            },
+            {
+              "seq": 9,
+              "code": "P321",
+              "type": "대응",
+              "text": "응급처치(눈에 들어갔을 때는 다량의 흐르는 물로 세척, 피부에 접촉했을 때는 다량의 흐르는 물로 세척, 흡입했을 때 신선한 공기로 이동, 먹었을 때 구토를 유발할지에 대하여 의료진의 조언을 구함)를 하시오."
+            },
+            {
+              "seq": 10,
+              "code": "P332+P313",
+              "type": "대응",
+              "text": "피부 자극이 나타나면 의학적인 조치·조언을 받으시오."
+            },
+            {
+              "seq": 11,
+              "code": "P337+P313",
+              "type": "대응",
+              "text": "눈에 자극이 지속되면 의학적인 조치·조언을 받으시오."
+            },
+            {
+              "seq": 12,
+              "code": "P362+P364",
+              "type": "대응",
+              "text": "오염된 의류를 벗고 다시 사용 전 세척하시오."
+            },
+            {
+              "seq": 13,
+              "code": "P403+P233",
+              "type": "저장",
+              "text": "환기가 잘 되는 곳에 보관하시오. 용기를 단단히 밀폐하시오."
+            },
+            {
+              "seq": 14,
+              "code": "P405",
+              "type": "저장",
+              "text": "잠금장치를 하여 저장하시오."
+            },
+            {
+              "seq": 15,
+              "code": "P501",
+              "type": "폐기",
+              "text": "폐기물 관련 법령에 따라 내용물/용기를 폐기하시오."
+            }
+          ],
+          "other_hazards": [
+            {
+              "seq": 1,
+              "key": null,
+              "value": "자료없음",
+              "text": "- 자료없음"
+            }
+          ],
+          "nfpa": {
+            "health": null,
+            "fire": null,
+            "reactivity": null,
+            "special": null
+          }
+        },
+        "composition": {
+          "type": "혼합물",
+          "no_hazardous_component": false
+        },
+        "components": [
+          {
+            "seq": 1,
+            "name": "요소",
+            "name_en": null,
+            "synonyms": [
+              "카바마이드"
+            ],
+            "cas_no": "57-13-6",
+            "ke_no": "KE-35144",
+            "content": {
+              "raw": "96.6-97.6",
+              "status": "값있음",
+              "lower_op": ">=",
+              "lower": 96.6,
+              "upper_op": "<=",
+              "upper": 97.6,
+              "unit": "%",
+              "dp": 1
+            },
+            "content_basis": "미표기",
+            "trade_secret": false
+          },
+          {
+            "seq": 2,
+            "name": "요소 수지 가공품",
+            "name_en": null,
+            "synonyms": [],
+            "cas_no": "68611-64-3",
+            "ke_no": "KE-35223",
+            "content": {
+              "raw": "1.3-1.5",
+              "status": "값있음",
+              "lower_op": ">=",
+              "lower": 1.3,
+              "upper_op": "<=",
+              "upper": 1.5,
+              "unit": "%",
+              "dp": 1
+            },
+            "content_basis": "미표기",
+            "trade_secret": false
+          },
+          {
+            "seq": 3,
+            "name": "뷰렛",
+            "name_en": null,
+            "synonyms": [],
+            "cas_no": "108-19-0",
+            "ke_no": "KE-20952",
+            "content": {
+              "raw": "0.1-1.0",
+              "status": "값있음",
+              "lower_op": ">=",
+              "lower": 0.1,
+              "upper_op": "<=",
+              "upper": 1,
+              "unit": "%",
+              "dp": 1
+            },
+            "content_basis": "미표기",
+            "trade_secret": false
+          },
+          {
+            "seq": 4,
+            "name": "물",
+            "name_en": null,
+            "synonyms": [
+              "다이하이드로젠 옥사이드"
+            ],
+            "cas_no": "7732-18-5",
+            "ke_no": "KE-35400",
+            "content": {
+              "raw": "0.1-0.5",
+              "status": "값있음",
+              "lower_op": ">=",
+              "lower": 0.1,
+              "upper_op": "<=",
+              "upper": 0.5,
+              "unit": "%",
+              "dp": 1
+            },
+            "content_basis": "미표기",
+            "trade_secret": false
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "meta.msds_no",
+        "page": 1,
+        "source_text": "MSDS번호 : AA00930-0000000003",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.revision_label",
+        "page": 1,
+        "source_text": "Version: R0009",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.revision_no",
+        "page": 12,
+        "source_text": "- 9회, 2026-02-09",
+        "rules": [],
+        "note": "'9회'와 머리글 'R0009'로 개정횟수 9"
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.first_issue_date",
+        "page": 1,
+        "source_text": "Date of issue: 2013-05-18",
+        "rules": [
+          "R01"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.last_revision_date",
+        "page": 1,
+        "source_text": "Revision date: 2026-02-09",
+        "rules": [
+          "R01"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.header_product_name",
+        "page": 1,
+        "source_text": "요소",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.page_start",
+        "page": 1,
+        "source_text": "1/12",
+        "rules": [
+          "R16"
+        ],
+        "note": "1~12쪽 단일 MSDS"
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.page_end",
+        "page": 12,
+        "source_text": "12/12",
+        "rules": [
+          "R16"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "product.name",
+        "page": 1,
+        "source_text": "가. 제품명 - 요소",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "product.uses",
+        "page": 1,
+        "source_text": "- 용도 : 공업용,접착제, 착색제, 비료, 계면활성제 등",
+        "rules": [
+          "R11"
+        ],
+        "note": "쉼표 기준으로 5개 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "product.restrictions",
+        "page": 1,
+        "source_text": "- 사용상의 제한 : 정해진 용도 이외에는 사용하지 말것.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "companies[0]",
+        "page": 1,
+        "source_text": "- 회사명 : 남해화학 - 주소 : 전남 여수시 여수산단로 1384번지 - 긴급 전화번호 : 061)688-5772~5",
+        "rules": [
+          "R12"
+        ],
+        "note": "소제목이 '제조자/공급자/유통업자 정보'로 묶여 있어 역할을 제조자로 둠. 번호 범위 5772~5를 4개 번호로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classified",
+        "page": 1,
+        "source_text": "가. 유해성·위험성 분류",
+        "rules": [],
+        "note": "분류 3건 존재"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classes[0]",
+        "page": 1,
+        "source_text": "- 피부 부식성/피부 자극성 : 구분2",
+        "rules": [
+          "R07"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classes[1]",
+        "page": 1,
+        "source_text": "- 심한 눈 손상성/눈 자극성 : 구분2",
+        "rules": [
+          "R07"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classes[2]",
+        "page": 1,
+        "source_text": "- 특정표적장기 독성(1회 노출) : 구분3(호흡기 자극)",
+        "rules": [
+          "R07"
+        ],
+        "note": "괄호 '호흡기 자극'을 effect로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.signal_word",
+        "page": 1,
+        "source_text": "○ 신호어 - 경고",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.pictograms[0]",
+        "page": 1,
+        "source_text": "○ 그림문자",
+        "rules": [],
+        "note": "이미지에서 감탄부호 그림 확인"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.h_statements[0]",
+        "page": 1,
+        "source_text": "- H315 피부에 자극을 일으킴",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.h_statements[1]",
+        "page": 1,
+        "source_text": "- H319 눈에 심한 자극을 일으킴",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.h_statements[2]",
+        "page": 1,
+        "source_text": "- H335 호흡기 자극을 일으킬 수 있음",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[0]",
+        "page": 1,
+        "source_text": "- P261 분진/흄의 흡입을 피하시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[1]",
+        "page": 1,
+        "source_text": "- P264 취급 후에는 취급 부위를 철저히 씻으시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[2]",
+        "page": 1,
+        "source_text": "- P271 옥외 또는 환기가 잘 되는 곳에서만 취급하시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[3]",
+        "page": 1,
+        "source_text": "- P280 보호장갑·보호의·보안경·안면보호구를(을) 착용하시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[4]",
+        "page": 1,
+        "source_text": "- P302+P352 피부에 묻으면 다량의 물로 씻으시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[5]",
+        "page": 1,
+        "source_text": "- P304+P340 흡입하면 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을 취하시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[6]",
+        "page": 1,
+        "source_text": "- P305+P351+P338 눈에 묻으면 몇 분간 물로 조심해서 씻으시오. 가능하면 콘택트렌즈를 제거하시오. 계속 씻으시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[7]",
+        "page": 1,
+        "source_text": "- P312 불편함을 느끼면 의료기관(의사)의 진찰을 받으시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[8]",
+        "page": 1,
+        "source_text": "- P321 응급처치(눈에 들어갔을 때는 다량의 흐르는 물로 세척, 피부에 접촉했을 때는 다량의 흐르는 물로 세척, 흡입했을 때 신선",
+        "rules": [
+          "R05",
+          "R14"
+        ],
+        "note": "줄바꿈된 문장을 이어붙임"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[9]",
+        "page": 1,
+        "source_text": "- P332+P313 피부 자극이 나타나면 의학적인 조치·조언을 받으시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[10]",
+        "page": 1,
+        "source_text": "- P337+P313 눈에 자극이 지속되면 의학적인 조치·조언을 받으시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[11]",
+        "page": 1,
+        "source_text": "- P362+P364 오염된 의류를 벗고 다시 사용 전 세척하시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[12]",
+        "page": 2,
+        "source_text": "- P403+P233 환기가 잘 되는 곳에 보관하시오. 용기를 단단히 밀폐하시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[13]",
+        "page": 2,
+        "source_text": "- P405 잠금장치를 하여 저장하시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[14]",
+        "page": 2,
+        "source_text": "- P501 폐기물 관련 법령에 따라 내용물/용기를 폐기하시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.other_hazards[0]",
+        "page": 2,
+        "source_text": "- 자료없음",
+        "rules": [
+          "R14"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "composition.type",
+        "page": 2,
+        "source_text": "3. 구성성분의 명칭 및 함유량",
+        "rules": [],
+        "note": "성분 4개로 혼합물"
+      },
+      {
+        "msds_index": 0,
+        "field": "components[0]",
+        "page": 2,
+        "source_text": "요소 | 카바마이드 | 57-13-6 / KE-35144 | 96.6-97.6",
+        "rules": [
+          "R02",
+          "R03",
+          "R04",
+          "R06"
+        ],
+        "note": "CAS와 KE 분리, 범위를 >=96.6, <=97.6으로 분해"
+      },
+      {
+        "msds_index": 0,
+        "field": "components[1]",
+        "page": 2,
+        "source_text": "요소 수지 가공품 | 자료없음 | 68611-64-3 / KE-35223 | 1.3-1.5",
+        "rules": [
+          "R02",
+          "R03",
+          "R04",
+          "R06"
+        ],
+        "note": "이명 '자료없음'은 이명으로 넣지 않음"
+      },
+      {
+        "msds_index": 0,
+        "field": "components[2]",
+        "page": 2,
+        "source_text": "뷰렛 | 자료없음 | 108-19-0 / KE-20952 | 0.1-1.0",
+        "rules": [
+          "R02",
+          "R03",
+          "R04",
+          "R06"
+        ],
+        "note": "'1.0'은 dp=1로 표기 보존"
+      },
+      {
+        "msds_index": 0,
+        "field": "components[3]",
+        "page": 2,
+        "source_text": "물 | 다이하이드로젠 옥사이드 | 7732-18-5 / KE-35400 | 0.1-0.5",
+        "rules": [
+          "R02",
+          "R03",
+          "R04",
+          "R06"
+        ],
+        "note": null
+      }
+    ]
+  },
+  "raw_text": "{\"doc\": {\"language\": \"ko\", \"msds_count\": 1}, \"msds\": [{\"meta\": {\"msds_no\": \"AA00930-0000000003\", \"doc_code\": null, \"revision_no\": 9, \"revision_label\": \"R0009\", \"header_product_name\": \"요소\", \"source_note\": null, \"first_issue_date\": \"2013-05-18\", \"last_revision_date\": \"2026-02-09\", \"page_start\": 1, \"page_end\": 12}, \"product\": {\"name\": \"요소\", \"code\": null, \"synonyms\": [], \"uses\": [\"공업용\", \"접착제\", \"착색제\", \"비료\", \"계면활성제 등\"], \"restrictions\": [\"정해진 용도 이외에는 사용하지 말것.\"], \"use_category_code\": null}, \"companies\": [{\"seq\": 1, \"role\": \"제조자\", \"name\": \"남해화학\", \"site\": null, \"address\": \"전남 여수시 여수산단로 1384번지\", \"postcode\": null, \"department\": null, \"contacts\": [{\"type\": \"긴급\", \"value\": \"061-688-5772\", \"hours\": null}, {\"type\": \"긴급\", \"value\": \"061-688-5773\", \"hours\": null}, {\"type\": \"긴급\", \"value\": \"061-688-5774\", \"hours\": null}, {\"type\": \"긴급\", \"value\": \"061-688-5775\", \"hours\": null}]}], \"hazard\": {\"classified\": true, \"classes\": [{\"seq\": 1, \"group\": \"건강\", \"class_code\": \"HH_SKIN_CORR\", \"category\": \"2\", \"route_form\": null, \"effect\": null, \"target_organs\": [], \"raw\": \"피부 부식성/피부 자극성 : 구분2\"}, {\"seq\": 2, \"group\": \"건강\", \"class_code\": \"HH_EYE_DMG\", \"category\": \"2\", \"route_form\": null, \"effect\": null, \"target_organs\": [], \"raw\": \"심한 눈 손상성/눈 자극성 : 구분2\"}, {\"seq\": 3, \"group\": \"건강\", \"class_code\": \"HH_STOT_SE\", \"category\": \"3\", \"route_form\": null, \"effect\": \"호흡기 자극\", \"target_organs\": [], \"raw\": \"특정표적장기 독성(1회 노출) : 구분3(호흡기 자극)\"}], \"signal_word\": \"경고\", \"pictograms\": [{\"code\": \"GHS07\", \"detection\": \"이미지판독\"}], \"h_statements\": [{\"seq\": 1, \"code\": \"H315\", \"system\": \"GHS\", \"mark\": null, \"text\": \"피부에 자극을 일으킴\"}, {\"seq\": 2, \"code\": \"H319\", \"system\": \"GHS\", \"mark\": null, \"text\": \"눈에 심한 자극을 일으킴\"}, {\"seq\": 3, \"code\": \"H335\", \"system\": \"GHS\", \"mark\": null, \"text\": \"호흡기 자극을 일으킬 수 있음\"}], \"p_statements\": [{\"seq\": 1, \"code\": \"P261\", \"type\": \"예방\", \"text\": \"분진/흄의 흡입을 피하시오.\"}, {\"seq\": 2, \"code\": \"P264\", \"type\": \"예방\", \"text\": \"취급 후에는 취급 부위를 철저히 씻으시오.\"}, {\"seq\": 3, \"code\": \"P271\", \"type\": \"예방\", \"text\": \"옥외 또는 환기가 잘 되는 곳에서만 취급하시오.\"}, {\"seq\": 4, \"code\": \"P280\", \"type\": \"예방\", \"text\": \"보호장갑·보호의·보안경·안면보호구를(을) 착용하시오.\"}, {\"seq\": 5, \"code\": \"P302+P352\", \"type\": \"대응\", \"text\": \"피부에 묻으면 다량의 물로 씻으시오.\"}, {\"seq\": 6, \"code\": \"P304+P340\", \"type\": \"대응\", \"text\": \"흡입하면 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을 취하시오.\"}, {\"seq\": 7, \"code\": \"P305+P351+P338\", \"type\": \"대응\", \"text\": \"눈에 묻으면 몇 분간 물로 조심해서 씻으시오. 가능하면 콘택트렌즈를 제거하시오. 계속 씻으시오.\"}, {\"seq\": 8, \"code\": \"P312\", \"type\": \"대응\", \"text\": \"불편함을 느끼면 의료기관(의사)의 진찰을 받으시오.\"}, {\"seq\": 9, \"code\": \"P321\", \"type\": \"대응\", \"text\": \"응급처치(눈에 들어갔을 때는 다량의 흐르는 물로 세척, 피부에 접촉했을 때는 다량의 흐르는 물로 세척, 흡입했을 때 신선한 공기로 이동, 먹었을 때 구토를 유발할지에 대하여 의료진의 조언을 구함)를 하시오.\"}, {\"seq\": 10, \"code\": \"P332+P313\", \"type\": \"대응\", \"text\": \"피부 자극이 나타나면 의학적인 조치·조언을 받으시오.\"}, {\"seq\": 11, \"code\": \"P337+P313\", \"type\": \"대응\", \"text\": \"눈에 자극이 지속되면 의학적인 조치·조언을 받으시오.\"}, {\"seq\": 12, \"code\": \"P362+P364\", \"type\": \"대응\", \"text\": \"오염된 의류를 벗고 다시 사용 전 세척하시오.\"}, {\"seq\": 13, \"code\": \"P403+P233\", \"type\": \"저장\", \"text\": \"환기가 잘 되는 곳에 보관하시오. 용기를 단단히 밀폐하시오.\"}, {\"seq\": 14, \"code\": \"P405\", \"type\": \"저장\", \"text\": \"잠금장치를 하여 저장하시오.\"}, {\"seq\": 15, \"code\": \"P501\", \"type\": \"폐기\", \"text\": \"폐기물 관련 법령에 따라 내용물/용기를 폐기하시오.\"}], \"other_hazards\": [{\"seq\": 1, \"key\": null, \"value\": \"자료없음\", \"text\": \"- 자료없음\"}], \"nfpa\": {\"health\": null, \"fire\": null, \"reactivity\": null, \"special\": null}}, \"composition\": {\"type\": \"혼합물\", \"no_hazardous_component\": false}, \"components\": [{\"seq\": 1, \"name\": \"요소\", \"name_en\": null, \"synonyms\": [\"카바마이드\"], \"cas_no\": \"57-13-6\", \"ke_no\": \"KE-35144\", \"content\": {\"raw\": \"96.6-97.6\", \"status\": \"값있음\", \"lower_op\": \">=\", \"lower\": 96.6, \"upper_op\": \"<=\", \"upper\": 97.6, \"unit\": \"%\", \"dp\": 1}, \"content_basis\": \"미표기\", \"trade_secret\": false}, {\"seq\": 2, \"name\": \"요소 수지 가공품\", \"name_en\": null, \"synonyms\": [], \"cas_no\": \"68611-64-3\", \"ke_no\": \"KE-35223\", \"content\": {\"raw\": \"1.3-1.5\", \"status\": \"값있음\", \"lower_op\": \">=\", \"lower\": 1.3, \"upper_op\": \"<=\", \"upper\": 1.5, \"unit\": \"%\", \"dp\": 1}, \"content_basis\": \"미표기\", \"trade_secret\": false}, {\"seq\": 3, \"name\": \"뷰렛\", \"name_en\": null, \"synonyms\": [], \"cas_no\": \"108-19-0\", \"ke_no\": \"KE-20952\", \"content\": {\"raw\": \"0.1-1.0\", \"status\": \"값있음\", \"lower_op\": \">=\", \"lower\": 0.1, \"upper_op\": \"<=\", \"upper\": 1, \"unit\": \"%\", \"dp\": 1}, \"content_basis\": \"미표기\", \"trade_secret\": false}, {\"seq\": 4, \"name\": \"물\", \"name_en\": null, \"synonyms\": [\"다이하이드로젠 옥사이드\"], \"cas_no\": \"7732-18-5\", \"ke_no\": \"KE-35400\", \"content\": {\"raw\": \"0.1-0.5\", \"status\": \"값있음\", \"lower_op\": \">=\", \"lower\": 0.1, \"upper_op\": \"<=\", \"upper\": 0.5, \"unit\": \"%\", \"dp\": 1}, \"content_basis\": \"미표기\", \"trade_secret\": false}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"meta.msds_no\", \"page\": 1, \"source_text\": \"MSDS번호 : AA00930-0000000003\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"meta.revision_label\", \"page\": 1, \"source_text\": \"Version: R0009\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"meta.revision_no\", \"page\": 12, \"source_text\": \"- 9회, 2026-02-09\", \"rules\": [], \"note\": \"'9회'와 머리글 'R0009'로 개정횟수 9\"}, {\"msds_index\": 0, \"field\": \"meta.first_issue_date\", \"page\": 1, \"source_text\": \"Date of issue: 2013-05-18\", \"rules\": [\"R01\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"meta.last_revision_date\", \"page\": 1, \"source_text\": \"Revision date: 2026-02-09\", \"rules\": [\"R01\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"meta.header_product_name\", \"page\": 1, \"source_text\": \"요소\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"meta.page_start\", \"page\": 1, \"source_text\": \"1/12\", \"rules\": [\"R16\"], \"note\": \"1~12쪽 단일 MSDS\"}, {\"msds_index\": 0, \"field\": \"meta.page_end\", \"page\": 12, \"source_text\": \"12/12\", \"rules\": [\"R16\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"product.name\", \"page\": 1, \"source_text\": \"가. 제품명 - 요소\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"product.uses\", \"page\": 1, \"source_text\": \"- 용도 : 공업용,접착제, 착색제, 비료, 계면활성제 등\", \"rules\": [\"R11\"], \"note\": \"쉼표 기준으로 5개 분리\"}, {\"msds_index\": 0, \"field\": \"product.restrictions\", \"page\": 1, \"source_text\": \"- 사용상의 제한 : 정해진 용도 이외에는 사용하지 말것.\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"companies[0]\", \"page\": 1, \"source_text\": \"- 회사명 : 남해화학 - 주소 : 전남 여수시 여수산단로 1384번지 - 긴급 전화번호 : 061)688-5772~5\", \"rules\": [\"R12\"], \"note\": \"소제목이 '제조자/공급자/유통업자 정보'로 묶여 있어 역할을 제조자로 둠. 번호 범위 5772~5를 4개 번호로 분리\"}, {\"msds_index\": 0, \"field\": \"hazard.classified\", \"page\": 1, \"source_text\": \"가. 유해성·위험성 분류\", \"rules\": [], \"note\": \"분류 3건 존재\"}, {\"msds_index\": 0, \"field\": \"hazard.classes[0]\", \"page\": 1, \"source_text\": \"- 피부 부식성/피부 자극성 : 구분2\", \"rules\": [\"R07\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.classes[1]\", \"page\": 1, \"source_text\": \"- 심한 눈 손상성/눈 자극성 : 구분2\", \"rules\": [\"R07\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.classes[2]\", \"page\": 1, \"source_text\": \"- 특정표적장기 독성(1회 노출) : 구분3(호흡기 자극)\", \"rules\": [\"R07\"], \"note\": \"괄호 '호흡기 자극'을 effect로 분리\"}, {\"msds_index\": 0, \"field\": \"hazard.signal_word\", \"page\": 1, \"source_text\": \"○ 신호어 - 경고\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.pictograms[0]\", \"page\": 1, \"source_text\": \"○ 그림문자\", \"rules\": [], \"note\": \"이미지에서 감탄부호 그림 확인\"}, {\"msds_index\": 0, \"field\": \"hazard.h_statements[0]\", \"page\": 1, \"source_text\": \"- H315 피부에 자극을 일으킴\", \"rules\": [\"R05\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.h_statements[1]\", \"page\": 1, \"source_text\": \"- H319 눈에 심한 자극을 일으킴\", \"rules\": [\"R05\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.h_statements[2]\", \"page\": 1, \"source_text\": \"- H335 호흡기 자극을 일으킬 수 있음\", \"rules\": [\"R05\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.p_statements[0]\", \"page\": 1, \"source_text\": \"- P261 분진/흄의 흡입을 피하시오.\", \"rules\": [\"R05\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.p_statements[1]\", \"page\": 1, \"source_text\": \"- P264 취급 후에는 취급 부위를 철저히 씻으시오.\", \"rules\": [\"R05\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.p_statements[2]\", \"page\": 1, \"source_text\": \"- P271 옥외 또는 환기가 잘 되는 곳에서만 취급하시오.\", \"rules\": [\"R05\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.p_statements[3]\", \"page\": 1, \"source_text\": \"- P280 보호장갑·보호의·보안경·안면보호구를(을) 착용하시오.\", \"rules\": [\"R05\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.p_statements[4]\", \"page\": 1, \"source_text\": \"- P302+P352 피부에 묻으면 다량의 물로 씻으시오.\", \"rules\": [\"R05\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.p_statements[5]\", \"page\": 1, \"source_text\": \"- P304+P340 흡입하면 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을 취하시오.\", \"rules\": [\"R05\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.p_statements[6]\", \"page\": 1, \"source_text\": \"- P305+P351+P338 눈에 묻으면 몇 분간 물로 조심해서 씻으시오. 가능하면 콘택트렌즈를 제거하시오. 계속 씻으시오.\", \"rules\": [\"R05\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.p_statements[7]\", \"page\": 1, \"source_text\": \"- P312 불편함을 느끼면 의료기관(의사)의 진찰을 받으시오.\", \"rules\": [\"R05\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.p_statements[8]\", \"page\": 1, \"source_text\": \"- P321 응급처치(눈에 들어갔을 때는 다량의 흐르는 물로 세척, 피부에 접촉했을 때는 다량의 흐르는 물로 세척, 흡입했을 때 신선\", \"rules\": [\"R05\", \"R14\"], \"note\": \"줄바꿈된 문장을 이어붙임\"}, {\"msds_index\": 0, \"field\": \"hazard.p_statements[9]\", \"page\": 1, \"source_text\": \"- P332+P313 피부 자극이 나타나면 의학적인 조치·조언을 받으시오.\", \"rules\": [\"R05\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.p_statements[10]\", \"page\": 1, \"source_text\": \"- P337+P313 눈에 자극이 지속되면 의학적인 조치·조언을 받으시오.\", \"rules\": [\"R05\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.p_statements[11]\", \"page\": 1, \"source_text\": \"- P362+P364 오염된 의류를 벗고 다시 사용 전 세척하시오.\", \"rules\": [\"R05\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.p_statements[12]\", \"page\": 2, \"source_text\": \"- P403+P233 환기가 잘 되는 곳에 보관하시오. 용기를 단단히 밀폐하시오.\", \"rules\": [\"R05\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.p_statements[13]\", \"page\": 2, \"source_text\": \"- P405 잠금장치를 하여 저장하시오.\", \"rules\": [\"R05\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.p_statements[14]\", \"page\": 2, \"source_text\": \"- P501 폐기물 관련 법령에 따라 내용물/용기를 폐기하시오.\", \"rules\": [\"R05\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.other_hazards[0]\", \"page\": 2, \"source_text\": \"- 자료없음\", \"rules\": [\"R14\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"composition.type\", \"page\": 2, \"source_text\": \"3. 구성성분의 명칭 및 함유량\", \"rules\": [], \"note\": \"성분 4개로 혼합물\"}, {\"msds_index\": 0, \"field\": \"components[0]\", \"page\": 2, \"source_text\": \"요소 | 카바마이드 | 57-13-6 / KE-35144 | 96.6-97.6\", \"rules\": [\"R02\", \"R03\", \"R04\", \"R06\"], \"note\": \"CAS와 KE 분리, 범위를 >=96.6, <=97.6으로 분해\"}, {\"msds_index\": 0, \"field\": \"components[1]\", \"page\": 2, \"source_text\": \"요소 수지 가공품 | 자료없음 | 68611-64-3 / KE-35223 | 1.3-1.5\", \"rules\": [\"R02\", \"R03\", \"R04\", \"R06\"], \"note\": \"이명 '자료없음'은 이명으로 넣지 않음\"}, {\"msds_index\": 0, \"field\": \"components[2]\", \"page\": 2, \"source_text\": \"뷰렛 | 자료없음 | 108-19-0 / KE-20952 | 0.1-1.0\", \"rules\": [\"R02\", \"R03\", \"R04\", \"R06\"], \"note\": \"'1.0'은 dp=1로 표기 보존\"}, {\"msds_index\": 0, \"field\": \"components[3]\", \"page\": 2, \"source_text\": \"물 | 다이하이드로젠 옥사이드 | 7732-18-5 / KE-35400 | 0.1-0.5\", \"rules\": [\"R02\", \"R03\", \"R04\", \"R06\"], \"note\": null}]}"
+}

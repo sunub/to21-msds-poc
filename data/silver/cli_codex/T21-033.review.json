@@ -1,0 +1,2247 @@
+[
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "doc.language",
+    "page": 1,
+    "source_text": "물질안전보건자료(MSDS)\n1. 화학제품과 회사에 관한 정보",
+    "rules": [],
+    "note": "문서의 본문 언어를 ko로 저장함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "doc.msds_count",
+    "page": 1,
+    "source_text": "물질안전보건자료(MSDS) | 가. 제품명 : PC/ABS_FR ABF-1030G",
+    "rules": [
+      "R16"
+    ],
+    "note": "1쪽부터 11쪽까지 이어지는 MSDS 1건으로 구분함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.msds_no",
+    "page": 1,
+    "source_text": "MSDS 번호 : AA00200-0000001765",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.revision_no",
+    "page": 11,
+    "source_text": "○ 개정 횟수 : 2-1",
+    "rules": [
+      "R17"
+    ],
+    "note": "'2-1'을 단일 정수로 확정할 수 없어 null로 두고 revision_label에 원문을 보존함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.revision_label",
+    "page": 11,
+    "source_text": "○ 개정 횟수 : 2-1",
+    "rules": [
+      "R17"
+    ],
+    "note": "개정 횟수의 복합 표기 '2-1'을 그대로 보존함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.first_issue_date",
+    "page": 11,
+    "source_text": "나. 최초 작성일자 : 2022-09-14",
+    "rules": [
+      "R01"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.last_revision_date",
+    "page": 1,
+    "source_text": "최종 개정일자 : 2022-09-14",
+    "rules": [
+      "R01"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.page_start",
+    "page": 1,
+    "source_text": "- 1 -",
+    "rules": [
+      "R16"
+    ],
+    "note": "해당 MSDS의 시작 쪽을 기록함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.page_end",
+    "page": 11,
+    "source_text": "- 11 -",
+    "rules": [
+      "R16"
+    ],
+    "note": "해당 MSDS의 끝 쪽을 기록함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "product.name",
+    "page": 1,
+    "source_text": "가. 제품명 : PC/ABS_FR ABF-1030G",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "product.uses[0]",
+    "page": 1,
+    "source_text": "48. 기타(합성수지 Plastics)",
+    "rules": [],
+    "note": "용도분류 코드와 용도명을 분리함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "product.use_category_code",
+    "page": 1,
+    "source_text": "48. 기타(합성수지 Plastics)",
+    "rules": [],
+    "note": "권고용도 앞의 분류 코드 48을 저장함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "product.restrictions[0]",
+    "page": 1,
+    "source_text": "권고용도 외 사용제한",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "product.restrictions[1]",
+    "page": 1,
+    "source_text": "생활화학제품 및 살생물제의 안전관리에 관한 법률에 정의된 살생물제로의 사용을 제한합니다.",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "product.restrictions[2]",
+    "page": 1,
+    "source_text": "무기제조 및 관련 용도로 사용하지 마시오.",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "companies[0]",
+    "page": 1,
+    "source_text": "다. 공급자 정보\n○ 판매자\n회사명 : 롯데케미칼 주식회사\n주소 : 05551 서울특별시 송파구 올림픽로 300 롯데월드타워",
+    "rules": [],
+    "note": "공급자 정보에 기재된 판매자를 공급자로 저장하고 주소에서 우편번호를 분리함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "companies[0].contacts[0]",
+    "page": 1,
+    "source_text": "영업/마케팅 번호 :\n기초소재 | 02-829-4114 | 첨단소재 | 031-596-3114",
+    "rules": [
+      "R12"
+    ],
+    "note": "기초소재 영업/마케팅 번호를 대표 연락처로 저장함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "companies[0].contacts[1]",
+    "page": 1,
+    "source_text": "영업/마케팅 번호 :\n기초소재 | 02-829-4114 | 첨단소재 | 031-596-3114",
+    "rules": [
+      "R12"
+    ],
+    "note": "첨단소재 영업/마케팅 번호를 별도의 대표 연락처로 저장함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "companies[0].contacts[2]",
+    "page": 1,
+    "source_text": "긴급전화번호\n여수공장 | 061-688-2100 | 울산공장 | 052-278-3500",
+    "rules": [
+      "R12"
+    ],
+    "note": "여수공장 번호를 긴급 연락처로 저장함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "companies[0].contacts[3]",
+    "page": 1,
+    "source_text": "긴급전화번호\n여수공장 | 061-688-2100 | 울산공장 | 052-278-3500",
+    "rules": [
+      "R12"
+    ],
+    "note": "울산공장 번호를 긴급 연락처로 저장함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "companies[0].contacts[4]",
+    "page": 1,
+    "source_text": "대산공장 | 041-689-5900 | 여수공장(첨단) | 061-689-1100",
+    "rules": [
+      "R12"
+    ],
+    "note": "긴급전화번호 표의 대산공장 번호를 긴급 연락처로 저장함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "companies[0].contacts[5]",
+    "page": 1,
+    "source_text": "대산공장 | 041-689-5900 | 여수공장(첨단) | 061-689-1100",
+    "rules": [
+      "R12"
+    ],
+    "note": "긴급전화번호 표의 여수공장(첨단) 번호를 긴급 연락처로 저장함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "companies[0].contacts[6]",
+    "page": 1,
+    "source_text": "팩스 : 02-834-6070",
+    "rules": [
+      "R12"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classified",
+    "page": 1,
+    "source_text": "- 만성 수생 환경유해성 물질 구분 3",
+    "rules": [],
+    "note": "유해·위험성 분류가 기재되어 true로 저장함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classes[0]",
+    "page": 1,
+    "source_text": "- 만성 수생 환경유해성 물질 구분 3",
+    "rules": [
+      "R07"
+    ],
+    "note": "만성 수생환경 유해성을 ENV_AQ_CHRONIC으로 매핑하고 '구분'을 제거하여 category를 3으로 저장함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.signal_word",
+    "page": 1,
+    "source_text": "신호어\n- 해당없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "신호어의 '해당없음'을 허용값 '없음'으로 저장함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.pictograms",
+    "page": 1,
+    "source_text": "그림문자\n- 해당없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "그림문자가 해당없음으로 기재되어 빈 목록으로 저장함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.h_statements[0]",
+    "page": 1,
+    "source_text": "H412 장기적인 영향에 의해 수생생물에게 유해함",
+    "rules": [
+      "R05",
+      "R21"
+    ],
+    "note": "H코드와 문구를 분리하고 코드 체계를 GHS로 저장함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[0]",
+    "page": 2,
+    "source_text": "P273 환경으로 배출하지 마시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": "P코드와 문구를 분리하고 코드 첫 자리에 따라 예방으로 저장함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[1]",
+    "page": 2,
+    "source_text": "P501 폐기물 관련 법령에 따라 내용물·용기를 폐기하시오",
+    "rules": [
+      "R05"
+    ],
+    "note": "P코드와 문구를 분리하고 코드 첫 자리에 따라 폐기로 저장함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.other_hazards[0]",
+    "page": 2,
+    "source_text": "경험과 제공된 정보에 의하면, 이 제품은 규정대로 사용 및 취급시 유해한 영향을 미치지 않습니다.",
+    "rules": [
+      "R14"
+    ],
+    "note": "기타 유해·위험성 문장을 하나의 STMT로 저장함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "composition.type",
+    "page": 2,
+    "source_text": "2-Propenenitrile polymer with 1,3-butadiene and ethenylbenzene | ABS Resin | 9003-56-9 | KE-29398 | >=2 ~ <=12\nZinc oxide | zinc oxide | 1314-13-2 | KE-35565 | >=1 ~ <=2.5",
+    "rules": [],
+    "note": "성분표에 여러 성분과 각각의 함유량이 기재되어 혼합물로 저장함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "composition.no_hazardous_component",
+    "page": 2,
+    "source_text": "Zinc oxide | zinc oxide | 1314-13-2 | KE-35565 | >=1 ~ <=2.5",
+    "rules": [],
+    "note": "성분표가 있으며 '유해성분 없음' 문구만 있는 경우가 아니므로 false로 저장함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "components[0]",
+    "page": 2,
+    "source_text": "2,2-Bis(4-hydroxyphenyl) propane polycarbonate | Poly[oxycarbonyloxy-1,4 -phenylene(1-methylethy lidene)-1,4-phenylene] | 24936-68-3 |  | >=77 ~ <=87",
+    "rules": [
+      "R02",
+      "R04",
+      "R06",
+      "R13",
+      "R17"
+    ],
+    "note": "함유량을 77 이상 87 이하 %로 분해하고 화학명 내부 쉼표가 있는 이명은 보존했으며, 함유량 기준은 미표기이고 영업비밀 표기는 없음."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "components[0]",
+    "page": 2,
+    "source_text": "화평법('화학물질 등록 및 평가 등에 관한 법률') 등록 면제 : 24936-68-3, 면제 확인 번호(제07-1611-021938호)",
+    "rules": [],
+    "note": "CAS 번호로 지정된 첫 번째 성분의 면제 확인 번호를 기타 식별번호로 저장함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "components[1]",
+    "page": 2,
+    "source_text": "Phosphoric trichloride reaction products with bisphenol A and phenol | Phosphoric trichloride, reaction products with bisphenol A and phenol | 181028-79-5 | 97-3-636 | >=7 ~ <=17",
+    "rules": [
+      "R02",
+      "R03",
+      "R04",
+      "R06",
+      "R13",
+      "R17"
+    ],
+    "note": "함유량은 7 이상 17 이하 %로 분해하고 이명은 보존했으며, KE 형식에 맞지 않는 97-3-636은 원문 열 제목과 함께 기타 식별번호로 저장하고 함유량 기준은 미표기, 영업비밀 표기는 없음으로 처리함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "components[2]",
+    "page": 2,
+    "source_text": "2-Propenenitrile polymer with 1,3-butadiene and ethenylbenzene | ABS Resin | 9003-56-9 | KE-29398 | >=2 ~ <=12",
+    "rules": [
+      "R02",
+      "R03",
+      "R04",
+      "R06",
+      "R13"
+    ],
+    "note": "CAS와 KE 번호를 각각 저장하고 함유량을 2 이상 12 이하 %로 분해했으며, 함유량 기준은 미표기이고 영업비밀 표기는 없음."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "components[3]",
+    "page": 2,
+    "source_text": "Zinc oxide | zinc oxide | 1314-13-2 | KE-35565 | >=1 ~ <=2.5",
+    "rules": [
+      "R02",
+      "R03",
+      "R04",
+      "R06",
+      "R13"
+    ],
+    "note": "함유량을 1 이상 2.5 이하 %로 분해하고 최대 소수 자릿수 1을 기록했으며, 함유량 기준은 미표기이고 영업비밀 표기는 없음."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[0]",
+    "page": 4,
+    "source_text": "Zinc oxide | 5.0㎎/㎥ , 2.0㎎/㎥ TWA 10.0㎎/㎥ STEL | 2 mg/m3 TWA (respirable particulate matter) 10 mg/m3 STEL (respirable particulate matter) | 자료없음",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10"
+    ],
+    "note": "Zinc oxide를 성분 4에 연결하고, 쉼표로 나열된 TWA 수치 중 5.0을 별도 행으로 분리하여 단위를 정규화하고 dp=1로 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[1]",
+    "page": 4,
+    "source_text": "Zinc oxide | 5.0㎎/㎥ , 2.0㎎/㎥ TWA 10.0㎎/㎥ STEL | 2 mg/m3 TWA (respirable particulate matter) 10 mg/m3 STEL (respirable particulate matter) | 자료없음",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10"
+    ],
+    "note": "Zinc oxide를 성분 4에 연결하고, 쉼표로 나열된 TWA 수치 중 2.0을 별도 행으로 분리하여 단위를 정규화하고 dp=1로 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[2]",
+    "page": 4,
+    "source_text": "Zinc oxide | 5.0㎎/㎥ , 2.0㎎/㎥ TWA 10.0㎎/㎥ STEL | 2 mg/m3 TWA (respirable particulate matter) 10 mg/m3 STEL (respirable particulate matter) | 자료없음",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10"
+    ],
+    "note": "성분 4의 국내 STEL을 별도 행으로 분리하고 10.0㎎/㎥를 value=10, unit=mg/m3, dp=1로 나눔."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[3]",
+    "page": 4,
+    "source_text": "Zinc oxide | 5.0㎎/㎥ , 2.0㎎/㎥ TWA 10.0㎎/㎥ STEL | 2 mg/m3 TWA (respirable particulate matter) 10 mg/m3 STEL (respirable particulate matter) | 자료없음",
+    "rules": [
+      "R04",
+      "R06",
+      "R10"
+    ],
+    "note": "성분 4의 ACGIH TWA 수치와 단위를 분리하고 괄호 안 입자 형태를 form에 원문대로 기록함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[4]",
+    "page": 4,
+    "source_text": "Zinc oxide | 5.0㎎/㎥ , 2.0㎎/㎥ TWA 10.0㎎/㎥ STEL | 2 mg/m3 TWA (respirable particulate matter) 10 mg/m3 STEL (respirable particulate matter) | 자료없음",
+    "rules": [
+      "R04",
+      "R06",
+      "R10"
+    ],
+    "note": "성분 4의 ACGIH STEL 수치와 단위를 분리하고 괄호 안 입자 형태를 form에 원문대로 기록함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[5]",
+    "page": 4,
+    "source_text": "Zinc oxide | 5.0㎎/㎥ , 2.0㎎/㎥ TWA 10.0㎎/㎥ STEL | 2 mg/m3 TWA (respirable particulate matter) 10 mg/m3 STEL (respirable particulate matter) | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "성분 4의 생물학적 노출기준을 자료없음 상태로 남기고 명시되지 않은 기준 종류는 null로 둠."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[0]",
+    "page": 5,
+    "source_text": "성상 | 고체",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "제품 전체 성상을 APPEARANCE_STATE에 매핑함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[1]",
+    "page": 5,
+    "source_text": "색상 | 고객의 요구에 따라 다름",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "제품 전체 색상을 APPEARANCE_COLOR에 매핑함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[2]",
+    "page": 5,
+    "source_text": "냄새 | 무취",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "제품 전체 냄새를 ODOR에 매핑함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[3]",
+    "page": 5,
+    "source_text": "냄새역치 | 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "냄새역치를 ODOR_THRESHOLD에 매핑하고 자료없음 상태로 기록함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[4]",
+    "page": 5,
+    "source_text": "pH | 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "pH를 PH에 매핑하고 자료없음 상태로 기록함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[5]",
+    "page": 5,
+    "source_text": "녹는점/어는점 | 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "녹는점/어는점을 MELT_FREEZE에 매핑하고 자료없음 상태로 기록함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[6]",
+    "page": 5,
+    "source_text": "초기 끓는점과 끓는점 범위(℃) | 자료없음",
+    "rules": [
+      "R08",
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "BOILING에 매핑하고 자료없음 상태와 항목명에 명시된 온도 단위 C를 기록함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[7]",
+    "page": 5,
+    "source_text": "인화점(℃) | 자료없음",
+    "rules": [
+      "R08",
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "FLASH_POINT에 매핑하고 자료없음 상태와 항목명에 명시된 온도 단위 C를 기록함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[8]",
+    "page": 5,
+    "source_text": "증발속도 | 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "증발속도를 EVAP_RATE에 매핑하고 자료없음 상태로 기록함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[9]",
+    "page": 5,
+    "source_text": "인화성(고체, 기체) | 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "인화성을 FLAMMABILITY에 매핑하고 자료없음을 text_value 대신 q.status에 기록함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[10]",
+    "page": 5,
+    "source_text": "인화 또는 폭발 범위의 상한/하한 | 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "상한/하한 통합 항목 중 상한을 UEL 행으로 분리하여 자료없음 상태로 기록함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[11]",
+    "page": 5,
+    "source_text": "인화 또는 폭발 범위의 상한/하한 | 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "상한/하한 통합 항목 중 하한을 LEL 행으로 분리하여 자료없음 상태로 기록함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[12]",
+    "page": 5,
+    "source_text": "증기압 | 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "증기압을 VAPOR_PRESSURE에 매핑하고 자료없음 상태로 기록함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[13]",
+    "page": 5,
+    "source_text": "용해도 | 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "용해도를 SOLUBILITY에 매핑하고 자료없음 상태로 기록함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[14]",
+    "page": 5,
+    "source_text": "증기밀도 | 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "증기밀도를 VAPOR_DENSITY에 매핑하고 자료없음 상태로 기록함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[15]",
+    "page": 5,
+    "source_text": "상대밀도 | 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "상대밀도를 RELATIVE_DENSITY의 첫 번째 행으로 보존하고 자료없음 상태로 기록함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[16]",
+    "page": 5,
+    "source_text": "n-옥탄올/물분배계수 | 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "n-옥탄올/물분배계수를 LOG_KOW에 매핑하고 자료없음 상태로 기록함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[17]",
+    "page": 5,
+    "source_text": "자연발화온도 | 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "자연발화온도를 AUTOIGNITION에 매핑하고 자료없음 상태로 기록함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[18]",
+    "page": 5,
+    "source_text": "분해온도 | 400°C 이상",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10",
+      "R25"
+    ],
+    "note": "분해온도를 DECOMPOSITION에 매핑하고 400°C 이상을 하한 400(>=), 단위 C로 분해함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[19]",
+    "page": 5,
+    "source_text": "점도(㎟/s, 40℃) | 자료없음",
+    "rules": [
+      "R08",
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "명시된 동점도 단위에 따라 VISCOSITY_KIN에 매핑하고 단위 mm2/s와 측정 온도 40 C를 분리하며 자료없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[20]",
+    "page": 5,
+    "source_text": "분자량 | 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "분자량을 MOL_WEIGHT에 매핑하고 자료없음 상태로 기록함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[21]",
+    "page": 5,
+    "source_text": "비중 | 1.1-1.3",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "비중을 RELATIVE_DENSITY의 두 번째 행으로 보존하고 범위를 하한 1.1(>=), 상한 1.3(<=), dp=1로 분해함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[0]",
+    "page": 6,
+    "source_text": "가. 가능성이 높은 노출 경로에 관한 정보\n- 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "맞는 코드 없음: 가능성이 높은 노출 경로에 관한 정보; endpoint를 null로 두고 항목명과 자료없음을 보존."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[1]",
+    "page": 6,
+    "source_text": "● 급성독성물질(경구) PRODUCT : 분류되지않음",
+    "rules": [
+      "R10"
+    ],
+    "note": "PRODUCT의 경구 분류를 제품 전체(MIX) 행에 기록."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[2]",
+    "page": 6,
+    "source_text": "- Zinc oxide\n  : LD50 >5000 ㎎/㎏ 실험종 : Rat, (투여경로 : 위관, 암/수컷, OECD TG 401)",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10"
+    ],
+    "note": "Zinc oxide를 성분 4에 연결하고 >5000을 하한으로, 단위를 mg/kg으로, 암/수컷을 혼합으로 기록."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[3]",
+    "page": 6,
+    "source_text": "● 급성독성물질(경피) PRODUCT : 분류되지않음",
+    "rules": [
+      "R10"
+    ],
+    "note": "PRODUCT의 경피 분류를 제품 전체(MIX) 행에 기록."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[4]",
+    "page": 6,
+    "source_text": "- Zinc oxide\n  : LD50 >2000 ㎎/㎏ 실험종 : Rat, (암/수컷, OECD TG 402, GLP)",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10"
+    ],
+    "note": "Zinc oxide를 성분 4에 연결하고 >2000을 하한으로, 단위를 mg/kg으로, 암/수컷을 혼합으로 기록."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[5]",
+    "page": 6,
+    "source_text": "● 급성독성물질(흡입:가스) PRODUCT : 분류되지않음",
+    "rules": [
+      "R10"
+    ],
+    "note": "PRODUCT의 가스 흡입 분류를 제품 전체(MIX) 행에 기록."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[6]",
+    "page": 6,
+    "source_text": "● 급성독성물질(흡입:가스) PRODUCT : 분류되지않음\n- Zinc oxide\n  : LC50 >5700 ㎎/㎥ 4 hr 실험종 : Rat, (암/수컷, OECD TG 403)",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10"
+    ],
+    "note": "성분 4의 LC50 하한과 4 hr를 분리하고 mg/m3 및 혼합 성별로 기록하며 흡입 형태는 원문 소제목의 가스를 유지."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[7]",
+    "page": 6,
+    "source_text": "● 급성독성물질(흡입:증기) PRODUCT : 분류되지않음\n- 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "제품 전체의 증기 흡입 분류와 자료없음 상태를 함께 보존."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[8]",
+    "page": 6,
+    "source_text": "● 급성독성물질(흡입:분진/미스트) PRODUCT : 분류되지않음\n- 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "분진/미스트를 허용된 표기인 분진·미스트로 기록하고 제품 분류와 자료없음 상태를 보존."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[9]",
+    "page": 6,
+    "source_text": "○ 피부 부식성 또는 자극성 물질 PRODUCT : 분류되지않음",
+    "rules": [
+      "R10"
+    ],
+    "note": "PRODUCT의 피부 부식성 또는 자극성 분류를 제품 전체(MIX) 행에 기록."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[10]",
+    "page": 6,
+    "source_text": "- Zinc oxide\n  : 자극성 없음, Rabbit",
+    "rules": [
+      "R10"
+    ],
+    "note": "Zinc oxide를 성분 4에 연결하고 시험종과 결과 서술을 분리."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[11]",
+    "page": 6,
+    "source_text": "○ 심한 눈 손상 또는 자극성 물질 PRODUCT : 분류되지않음",
+    "rules": [
+      "R10"
+    ],
+    "note": "PRODUCT의 눈 손상 또는 자극성 분류를 제품 전체(MIX) 행에 기록."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[12]",
+    "page": 6,
+    "source_text": "○ 심한 눈 손상 또는 자극성 물질 PRODUCT : 분류되지않음\n- Zinc oxide",
+    "rules": [
+      "R10"
+    ],
+    "note": "7쪽 첫 줄에 이어지는 눈 자극성 시험 결과의 대상 성분을 4로 연결."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[12]",
+    "page": 7,
+    "source_text": ": 자극성 없음, Rabbit, 72시간 내 완전히 가역적, EU Method B.5",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10"
+    ],
+    "note": "6쪽 성분명의 계속이며 72시간은 노출 시간이 아닌 가역성 서술의 조건 수치로 보존."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[13]",
+    "page": 7,
+    "source_text": "○ 호흡기 과민성 물질 PRODUCT : 분류되지않음\n- 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "제품 전체의 호흡기 과민성 분류와 자료없음 상태를 함께 보존."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[14]",
+    "page": 7,
+    "source_text": "○ 피부 과민성 물질 PRODUCT : 분류되지않음",
+    "rules": [
+      "R10"
+    ],
+    "note": "PRODUCT의 피부 과민성 분류를 제품 전체(MIX) 행에 기록."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[15]",
+    "page": 7,
+    "source_text": "- Zinc oxide\n  : 과민성 없음, Guinea pig, GLP, 암컷, 기니피그 극대화 시험(GMPT): 용량수준: 0.02, 반응: 0/10, OECD TG\n406",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R17"
+    ],
+    "note": "용량수준 0.02를 조건 수치로 분리하고 반응 0/10은 비율로 환산하지 않고 q.raw에 보존."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[16]",
+    "page": 7,
+    "source_text": "○ 발암성물질 PRODUCT : 분류되지않음\n- 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "기관별 분류가 아닌 제품 전체의 발암성 분류와 자료없음 상태로 기록."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[17]",
+    "page": 7,
+    "source_text": "○ 생식세포 변이원성 물질 PRODUCT : 분류되지않음",
+    "rules": [
+      "R10"
+    ],
+    "note": "PRODUCT의 생식세포 변이원성 분류를 제품 전체(MIX) 행에 기록."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[18]",
+    "page": 7,
+    "source_text": "- Zinc oxide\n  : in vitro - 박테리아를 이용한 복귀돌연변이 시험: 음성(S. typhimurium TA1535, TA1537, TA98, TA100, 대사\n활성계 관계없이), OECD TG 471",
+    "rules": [
+      "R10"
+    ],
+    "note": "성분 4의 시험종·시험 지침·in vitro 표기와 음성 결과를 분리하여 보존."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[19]",
+    "page": 7,
+    "source_text": "○ 생식독성 물질 PRODUCT : 분류되지않음",
+    "rules": [
+      "R10"
+    ],
+    "note": "PRODUCT의 생식독성 분류를 제품 전체(MIX) 행에 기록."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[20]",
+    "page": 7,
+    "source_text": "- Zinc oxide\n  : 시험 조건 하에서, 성숙, 교배, 임신 및 초기 수유는 성인 및 30, 15 mg/kg/d에서 나타났으며, 효과는 7.5\nmg/kg/d에서 나타 났지만, 이는 실질적으로 중요하지 않은 것으로 간주됨.",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R17"
+    ],
+    "note": "30, 15 mg/kg/d는 범위로 해석하지 않고 조건 raw에 보존하며 효과가 나타난 7.5 mg/kg/d를 별도 조건 수치로 분리."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[20]",
+    "page": 7,
+    "source_text": "NOAEL= 7.5 mg/kg/d, equivalent\nor similar to Guideline: OECD TG 416",
+    "rules": [
+      "R04",
+      "R06",
+      "R10"
+    ],
+    "note": "NOAEL 7.5 mg/kg/d와 시험 지침을 분리하고 해당 시험에 명시되지 않은 시험종은 null로 유지."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[21]",
+    "page": 7,
+    "source_text": "시험 조건 하에서, 최대 88 mg/kg의 황산 아연 (약 35.2 mg 또는 19.9\nmg Zn2 + / kg bw, 무수물 및 수화물에 대해)을 투여시 성체 햄스터 및 태아에 부작용이 없었음., hamster",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R17"
+    ],
+    "note": "햄스터 결과를 별도 행으로 기록하고 최대 88 mg/kg을 조건 상한으로 분리하며 대안으로 병기된 환산값은 raw만 보존."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[22]",
+    "page": 7,
+    "source_text": "○ 특정표적장기·전신 독성 물질(1회 노출) PRODUCT : 분류되지않음",
+    "rules": [
+      "R10"
+    ],
+    "note": "PRODUCT의 1회 노출 특정표적장기 독성 분류를 제품 전체(MIX) 행에 기록."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[23]",
+    "page": 7,
+    "source_text": "- Zinc oxide\n  : 경구: 독성 부작용 징후 없음(랫드 / 수컷/암컷 / 동등하거나 유사한 가이드라인: OECD TG 401)",
+    "rules": [
+      "R10"
+    ],
+    "note": "성분 4의 경구 시험 결과를 별도 행으로 분리하고 수컷/암컷을 혼합으로 기록."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[24]",
+    "page": 7,
+    "source_text": "경피: 피부\n독성 연구에서 흔히 볼 수있는 일반적인 불편함의 약간의 징후, 전반적인 건강 상태는 연구 전체에 걸쳐 양호\n함 / 이상이 발견되지 않음(랫드 / 수컷/암컷 / OECD TG 402 / GLP)",
+    "rules": [
+      "R10"
+    ],
+    "note": "성분 4의 경피 시험 결과를 별도 행으로 분리하고 수컷/암컷을 혼합으로 기록."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[25]",
+    "page": 7,
+    "source_text": "흡입: 머리에 더러운 털이 나타났으나, 부\n작용은 관찰되지 않았습니다.(랫드 / 수컷/암컷 / equivalent or similar to Guideline: OECD TG 403)",
+    "rules": [
+      "R10"
+    ],
+    "note": "성분 4의 흡입 시험 결과를 별도 행으로 분리하고 명시되지 않은 흡입 형태와 노출 시간은 null로 유지."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[26]",
+    "page": 7,
+    "source_text": "○ 특정표적장기·전신 독성 물질(반복 노출) PRODUCT : 분류되지않음",
+    "rules": [
+      "R10"
+    ],
+    "note": "PRODUCT의 반복 노출 특정표적장기 독성 분류를 제품 전체(MIX) 행에 기록."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[27]",
+    "page": 7,
+    "source_text": "- Zinc oxide\n  : 경구(아만성): NOAEL=31.52 mg/kg-bw/day(approx. 13.26 mg Zn2+/kg-bw/day), Rat, OECD TG 408, GLP",
+    "rules": [
+      "R04",
+      "R06",
+      "R10"
+    ],
+    "note": "NOAEL과 병기된 환산값을 분리하고 approx.를 true로, 두 수치의 소수 자릿수를 2로 기록."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[28]",
+    "page": 7,
+    "source_text": "경피(단기반복): 랫드를 통해 경피 노출한 결과, 콜라겐 함량의 감소를 근거로, 전신 독성에 대한 LOAEL은 75\nmg/kg bw/day의 가장 낮은 시험 용량으로 나타났지만, 이러한 효과는 14일 동안 가역적이었음, Rat, OECD\nTG 410",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10"
+    ],
+    "note": "LOAEL 75 mg/kg bw/day를 분리하고 14일은 노출 시간이 아닌 가역성 서술의 조건 수치로 보존."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[29]",
+    "page": 7,
+    "source_text": "흡입(아만성): 실험 조건하에서, NOAEL은 1.5 ㎎/㎥로 평가됨, Rat, OECD TG 413, GLP",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10"
+    ],
+    "note": "NOAEL 1.5와 단위 mg/m3를 분리하고 원문에 없는 흡입 형태와 노출 시간은 null로 유지."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[30]",
+    "page": 7,
+    "source_text": "○ 흡인유해성 물질 PRODUCT : 분류되지않음\n- 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "제품 전체의 흡인유해성 분류와 자료없음 상태를 함께 보존."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[0]",
+    "page": 7,
+    "source_text": "● 어류\n- 2-Propenenitrile polymer with 1,3-butadiene and ethenylbenzene",
+    "rules": [
+      "R10"
+    ],
+    "note": "8쪽 첫 줄에 이어지는 어류 시험 결과의 대상 성분을 3으로 연결."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[0]",
+    "page": 8,
+    "source_text": ": LC50 11.5 ㎎/ℓ 96 hr Pimephales promelas",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10"
+    ],
+    "note": "7쪽 성분명의 계속이며 LC50 수치·단위 mg/L·96 hr·시험종을 분리."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[1]",
+    "page": 8,
+    "source_text": "- Phosphoric trichloride reaction products with bisphenol A and phenol\n  : LC50 40.287 ㎎/ℓ 96 hr (ECOSAR: Phenols)",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10"
+    ],
+    "note": "성분 2의 어류 LC50와 96 hr를 분리하고 ECOSAR: Phenols를 자료 출처로 기록."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[2]",
+    "page": 8,
+    "source_text": "- Zinc oxide\n  : LC50 315 ㎍/ℓ 96 hr Thymallus arcticus, (ASTM, 지수식, 담수)",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10"
+    ],
+    "note": "성분 4의 어류 LC50·96 hr·시험종·ASTM을 분리하고 단위는 변환 없이 μg/L로 정규화."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[3]",
+    "page": 8,
+    "source_text": "● 갑각류\n- Phosphoric trichloride reaction products with bisphenol A and phenol\n  : LC50 15.340 ㎎/ℓ 48 hr (ECOSAR: Phenols)",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10"
+    ],
+    "note": "성분 2의 갑각류 LC50를 원문 지표 그대로 기록하고 15.340의 소수 자릿수 3을 보존."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[4]",
+    "page": 8,
+    "source_text": "- Zinc oxide\n  : LC50 1220 ㎍/ℓ 48 hr Daphnia magna, (US EPA/600/4-85/013, 지수식, 담수, GLP)",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10"
+    ],
+    "note": "성분 4의 갑각류 LC50·48 hr·시험종·시험 지침을 분리하고 지수식, 담수, GLP를 서술로 보존."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[5]",
+    "page": 8,
+    "source_text": "● 조류\n- Phosphoric trichloride reaction products with bisphenol A and phenol\n  : EC50 69.098 ㎎/ℓ 96 hr (ECOSAR: Phenols)",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10"
+    ],
+    "note": "성분 2의 조류 EC50와 96 hr를 분리하고 단위를 mg/L로 정규화."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[6]",
+    "page": 8,
+    "source_text": "- Zinc oxide\n  : EC10 350 ㎍/ℓ 48 hr Chlorella sp., (지수식, 담수)",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10"
+    ],
+    "note": "성분 4의 조류 EC10·48 hr·시험종을 분리하고 지수식, 담수를 서술로 보존."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[7]",
+    "page": 8,
+    "source_text": "● 생분해성\n- Phosphoric trichloride reaction products with bisphenol A and phenol\n  : (난분해성(Biowin 1,2,5,6,7))",
+    "rules": [
+      "R10"
+    ],
+    "note": "성분 2의 난분해성 결과와 Biowin 자료 출처를 분리."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[8]",
+    "page": 8,
+    "source_text": "- Zinc oxide\n  : 100 (%) 40 hr",
+    "rules": [
+      "R04",
+      "R06",
+      "R10"
+    ],
+    "note": "생분해성 항목의 성분 4 결과를 분해율 100%와 40 hr로 분리."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[9]",
+    "page": 8,
+    "source_text": "다. 생물농축성\n자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "성분 지정이 없는 생물농축성 자료없음을 제품 전체(MIX) 행으로 보존."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[10]",
+    "page": 8,
+    "source_text": "라. 토양 이동성\n자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "성분 지정이 없는 토양 이동성 자료없음을 제품 전체(MIX) 행으로 보존."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[11]",
+    "page": 8,
+    "source_text": "마. 기타 유해 영향\n자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "기타 유해 영향의 자료없음을 제품 전체(MIX)의 ECO_OTHER 행으로 보존."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[0]",
+    "page": 9,
+    "source_text": "가. 유엔번호(UN No.) : 해당없음 | 나. 유엔 적정 선적명 : 해당없음 | 다. 운송에서의 위험성 등급 : 해당없음 | 라. 용기등급 : 해당없음 | 마. 해양오염물질 : 해당없음 | 화재시 비상조치의 종류 : 해당없음 | 유출시 비상조치의 종류 : 해당없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "운송 방식 구분이 없는 부분은 공통으로 두고, 해당없음을 regulated=false 및 해양오염물질 비해당으로 기록했으며 숫자 유엔번호는 null로 둠."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[1]",
+    "page": 9,
+    "source_text": "- 육상운송(ADR)\n· Tunnel restriction code : 해당없음",
+    "rules": [
+      "R17"
+    ],
+    "note": "터널 제한 코드의 해당없음만 기재되어 있어 전체 운송 규제 여부는 추정하지 않았으며, 대응 칸이 없는 터널 제한 표기는 근거에 보존함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[2]",
+    "page": 9,
+    "source_text": "- 해상운송(IMDG)\n· 해양오염물질 : 해당없음",
+    "rules": [
+      "R15",
+      "R17"
+    ],
+    "note": "해양오염물질의 해당없음을 비해당으로 기록하고 전체 운송 규제 여부는 추정하지 않음."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[3]",
+    "page": 9,
+    "source_text": "- Air transport(IATA)\n· 유엔번호 : 해당없음\n· 유엔 적정 선적명 : 해당없음\n· 운송에서의 위험성 등급 : 해당없음\n· 용기등급 : 해당없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "항공 운송 항목의 해당없음을 regulated=false로 기록하고 숫자 유엔번호는 null로 둠."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[0]",
+    "page": 9,
+    "source_text": "(PRODUCT : 노출기준 설정물질, 관리대상 유해물질, 작업환경 측정물질, 특수건강 진단대상 유해인자)",
+    "rules": [
+      "R10",
+      "R11",
+      "R25"
+    ],
+    "note": "PRODUCT에 명시된 제품 전체 규제 목록에서 노출기준 설정물질을 분리함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[1]",
+    "page": 9,
+    "source_text": "(PRODUCT : 노출기준 설정물질, 관리대상 유해물질, 작업환경 측정물질, 특수건강 진단대상 유해인자)",
+    "rules": [
+      "R10",
+      "R11",
+      "R25"
+    ],
+    "note": "PRODUCT에 명시된 제품 전체 규제 목록에서 관리대상 유해물질을 분리함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[2]",
+    "page": 9,
+    "source_text": "(PRODUCT : 노출기준 설정물질, 관리대상 유해물질, 작업환경 측정물질, 특수건강 진단대상 유해인자)",
+    "rules": [
+      "R10",
+      "R11",
+      "R25"
+    ],
+    "note": "PRODUCT에 명시된 제품 전체 규제 목록에서 작업환경 측정물질을 분리함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[3]",
+    "page": 9,
+    "source_text": "(PRODUCT : 노출기준 설정물질, 관리대상 유해물질, 작업환경 측정물질, 특수건강 진단대상 유해인자)",
+    "rules": [
+      "R10",
+      "R11",
+      "R25"
+    ],
+    "note": "PRODUCT에 명시된 제품 전체 규제 목록에서 특수건강 진단대상 유해인자를 분리함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[4]",
+    "page": 9,
+    "source_text": "● 금지대상 유해물질\n- 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "해당없음을 비해당으로 기록했으며, 맞는 값 없음: 금지대상 유해물질은 제공된 동의어 사전에 없어 item_code를 null로 둠."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[5]",
+    "page": 9,
+    "source_text": "● 허가대상 유해물질\n- 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "허가대상 유해물질을 OSH_PERMIT에 대응시키고 해당없음을 비해당으로 기록함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[6]",
+    "page": 9,
+    "source_text": "● 노출기준 설정물질\n- Zinc oxide : TWA: 5.0㎎/㎥ , 2.0㎎/㎥ TWA STEL: 10.0㎎/㎥ STEL",
+    "rules": [
+      "R10",
+      "R17",
+      "R25"
+    ],
+    "note": "Zinc oxide를 성분 4에 연결하고 복수 노출기준은 value_raw에 보존했으며 함유량 기준으로 옮기지 않음."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[7]",
+    "page": 9,
+    "source_text": "● 관리대상 유해물질\n- Zinc oxide : 및 이를 1 wt% 이상 함유한 제제",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "Zinc oxide를 성분 4에 연결하고 1 wt% 이상을 하한 1(>=), 단위 wt%, dp=0으로 분해함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[8]",
+    "page": 9,
+    "source_text": "● 작업환경 측정물질\n- Zinc oxide : 및 이를 1 wt% 이상 함유한 제제",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "Zinc oxide를 성분 4에 연결하고 1 wt% 이상을 하한 1(>=), 단위 wt%, dp=0으로 분해함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[9]",
+    "page": 10,
+    "source_text": "● 특수건강 진단대상 유해인자\n- Zinc oxide : 및 이를 1 wt% 이상 함유한 제제",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "Zinc oxide를 성분 4에 연결하고 1 wt% 이상을 하한 1(>=), 단위 wt%, dp=0으로 분해함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[10]",
+    "page": 10,
+    "source_text": "● 특별관리물질\n- 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "해당없음을 비해당으로 기록함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[11]",
+    "page": 10,
+    "source_text": "● 허용기준 준수물질\n- 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "해당없음을 비해당으로 기록했으며, 맞는 값 없음: 허용기준 준수물질은 제공된 동의어 사전에 없어 item_code를 null로 둠."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[12]",
+    "page": 10,
+    "source_text": "● 공정안전관리(PSM) 대상물질\n- 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "해당없음을 비해당으로 기록했으며, 맞는 값 없음: 공정안전관리(PSM) 대상물질은 제공된 동의어 사전에 없어 item_code를 null로 둠."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[13]",
+    "page": 10,
+    "source_text": "- Zinc oxide : 1) 건강장해를 예방하기 위하여 설치한 국소배기장치에 한정하여 적용\n2) 최근 2년 동안 작업환경측정결과가 노출기준 50% 미만인 경우에는 적용 제외",
+    "rules": [
+      "R10",
+      "R17",
+      "R25"
+    ],
+    "note": "원문상 앞선 공정안전관리(PSM) 대상물질 아래의 성분별 문구를 보존하고 해당 여부·함유량 기준·주기는 추정하지 않았으며, 맞는 값 없음: 공정안전관리(PSM) 대상물질."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[14]",
+    "page": 10,
+    "source_text": "● 국소배기 설치대상 유해물질\n- 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "해당없음을 비해당으로 기록했으며, 맞는 값 없음: 국소배기 설치대상 유해물질에 대응하는 규제 항목 코드가 없음."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[15]",
+    "page": 10,
+    "source_text": "● 신규화학물질\n- 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문의 산업안전보건법 항목에 유지하고 해당없음을 비해당으로 기록했으며, 맞는 값 없음: 신규화학물질에 대응하는 OSH 항목 코드가 없음."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[16]",
+    "page": 10,
+    "source_text": "(PRODUCT : 화학물질 배출량조사 대상물질, 배출저감계획서 제출 대상 물질)",
+    "rules": [
+      "R10",
+      "R11",
+      "R25"
+    ],
+    "note": "제품 전체 규제 목록에서 분리했으며, 맞는 값 없음: 화학물질 배출량조사 대상물질은 제공된 동의어 사전에 없어 item_code를 null로 둠."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[17]",
+    "page": 10,
+    "source_text": "(PRODUCT : 화학물질 배출량조사 대상물질, 배출저감계획서 제출 대상 물질)",
+    "rules": [
+      "R10",
+      "R11",
+      "R25"
+    ],
+    "note": "제품 전체 규제 목록에서 분리했으며, 맞는 값 없음: 배출저감계획서 제출 대상 물질에 대응하는 규제 항목 코드가 없음."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[18]",
+    "page": 10,
+    "source_text": "● 유독물질\n- 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "해당없음을 비해당으로 기록함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[19]",
+    "page": 10,
+    "source_text": "● 제한물질\n- 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "해당없음을 비해당으로 기록함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[20]",
+    "page": 10,
+    "source_text": "● 금지물질\n- 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "해당없음을 비해당으로 기록함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[21]",
+    "page": 10,
+    "source_text": "● 사고대비물질\n- 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "해당없음을 비해당으로 기록함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[22]",
+    "page": 10,
+    "source_text": "● 화학물질 배출량조사 대상물질\n- Zinc oxide : 아연 및 그 화합물(II-391) : 함유율(1.0 wt% 이상), 취급량(10 ton/yr)",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "함유율을 하한 1(>=), wt%, dp=1로, 취급량을 10 ton/yr로 분해했으며, 맞는 값 없음: 화학물질 배출량조사 대상물질은 제공된 동의어 사전에 없음."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[23]",
+    "page": 10,
+    "source_text": "● 배출저감계획서 제출 대상 물질\n- Zinc oxide : 아연 및 그 화합물",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "Zinc oxide를 성분 4에 연결했으며, 맞는 값 없음: 배출저감계획서 제출 대상 물질에 대응하는 규제 항목 코드가 없음."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[24]",
+    "page": 10,
+    "source_text": "다. 위험물안전관리법에 의한 규제\n해당없음\n라. 폐기물관리법에 의한 규제",
+    "rules": [
+      "R18"
+    ],
+    "note": "15항에 화평법 항목이 없는 구양식이므로 법령 단위 미기재 행을 추가하고 세부 항목은 추정하지 않음."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[25]",
+    "page": 10,
+    "source_text": "다. 위험물안전관리법에 의한 규제\n해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "위험물안전관리법의 해당없음을 비해당으로 기록함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[26]",
+    "page": 11,
+    "source_text": "- 지정폐기물\n- 폐기시 폐기물관리법 제13조 폐기물처리기준에 따라 처리하여야 함",
+    "rules": [
+      "R10"
+    ],
+    "note": "지정폐기물 표기를 해당으로 기록하고 폐기 처리 문구를 remark에 보존함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[27]",
+    "page": 11,
+    "source_text": "● EU - REACH (1907/2006) - Article 59(1) - Candidate List of Substances of Very High Concern (SVHC) for\nAuthorisation\n- Compliant",
+    "rules": [
+      "R10",
+      "R17"
+    ],
+    "note": "EU 규제로 분류했으며, 맞는 값 없음: Compliant는 해당·비해당을 확정하는 표기가 아니므로 applicable은 null로 두고 원문을 보존함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[28]",
+    "page": 11,
+    "source_text": "● Regulation (EU) 2019/1021 POPs (Persistent Organic Pollutants)\n- unlisted",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "EU 규제로 분류하고 unlisted를 비등재 표기로 보아 비해당으로 기록함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "dangerous_goods[0]",
+    "page": 10,
+    "source_text": "다. 위험물안전관리법에 의한 규제\n해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "제품 전체의 위험물 해당없음을 class에 기록함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "waste[0]",
+    "page": 11,
+    "source_text": "- 지정폐기물",
+    "rules": [
+      "R10"
+    ],
+    "note": "제품 전체가 지정폐기물로 명시되어 designated를 해당으로 기록함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[0]",
+    "page": 2,
+    "source_text": "가. 눈에 들어갔을 때\n- 긴급 의료조치를 받으시오.\n- 물질과 접촉시 즉시 20분 이상 흐르는 물에 피부와 눈을 씻어내시오.",
+    "rules": [
+      "R04",
+      "R14",
+      "R25"
+    ],
+    "note": "'20분 이상'을 하한 20(>=), 단위 min으로 분해함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[1]",
+    "page": 2,
+    "source_text": "나. 피부에 접촉했을 때\n- 긴급 의료조치를 받으시오.\n- 물질과 접촉시 즉시 20분 이상 흐르는 물에 피부와 눈을 씻어내시오.\n- 오염된 옷과 신발을 제거하고 격리하시오.",
+    "rules": [
+      "R04",
+      "R14",
+      "R25"
+    ],
+    "note": "'20분 이상'을 하한 20(>=), 단위 min으로 분해함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[2]",
+    "page": 2,
+    "source_text": "다. 흡입했을 때\n- 신선한 공기가 있는 곳으로 옮기시오.\n- 호흡이 힘들 경우 산소를 공급하시오.\n- 호흡하지 않는 경우 인공호흡을 실시하시오.",
+    "rules": [
+      "R14",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[3]",
+    "page": 2,
+    "source_text": "라. 먹었을 때\n- 긴급 의료조치를 받으시오.",
+    "rules": [
+      "R14",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[4]",
+    "page": 3,
+    "source_text": "마. 기타 의사의 주의사항\n- 의료인력이 해당물질에 대해 인지하고 보호조치를 취하도록 하시오.",
+    "rules": [
+      "R14",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[5]",
+    "page": 3,
+    "source_text": "가. 적절한(부적절한) 소화제\n○ 적절한 소화제\n- 물분무\n- 일반포말\n- 이 물질과 관련된 소화시 알콜 포말, 이산화탄소 또는 물분무를 사용할 것.\n- 건조화학제\n- CO2\n- 질식소화시 건조한 모래 또는 흙을 사용할 것.\n○ 부적절한 소화제\n- 고압주수",
+    "rules": [
+      "R14",
+      "R25"
+    ],
+    "note": "하위 소제목을 해당 문장의 key로 보존함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[6]",
+    "page": 3,
+    "source_text": "나. 화학물질로부터 생기는 특정 유해성\n○ 열분해성 생성물\n- 자료없음\n○ 화재 및 폭발 위험\n- 일부는 탈 수 있으나 쉽게 점화하지 않음.\n- 가열시 용기가 폭발할 수 있음.\n○ 기타\n- 물질의 흡입은 유해할 수 있습니다.",
+    "rules": [
+      "R14",
+      "R25"
+    ],
+    "note": "하위 소제목을 해당 문장의 key로 보존하고 전체 항목의 status는 값있음으로 둠."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[7]",
+    "page": 3,
+    "source_text": "다. 화재 진압 시 착용할 보호구 및 예방조치\n- 소화수의 처분을 위해 도랑을 파서 가두고 물질이 흩어지지 않게 하시오.\n- 위험하지 않다면 화재지역에서 용기를 옮기시오.\n- 일부는 고온으로 운송될 수 있음.",
+    "rules": [
+      "R14",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[7]",
+    "page": 3,
+    "source_text": "- 지역을 벗어나 안전거리를 유지하여 소화하시오.\n- 탱크 화재시 소화가 진화된 후에도 다량의 물로 용기를 식히시오.\n- 탱크 화재시 압력 방출장치에서 고음이 있거나 탱크가 변색할 경우 즉시 물러나시오.\n- 탱크 화재시 화염에 휩싸인 탱크에서 물러나시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[8]",
+    "page": 4,
+    "source_text": "가. 인체를 보호하기 위해 필요한 조치사항 및 보호구\n- 노출물을 만지거나 걸어다니지 마시오.\n- 분진 형성을 방지하시오.\n- 엎질러진 것을 즉시 닦아내고, 보호구 항의 예방조치를 따르시오.\n- 위험하지 않다면 누출을 멈추시오.\n- 피해야할 물질 및 조건에 유의하시오.",
+    "rules": [
+      "R14",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[9]",
+    "page": 4,
+    "source_text": "나. 환경을 보호하기 위해 필요한 조치사항\n- 수로, 하수구, 지하실, 밀폐공간으로의 유입을 방지하시오.\n- 수로에 유입되지 않도록 하시오.",
+    "rules": [
+      "R14",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[10]",
+    "page": 4,
+    "source_text": "다. 정화 또는 제거 방법\n- 다량 누출시 액체 누출물과 멀게하여 도랑을 만드시오.\n- 분말 누출시 플라스틱 시트로 덮어 확산을 막고 건조한 상태로 유지하시오.\n- 불활성 물질(예를 들어 건조한 모래 또는 흙)로 엎지른 것을 흡수하고, 화학폐기물 용기에 넣으시오.",
+    "rules": [
+      "R14",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[10]",
+    "page": 4,
+    "source_text": "- 소량 누출시 모래, 비가연성 물질로 흡수하고 용기에 담으시오.\n- 액체를 흡수하고 오염된 지역을 세제와 물로 씻어 내시오.\n- 청결한 삽으로 누출물을 깨끗하고 건조한 용기에 담고 느슨하게 닫은 뒤 용기를 누출지역으로부터 옮기시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[11]",
+    "page": 4,
+    "source_text": "가. 안전취급요령\n- 고온에 주의하시오.\n- 공학적 관리 및 개인보호구를 참조하여 작업하시오.\n- 용기가 비워진 후에도 제품 찌꺼기가 남아 있을 수 있으므로 모든 MSDS/라벨 예방조치를 따르시오.\n- 피해야할 물질 및 조건에 유의하시오.",
+    "rules": [
+      "R14",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[12]",
+    "page": 4,
+    "source_text": "나. 안전한 저장방법\n- 서늘하고 건조한 장소에 저장하시오.\n- 피해야할 물질 및 조건에 유의하시오.",
+    "rules": [
+      "R14",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[13]",
+    "page": 4,
+    "source_text": "나. 적절한 공학적 관리\n- 작업장에 적절한 배기 및 환기가 이루어 지도록 하시오.",
+    "rules": [
+      "R14",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[14]",
+    "page": 4,
+    "source_text": "○ 호흡기 보호",
+    "rules": [
+      "R14",
+      "R25"
+    ],
+    "note": "4쪽 제목과 5쪽의 이어지는 문장을 같은 항목으로 묶음."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[14].statements[0]",
+    "page": 5,
+    "source_text": "- 해당 물질에 직접적인 접촉 또는 노출 가능성이 있는 경우 인증받은 알맞은 형태의 호흡기 보호구를 착용하십\n시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "줄바꿈으로 나뉜 문장을 이어 붙임."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[15]",
+    "page": 5,
+    "source_text": "○ 눈 보호\n- 작업 환경이나 활동 상 먼지나 연무 또는 에어로졸이 많은 조건이 개입될 경우, 적절한 보안경을 착용하십시오\n.",
+    "rules": [
+      "R14",
+      "R25"
+    ],
+    "note": "줄바꿈으로 분리된 마침표를 문장에 이어 붙임."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[16]",
+    "page": 5,
+    "source_text": "○ 손 보호\n- 화학물질용 안전장갑을 착용 하십시요.",
+    "rules": [
+      "R14",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[17]",
+    "page": 5,
+    "source_text": "○ 신체 보호\n- 보호 장갑/보호복/보안경/보안면/귀마개를 착용하십시오.",
+    "rules": [
+      "R14",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[18]",
+    "page": 6,
+    "source_text": "가. 화학적 안정성 및 유해 반응의 가능성\n- 가열시 용기가 폭발할 수 있음.\n- 일부는 탈 수 있으나 쉽게 점화하지 않음.\n- 화재시 자극성, 독성 가스를 발생할 수 있음.",
+    "rules": [
+      "R14",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[19]",
+    "page": 6,
+    "source_text": "나. 피해야 할 조건\n- 열, 오염.",
+    "rules": [
+      "R14",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[20]",
+    "page": 6,
+    "source_text": "다. 피해야 할 물질\n- 가연성 물질",
+    "rules": [
+      "R14",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[21]",
+    "page": 6,
+    "source_text": "라. 분해시 생성되는 유해물질\n- 자극성, 독성 가스.",
+    "rules": [
+      "R14",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[22]",
+    "page": 6,
+    "source_text": "가. 가능성이 높은 노출 경로에 관한 정보\n- 자료없음",
+    "rules": [
+      "R14",
+      "R15",
+      "R25"
+    ],
+    "note": "원문의 자료없음을 항목 상태에 반영함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[23]",
+    "page": 8,
+    "source_text": "가. 폐기방법\n- 빈용기는 재활용 또는 폐기를 위해 허가된 폐기물 처리장에 수집되어야 합니다.",
+    "rules": [
+      "R14",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[24]",
+    "page": 8,
+    "source_text": "나. 폐기시 주의사항\n- 국가 규정에 따라 폐기하십시오.\n- 인가받은 폐기물 관리업체에 보내십시오.",
+    "rules": [
+      "R14",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[25]",
+    "page": 9,
+    "source_text": "바. 사용자가 운송 또는 운송수단에 관련해 알 필요가 있거나 필요한 특별한 안전 대책 :\n화재시 비상조치의 종류 : 해당없음\n유출시 비상조치의 종류 : 해당없음",
+    "rules": [
+      "R14",
+      "R15"
+    ],
+    "note": "두 비상조치 줄을 key/value로 분리하고 해당없음을 항목 상태에 반영함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[26]",
+    "page": 10,
+    "source_text": "라. 폐기물관리법에 의한 규제",
+    "rules": [
+      "R14"
+    ],
+    "note": "10쪽 제목과 11쪽의 이어지는 폐기물 처리 문장을 같은 항목으로 묶음."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[26].statements[0]",
+    "page": 11,
+    "source_text": "- 폐기시 폐기물관리법 제13조 폐기물처리기준에 따라 처리하여야 함",
+    "rules": [
+      "R14"
+    ],
+    "note": "15항 폐기물 처리 문장을 S15_WASTE에도 보존함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[27]",
+    "page": 11,
+    "source_text": "가. 자료의 출처\n환경부, 고용노동부, 몬트리올 의정서, ECHA, OECD SIDS, EU IUCLID, HSDB(PubChem), NITE, NTP, ACGIH,\nIARC, NIOSH, ChemIDplus, EPA, EPIWIN, INCHEM",
+    "rules": [
+      "R14",
+      "R25"
+    ],
+    "note": "줄바꿈된 출처 목록을 이어 붙임."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[28].statements[0]",
+    "page": 11,
+    "source_text": "라. 기타\n해당 물질안전보건자료는 산업안전보건법 제110조에 의거하여 현재 당사 최선의 지식, 정보 등에 근거하여 작성되\n었습니다.",
+    "rules": [
+      "R14"
+    ],
+    "note": "문장 단위로 분리하고 줄바꿈된 단어를 이어 붙임."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[28].statements[1]",
+    "page": 11,
+    "source_text": "본 정보는 제품 자체를 보증하는 기술자료가 아니며, 단지 안전한 취급, 사용, 처리, 보관, 운송, 폐기 및\n배출 등에 관련된 지침입니다.",
+    "rules": [
+      "R14"
+    ],
+    "note": "문장 단위로 분리하고 줄바꿈된 문장을 이어 붙임."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[28].statements[2]",
+    "page": 11,
+    "source_text": "본 정보는 구매자, 취급자 또는 제3자의 화학물질 취급에 도움을 주고자 권고되지 않\n는 용도의 목적 등으로 사용하는 어떠한 상업적 적용이나 표현 및 기술적인 법적 책임도 질 수 없음에 유의하시기\n바랍니다.",
+    "rules": [
+      "R14"
+    ],
+    "note": "문장 단위로 분리하고 줄바꿈된 문장을 이어 붙임."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[28].statements[3]",
+    "page": 11,
+    "source_text": "해당 물질안전보건자료에 포함된 내용 및 형식은 국가별로 상이할 수 있으며, 구매 및 취급자는 해당 국\n가의 관련 규정을 확인하시기 바랍니다.",
+    "rules": [
+      "R14"
+    ],
+    "note": "문장 단위로 분리하고 줄바꿈된 단어를 이어 붙임."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[28].statements[4]",
+    "page": 11,
+    "source_text": "본 MSDS의 최신 버전은 롯데케미칼 홈페이지에서 확인 가능합니다. (www.lottechem.com)",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[0]",
+    "page": 1,
+    "source_text": " : 2024-08-21",
+    "rules": [
+      "R17",
+      "R24"
+    ],
+    "note": "날짜의 항목명이 없어 용도를 판단하지 않고 원문을 보존함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[1]",
+    "page": 9,
+    "source_text": "Tunnel restriction code : 해당없음",
+    "rules": [
+      "R17",
+      "R24"
+    ],
+    "note": "검수 보완: 원문에 명시되지만 정식 데이터 칸에 담기지 않은 정보를 extras에 보존함."
+  }
+]

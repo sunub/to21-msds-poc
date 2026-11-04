@@ -17,6 +17,7 @@ from pathlib import Path
 from _common import today
 from msds.common import manifest
 from msds.common.paths import PAGES, run_dir
+from msds.extract.inputs import pages_problems
 from msds.extract.section_runner import doc_meta_from_pages, run_document, save_run_info
 
 
@@ -79,6 +80,9 @@ if __name__ == "__main__":
         targets = select_targets(a.docs, a.purpose, a.allow_eval, a.pages_dir, a.all_in_pages_dir)
     except (KeyError, ValueError) as e:
         ap.error(e.args[0])
+    problems = pages_problems([r["doc_id"] for r in targets], a.pages_dir)
+    if problems:
+        ap.error(f"쪽 글자 폴더를 확인하세요({a.pages_dir}). " + "; ".join(problems))
     run_name = a.run_name or f"{today()}_sections_{a.model}"
     save_run_info(run_dir(run_name), a.model, a.pages_dir, max_workers=a.workers)
     for r in targets:

@@ -211,7 +211,7 @@ def build_components(msds_item, class_lookup, tox_lookup=None, info_lookup=None)
                 gaps.append({"field": f"components[{who}].msds", "reason": "흡입 독성 행에 노출시간 없음 — 4시간 환산 안 됨"})
         components.append({
             "cas": cas, "name": c.get("name"), "low": rng["low"], "high": rng["high"],
-            "class_rows": class_rows, "flags": [], "m": m, "m_basis": m_basis, "non_toxic": cas in non_toxic_cas,
+            "class_rows": class_rows, "flags": [], "m": m, "m_basis": m_basis, "state": (info or {}).get("state"), "non_toxic": cas in non_toxic_cas,
             "db": db, "msds": tox, "mw": mw, "mw_source": mw_source, "density": dens, "content_flags": rng["flags"],
         })
     gaps.append({"field": "components[*].flags",

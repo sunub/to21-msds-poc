@@ -55,9 +55,18 @@ def _doc(composition=None, components=None):
     return {"msds": [{"composition": composition, "components": components}]}
 
 
-def test_label_beats_component_count():
+def test_단일물질_표기인데_유효_성분이_둘이면_불명확이다():  # 설계서 17장
     r = product_type(load_inputs(_doc({"type": "단일물질"}, [{"seq": 1}, {"seq": 2}])))
-    assert r["type"] == "단일물질"
+    assert r["type"] == "판단불가" and "2개" in r["basis"]
+
+
+def test_불순물과_안정제는_유효_성분에서_뺀다():  # 설계서 17장 톨루엔 99.5% + 벤젠 0.05% 예
+    comps = [{"seq": 1, "name": "톨루엔"}, {"seq": 2, "name": "벤젠", "content_note": "불순물"}, {"seq": 3, "name": "안정제 BHT"}]
+    assert product_type(load_inputs(_doc({"type": "단일물질"}, comps)))["type"] == "단일물질"
+
+
+def test_성분표가_없으면_혼합물_표기여도_불명확이다():  # 설계서 17장 유해성분 미함유 → 사람
+    assert product_type(load_inputs(_doc({"type": "혼합물", "no_hazardous_component": True}, [])))["type"] == "판단불가"
 
 
 def test_as_of_falls_back_to_first_issue_date():
@@ -65,10 +74,8 @@ def test_as_of_falls_back_to_first_issue_date():
     assert load_inputs(doc)["as_of_date"] == "2010-03-11"
 
 
-def test_no_label_and_two_components_is_estimated_mixture():
-    r = product_type(load_inputs(_doc(components=[{"seq": 1}, {"seq": 2}])))
-    assert r["type"] == "혼합물"
-    assert "추정" in r["basis"]
+def test_표기_없이_성분이_둘이면_불명확이다():  # 설계서 17장: 혼합물 표기가 아니면 불명확
+    assert product_type(load_inputs(_doc(components=[{"seq": 1}, {"seq": 2}])))["type"] == "판단불가"
 
 
 @pytest.mark.parametrize("components", [[{"seq": 1, "content": {"lower": 99}}], [], None])

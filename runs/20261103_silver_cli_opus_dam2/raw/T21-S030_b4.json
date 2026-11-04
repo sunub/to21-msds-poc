@@ -1,0 +1,703 @@
+{
+  "doc_id": "T21-S030",
+  "bundle": "b4",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 51307,
+    "completion_tokens": 6420,
+    "cached_tokens": 8949,
+    "reasoning_tokens": 631,
+    "notional_cost_usd": 0.4690458
+  },
+  "seconds": 47.1,
+  "request_usage": [
+    {
+      "prompt_tokens": 51307,
+      "completion_tokens": 6420,
+      "cached_tokens": 8949,
+      "reasoning_tokens": 631,
+      "notional_cost_usd": 0.4690458
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "transport": [
+          {
+            "mode": "공통",
+            "basis_raw": "IMDG CODE/IATA DGR",
+            "regulated": false,
+            "un_no": null,
+            "shipping_name": null,
+            "hazard_class": null,
+            "sub_risk": null,
+            "packing_group": "해당없음",
+            "marine_pollutant": "비해당",
+            "ems_fire": null,
+            "ems_spill": null
+          }
+        ],
+        "regulations": [
+          {
+            "seq": 1,
+            "law": "OSH",
+            "item_code": "OSH_MEASURE",
+            "item_raw": "작업환경측정물질",
+            "comp_ref": "1",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 2,
+            "law": "OSH",
+            "item_code": "OSH_EXPOSURE_STD",
+            "item_raw": "노출기준설정물질",
+            "comp_ref": "1",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 3,
+            "law": "OSH",
+            "item_code": "OSH_MANAGED",
+            "item_raw": "관리대상유해물질",
+            "comp_ref": "1",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 4,
+            "law": "OSH",
+            "item_code": "OSH_SPECIAL",
+            "item_raw": "특별관리대상물질",
+            "comp_ref": "1",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 5,
+            "law": "OSH",
+            "item_code": "OSH_HEALTH_EXAM",
+            "item_raw": "특수건강검진대상물질",
+            "comp_ref": "1",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 6,
+            "law": "OSH",
+            "item_code": "OSH_PROHIBIT",
+            "item_raw": "제조등금지물질",
+            "comp_ref": "1",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 7,
+            "law": "OSH",
+            "item_code": "OSH_PERMIT",
+            "item_raw": "허가대상물질",
+            "comp_ref": "1",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 8,
+            "law": "OSH",
+            "item_code": "OSH_PSM",
+            "item_raw": "PSM대상물질",
+            "comp_ref": "1",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 9,
+            "law": "OSH",
+            "item_code": "OSH_PERMISSIBLE",
+            "item_raw": "허용기준설정물질",
+            "comp_ref": "1",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 10,
+            "law": "KREACH",
+            "item_code": "KREACH_REG",
+            "item_raw": "등록유예기간이 없는 화학물질",
+            "comp_ref": "1",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 11,
+            "law": "KREACH",
+            "item_code": "KREACH_PRIORITY",
+            "item_raw": "중점관리물질",
+            "comp_ref": "1",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 12,
+            "law": "KREACH",
+            "item_code": "KREACH_CMR",
+            "item_raw": "CMR(발암성, 생식세포변이원성, 생식독성) 및 CMR 우려 물질",
+            "comp_ref": "1",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 13,
+            "law": "CCA",
+            "item_code": "CCA_TOXIC",
+            "item_raw": "유독물질",
+            "comp_ref": "1",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 14,
+            "law": "CCA",
+            "item_code": "CCA_PRTR",
+            "item_raw": "배출량조사대상화학물질",
+            "comp_ref": "1",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 15,
+            "law": "CCA",
+            "item_code": "CCA_ACCIDENT",
+            "item_raw": "사고대비물질",
+            "comp_ref": "1",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 16,
+            "law": "CCA",
+            "item_code": "CCA_RESTRICT",
+            "item_raw": "제한물질",
+            "comp_ref": "1",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 17,
+            "law": "CCA",
+            "item_code": "CCA_PERMIT",
+            "item_raw": "허가물질",
+            "comp_ref": "1",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 18,
+            "law": "CCA",
+            "item_code": "CCA_PROHIBIT",
+            "item_raw": "금지물질",
+            "comp_ref": "1",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 19,
+            "law": "DG",
+            "item_code": "DG_HAZMAT",
+            "item_raw": "위험물안전관리법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 20,
+            "law": "WASTE",
+            "item_code": "WASTE_DESIG",
+            "item_raw": "폐기물관리법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "value_raw": "본 제품은 사업장에서 발생하는 폐기물 중 폐기물관리법시행령[별표1]에 의해 지정폐기물 외 사업장폐기물에 해당됨."
+          },
+          {
+            "seq": 21,
+            "law": "POPS",
+            "item_code": "POPS",
+            "item_raw": "잔류성 오염물질 관리법",
+            "comp_ref": "1",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 22,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU 분류 정보 - 확정분류 결과",
+            "comp_ref": "1",
+            "applicable": "비해당",
+            "country": "EU"
+          },
+          {
+            "seq": 23,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국 관리 정보 - OSHA 규정 (29CFR1910.119)",
+            "comp_ref": "1",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 24,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국 관리 정보 - CERCLA 103 규정 (40CFR302.4)",
+            "comp_ref": "1",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 25,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국 관리 정보 - EPCRA 302 규정 (40CFR355.30)",
+            "comp_ref": "1",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 26,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국 관리 정보 - EPCRA 304 규정 (40CFR355.40)",
+            "comp_ref": "1",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 27,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국 관리 정보 - EPCRA 313 규정 (40CFR372.65)",
+            "comp_ref": "1",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 28,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "로테르담 협약 물질",
+            "comp_ref": "1",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 29,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "스톡홀름 협약 물질",
+            "comp_ref": "1",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 30,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "몬트리올 의정서 물질",
+            "comp_ref": "1",
+            "applicable": "비해당"
+          }
+        ],
+        "dangerous_goods": [
+          {
+            "comp_ref": "MIX",
+            "class": "해당없음",
+            "item": null,
+            "water_soluble": null,
+            "grade": null,
+            "designated_qty": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            }
+          }
+        ],
+        "waste": [
+          {
+            "comp_ref": "MIX",
+            "designated": "비해당",
+            "waste_type": "지정폐기물 외 사업장폐기물"
+          }
+        ],
+        "intl_class": [
+          {
+            "comp_ref": "1",
+            "system": "EU_CLP",
+            "class_raw": null,
+            "h_code": null,
+            "status": "해당없음"
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "transport[0]",
+        "page": 6,
+        "source_text": "가. 유엔번호(IMDG CODE/IATA DGR) - 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "유엔번호·선적명·등급·용기등급·해양오염물질 모두 해당없음이라 regulated=false, 용기등급 해당없음, 해양오염물질 비해당으로 둠. EmS는 자료없음이라 null"
+      },
+      {
+        "msds_index": 0,
+        "field": "transport[0]",
+        "page": 7,
+        "source_text": "라. 용기등급(IMDG CODE/IATA DGR) - 해당없음 | 마. 해양오염물질 - 해당없음 | 화재 시 비상조치의 종류 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[0]",
+        "page": 7,
+        "source_text": "○ 작업환경측정물질 - [1,3-다이옥솔란-2-온] : 해당없음",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": "해당없음을 비해당으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[1]",
+        "page": 7,
+        "source_text": "○ 노출기준설정물질 - [1,3-다이옥솔란-2-온] : 해당없음",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[2]",
+        "page": 7,
+        "source_text": "○ 관리대상유해물질 - [1,3-다이옥솔란-2-온] : 해당없음",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[3]",
+        "page": 7,
+        "source_text": "○ 특별관리대상물질 - [1,3-다이옥솔란-2-온] : 해당없음",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[4]",
+        "page": 7,
+        "source_text": "○ 특수건강검진대상물질 - [1,3-다이옥솔란-2-온] : 해당없음",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[5]",
+        "page": 7,
+        "source_text": "○ 제조등금지물질 - [1,3-다이옥솔란-2-온] : 해당없음",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[6]",
+        "page": 7,
+        "source_text": "○ 허가대상물질 - [1,3-다이옥솔란-2-온] : 해당없음",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[7]",
+        "page": 7,
+        "source_text": "○ PSM대상물질 - [1,3-다이옥솔란-2-온] : 해당없음",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[8]",
+        "page": 7,
+        "source_text": "○ 허용기준설정물질 - [1,3-다이옥솔란-2-온] : 해당없음",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[9]",
+        "page": 7,
+        "source_text": "○ 등록유예기간이 없는 화학물질 - [1,3-다이옥솔란-2-온] : 해당없음",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[10]",
+        "page": 7,
+        "source_text": "○ 중점관리물질 - [1,3-다이옥솔란-2-온] : 해당없음",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[11]",
+        "page": 7,
+        "source_text": "○ CMR(발암성, 생식세포변이원성, 생식독성) 및 CMR 우려 물질 - [1,3-다이옥솔란-2-온] : 해당없음",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[12]",
+        "page": 7,
+        "source_text": "○ 유독물질 - [1,3-다이옥솔란-2-온] : 해당없음",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[13]",
+        "page": 7,
+        "source_text": "○ 배출량조사대상화학물질 - [1,3-다이옥솔란-2-온] : 해당없음",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[14]",
+        "page": 7,
+        "source_text": "○ 사고대비물질 - [1,3-다이옥솔란-2-온] : 해당없음",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[15]",
+        "page": 8,
+        "source_text": "○ 제한물질 - [1,3-다이옥솔란-2-온] : 해당없음",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[16]",
+        "page": 8,
+        "source_text": "○ 허가물질 - [1,3-다이옥솔란-2-온] : 해당없음",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[17]",
+        "page": 8,
+        "source_text": "○ 금지물질 - [1,3-다이옥솔란-2-온] : 해당없음",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[18]",
+        "page": 8,
+        "source_text": "라. 위험물안전관리법에 의한 규제 - 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "제품 전체 기재라 comp_ref=MIX"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[19]",
+        "page": 8,
+        "source_text": "본 제품은 사업장에서 발생하는 폐기물 중 폐기물관리법시행령[별표1]에 의해 지정폐기물 외 사업장폐기물에 해당됨.",
+        "rules": [],
+        "note": "지정폐기물 외라 비해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[20]",
+        "page": 8,
+        "source_text": "○ 잔류성 오염물질 관리법 - [1,3-다이옥솔란-2-온] : 해당없음",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[21]",
+        "page": 8,
+        "source_text": "○ EU 분류 정보 * 확정분류 결과 - [1,3-다이옥솔란-2-온] : 해당없음",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[22]",
+        "page": 8,
+        "source_text": "* OSHA 규정 (29CFR1910.119) - [1,3-다이옥솔란-2-온] : 해당없음",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[23]",
+        "page": 8,
+        "source_text": "* CERCLA 103 규정 (40CFR302.4) - [1,3-다이옥솔란-2-온] : 해당없음",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[24]",
+        "page": 8,
+        "source_text": "* EPCRA 302 규정 (40CFR355.30) - [1,3-다이옥솔란-2-온] : 해당없음",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[25]",
+        "page": 8,
+        "source_text": "* EPCRA 304 규정 (40CFR355.40) - [1,3-다이옥솔란-2-온] : 해당없음",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[26]",
+        "page": 8,
+        "source_text": "* EPCRA 313 규정 (40CFR372.65) - [1,3-다이옥솔란-2-온] : 해당없음",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[27]",
+        "page": 8,
+        "source_text": "○ 로테르담 협약 물질 - [1,3-다이옥솔란-2-온] : 해당없음",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[28]",
+        "page": 8,
+        "source_text": "○ 스톡홀름 협약 물질 - [1,3-다이옥솔란-2-온] : 해당없음",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[29]",
+        "page": 8,
+        "source_text": "○ 몬트리올 의정서 물질 - [1,3-다이옥솔란-2-온] : 해당없음",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "dangerous_goods[0]",
+        "page": 8,
+        "source_text": "라. 위험물안전관리법에 의한 규제 - 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "류별 해당없음, 지정수량 status 해당없음"
+      },
+      {
+        "msds_index": 0,
+        "field": "waste[0]",
+        "page": 8,
+        "source_text": "본 제품은 사업장에서 발생하는 폐기물 중 폐기물관리법시행령[별표1]에 의해 지정폐기물 외 사업장폐기물에 해당됨.",
+        "rules": [],
+        "note": "지정폐기물 외 사업장폐기물이라 designated=비해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "intl_class[0]",
+        "page": 8,
+        "source_text": "○ EU 분류 정보 * 확정분류 결과 - [1,3-다이옥솔란-2-온] : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"transport\": [{\"mode\": \"공통\", \"basis_raw\": \"IMDG CODE/IATA DGR\", \"regulated\": false, \"un_no\": null, \"shipping_name\": null, \"hazard_class\": null, \"sub_risk\": null, \"packing_group\": \"해당없음\", \"marine_pollutant\": \"비해당\", \"ems_fire\": null, \"ems_spill\": null}], \"regulations\": [{\"seq\": 1, \"law\": \"OSH\", \"item_code\": \"OSH_MEASURE\", \"item_raw\": \"작업환경측정물질\", \"comp_ref\": \"1\", \"applicable\": \"비해당\"}, {\"seq\": 2, \"law\": \"OSH\", \"item_code\": \"OSH_EXPOSURE_STD\", \"item_raw\": \"노출기준설정물질\", \"comp_ref\": \"1\", \"applicable\": \"비해당\"}, {\"seq\": 3, \"law\": \"OSH\", \"item_code\": \"OSH_MANAGED\", \"item_raw\": \"관리대상유해물질\", \"comp_ref\": \"1\", \"applicable\": \"비해당\"}, {\"seq\": 4, \"law\": \"OSH\", \"item_code\": \"OSH_SPECIAL\", \"item_raw\": \"특별관리대상물질\", \"comp_ref\": \"1\", \"applicable\": \"비해당\"}, {\"seq\": 5, \"law\": \"OSH\", \"item_code\": \"OSH_HEALTH_EXAM\", \"item_raw\": \"특수건강검진대상물질\", \"comp_ref\": \"1\", \"applicable\": \"비해당\"}, {\"seq\": 6, \"law\": \"OSH\", \"item_code\": \"OSH_PROHIBIT\", \"item_raw\": \"제조등금지물질\", \"comp_ref\": \"1\", \"applicable\": \"비해당\"}, {\"seq\": 7, \"law\": \"OSH\", \"item_code\": \"OSH_PERMIT\", \"item_raw\": \"허가대상물질\", \"comp_ref\": \"1\", \"applicable\": \"비해당\"}, {\"seq\": 8, \"law\": \"OSH\", \"item_code\": \"OSH_PSM\", \"item_raw\": \"PSM대상물질\", \"comp_ref\": \"1\", \"applicable\": \"비해당\"}, {\"seq\": 9, \"law\": \"OSH\", \"item_code\": \"OSH_PERMISSIBLE\", \"item_raw\": \"허용기준설정물질\", \"comp_ref\": \"1\", \"applicable\": \"비해당\"}, {\"seq\": 10, \"law\": \"KREACH\", \"item_code\": \"KREACH_REG\", \"item_raw\": \"등록유예기간이 없는 화학물질\", \"comp_ref\": \"1\", \"applicable\": \"비해당\"}, {\"seq\": 11, \"law\": \"KREACH\", \"item_code\": \"KREACH_PRIORITY\", \"item_raw\": \"중점관리물질\", \"comp_ref\": \"1\", \"applicable\": \"비해당\"}, {\"seq\": 12, \"law\": \"KREACH\", \"item_code\": \"KREACH_CMR\", \"item_raw\": \"CMR(발암성, 생식세포변이원성, 생식독성) 및 CMR 우려 물질\", \"comp_ref\": \"1\", \"applicable\": \"비해당\"}, {\"seq\": 13, \"law\": \"CCA\", \"item_code\": \"CCA_TOXIC\", \"item_raw\": \"유독물질\", \"comp_ref\": \"1\", \"applicable\": \"비해당\"}, {\"seq\": 14, \"law\": \"CCA\", \"item_code\": \"CCA_PRTR\", \"item_raw\": \"배출량조사대상화학물질\", \"comp_ref\": \"1\", \"applicable\": \"비해당\"}, {\"seq\": 15, \"law\": \"CCA\", \"item_code\": \"CCA_ACCIDENT\", \"item_raw\": \"사고대비물질\", \"comp_ref\": \"1\", \"applicable\": \"비해당\"}, {\"seq\": 16, \"law\": \"CCA\", \"item_code\": \"CCA_RESTRICT\", \"item_raw\": \"제한물질\", \"comp_ref\": \"1\", \"applicable\": \"비해당\"}, {\"seq\": 17, \"law\": \"CCA\", \"item_code\": \"CCA_PERMIT\", \"item_raw\": \"허가물질\", \"comp_ref\": \"1\", \"applicable\": \"비해당\"}, {\"seq\": 18, \"law\": \"CCA\", \"item_code\": \"CCA_PROHIBIT\", \"item_raw\": \"금지물질\", \"comp_ref\": \"1\", \"applicable\": \"비해당\"}, {\"seq\": 19, \"law\": \"DG\", \"item_code\": \"DG_HAZMAT\", \"item_raw\": \"위험물안전관리법에 의한 규제\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\"}, {\"seq\": 20, \"law\": \"WASTE\", \"item_code\": \"WASTE_DESIG\", \"item_raw\": \"폐기물관리법에 의한 규제\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"value_raw\": \"본 제품은 사업장에서 발생하는 폐기물 중 폐기물관리법시행령[별표1]에 의해 지정폐기물 외 사업장폐기물에 해당됨.\"}, {\"seq\": 21, \"law\": \"POPS\", \"item_code\": \"POPS\", \"item_raw\": \"잔류성 오염물질 관리법\", \"comp_ref\": \"1\", \"applicable\": \"비해당\"}, {\"seq\": 22, \"law\": \"INTL\", \"item_code\": \"INTL_EU\", \"item_raw\": \"EU 분류 정보 - 확정분류 결과\", \"comp_ref\": \"1\", \"applicable\": \"비해당\", \"country\": \"EU\"}, {\"seq\": 23, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국 관리 정보 - OSHA 규정 (29CFR1910.119)\", \"comp_ref\": \"1\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 24, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국 관리 정보 - CERCLA 103 규정 (40CFR302.4)\", \"comp_ref\": \"1\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 25, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국 관리 정보 - EPCRA 302 규정 (40CFR355.30)\", \"comp_ref\": \"1\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 26, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국 관리 정보 - EPCRA 304 규정 (40CFR355.40)\", \"comp_ref\": \"1\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 27, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국 관리 정보 - EPCRA 313 규정 (40CFR372.65)\", \"comp_ref\": \"1\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 28, \"law\": \"INTL\", \"item_code\": \"INTL_TREATY\", \"item_raw\": \"로테르담 협약 물질\", \"comp_ref\": \"1\", \"applicable\": \"비해당\"}, {\"seq\": 29, \"law\": \"INTL\", \"item_code\": \"INTL_TREATY\", \"item_raw\": \"스톡홀름 협약 물질\", \"comp_ref\": \"1\", \"applicable\": \"비해당\"}, {\"seq\": 30, \"law\": \"INTL\", \"item_code\": \"INTL_TREATY\", \"item_raw\": \"몬트리올 의정서 물질\", \"comp_ref\": \"1\", \"applicable\": \"비해당\"}], \"dangerous_goods\": [{\"comp_ref\": \"MIX\", \"class\": \"해당없음\", \"item\": null, \"water_soluble\": null, \"grade\": null, \"designated_qty\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}}], \"waste\": [{\"comp_ref\": \"MIX\", \"designated\": \"비해당\", \"waste_type\": \"지정폐기물 외 사업장폐기물\"}], \"intl_class\": [{\"comp_ref\": \"1\", \"system\": \"EU_CLP\", \"class_raw\": null, \"h_code\": null, \"status\": \"해당없음\"}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"transport[0]\", \"page\": 6, \"source_text\": \"가. 유엔번호(IMDG CODE/IATA DGR) - 해당없음\", \"rules\": [\"R15\"], \"note\": \"유엔번호·선적명·등급·용기등급·해양오염물질 모두 해당없음이라 regulated=false, 용기등급 해당없음, 해양오염물질 비해당으로 둠. EmS는 자료없음이라 null\"}, {\"msds_index\": 0, \"field\": \"transport[0]\", \"page\": 7, \"source_text\": \"라. 용기등급(IMDG CODE/IATA DGR) - 해당없음 | 마. 해양오염물질 - 해당없음 | 화재 시 비상조치의 종류 : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[0]\", \"page\": 7, \"source_text\": \"○ 작업환경측정물질 - [1,3-다이옥솔란-2-온] : 해당없음\", \"rules\": [\"R10\", \"R25\"], \"note\": \"해당없음을 비해당으로 둠\"}, {\"msds_index\": 0, \"field\": \"regulations[1]\", \"page\": 7, \"source_text\": \"○ 노출기준설정물질 - [1,3-다이옥솔란-2-온] : 해당없음\", \"rules\": [\"R10\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[2]\", \"page\": 7, \"source_text\": \"○ 관리대상유해물질 - [1,3-다이옥솔란-2-온] : 해당없음\", \"rules\": [\"R10\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[3]\", \"page\": 7, \"source_text\": \"○ 특별관리대상물질 - [1,3-다이옥솔란-2-온] : 해당없음\", \"rules\": [\"R10\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[4]\", \"page\": 7, \"source_text\": \"○ 특수건강검진대상물질 - [1,3-다이옥솔란-2-온] : 해당없음\", \"rules\": [\"R10\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[5]\", \"page\": 7, \"source_text\": \"○ 제조등금지물질 - [1,3-다이옥솔란-2-온] : 해당없음\", \"rules\": [\"R10\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[6]\", \"page\": 7, \"source_text\": \"○ 허가대상물질 - [1,3-다이옥솔란-2-온] : 해당없음\", \"rules\": [\"R10\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[7]\", \"page\": 7, \"source_text\": \"○ PSM대상물질 - [1,3-다이옥솔란-2-온] : 해당없음\", \"rules\": [\"R10\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[8]\", \"page\": 7, \"source_text\": \"○ 허용기준설정물질 - [1,3-다이옥솔란-2-온] : 해당없음\", \"rules\": [\"R10\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[9]\", \"page\": 7, \"source_text\": \"○ 등록유예기간이 없는 화학물질 - [1,3-다이옥솔란-2-온] : 해당없음\", \"rules\": [\"R10\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[10]\", \"page\": 7, \"source_text\": \"○ 중점관리물질 - [1,3-다이옥솔란-2-온] : 해당없음\", \"rules\": [\"R10\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[11]\", \"page\": 7, \"source_text\": \"○ CMR(발암성, 생식세포변이원성, 생식독성) 및 CMR 우려 물질 - [1,3-다이옥솔란-2-온] : 해당없음\", \"rules\": [\"R10\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[12]\", \"page\": 7, \"source_text\": \"○ 유독물질 - [1,3-다이옥솔란-2-온] : 해당없음\", \"rules\": [\"R10\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[13]\", \"page\": 7, \"source_text\": \"○ 배출량조사대상화학물질 - [1,3-다이옥솔란-2-온] : 해당없음\", \"rules\": [\"R10\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[14]\", \"page\": 7, \"source_text\": \"○ 사고대비물질 - [1,3-다이옥솔란-2-온] : 해당없음\", \"rules\": [\"R10\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[15]\", \"page\": 8, \"source_text\": \"○ 제한물질 - [1,3-다이옥솔란-2-온] : 해당없음\", \"rules\": [\"R10\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[16]\", \"page\": 8, \"source_text\": \"○ 허가물질 - [1,3-다이옥솔란-2-온] : 해당없음\", \"rules\": [\"R10\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[17]\", \"page\": 8, \"source_text\": \"○ 금지물질 - [1,3-다이옥솔란-2-온] : 해당없음\", \"rules\": [\"R10\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[18]\", \"page\": 8, \"source_text\": \"라. 위험물안전관리법에 의한 규제 - 해당없음\", \"rules\": [\"R15\"], \"note\": \"제품 전체 기재라 comp_ref=MIX\"}, {\"msds_index\": 0, \"field\": \"regulations[19]\", \"page\": 8, \"source_text\": \"본 제품은 사업장에서 발생하는 폐기물 중 폐기물관리법시행령[별표1]에 의해 지정폐기물 외 사업장폐기물에 해당됨.\", \"rules\": [], \"note\": \"지정폐기물 외라 비해당\"}, {\"msds_index\": 0, \"field\": \"regulations[20]\", \"page\": 8, \"source_text\": \"○ 잔류성 오염물질 관리법 - [1,3-다이옥솔란-2-온] : 해당없음\", \"rules\": [\"R10\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[21]\", \"page\": 8, \"source_text\": \"○ EU 분류 정보 * 확정분류 결과 - [1,3-다이옥솔란-2-온] : 해당없음\", \"rules\": [\"R10\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[22]\", \"page\": 8, \"source_text\": \"* OSHA 규정 (29CFR1910.119) - [1,3-다이옥솔란-2-온] : 해당없음\", \"rules\": [\"R10\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[23]\", \"page\": 8, \"source_text\": \"* CERCLA 103 규정 (40CFR302.4) - [1,3-다이옥솔란-2-온] : 해당없음\", \"rules\": [\"R10\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[24]\", \"page\": 8, \"source_text\": \"* EPCRA 302 규정 (40CFR355.30) - [1,3-다이옥솔란-2-온] : 해당없음\", \"rules\": [\"R10\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[25]\", \"page\": 8, \"source_text\": \"* EPCRA 304 규정 (40CFR355.40) - [1,3-다이옥솔란-2-온] : 해당없음\", \"rules\": [\"R10\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[26]\", \"page\": 8, \"source_text\": \"* EPCRA 313 규정 (40CFR372.65) - [1,3-다이옥솔란-2-온] : 해당없음\", \"rules\": [\"R10\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[27]\", \"page\": 8, \"source_text\": \"○ 로테르담 협약 물질 - [1,3-다이옥솔란-2-온] : 해당없음\", \"rules\": [\"R10\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[28]\", \"page\": 8, \"source_text\": \"○ 스톡홀름 협약 물질 - [1,3-다이옥솔란-2-온] : 해당없음\", \"rules\": [\"R10\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[29]\", \"page\": 8, \"source_text\": \"○ 몬트리올 의정서 물질 - [1,3-다이옥솔란-2-온] : 해당없음\", \"rules\": [\"R10\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"dangerous_goods[0]\", \"page\": 8, \"source_text\": \"라. 위험물안전관리법에 의한 규제 - 해당없음\", \"rules\": [\"R15\"], \"note\": \"류별 해당없음, 지정수량 status 해당없음\"}, {\"msds_index\": 0, \"field\": \"waste[0]\", \"page\": 8, \"source_text\": \"본 제품은 사업장에서 발생하는 폐기물 중 폐기물관리법시행령[별표1]에 의해 지정폐기물 외 사업장폐기물에 해당됨.\", \"rules\": [], \"note\": \"지정폐기물 외 사업장폐기물이라 designated=비해당\"}, {\"msds_index\": 0, \"field\": \"intl_class[0]\", \"page\": 8, \"source_text\": \"○ EU 분류 정보 * 확정분류 결과 - [1,3-다이옥솔란-2-온] : 해당없음\", \"rules\": [\"R10\", \"R15\"], \"note\": null}]}"
+}

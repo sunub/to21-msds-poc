@@ -1,0 +1,855 @@
+{
+  "doc_id": "T21-S028",
+  "bundle": "b1",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 64643,
+    "completion_tokens": 8479,
+    "cached_tokens": 11700,
+    "reasoning_tokens": 1452,
+    "notional_cost_usd": 0.595456
+  },
+  "seconds": 64.3,
+  "request_usage": [
+    {
+      "prompt_tokens": 64643,
+      "completion_tokens": 8479,
+      "cached_tokens": 11700,
+      "reasoning_tokens": 1452,
+      "notional_cost_usd": 0.595456
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "doc": {
+      "language": "ko",
+      "msds_count": 1
+    },
+    "msds": [
+      {
+        "meta": {
+          "msds_no": "AA00566-2100000409",
+          "doc_code": null,
+          "revision_no": 12,
+          "revision_label": "Change List::12차",
+          "header_product_name": "Styrene Monomer",
+          "source_note": null,
+          "first_issue_date": "2016-01-19",
+          "last_revision_date": "2022-08-12",
+          "page_start": 1,
+          "page_end": 10
+        },
+        "product": {
+          "name": "Styrene Monomer [SM]",
+          "code": null,
+          "synonyms": [],
+          "uses": [
+            "ABS, EPS, SAN, PS 등의원재료"
+          ],
+          "restrictions": [],
+          "use_category_code": null
+        },
+        "companies": [
+          {
+            "seq": 1,
+            "role": "제조자",
+            "name": "㈜LG화학",
+            "site": "여수 SM공장",
+            "address": "전남 여수시 여수산단로 951",
+            "postcode": null,
+            "department": "SM생산팀",
+            "contacts": [
+              {
+                "type": "대표",
+                "value": "061-680-6230",
+                "hours": null
+              },
+              {
+                "type": "긴급",
+                "value": "061-680-6230",
+                "hours": null
+              },
+              {
+                "type": "팩스",
+                "value": "061-680-6204",
+                "hours": null
+              },
+              {
+                "type": "이메일",
+                "value": "junwonchoi@lgchem.com",
+                "hours": null
+              }
+            ]
+          },
+          {
+            "seq": 2,
+            "role": "공급자",
+            "name": "㈜LG화학",
+            "site": "여수 SM공장",
+            "address": "전남 여수시 여수산단로 951",
+            "postcode": null,
+            "department": "SM생산팀",
+            "contacts": [
+              {
+                "type": "대표",
+                "value": "061-680-6230",
+                "hours": null
+              },
+              {
+                "type": "긴급",
+                "value": "061-680-6230",
+                "hours": null
+              },
+              {
+                "type": "팩스",
+                "value": "061-680-6204",
+                "hours": null
+              },
+              {
+                "type": "이메일",
+                "value": "junwonchoi@lgchem.com",
+                "hours": null
+              }
+            ]
+          }
+        ],
+        "hazard": {
+          "classified": true,
+          "classes": [
+            {
+              "seq": 1,
+              "group": "물리적",
+              "class_code": "PH_FLAM_LIQ",
+              "category": "3",
+              "route_form": null,
+              "effect": null,
+              "target_organs": [],
+              "raw": "인화성 액체 : 구분3"
+            },
+            {
+              "seq": 2,
+              "group": "건강",
+              "class_code": "HH_ACUTE_INHAL",
+              "category": "4",
+              "route_form": "증기",
+              "effect": null,
+              "target_organs": [],
+              "raw": "급성 독성(흡입: 증기) : 구분4"
+            },
+            {
+              "seq": 3,
+              "group": "건강",
+              "class_code": "HH_SKIN_CORR",
+              "category": "2",
+              "route_form": null,
+              "effect": null,
+              "target_organs": [],
+              "raw": "피부 부식성/피부 자극성 : 구분2"
+            },
+            {
+              "seq": 4,
+              "group": "건강",
+              "class_code": "HH_EYE_DMG",
+              "category": "2",
+              "route_form": null,
+              "effect": null,
+              "target_organs": [],
+              "raw": "심한 눈 손상성/눈 자극성 : 구분2"
+            },
+            {
+              "seq": 5,
+              "group": "건강",
+              "class_code": "HH_MUTAGEN",
+              "category": "2",
+              "route_form": null,
+              "effect": null,
+              "target_organs": [],
+              "raw": "생식세포 변이원성 : 구분2"
+            },
+            {
+              "seq": 6,
+              "group": "건강",
+              "class_code": "HH_CARCINOGEN",
+              "category": "2",
+              "route_form": null,
+              "effect": null,
+              "target_organs": [],
+              "raw": "발암성 : 구분2"
+            },
+            {
+              "seq": 7,
+              "group": "건강",
+              "class_code": "HH_REPRO",
+              "category": "2",
+              "route_form": null,
+              "effect": null,
+              "target_organs": [],
+              "raw": "생식독성 : 구분2"
+            },
+            {
+              "seq": 8,
+              "group": "건강",
+              "class_code": "HH_STOT_SE",
+              "category": "3",
+              "route_form": null,
+              "effect": "호흡기계 자극",
+              "target_organs": [
+                "호흡기계"
+              ],
+              "raw": "특정표적장기 독성(1회 노출) : 구분3(호흡기계 자극)"
+            },
+            {
+              "seq": 9,
+              "group": "건강",
+              "class_code": "HH_STOT_RE",
+              "category": "1",
+              "route_form": null,
+              "effect": null,
+              "target_organs": [],
+              "raw": "특정표적장기 독성(반복 노출) : 구분1"
+            },
+            {
+              "seq": 10,
+              "group": "건강",
+              "class_code": "HH_ASPIRATION",
+              "category": "1",
+              "route_form": null,
+              "effect": null,
+              "target_organs": [],
+              "raw": "흡인 유해성 : 구분1"
+            }
+          ],
+          "signal_word": "위험",
+          "pictograms": [
+            {
+              "code": "GHS02",
+              "detection": "이미지판독"
+            },
+            {
+              "code": "GHS07",
+              "detection": "이미지판독"
+            },
+            {
+              "code": "GHS08",
+              "detection": "이미지판독"
+            }
+          ],
+          "h_statements": [
+            {
+              "seq": 1,
+              "code": "H226",
+              "system": "GHS",
+              "mark": null,
+              "text": "인화성 액체 및 증기"
+            },
+            {
+              "seq": 2,
+              "code": "H304",
+              "system": "GHS",
+              "mark": null,
+              "text": "삼켜서 기도로 유입되면 치명적일 수 있음"
+            },
+            {
+              "seq": 3,
+              "code": "H315",
+              "system": "GHS",
+              "mark": null,
+              "text": "피부에 자극을 일으킴"
+            },
+            {
+              "seq": 4,
+              "code": "H319",
+              "system": "GHS",
+              "mark": null,
+              "text": "눈에 심한 자극을 일으킴"
+            },
+            {
+              "seq": 5,
+              "code": "H332",
+              "system": "GHS",
+              "mark": null,
+              "text": "흡입하면 유해함"
+            },
+            {
+              "seq": 6,
+              "code": "H335",
+              "system": "GHS",
+              "mark": null,
+              "text": "호흡기계 자극을 일으킬 수 있음"
+            },
+            {
+              "seq": 7,
+              "code": "H331",
+              "system": "GHS",
+              "mark": null,
+              "text": "유전적인 결함을 일으킬 것으로 의심됨"
+            },
+            {
+              "seq": 8,
+              "code": "H351",
+              "system": "GHS",
+              "mark": null,
+              "text": "암을 일으킬 것으로 의심됨"
+            },
+            {
+              "seq": 9,
+              "code": "H361",
+              "system": "GHS",
+              "mark": null,
+              "text": "태아 또는 생식능력에 손상을 일으킬 것으로 의심됨"
+            },
+            {
+              "seq": 10,
+              "code": "H372",
+              "system": "GHS",
+              "mark": null,
+              "text": "장기간 또는 반복노출 되면 신체 중 장기에 손상을 일으킴(11항참조)"
+            }
+          ],
+          "p_statements": [
+            {
+              "seq": 1,
+              "code": "P201",
+              "type": "예방",
+              "text": "사용 전 취급 설명서를 확보하시오."
+            },
+            {
+              "seq": 2,
+              "code": "P202",
+              "type": "예방",
+              "text": "모든 안전 예방조치 문구를 읽고 이해하기 전에는 취급하지 마시오."
+            },
+            {
+              "seq": 3,
+              "code": "P210",
+              "type": "예방",
+              "text": "열·스파크·화염·고열로부터 멀리하시오 - 금연"
+            },
+            {
+              "seq": 4,
+              "code": "P233",
+              "type": "예방",
+              "text": "용기를 단단히 밀폐하시오."
+            },
+            {
+              "seq": 5,
+              "code": "P240",
+              "type": "예방",
+              "text": "용기와 수용설비를 접합시키거나 접지하시오."
+            },
+            {
+              "seq": 6,
+              "code": "P241",
+              "type": "예방",
+              "text": "폭발 방지용 전기·환기·조명·장비를 사용하시오."
+            },
+            {
+              "seq": 7,
+              "code": "P242",
+              "type": "예방",
+              "text": "스파크가 발생하지 않는 도구만을 사용하시오."
+            },
+            {
+              "seq": 8,
+              "code": "P243",
+              "type": "예방",
+              "text": "정전기 방지 조치를 취하시오."
+            },
+            {
+              "seq": 9,
+              "code": "P260",
+              "type": "예방",
+              "text": "(분진·흄·가스·미스트·증기·스프레이)를 흡입하지 마시오.."
+            },
+            {
+              "seq": 10,
+              "code": "P261",
+              "type": "예방",
+              "text": "(분진·흄·가스·미스트·증기·스프레이)의 흡입을 피하시오."
+            },
+            {
+              "seq": 11,
+              "code": "P264",
+              "type": "예방",
+              "text": "취급 후에는 취급 부위를 철저히 씻으시오."
+            },
+            {
+              "seq": 12,
+              "code": "P271",
+              "type": "예방",
+              "text": "옥외 또는 환기가 잘 되는 곳에서만 취급하시오."
+            },
+            {
+              "seq": 13,
+              "code": "P280",
+              "type": "예방",
+              "text": "(보호장갑·보호의·보안경·안면보호구)를(을) 착용하시오."
+            },
+            {
+              "seq": 14,
+              "code": "P281",
+              "type": "예방",
+              "text": "요구되는 개인 보호 장비를 사용하시오."
+            },
+            {
+              "seq": 15,
+              "code": "P302+P352",
+              "type": "대응",
+              "text": "피부에 묻으면 다량의 물로 씻으시오."
+            },
+            {
+              "seq": 16,
+              "code": "P303+P361+P353",
+              "type": "대응",
+              "text": "피부(또는 머리카락)에 묻으면 오염된 모든 의복은 벗으시오. 피부를 물로 씻으시오/샤워하시오 ."
+            },
+            {
+              "seq": 17,
+              "code": "P304+P340",
+              "type": "대응",
+              "text": "흡입하면 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을 취하시오."
+            },
+            {
+              "seq": 18,
+              "code": "P305+P351+P338",
+              "type": "대응",
+              "text": "눈에 묻으면 몇 분간 물로 조심해서 씻으시오. 가능하면 콘택트렌즈를 제거하시오. 계속 씻으시오."
+            },
+            {
+              "seq": 19,
+              "code": "P308+P313",
+              "type": "대응",
+              "text": "노출되거나 노출이 우려되면 의학적인 조치·조언을 구하시오."
+            },
+            {
+              "seq": 20,
+              "code": "P312",
+              "type": "대응",
+              "text": "불편함을 느끼면 의료기관(의사)의 진찰을 받으시오."
+            },
+            {
+              "seq": 21,
+              "code": "P314",
+              "type": "대응",
+              "text": "불편함을 느끼면 의학적인 조치/조언을 구하시오."
+            },
+            {
+              "seq": 22,
+              "code": "P321",
+              "type": "대응",
+              "text": "필요한 처치를 하시오."
+            },
+            {
+              "seq": 23,
+              "code": "P332+P313",
+              "type": "대응",
+              "text": "피부 자극이 생기면 의학적인 조치·조언을 구하시오."
+            },
+            {
+              "seq": 24,
+              "code": "P337+P313",
+              "type": "대응",
+              "text": "눈에 자극이 지속되면 의학적인 조치·조언을 구하시오."
+            },
+            {
+              "seq": 25,
+              "code": "P362",
+              "type": "대응",
+              "text": "오염된 의복은 벗고 다시 사용 전 세척하시오."
+            },
+            {
+              "seq": 26,
+              "code": "P370+P378",
+              "type": "대응",
+              "text": "화재 시 불을 끄기 위해 적절한 소화제를 사용하시오 (5항 참조)."
+            },
+            {
+              "seq": 27,
+              "code": "P403+P233",
+              "type": "저장",
+              "text": "용기는 환기가 잘 되는 곳에 단단히 밀폐하여 저장하시오."
+            },
+            {
+              "seq": 28,
+              "code": "P403+P235",
+              "type": "저장",
+              "text": "환기가 잘 되는 곳에 보관하고 저온으로 유지하시오."
+            },
+            {
+              "seq": 29,
+              "code": "P405",
+              "type": "저장",
+              "text": "잠금장치가 있는 저장장소에 저장하시오."
+            },
+            {
+              "seq": 30,
+              "code": "P501",
+              "type": "폐기",
+              "text": "폐기물관리법의 해당내용에 따라 내용물과 용기를 폐기하시오."
+            }
+          ],
+          "other_hazards": [],
+          "nfpa": {
+            "health": 2,
+            "fire": 3,
+            "reactivity": 0,
+            "special": null
+          }
+        },
+        "composition": {
+          "type": "단일물질",
+          "no_hazardous_component": false
+        },
+        "components": [
+          {
+            "seq": 1,
+            "name": "Vinylbenzene",
+            "name_en": null,
+            "synonyms": [
+              "Styrene",
+              "Ethenylbenzene"
+            ],
+            "cas_no": "100-42-5",
+            "ke_no": "KE-35342",
+            "ec_no": null,
+            "other_id": null,
+            "other_id_type": null,
+            "parent_seq": null,
+            "read_across_cas": null,
+            "content": {
+              "raw": "99.9",
+              "status": "값있음",
+              "value": 99.9,
+              "unit": "%",
+              "dp": 1
+            },
+            "content_note": null,
+            "content_basis": "미표기",
+            "trade_secret": false,
+            "approval_no": null,
+            "approval_expiry": null
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "doc.language",
+        "page": 1,
+        "source_text": "물질안전보건자료 (MSDS)",
+        "rules": [],
+        "note": "본문이 한국어"
+      },
+      {
+        "msds_index": 0,
+        "field": "doc.msds_count",
+        "page": 1,
+        "source_text": "물질안전보건자료 (MSDS) | Styrene Monomer",
+        "rules": [
+          "R16"
+        ],
+        "note": "단일 MSDS 1~10쪽"
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.msds_no",
+        "page": 1,
+        "source_text": "MSDS관리번호:AA00566-2100000409",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.first_issue_date",
+        "page": 1,
+        "source_text": "Date of issue: 2016-01-19",
+        "rules": [
+          "R01"
+        ],
+        "note": "16항 최초 작성일자 2016-01-19와 일치"
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.last_revision_date",
+        "page": 1,
+        "source_text": "Revision date: 2022-08-12",
+        "rules": [
+          "R01"
+        ],
+        "note": "머리글 개정일 사용. 16항에는 '11 회, 2022-06-14'로 적혀 있어 서로 다름(17항 이력표 12차 2022.8.12와 머리글이 일치)"
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.revision_no",
+        "page": 1,
+        "source_text": "Change List::12차",
+        "rules": [],
+        "note": "'12차'를 12로 저장. 16항 '11 회'와 다름"
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.revision_label",
+        "page": 1,
+        "source_text": "Change List::12차",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.header_product_name",
+        "page": 1,
+        "source_text": "Styrene Monomer",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.page_start",
+        "page": 1,
+        "source_text": "1/10",
+        "rules": [
+          "R16"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.page_end",
+        "page": 10,
+        "source_text": "10/10",
+        "rules": [
+          "R16"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "product.name",
+        "page": 1,
+        "source_text": "- Styrene Monomer [SM]",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "product.uses",
+        "page": 1,
+        "source_text": "- 용도 : ABS, EPS, SAN, PS 등의원재료",
+        "rules": [
+          "R11",
+          "R17"
+        ],
+        "note": "쉼표로 나누면 '등의원재료'가 PS에만 붙어 의미가 바뀌므로 하나로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "product.restrictions",
+        "page": 1,
+        "source_text": "- 사용상의 제한 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "'자료없음'이라 제한 목록은 비움"
+      },
+      {
+        "msds_index": 0,
+        "field": "companies[0]",
+        "page": 1,
+        "source_text": "○ 제조자 정보 - 회사명 : ㈜LG화학 여수 SM공장 SM생산팀 - 주소 : 전남 여수시 여수산단로 951 - 담당부서 : SM생산팀 - 전화번호 : 061-680-6230~34,6240~6242 - 긴급 전화번호 : 061-680-6230~34 - FAX 번호 : 061-680-6204",
+        "rules": [
+          "R12"
+        ],
+        "note": "회사명에서 사업장 '여수 SM공장'과 부서 분리. 전화번호 범위는 R12에 따라 첫 번호만 저장(나머지 원문 '~34,6240~6242')"
+      },
+      {
+        "msds_index": 0,
+        "field": "companies[1]",
+        "page": 1,
+        "source_text": "○ 공급자/유통업자 정보 - 회사명 : ㈜LG화학 여수 SM공장 SM생산팀 - 주소 : 전남 여수시 여수산단로 951 - 전화번호 : 061-680-6230~34,6240~6242 - 이메일 주소 : junwonchoi@lgchem.com",
+        "rules": [
+          "R12"
+        ],
+        "note": "공급자/유통업자 정보를 공급자로 저장. 전화번호는 첫 번호만"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classified",
+        "page": 1,
+        "source_text": "가. 유해성·위험성 분류",
+        "rules": [],
+        "note": "분류 항목이 있어 true"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classes[0]",
+        "page": 1,
+        "source_text": "- 인화성 액체 : 구분3",
+        "rules": [
+          "R07"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classes[1]",
+        "page": 1,
+        "source_text": "- 급성 독성(흡입: 증기) : 구분4",
+        "rules": [
+          "R07"
+        ],
+        "note": "노출 형태 증기"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classes[2]",
+        "page": 1,
+        "source_text": "- 피부 부식성/피부 자극성 : 구분2",
+        "rules": [
+          "R07"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classes[3]",
+        "page": 1,
+        "source_text": "- 심한 눈 손상성/눈 자극성 : 구분2",
+        "rules": [
+          "R07"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classes[4]",
+        "page": 1,
+        "source_text": "- 생식세포 변이원성 : 구분2",
+        "rules": [
+          "R07"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classes[5]",
+        "page": 1,
+        "source_text": "- 발암성 : 구분2",
+        "rules": [
+          "R07"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classes[6]",
+        "page": 1,
+        "source_text": "- 생식독성 : 구분2",
+        "rules": [
+          "R07"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classes[7]",
+        "page": 1,
+        "source_text": "- 특정표적장기 독성(1회 노출) : 구분3(호흡기계 자극)",
+        "rules": [
+          "R07"
+        ],
+        "note": "괄호 '호흡기계 자극'을 영향으로, 호흡기계를 표적장기로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classes[8]",
+        "page": 1,
+        "source_text": "- 특정표적장기 독성(반복 노출) : 구분1",
+        "rules": [
+          "R07"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classes[9]",
+        "page": 1,
+        "source_text": "- 흡인 유해성 : 구분1",
+        "rules": [
+          "R07"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.signal_word",
+        "page": 1,
+        "source_text": "○ 신호어 - 위험",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.pictograms",
+        "page": 1,
+        "source_text": "○ 그림문자",
+        "rules": [],
+        "note": "이미지에서 불꽃(GHS02), 감탄부호(GHS07), 건강유해성(GHS08) 3개 확인"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.h_statements",
+        "page": 2,
+        "source_text": "- H226 인화성 액체 및 증기 … - H331 유전적인 결함을 일으킬 것으로 의심됨 … - H372 장기간 또는 반복노출 되면 신체 중 장기에 손상을 일으킴(11항참조)",
+        "rules": [
+          "R05"
+        ],
+        "note": "10개 원문대로. H331 코드와 문구(변이원성)가 맞지 않으나 원문 그대로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements",
+        "page": 2,
+        "source_text": "- P201 사용 전 취급 설명서를 확보하시오. … -P403+P233 용기는 환기가 잘 되는 곳에 단단히 밀폐하여 저장하시오. … - P501 폐기물관리법의 해당내용에 따라 내용물과 용기를 폐기하시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": "30개, 유형은 코드 첫 자리로 정함"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.nfpa",
+        "page": 2,
+        "source_text": "- 보건 : 2 , 화재 : 3, 반응성 : 0",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "composition.type",
+        "page": 3,
+        "source_text": "Vinylbenzene | Styrene, Ethenylbenzene | 100-42-5 / KE-35342 | 99.9",
+        "rules": [],
+        "note": "성분 1개(99.9%)라 단일물질"
+      },
+      {
+        "msds_index": 0,
+        "field": "components[0]",
+        "page": 3,
+        "source_text": "Vinylbenzene | Styrene, Ethenylbenzene | 100-42-5 / KE-35342 | 99.9 | C6H5C₂H₃",
+        "rules": [
+          "R02",
+          "R03",
+          "R04",
+          "R06",
+          "R11"
+        ],
+        "note": "CAS와 KE 분리, 이명 쉼표로 분리, 함유량 99.9 단일값(단위 표 머리 '함유량(%)')"
+      }
+    ]
+  },
+  "raw_text": "{\"doc\": {\"language\": \"ko\", \"msds_count\": 1}, \"msds\": [{\"meta\": {\"msds_no\": \"AA00566-2100000409\", \"doc_code\": null, \"revision_no\": 12, \"revision_label\": \"Change List::12차\", \"header_product_name\": \"Styrene Monomer\", \"source_note\": null, \"first_issue_date\": \"2016-01-19\", \"last_revision_date\": \"2022-08-12\", \"page_start\": 1, \"page_end\": 10}, \"product\": {\"name\": \"Styrene Monomer [SM]\", \"code\": null, \"synonyms\": [], \"uses\": [\"ABS, EPS, SAN, PS 등의원재료\"], \"restrictions\": [], \"use_category_code\": null}, \"companies\": [{\"seq\": 1, \"role\": \"제조자\", \"name\": \"㈜LG화학\", \"site\": \"여수 SM공장\", \"address\": \"전남 여수시 여수산단로 951\", \"postcode\": null, \"department\": \"SM생산팀\", \"contacts\": [{\"type\": \"대표\", \"value\": \"061-680-6230\", \"hours\": null}, {\"type\": \"긴급\", \"value\": \"061-680-6230\", \"hours\": null}, {\"type\": \"팩스\", \"value\": \"061-680-6204\", \"hours\": null}, {\"type\": \"이메일\", \"value\": \"junwonchoi@lgchem.com\", \"hours\": null}]}, {\"seq\": 2, \"role\": \"공급자\", \"name\": \"㈜LG화학\", \"site\": \"여수 SM공장\", \"address\": \"전남 여수시 여수산단로 951\", \"postcode\": null, \"department\": \"SM생산팀\", \"contacts\": [{\"type\": \"대표\", \"value\": \"061-680-6230\", \"hours\": null}, {\"type\": \"긴급\", \"value\": \"061-680-6230\", \"hours\": null}, {\"type\": \"팩스\", \"value\": \"061-680-6204\", \"hours\": null}, {\"type\": \"이메일\", \"value\": \"junwonchoi@lgchem.com\", \"hours\": null}]}], \"hazard\": {\"classified\": true, \"classes\": [{\"seq\": 1, \"group\": \"물리적\", \"class_code\": \"PH_FLAM_LIQ\", \"category\": \"3\", \"route_form\": null, \"effect\": null, \"target_organs\": [], \"raw\": \"인화성 액체 : 구분3\"}, {\"seq\": 2, \"group\": \"건강\", \"class_code\": \"HH_ACUTE_INHAL\", \"category\": \"4\", \"route_form\": \"증기\", \"effect\": null, \"target_organs\": [], \"raw\": \"급성 독성(흡입: 증기) : 구분4\"}, {\"seq\": 3, \"group\": \"건강\", \"class_code\": \"HH_SKIN_CORR\", \"category\": \"2\", \"route_form\": null, \"effect\": null, \"target_organs\": [], \"raw\": \"피부 부식성/피부 자극성 : 구분2\"}, {\"seq\": 4, \"group\": \"건강\", \"class_code\": \"HH_EYE_DMG\", \"category\": \"2\", \"route_form\": null, \"effect\": null, \"target_organs\": [], \"raw\": \"심한 눈 손상성/눈 자극성 : 구분2\"}, {\"seq\": 5, \"group\": \"건강\", \"class_code\": \"HH_MUTAGEN\", \"category\": \"2\", \"route_form\": null, \"effect\": null, \"target_organs\": [], \"raw\": \"생식세포 변이원성 : 구분2\"}, {\"seq\": 6, \"group\": \"건강\", \"class_code\": \"HH_CARCINOGEN\", \"category\": \"2\", \"route_form\": null, \"effect\": null, \"target_organs\": [], \"raw\": \"발암성 : 구분2\"}, {\"seq\": 7, \"group\": \"건강\", \"class_code\": \"HH_REPRO\", \"category\": \"2\", \"route_form\": null, \"effect\": null, \"target_organs\": [], \"raw\": \"생식독성 : 구분2\"}, {\"seq\": 8, \"group\": \"건강\", \"class_code\": \"HH_STOT_SE\", \"category\": \"3\", \"route_form\": null, \"effect\": \"호흡기계 자극\", \"target_organs\": [\"호흡기계\"], \"raw\": \"특정표적장기 독성(1회 노출) : 구분3(호흡기계 자극)\"}, {\"seq\": 9, \"group\": \"건강\", \"class_code\": \"HH_STOT_RE\", \"category\": \"1\", \"route_form\": null, \"effect\": null, \"target_organs\": [], \"raw\": \"특정표적장기 독성(반복 노출) : 구분1\"}, {\"seq\": 10, \"group\": \"건강\", \"class_code\": \"HH_ASPIRATION\", \"category\": \"1\", \"route_form\": null, \"effect\": null, \"target_organs\": [], \"raw\": \"흡인 유해성 : 구분1\"}], \"signal_word\": \"위험\", \"pictograms\": [{\"code\": \"GHS02\", \"detection\": \"이미지판독\"}, {\"code\": \"GHS07\", \"detection\": \"이미지판독\"}, {\"code\": \"GHS08\", \"detection\": \"이미지판독\"}], \"h_statements\": [{\"seq\": 1, \"code\": \"H226\", \"system\": \"GHS\", \"mark\": null, \"text\": \"인화성 액체 및 증기\"}, {\"seq\": 2, \"code\": \"H304\", \"system\": \"GHS\", \"mark\": null, \"text\": \"삼켜서 기도로 유입되면 치명적일 수 있음\"}, {\"seq\": 3, \"code\": \"H315\", \"system\": \"GHS\", \"mark\": null, \"text\": \"피부에 자극을 일으킴\"}, {\"seq\": 4, \"code\": \"H319\", \"system\": \"GHS\", \"mark\": null, \"text\": \"눈에 심한 자극을 일으킴\"}, {\"seq\": 5, \"code\": \"H332\", \"system\": \"GHS\", \"mark\": null, \"text\": \"흡입하면 유해함\"}, {\"seq\": 6, \"code\": \"H335\", \"system\": \"GHS\", \"mark\": null, \"text\": \"호흡기계 자극을 일으킬 수 있음\"}, {\"seq\": 7, \"code\": \"H331\", \"system\": \"GHS\", \"mark\": null, \"text\": \"유전적인 결함을 일으킬 것으로 의심됨\"}, {\"seq\": 8, \"code\": \"H351\", \"system\": \"GHS\", \"mark\": null, \"text\": \"암을 일으킬 것으로 의심됨\"}, {\"seq\": 9, \"code\": \"H361\", \"system\": \"GHS\", \"mark\": null, \"text\": \"태아 또는 생식능력에 손상을 일으킬 것으로 의심됨\"}, {\"seq\": 10, \"code\": \"H372\", \"system\": \"GHS\", \"mark\": null, \"text\": \"장기간 또는 반복노출 되면 신체 중 장기에 손상을 일으킴(11항참조)\"}], \"p_statements\": [{\"seq\": 1, \"code\": \"P201\", \"type\": \"예방\", \"text\": \"사용 전 취급 설명서를 확보하시오.\"}, {\"seq\": 2, \"code\": \"P202\", \"type\": \"예방\", \"text\": \"모든 안전 예방조치 문구를 읽고 이해하기 전에는 취급하지 마시오.\"}, {\"seq\": 3, \"code\": \"P210\", \"type\": \"예방\", \"text\": \"열·스파크·화염·고열로부터 멀리하시오 - 금연\"}, {\"seq\": 4, \"code\": \"P233\", \"type\": \"예방\", \"text\": \"용기를 단단히 밀폐하시오.\"}, {\"seq\": 5, \"code\": \"P240\", \"type\": \"예방\", \"text\": \"용기와 수용설비를 접합시키거나 접지하시오.\"}, {\"seq\": 6, \"code\": \"P241\", \"type\": \"예방\", \"text\": \"폭발 방지용 전기·환기·조명·장비를 사용하시오.\"}, {\"seq\": 7, \"code\": \"P242\", \"type\": \"예방\", \"text\": \"스파크가 발생하지 않는 도구만을 사용하시오.\"}, {\"seq\": 8, \"code\": \"P243\", \"type\": \"예방\", \"text\": \"정전기 방지 조치를 취하시오.\"}, {\"seq\": 9, \"code\": \"P260\", \"type\": \"예방\", \"text\": \"(분진·흄·가스·미스트·증기·스프레이)를 흡입하지 마시오..\"}, {\"seq\": 10, \"code\": \"P261\", \"type\": \"예방\", \"text\": \"(분진·흄·가스·미스트·증기·스프레이)의 흡입을 피하시오.\"}, {\"seq\": 11, \"code\": \"P264\", \"type\": \"예방\", \"text\": \"취급 후에는 취급 부위를 철저히 씻으시오.\"}, {\"seq\": 12, \"code\": \"P271\", \"type\": \"예방\", \"text\": \"옥외 또는 환기가 잘 되는 곳에서만 취급하시오.\"}, {\"seq\": 13, \"code\": \"P280\", \"type\": \"예방\", \"text\": \"(보호장갑·보호의·보안경·안면보호구)를(을) 착용하시오.\"}, {\"seq\": 14, \"code\": \"P281\", \"type\": \"예방\", \"text\": \"요구되는 개인 보호 장비를 사용하시오.\"}, {\"seq\": 15, \"code\": \"P302+P352\", \"type\": \"대응\", \"text\": \"피부에 묻으면 다량의 물로 씻으시오.\"}, {\"seq\": 16, \"code\": \"P303+P361+P353\", \"type\": \"대응\", \"text\": \"피부(또는 머리카락)에 묻으면 오염된 모든 의복은 벗으시오. 피부를 물로 씻으시오/샤워하시오 .\"}, {\"seq\": 17, \"code\": \"P304+P340\", \"type\": \"대응\", \"text\": \"흡입하면 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을 취하시오.\"}, {\"seq\": 18, \"code\": \"P305+P351+P338\", \"type\": \"대응\", \"text\": \"눈에 묻으면 몇 분간 물로 조심해서 씻으시오. 가능하면 콘택트렌즈를 제거하시오. 계속 씻으시오.\"}, {\"seq\": 19, \"code\": \"P308+P313\", \"type\": \"대응\", \"text\": \"노출되거나 노출이 우려되면 의학적인 조치·조언을 구하시오.\"}, {\"seq\": 20, \"code\": \"P312\", \"type\": \"대응\", \"text\": \"불편함을 느끼면 의료기관(의사)의 진찰을 받으시오.\"}, {\"seq\": 21, \"code\": \"P314\", \"type\": \"대응\", \"text\": \"불편함을 느끼면 의학적인 조치/조언을 구하시오.\"}, {\"seq\": 22, \"code\": \"P321\", \"type\": \"대응\", \"text\": \"필요한 처치를 하시오.\"}, {\"seq\": 23, \"code\": \"P332+P313\", \"type\": \"대응\", \"text\": \"피부 자극이 생기면 의학적인 조치·조언을 구하시오.\"}, {\"seq\": 24, \"code\": \"P337+P313\", \"type\": \"대응\", \"text\": \"눈에 자극이 지속되면 의학적인 조치·조언을 구하시오.\"}, {\"seq\": 25, \"code\": \"P362\", \"type\": \"대응\", \"text\": \"오염된 의복은 벗고 다시 사용 전 세척하시오.\"}, {\"seq\": 26, \"code\": \"P370+P378\", \"type\": \"대응\", \"text\": \"화재 시 불을 끄기 위해 적절한 소화제를 사용하시오 (5항 참조).\"}, {\"seq\": 27, \"code\": \"P403+P233\", \"type\": \"저장\", \"text\": \"용기는 환기가 잘 되는 곳에 단단히 밀폐하여 저장하시오.\"}, {\"seq\": 28, \"code\": \"P403+P235\", \"type\": \"저장\", \"text\": \"환기가 잘 되는 곳에 보관하고 저온으로 유지하시오.\"}, {\"seq\": 29, \"code\": \"P405\", \"type\": \"저장\", \"text\": \"잠금장치가 있는 저장장소에 저장하시오.\"}, {\"seq\": 30, \"code\": \"P501\", \"type\": \"폐기\", \"text\": \"폐기물관리법의 해당내용에 따라 내용물과 용기를 폐기하시오.\"}], \"other_hazards\": [], \"nfpa\": {\"health\": 2, \"fire\": 3, \"reactivity\": 0, \"special\": null}}, \"composition\": {\"type\": \"단일물질\", \"no_hazardous_component\": false}, \"components\": [{\"seq\": 1, \"name\": \"Vinylbenzene\", \"name_en\": null, \"synonyms\": [\"Styrene\", \"Ethenylbenzene\"], \"cas_no\": \"100-42-5\", \"ke_no\": \"KE-35342\", \"ec_no\": null, \"other_id\": null, \"other_id_type\": null, \"parent_seq\": null, \"read_across_cas\": null, \"content\": {\"raw\": \"99.9\", \"status\": \"값있음\", \"value\": 99.9, \"unit\": \"%\", \"dp\": 1}, \"content_note\": null, \"content_basis\": \"미표기\", \"trade_secret\": false, \"approval_no\": null, \"approval_expiry\": null}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"doc.language\", \"page\": 1, \"source_text\": \"물질안전보건자료 (MSDS)\", \"rules\": [], \"note\": \"본문이 한국어\"}, {\"msds_index\": 0, \"field\": \"doc.msds_count\", \"page\": 1, \"source_text\": \"물질안전보건자료 (MSDS) | Styrene Monomer\", \"rules\": [\"R16\"], \"note\": \"단일 MSDS 1~10쪽\"}, {\"msds_index\": 0, \"field\": \"meta.msds_no\", \"page\": 1, \"source_text\": \"MSDS관리번호:AA00566-2100000409\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"meta.first_issue_date\", \"page\": 1, \"source_text\": \"Date of issue: 2016-01-19\", \"rules\": [\"R01\"], \"note\": \"16항 최초 작성일자 2016-01-19와 일치\"}, {\"msds_index\": 0, \"field\": \"meta.last_revision_date\", \"page\": 1, \"source_text\": \"Revision date: 2022-08-12\", \"rules\": [\"R01\"], \"note\": \"머리글 개정일 사용. 16항에는 '11 회, 2022-06-14'로 적혀 있어 서로 다름(17항 이력표 12차 2022.8.12와 머리글이 일치)\"}, {\"msds_index\": 0, \"field\": \"meta.revision_no\", \"page\": 1, \"source_text\": \"Change List::12차\", \"rules\": [], \"note\": \"'12차'를 12로 저장. 16항 '11 회'와 다름\"}, {\"msds_index\": 0, \"field\": \"meta.revision_label\", \"page\": 1, \"source_text\": \"Change List::12차\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"meta.header_product_name\", \"page\": 1, \"source_text\": \"Styrene Monomer\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"meta.page_start\", \"page\": 1, \"source_text\": \"1/10\", \"rules\": [\"R16\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"meta.page_end\", \"page\": 10, \"source_text\": \"10/10\", \"rules\": [\"R16\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"product.name\", \"page\": 1, \"source_text\": \"- Styrene Monomer [SM]\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"product.uses\", \"page\": 1, \"source_text\": \"- 용도 : ABS, EPS, SAN, PS 등의원재료\", \"rules\": [\"R11\", \"R17\"], \"note\": \"쉼표로 나누면 '등의원재료'가 PS에만 붙어 의미가 바뀌므로 하나로 둠\"}, {\"msds_index\": 0, \"field\": \"product.restrictions\", \"page\": 1, \"source_text\": \"- 사용상의 제한 : 자료없음\", \"rules\": [\"R15\"], \"note\": \"'자료없음'이라 제한 목록은 비움\"}, {\"msds_index\": 0, \"field\": \"companies[0]\", \"page\": 1, \"source_text\": \"○ 제조자 정보 - 회사명 : ㈜LG화학 여수 SM공장 SM생산팀 - 주소 : 전남 여수시 여수산단로 951 - 담당부서 : SM생산팀 - 전화번호 : 061-680-6230~34,6240~6242 - 긴급 전화번호 : 061-680-6230~34 - FAX 번호 : 061-680-6204\", \"rules\": [\"R12\"], \"note\": \"회사명에서 사업장 '여수 SM공장'과 부서 분리. 전화번호 범위는 R12에 따라 첫 번호만 저장(나머지 원문 '~34,6240~6242')\"}, {\"msds_index\": 0, \"field\": \"companies[1]\", \"page\": 1, \"source_text\": \"○ 공급자/유통업자 정보 - 회사명 : ㈜LG화학 여수 SM공장 SM생산팀 - 주소 : 전남 여수시 여수산단로 951 - 전화번호 : 061-680-6230~34,6240~6242 - 이메일 주소 : junwonchoi@lgchem.com\", \"rules\": [\"R12\"], \"note\": \"공급자/유통업자 정보를 공급자로 저장. 전화번호는 첫 번호만\"}, {\"msds_index\": 0, \"field\": \"hazard.classified\", \"page\": 1, \"source_text\": \"가. 유해성·위험성 분류\", \"rules\": [], \"note\": \"분류 항목이 있어 true\"}, {\"msds_index\": 0, \"field\": \"hazard.classes[0]\", \"page\": 1, \"source_text\": \"- 인화성 액체 : 구분3\", \"rules\": [\"R07\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.classes[1]\", \"page\": 1, \"source_text\": \"- 급성 독성(흡입: 증기) : 구분4\", \"rules\": [\"R07\"], \"note\": \"노출 형태 증기\"}, {\"msds_index\": 0, \"field\": \"hazard.classes[2]\", \"page\": 1, \"source_text\": \"- 피부 부식성/피부 자극성 : 구분2\", \"rules\": [\"R07\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.classes[3]\", \"page\": 1, \"source_text\": \"- 심한 눈 손상성/눈 자극성 : 구분2\", \"rules\": [\"R07\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.classes[4]\", \"page\": 1, \"source_text\": \"- 생식세포 변이원성 : 구분2\", \"rules\": [\"R07\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.classes[5]\", \"page\": 1, \"source_text\": \"- 발암성 : 구분2\", \"rules\": [\"R07\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.classes[6]\", \"page\": 1, \"source_text\": \"- 생식독성 : 구분2\", \"rules\": [\"R07\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.classes[7]\", \"page\": 1, \"source_text\": \"- 특정표적장기 독성(1회 노출) : 구분3(호흡기계 자극)\", \"rules\": [\"R07\"], \"note\": \"괄호 '호흡기계 자극'을 영향으로, 호흡기계를 표적장기로 분리\"}, {\"msds_index\": 0, \"field\": \"hazard.classes[8]\", \"page\": 1, \"source_text\": \"- 특정표적장기 독성(반복 노출) : 구분1\", \"rules\": [\"R07\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.classes[9]\", \"page\": 1, \"source_text\": \"- 흡인 유해성 : 구분1\", \"rules\": [\"R07\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.signal_word\", \"page\": 1, \"source_text\": \"○ 신호어 - 위험\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.pictograms\", \"page\": 1, \"source_text\": \"○ 그림문자\", \"rules\": [], \"note\": \"이미지에서 불꽃(GHS02), 감탄부호(GHS07), 건강유해성(GHS08) 3개 확인\"}, {\"msds_index\": 0, \"field\": \"hazard.h_statements\", \"page\": 2, \"source_text\": \"- H226 인화성 액체 및 증기 … - H331 유전적인 결함을 일으킬 것으로 의심됨 … - H372 장기간 또는 반복노출 되면 신체 중 장기에 손상을 일으킴(11항참조)\", \"rules\": [\"R05\"], \"note\": \"10개 원문대로. H331 코드와 문구(변이원성)가 맞지 않으나 원문 그대로 둠\"}, {\"msds_index\": 0, \"field\": \"hazard.p_statements\", \"page\": 2, \"source_text\": \"- P201 사용 전 취급 설명서를 확보하시오. … -P403+P233 용기는 환기가 잘 되는 곳에 단단히 밀폐하여 저장하시오. … - P501 폐기물관리법의 해당내용에 따라 내용물과 용기를 폐기하시오.\", \"rules\": [\"R05\"], \"note\": \"30개, 유형은 코드 첫 자리로 정함\"}, {\"msds_index\": 0, \"field\": \"hazard.nfpa\", \"page\": 2, \"source_text\": \"- 보건 : 2 , 화재 : 3, 반응성 : 0\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"composition.type\", \"page\": 3, \"source_text\": \"Vinylbenzene | Styrene, Ethenylbenzene | 100-42-5 / KE-35342 | 99.9\", \"rules\": [], \"note\": \"성분 1개(99.9%)라 단일물질\"}, {\"msds_index\": 0, \"field\": \"components[0]\", \"page\": 3, \"source_text\": \"Vinylbenzene | Styrene, Ethenylbenzene | 100-42-5 / KE-35342 | 99.9 | C6H5C₂H₃\", \"rules\": [\"R02\", \"R03\", \"R04\", \"R06\", \"R11\"], \"note\": \"CAS와 KE 분리, 이명 쉼표로 분리, 함유량 99.9 단일값(단위 표 머리 '함유량(%)')\"}]}"
+}

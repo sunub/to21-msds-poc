@@ -1,0 +1,623 @@
+{
+  "doc_id": "T21-017",
+  "bundle": "b2",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 41805,
+    "completion_tokens": 4618,
+    "cached_tokens": 6909,
+    "reasoning_tokens": 489,
+    "notional_cost_usd": 0.3729018
+  },
+  "seconds": 32.7,
+  "request_usage": [
+    {
+      "prompt_tokens": 41805,
+      "completion_tokens": 4618,
+      "cached_tokens": 6909,
+      "reasoning_tokens": 489,
+      "notional_cost_usd": 0.3729018
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "exposure_limits": [
+          {
+            "comp_ref": "1",
+            "standard": "국내",
+            "limit_type": "TWA",
+            "kr_basis": "노출기준",
+            "q": {
+              "raw": "TWA 2mg/m3",
+              "status": "값있음",
+              "value": 2,
+              "unit": "mg/m3"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "1",
+            "standard": "ACGIH",
+            "limit_type": "TWA",
+            "q": {
+              "raw": "TWA 2mg/m3",
+              "status": "값있음",
+              "value": 2,
+              "unit": "mg/m3"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "2",
+            "standard": "국내",
+            "limit_type": "TWA",
+            "kr_basis": "노출기준",
+            "q": {
+              "raw": "TWA 0.1mg/m3",
+              "status": "값있음",
+              "value": 0.1,
+              "dp": 1,
+              "unit": "mg/m3"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "2",
+            "standard": "ACGIH",
+            "limit_type": "TWA",
+            "q": {
+              "raw": "TWA 0.1mg/m3",
+              "status": "값있음",
+              "value": 0.1,
+              "dp": 1,
+              "unit": "mg/m3"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "3",
+            "standard": "국내",
+            "limit_type": "TWA",
+            "kr_basis": "노출기준",
+            "form": "흄",
+            "q": {
+              "raw": "TWA 0.1mg/m3(흄)",
+              "status": "값있음",
+              "value": 0.1,
+              "dp": 1,
+              "unit": "mg/m3"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "3",
+            "standard": "ACGIH",
+            "limit_type": "TWA",
+            "form": "흄",
+            "q": {
+              "raw": "TWA 0.1mg/m3(흄)",
+              "status": "값있음",
+              "value": 0.1,
+              "dp": 1,
+              "unit": "mg/m3"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "MIX",
+            "standard": "생물학적",
+            "limit_type": "BEI",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "notations": []
+          }
+        ],
+        "physchem": [
+          {
+            "prop_code": "APPEARANCE_STATE",
+            "comp_ref": "MIX",
+            "text_value": "금속 Bar",
+            "q": null
+          },
+          {
+            "prop_code": "ODOR",
+            "comp_ref": "MIX",
+            "text_value": "무취",
+            "q": null
+          },
+          {
+            "prop_code": "ODOR_THRESHOLD",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            }
+          },
+          {
+            "prop_code": "PH",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            }
+          },
+          {
+            "prop_code": "MELT_FREEZE",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "217~220℃",
+              "status": "값있음",
+              "lower_op": ">=",
+              "lower": 217,
+              "upper_op": "<=",
+              "upper": 220,
+              "unit": "C"
+            }
+          },
+          {
+            "prop_code": "BOILING",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            }
+          },
+          {
+            "prop_code": "FLASH_POINT",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            }
+          },
+          {
+            "prop_code": "EVAP_RATE",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            }
+          },
+          {
+            "prop_code": "FLAMMABILITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            }
+          },
+          {
+            "prop_code": "UEL",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            }
+          },
+          {
+            "prop_code": "LEL",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            }
+          },
+          {
+            "prop_code": "VAPOR_PRESSURE",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            }
+          },
+          {
+            "prop_code": "EVAP_RATE",
+            "comp_ref": "MIX",
+            "seq": 2,
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            }
+          },
+          {
+            "prop_code": "SOLUBILITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            }
+          },
+          {
+            "prop_code": "VAPOR_DENSITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            }
+          },
+          {
+            "prop_code": "RELATIVE_DENSITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "7.4",
+              "status": "값있음",
+              "value": 7.4,
+              "dp": 1
+            }
+          },
+          {
+            "prop_code": "LOG_KOW",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            }
+          },
+          {
+            "prop_code": "AUTOIGNITION",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            }
+          },
+          {
+            "prop_code": "DECOMPOSITION",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            }
+          },
+          {
+            "prop_code": "VISCOSITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            }
+          },
+          {
+            "prop_code": "MOL_WEIGHT",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            }
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[0]",
+        "page": 4,
+        "source_text": "Sn | TWA 2mg/m3 | TWA 2mg/m3",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "한국직업노출기준 열 값을 국내 노출기준 TWA 2 mg/m3로 분해"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[1]",
+        "page": 4,
+        "source_text": "Sn | TWA 2mg/m3 | TWA 2mg/m3",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "ACGIH 열 값을 TWA 2 mg/m3로 분해"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[2]",
+        "page": 4,
+        "source_text": "Ag | TWA 0.1mg/m3 | TWA 0.1mg/m3",
+        "rules": [
+          "R04",
+          "R06",
+          "R08",
+          "R10"
+        ],
+        "note": "한국직업노출기준 열 값을 국내 TWA 0.1 mg/m3로 분해"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[3]",
+        "page": 4,
+        "source_text": "Ag | TWA 0.1mg/m3 | TWA 0.1mg/m3",
+        "rules": [
+          "R04",
+          "R06",
+          "R08",
+          "R10"
+        ],
+        "note": "ACGIH 열 값을 TWA 0.1 mg/m3로 분해"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[4]",
+        "page": 4,
+        "source_text": "Cu | TWA 0.1mg/m3(흄) | TWA 0.1mg/m3(흄)",
+        "rules": [
+          "R04",
+          "R06",
+          "R08",
+          "R10",
+          "R17"
+        ],
+        "note": "국내 TWA 0.1 mg/m3, 괄호 '흄'은 form으로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[5]",
+        "page": 4,
+        "source_text": "Cu | TWA 0.1mg/m3(흄) | TWA 0.1mg/m3(흄)",
+        "rules": [
+          "R04",
+          "R06",
+          "R08",
+          "R10",
+          "R17"
+        ],
+        "note": "ACGIH TWA 0.1 mg/m3, 괄호 '흄'은 form으로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[6]",
+        "page": 4,
+        "source_text": "생물학적 노출기준 : 자료없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": "제품 전체 생물학적 노출기준 자료없음으로 기록"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[0]",
+        "page": 4,
+        "source_text": "가. 외 관 : 금속 Bar",
+        "rules": [
+          "R25"
+        ],
+        "note": "외관을 APPEARANCE_STATE로 매핑"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[1]",
+        "page": 4,
+        "source_text": "나. 냄새 : 무취",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[2]",
+        "page": 4,
+        "source_text": "다. 냄새역치 : 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[3]",
+        "page": 4,
+        "source_text": "라. pH : 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[4]",
+        "page": 4,
+        "source_text": "마. 녹는점/어는점 : 217~220℃",
+        "rules": [
+          "R04",
+          "R08",
+          "R25"
+        ],
+        "note": "범위 217~220을 하한 217(>=), 상한 220(<=), 단위 C로 분해"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[5]",
+        "page": 4,
+        "source_text": "바. 초기 끓는점과 끓는점 범위 : 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[6]",
+        "page": 4,
+        "source_text": "사. 인화점 : 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[7]",
+        "page": 4,
+        "source_text": "아. 증발속도 : 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[8]",
+        "page": 4,
+        "source_text": "자. 인화성(고체, 기체) : 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[9]",
+        "page": 4,
+        "source_text": "차. 인화 또는 폭발 범위의 상한/하한 : 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "상한/하한 한 줄을 UEL 행으로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[10]",
+        "page": 4,
+        "source_text": "차. 인화 또는 폭발 범위의 상한/하한 : 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "상한/하한 한 줄을 LEL 행으로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[11]",
+        "page": 4,
+        "source_text": "카. 증기압 : 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[12]",
+        "page": 4,
+        "source_text": "타. 증발율 : 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "증발율을 동의어로 EVAP_RATE 두 번째 행(seq 2)으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[13]",
+        "page": 4,
+        "source_text": "파. 용해도 : 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[14]",
+        "page": 5,
+        "source_text": "하. 증기밀도 : 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[15]",
+        "page": 5,
+        "source_text": "거. 비중 : 7.4",
+        "rules": [
+          "R04",
+          "R06",
+          "R25"
+        ],
+        "note": "값 7.4, dp 1"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[16]",
+        "page": 5,
+        "source_text": "너. n-옥탄올/물분배계수 : 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[17]",
+        "page": 5,
+        "source_text": "더. 자연발화온도 : 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[18]",
+        "page": 5,
+        "source_text": "러. 분해온도 : 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[19]",
+        "page": 5,
+        "source_text": "머. 점도 : 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[20]",
+        "page": 5,
+        "source_text": "버. 분자량 : 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"exposure_limits\": [{\"comp_ref\": \"1\", \"standard\": \"국내\", \"limit_type\": \"TWA\", \"kr_basis\": \"노출기준\", \"q\": {\"raw\": \"TWA 2mg/m3\", \"status\": \"값있음\", \"value\": 2, \"unit\": \"mg/m3\"}, \"notations\": []}, {\"comp_ref\": \"1\", \"standard\": \"ACGIH\", \"limit_type\": \"TWA\", \"q\": {\"raw\": \"TWA 2mg/m3\", \"status\": \"값있음\", \"value\": 2, \"unit\": \"mg/m3\"}, \"notations\": []}, {\"comp_ref\": \"2\", \"standard\": \"국내\", \"limit_type\": \"TWA\", \"kr_basis\": \"노출기준\", \"q\": {\"raw\": \"TWA 0.1mg/m3\", \"status\": \"값있음\", \"value\": 0.1, \"dp\": 1, \"unit\": \"mg/m3\"}, \"notations\": []}, {\"comp_ref\": \"2\", \"standard\": \"ACGIH\", \"limit_type\": \"TWA\", \"q\": {\"raw\": \"TWA 0.1mg/m3\", \"status\": \"값있음\", \"value\": 0.1, \"dp\": 1, \"unit\": \"mg/m3\"}, \"notations\": []}, {\"comp_ref\": \"3\", \"standard\": \"국내\", \"limit_type\": \"TWA\", \"kr_basis\": \"노출기준\", \"form\": \"흄\", \"q\": {\"raw\": \"TWA 0.1mg/m3(흄)\", \"status\": \"값있음\", \"value\": 0.1, \"dp\": 1, \"unit\": \"mg/m3\"}, \"notations\": []}, {\"comp_ref\": \"3\", \"standard\": \"ACGIH\", \"limit_type\": \"TWA\", \"form\": \"흄\", \"q\": {\"raw\": \"TWA 0.1mg/m3(흄)\", \"status\": \"값있음\", \"value\": 0.1, \"dp\": 1, \"unit\": \"mg/m3\"}, \"notations\": []}, {\"comp_ref\": \"MIX\", \"standard\": \"생물학적\", \"limit_type\": \"BEI\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"notations\": []}], \"physchem\": [{\"prop_code\": \"APPEARANCE_STATE\", \"comp_ref\": \"MIX\", \"text_value\": \"금속 Bar\", \"q\": null}, {\"prop_code\": \"ODOR\", \"comp_ref\": \"MIX\", \"text_value\": \"무취\", \"q\": null}, {\"prop_code\": \"ODOR_THRESHOLD\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}}, {\"prop_code\": \"PH\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}}, {\"prop_code\": \"MELT_FREEZE\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"217~220℃\", \"status\": \"값있음\", \"lower_op\": \">=\", \"lower\": 217, \"upper_op\": \"<=\", \"upper\": 220, \"unit\": \"C\"}}, {\"prop_code\": \"BOILING\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}}, {\"prop_code\": \"FLASH_POINT\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}}, {\"prop_code\": \"EVAP_RATE\", \"comp_ref\": \"MIX\", \"seq\": 1, \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}}, {\"prop_code\": \"FLAMMABILITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}}, {\"prop_code\": \"UEL\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}}, {\"prop_code\": \"LEL\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}}, {\"prop_code\": \"VAPOR_PRESSURE\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}}, {\"prop_code\": \"EVAP_RATE\", \"comp_ref\": \"MIX\", \"seq\": 2, \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}}, {\"prop_code\": \"SOLUBILITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}}, {\"prop_code\": \"VAPOR_DENSITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}}, {\"prop_code\": \"RELATIVE_DENSITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"7.4\", \"status\": \"값있음\", \"value\": 7.4, \"dp\": 1}}, {\"prop_code\": \"LOG_KOW\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}}, {\"prop_code\": \"AUTOIGNITION\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}}, {\"prop_code\": \"DECOMPOSITION\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}}, {\"prop_code\": \"VISCOSITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}}, {\"prop_code\": \"MOL_WEIGHT\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"exposure_limits[0]\", \"page\": 4, \"source_text\": \"Sn | TWA 2mg/m3 | TWA 2mg/m3\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": \"한국직업노출기준 열 값을 국내 노출기준 TWA 2 mg/m3로 분해\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[1]\", \"page\": 4, \"source_text\": \"Sn | TWA 2mg/m3 | TWA 2mg/m3\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": \"ACGIH 열 값을 TWA 2 mg/m3로 분해\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[2]\", \"page\": 4, \"source_text\": \"Ag | TWA 0.1mg/m3 | TWA 0.1mg/m3\", \"rules\": [\"R04\", \"R06\", \"R08\", \"R10\"], \"note\": \"한국직업노출기준 열 값을 국내 TWA 0.1 mg/m3로 분해\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[3]\", \"page\": 4, \"source_text\": \"Ag | TWA 0.1mg/m3 | TWA 0.1mg/m3\", \"rules\": [\"R04\", \"R06\", \"R08\", \"R10\"], \"note\": \"ACGIH 열 값을 TWA 0.1 mg/m3로 분해\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[4]\", \"page\": 4, \"source_text\": \"Cu | TWA 0.1mg/m3(흄) | TWA 0.1mg/m3(흄)\", \"rules\": [\"R04\", \"R06\", \"R08\", \"R10\", \"R17\"], \"note\": \"국내 TWA 0.1 mg/m3, 괄호 '흄'은 form으로 분리\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[5]\", \"page\": 4, \"source_text\": \"Cu | TWA 0.1mg/m3(흄) | TWA 0.1mg/m3(흄)\", \"rules\": [\"R04\", \"R06\", \"R08\", \"R10\", \"R17\"], \"note\": \"ACGIH TWA 0.1 mg/m3, 괄호 '흄'은 form으로 분리\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[6]\", \"page\": 4, \"source_text\": \"생물학적 노출기준 : 자료없음\", \"rules\": [\"R15\", \"R10\"], \"note\": \"제품 전체 생물학적 노출기준 자료없음으로 기록\"}, {\"msds_index\": 0, \"field\": \"physchem[0]\", \"page\": 4, \"source_text\": \"가. 외 관 : 금속 Bar\", \"rules\": [\"R25\"], \"note\": \"외관을 APPEARANCE_STATE로 매핑\"}, {\"msds_index\": 0, \"field\": \"physchem[1]\", \"page\": 4, \"source_text\": \"나. 냄새 : 무취\", \"rules\": [\"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[2]\", \"page\": 4, \"source_text\": \"다. 냄새역치 : 해당없음\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[3]\", \"page\": 4, \"source_text\": \"라. pH : 해당없음\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[4]\", \"page\": 4, \"source_text\": \"마. 녹는점/어는점 : 217~220℃\", \"rules\": [\"R04\", \"R08\", \"R25\"], \"note\": \"범위 217~220을 하한 217(>=), 상한 220(<=), 단위 C로 분해\"}, {\"msds_index\": 0, \"field\": \"physchem[5]\", \"page\": 4, \"source_text\": \"바. 초기 끓는점과 끓는점 범위 : 해당없음\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[6]\", \"page\": 4, \"source_text\": \"사. 인화점 : 해당없음\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[7]\", \"page\": 4, \"source_text\": \"아. 증발속도 : 해당없음\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[8]\", \"page\": 4, \"source_text\": \"자. 인화성(고체, 기체) : 해당없음\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[9]\", \"page\": 4, \"source_text\": \"차. 인화 또는 폭발 범위의 상한/하한 : 해당없음\", \"rules\": [\"R15\", \"R25\"], \"note\": \"상한/하한 한 줄을 UEL 행으로 나눔\"}, {\"msds_index\": 0, \"field\": \"physchem[10]\", \"page\": 4, \"source_text\": \"차. 인화 또는 폭발 범위의 상한/하한 : 해당없음\", \"rules\": [\"R15\", \"R25\"], \"note\": \"상한/하한 한 줄을 LEL 행으로 나눔\"}, {\"msds_index\": 0, \"field\": \"physchem[11]\", \"page\": 4, \"source_text\": \"카. 증기압 : 해당없음\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[12]\", \"page\": 4, \"source_text\": \"타. 증발율 : 해당없음\", \"rules\": [\"R15\", \"R25\"], \"note\": \"증발율을 동의어로 EVAP_RATE 두 번째 행(seq 2)으로 둠\"}, {\"msds_index\": 0, \"field\": \"physchem[13]\", \"page\": 4, \"source_text\": \"파. 용해도 : 해당없음\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[14]\", \"page\": 5, \"source_text\": \"하. 증기밀도 : 해당없음\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[15]\", \"page\": 5, \"source_text\": \"거. 비중 : 7.4\", \"rules\": [\"R04\", \"R06\", \"R25\"], \"note\": \"값 7.4, dp 1\"}, {\"msds_index\": 0, \"field\": \"physchem[16]\", \"page\": 5, \"source_text\": \"너. n-옥탄올/물분배계수 : 해당없음\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[17]\", \"page\": 5, \"source_text\": \"더. 자연발화온도 : 해당없음\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[18]\", \"page\": 5, \"source_text\": \"러. 분해온도 : 해당없음\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[19]\", \"page\": 5, \"source_text\": \"머. 점도 : 해당없음\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[20]\", \"page\": 5, \"source_text\": \"버. 분자량 : 해당없음\", \"rules\": [\"R15\", \"R25\"], \"note\": null}]}"
+}

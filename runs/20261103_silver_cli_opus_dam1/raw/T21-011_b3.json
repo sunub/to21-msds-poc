@@ -1,0 +1,805 @@
+{
+  "doc_id": "T21-011",
+  "bundle": "b3",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 66847,
+    "completion_tokens": 10199,
+    "cached_tokens": 8451,
+    "reasoning_tokens": 1444,
+    "notional_cost_usd": 0.6728302
+  },
+  "seconds": 71.6,
+  "request_usage": [
+    {
+      "prompt_tokens": 66847,
+      "completion_tokens": 10199,
+      "cached_tokens": 8451,
+      "reasoning_tokens": 1444,
+      "notional_cost_usd": 0.6728302
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "toxicity": [
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ORAL",
+            "descriptor": "LD50",
+            "species": "쥐",
+            "sex": "미표기",
+            "q": {
+              "raw": "> 2,000 - 10,000 mg/kg",
+              "status": "값있음",
+              "lower_op": ">",
+              "lower": 2000,
+              "upper_op": "<=",
+              "upper": 10000,
+              "unit": "mg/kg",
+              "dp": 0
+            },
+            "statements": [
+              {
+                "seq": 1,
+                "value": "단일 섭취 시 거의 무독성임. 본 제품은 테스트 되지 않았음. 본 물질과 유사한 구조 또는 성분의 물질/제품으로부터 유추된 것임.",
+                "text": "단일 섭취 시 거의 무독성임. 본 제품은 테스트 되지 않았음. 본 물질과 유사한 구조 또는 성분의 물질/제품으로부터 유추된 것임."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_INHAL",
+            "q": {
+              "raw": "자료없음.",
+              "status": "자료없음"
+            },
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_DERMAL",
+            "q": {
+              "raw": "자료없음.",
+              "status": "자료없음"
+            },
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN",
+            "descriptor": "결과기술",
+            "species": "토끼",
+            "guideline": "OECD Guideline 404",
+            "classification": "비자극성",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "제품이 피부에 닿으면 건조될 때 염증이 발생할 수 있음.",
+                "text": "제품이 피부에 닿으면 건조될 때 염증이 발생할 수 있음."
+              },
+              {
+                "seq": 2,
+                "value": "피부에 자극성 없음. 본 제품은 테스트 되지 않았음. 본 물질과 유사한 구조 또는 성분의 물질/제품으로부터 유추된 것임.",
+                "text": "눈에 대한 자극성 없음. 피부에 자극성 없음. 본 제품은 테스트 되지 않았음. 본 물질과 유사한 구조 또는 성분의 물질/제품으로부터 유추된 것임."
+              },
+              {
+                "seq": 3,
+                "key": "피부 부식성 또는 자극성 (토끼)",
+                "value": "비자극성 (OECD Guideline 404)",
+                "text": "피부 부식성 또는 자극성 (토끼): 비자극성 (OECD Guideline 404)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_EYE",
+            "descriptor": "결과기술",
+            "species": "토끼",
+            "guideline": "OECD Guideline 405",
+            "classification": "비자극성",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "눈에 대한 자극성 없음.",
+                "text": "눈에 대한 자극성 없음. 피부에 자극성 없음. 본 제품은 테스트 되지 않았음. 본 물질과 유사한 구조 또는 성분의 물질/제품으로부터 유추된 것임."
+              },
+              {
+                "seq": 2,
+                "key": "심한 눈 손상 또는 자극성 (토끼)",
+                "value": "비자극성 (OECD Guideline 405)",
+                "text": "심한 눈 손상 또는 자극성 (토끼): 비자극성 (OECD Guideline 405)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN_SENS",
+            "descriptor": "결과기술",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "과민성 평가",
+                "value": "감수성이 특히 예민한 사람에 대해서 감작작용이 있을 수 있음 경험과 이용 가능한 정보에 근거하면, 정해진 용도에 따라 적절한 주의사항 대로 취급할 경우 건강에 유해한 영향이 나타나지 않음.",
+                "text": "감수성이 특히 예민한 사람에 대해서 감작작용이 있을 수 있음 경험과 이용 가능한 정보에 근거하면, 정해진 용도에 따라 적절한 주의사항 대로 취급할 경우 건강에 유해한 영향이 나타나지 않음."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_STOT_RE",
+            "descriptor": "결과기술",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "반복투여 독성 평가",
+                "value": "동물 연구에서 반복적인 흡입노출 후 유해성 영향이 관찰되었음. 본 제품은 테스트 되지 않았음. 본 물질과 유사한 구조 또는 성분의 물질/제품으로부터 유추된 것임.",
+                "text": "동물 연구에서 반복적인 흡입노출 후 유해성 영향이 관찰되었음. 본 제품은 테스트 되지 않았음. 본 물질과 유사한 구조 또는 성분의 물질/제품으로부터 유추된 것임."
+              },
+              {
+                "seq": 2,
+                "key": "참조",
+                "value": "반복투여독성",
+                "text": "참조: 반복투여독성"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ASP",
+            "q": {
+              "raw": "자료없음.",
+              "status": "자료없음"
+            },
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_MUTA",
+            "descriptor": "결과기술",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "변이원성 평가",
+                "value": "본 제품 자체는 테스트되지 않음. 본 기술된 내용은 제품의 구조로부터 유추한 것임.",
+                "text": "본 제품 자체는 테스트되지 않음. 본 기술된 내용은 제품의 구조로부터 유추한 것임."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_CARC",
+            "descriptor": "결과기술",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "발암성 평가",
+                "value": "제공되는 모든 정보평가에 따라 발암성영향의 징후가 없음.",
+                "text": "제공되는 모든 정보평가에 따라 발암성영향의 징후가 없음."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_REPRO",
+            "descriptor": "결과기술",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "생식독성 평가",
+                "value": "생식독성을 유발할 가능성은 없다. (구성물질 기준)",
+                "text": "생식독성을 유발할 가능성은 없다. (구성물질 기준)"
+              },
+              {
+                "seq": 2,
+                "key": "최기형성 평가",
+                "value": "본 데이터가 발달 독성 물질의 영향평가에 해당하는 적절한 평가를 위해 충분하지 않음.",
+                "text": "본 데이터가 발달 독성 물질의 영향평가에 해당하는 적절한 평가를 위해 충분하지 않음."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": null,
+            "descriptor": "결과기술",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "경험과 이용 가능한 정보에 근거하면, 정해진 용도에 따라 적절한 주의사항 대로 취급할 경우 건강에 유해한 영향이 나타나지 않음. 본 기술된 내용은 유사한 성분을 가진 제품들로부터 유추되었음.",
+                "text": "경험과 이용 가능한 정보에 근거하면, 정해진 용도에 따라 적절한 주의사항 대로 취급할 경우 건강에 유해한 영향이 나타나지 않음. 본 기술된 내용은 유사한 성분을 가진 제품들로부터 유추되었음."
+              },
+              {
+                "seq": 2,
+                "value": "이 제품은 5-chloro-2-methyl-4-isothiazolin-3-one 와 2-methyl-4-isothiazolin-3-one (3:1)의 혼합물을 포함함 (CAS번호:55965-84-9). 알러지 반응을 유발할 수 있음.",
+                "refs": [
+                  "1"
+                ],
+                "text": "이 제품은 5-chloro-2-methyl-4-isothiazolin-3-one 와 2-methyl-4-isothiazolin-3-one (3:1)의 혼합물을 포함함 (CAS번호:55965-84-9). 알러지 반응을 유발할 수 있음."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_STOT_SE",
+            "descriptor": "결과기술",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "이용가능한 정보를 바탕으로, 특정 표적장기 독성 물질(1회노출) 은 없음.",
+                "text": "이용가능한 정보를 바탕으로, 특정 표적장기 독성 물질(1회노출) 은 없음."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": null,
+            "descriptor": "ATE",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "statements": [],
+            "status": "자료없음"
+          }
+        ],
+        "cmr": [],
+        "ecotox": [
+          {
+            "comp_ref": "MIX",
+            "endpoint": null,
+            "descriptor": "결과기술",
+            "q": {
+              "raw": "자료없음.",
+              "status": "자료없음"
+            },
+            "statements": [
+              {
+                "seq": 1,
+                "key": "수생생물에 대한 독성 평가",
+                "value": "자료없음.",
+                "text": "자료없음."
+              }
+            ],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_FISH",
+            "descriptor": "LC50",
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "species": "Danio rerio",
+            "guideline": "OECD Guideline 203",
+            "q": {
+              "raw": "10 - 100 mg/l",
+              "status": "값있음",
+              "lower_op": ">=",
+              "lower": 10,
+              "upper_op": "<=",
+              "upper": 100,
+              "unit": "mg/L",
+              "note": "통계수치"
+            },
+            "statements": [
+              {
+                "seq": 1,
+                "value": "본 제품에 대해서는 실험되지 않음. 각 성분에 대한 성질에 대한 자료로부터 유추되었음.",
+                "text": "본 제품에 대해서는 실험되지 않음. 각 성분에 대한 성질에 대한 자료로부터 유추되었음."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_CRUST",
+            "descriptor": "EC50",
+            "duration_value": 48,
+            "duration_unit": "hr",
+            "species": "Daphnia magna(물벼룩)",
+            "guideline": "OECD Guideline 202, part 1",
+            "q": {
+              "raw": "10 - 100 mg/l",
+              "status": "값있음",
+              "lower_op": ">=",
+              "lower": 10,
+              "upper_op": "<=",
+              "upper": 100,
+              "unit": "mg/L",
+              "note": "통계수치"
+            },
+            "statements": [
+              {
+                "seq": 1,
+                "value": "본 제품에 대해서는 실험되지 않음. 각 성분에 대한 성질에 대한 자료로부터 유추되었음.",
+                "text": "본 제품에 대해서는 실험되지 않음. 각 성분에 대한 성질에 대한 자료로부터 유추되었음."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_ALGAE",
+            "descriptor": "EC50",
+            "duration_value": 72,
+            "duration_unit": "hr",
+            "species": "Scenedesmus subspicatus",
+            "guideline": "OECD Guideline 201",
+            "q": {
+              "raw": "10 - 100 mg/l",
+              "status": "값있음",
+              "lower_op": ">=",
+              "lower": 10,
+              "upper_op": "<=",
+              "upper": 100,
+              "unit": "mg/L"
+            },
+            "statements": [
+              {
+                "seq": 1,
+                "value": "본 제품에 대해서는 실험되지 않음. 각 성분에 대한 성질에 대한 자료로부터 유추되었음.",
+                "text": "본 제품에 대해서는 실험되지 않음. 각 성분에 대한 성질에 대한 자료로부터 유추되었음."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_OTHER",
+            "descriptor": "결과기술",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "미생물/활성슬러지 영향",
+                "value": "적절한 저농도의 생물학적 처리 설비에 도입 될 때 활성 슬러지의 분해 활성 억제는 예상되지 않음.",
+                "text": "적절한 저농도의 생물학적 처리 설비에 도입 될 때 활성 슬러지의 분해 활성 억제는 예상되지 않음."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_FISH",
+            "descriptor": "결과기술",
+            "q": {
+              "raw": "어류독성 관련된 정보없음.",
+              "status": "자료없음"
+            },
+            "statements": [
+              {
+                "seq": 1,
+                "key": "어류에 대한 만성독성",
+                "value": "어류독성 관련된 정보없음.",
+                "text": "어류독성 관련된 정보없음."
+              }
+            ],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_CRUST",
+            "descriptor": "결과기술",
+            "q": {
+              "raw": "수생무척추동물에 관한 정보 없음.",
+              "status": "자료없음"
+            },
+            "statements": [
+              {
+                "seq": 1,
+                "key": "수생무척추동물에 대한 만성독성",
+                "value": "수생무척추동물에 관한 정보 없음.",
+                "text": "수생무척추동물에 관한 정보 없음."
+              }
+            ],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": null,
+            "descriptor": "결과기술",
+            "q": {
+              "raw": "자료없음.",
+              "status": "자료없음"
+            },
+            "statements": [
+              {
+                "seq": 1,
+                "key": "육생생물에 대한 독성 평가",
+                "value": "자료없음.",
+                "text": "자료없음."
+              }
+            ],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_SOIL",
+            "q": {
+              "raw": "자료없음.",
+              "status": "자료없음"
+            },
+            "statements": [
+              {
+                "seq": 1,
+                "key": "환경 구분간의 수송평가",
+                "value": "자료없음.",
+                "text": "자료없음."
+              }
+            ],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "결과기술",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "생분해성 및 제거율 평가 (H2O)",
+                "value": "본 제품은 활성슬러지 흡착과 같은 비생물적 과정에 의해 물에서 제거됨.",
+                "text": "본 제품은 활성슬러지 흡착과 같은 비생물적 과정에 의해 물에서 제거됨."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "분해율",
+            "guideline": "OECD 302B; ISO 9888; 88/302/EEC,part C",
+            "q": {
+              "raw": "> 70 % DOC 환원",
+              "status": "값있음",
+              "lower_op": ">",
+              "lower": 70,
+              "unit": "%",
+              "note": "DOC 환원"
+            },
+            "statements": [
+              {
+                "seq": 1,
+                "value": "물에서 쉽게 제거됨",
+                "text": "> 70 % DOC 환원 (OECD 302B; ISO 9888; 88/302/EEC,part C) 물에서 쉽게 제거됨"
+              },
+              {
+                "seq": 2,
+                "value": "본 제품은 충분히 테스트되지 않았으며, 유사한 구조 또는 제품의 구성성분에서 유추되었음.",
+                "text": "본 제품은 충분히 테스트되지 않았으며, 유사한 구조 또는 제품의 구성성분에서 유추되었음."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": "결과기술",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "구조적 특성에 따라 중합체는 생물학적으로 이용할 수 없음. 생물체내 축적 가능성 없음.",
+                "text": "구조적 특성에 따라 중합체는 생물학적으로 이용할 수 없음. 생물체내 축적 가능성 없음."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": null,
+            "descriptor": "결과기술",
+            "q": {
+              "raw": "자료없음.",
+              "status": "자료없음"
+            },
+            "statements": [
+              {
+                "seq": 1,
+                "key": "흡착성 유기결합 할로겐 (AOX)",
+                "value": "자료없음.",
+                "text": "자료없음."
+              }
+            ],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_OTHER",
+            "descriptor": "결과기술",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "다른 환경독성정보",
+                "value": "처리되지 않은 상태로 자연수계에 방류하지 말 것 현재까지의 지식으로 볼때 부정적인 생태학적 영향은 예상되지 않음",
+                "text": "처리되지 않은 상태로 자연수계에 방류하지 말 것 현재까지의 지식으로 볼때 부정적인 생태학적 영향은 예상되지 않음"
+              },
+              {
+                "seq": 2,
+                "value": "생태 데이터는 유추하여 결정됨.",
+                "text": "생태 데이터는 유추하여 결정됨."
+              }
+            ],
+            "status": "값있음"
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "toxicity[0]",
+        "page": 8,
+        "source_text": "LD50 쥐 (경구): > 2,000 - 10,000 mg/kg",
+        "rules": [
+          "R04",
+          "R06"
+        ],
+        "note": "'> 2,000 - 10,000'을 하한 2000(>), 상한 10000(<=)으로 나누고 천단위 콤마 제거"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[1]",
+        "page": 8,
+        "source_text": "(흡입):자료없음.",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[2]",
+        "page": 8,
+        "source_text": "(경피):자료없음.",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[3]",
+        "page": 8,
+        "source_text": "피부 부식성 또는 자극성 (토끼): 비자극성 (OECD Guideline 404)",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[4]",
+        "page": 8,
+        "source_text": "심한 눈 손상 또는 자극성 (토끼): 비자극성 (OECD Guideline 405)",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[5]",
+        "page": 8,
+        "source_text": "과민성 평가: 감수성이 특히 예민한 사람에 대해서 감작작용이 있을 수 있음",
+        "rules": [],
+        "note": "'호흡기 또는 피부 과민성' 공통 평가 문장을 TX_SKIN_SENS 한 행으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[6]",
+        "page": 8,
+        "source_text": "동물 연구에서 반복적인 흡입노출 후 유해성 영향이 관찰되었음.",
+        "rules": [],
+        "note": "9쪽 '참조: 반복투여독성' 문장도 함께 넣음"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[7]",
+        "page": 8,
+        "source_text": "흡인 유해성: 자료없음.",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[8]",
+        "page": 9,
+        "source_text": "본 제품 자체는 테스트되지 않음. 본 기술된 내용은 제품의 구조로부터 유추한 것임.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[9]",
+        "page": 9,
+        "source_text": "제공되는 모든 정보평가에 따라 발암성영향의 징후가 없음.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[10]",
+        "page": 9,
+        "source_text": "생식독성을 유발할 가능성은 없다. (구성물질 기준)",
+        "rules": [],
+        "note": "발달 독성(최기형성 평가) 문장도 함께 넣음"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[11]",
+        "page": 9,
+        "source_text": "이 제품은 5-chloro-2-methyl-4-isothiazolin-3-one 와 2-methyl-4-isothiazolin-3-one (3:1)의 혼합물을 포함함 (CAS번호:55965-84-9). 알러지 반응을 유발할 수 있음.",
+        "rules": [
+          "R10"
+        ],
+        "note": "맞는 값 없음: '기타 해당되는 독성정보'는 맞는 endpoint 코드가 없어 null로 둠. CAS로 성분 1 참조"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[12]",
+        "page": 9,
+        "source_text": "이용가능한 정보를 바탕으로, 특정 표적장기 독성 물질(1회노출) 은 없음.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[13]",
+        "page": 9,
+        "source_text": "독성의 수치적 척도 (급성독성 추정치 등) : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "경로가 없어 endpoint null"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[0]",
+        "page": 9,
+        "source_text": "수생생물에 대한 독성 평가: 자료없음.",
+        "rules": [
+          "R15"
+        ],
+        "note": "맞는 값 없음: 수생생물 전체 평가는 특정 endpoint 코드가 없어 null"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[1]",
+        "page": 9,
+        "source_text": "LC50 (96 h) 10 - 100 mg/l, Danio rerio (OECD Guideline 203, 통계수치)",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": "범위를 하한 10(>=), 상한 100(<=)으로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[2]",
+        "page": 10,
+        "source_text": "EC50 (48 h) 10 - 100 mg/l, Daphnia magna(물벼룩) (OECD Guideline 202, part 1, 통계수치)",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": "범위를 하한 10(>=), 상한 100(<=)으로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[3]",
+        "page": 10,
+        "source_text": "EC50 (72 h) 10 - 100 mg/l, Scenedesmus subspicatus (OECD Guideline 201)",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": "범위를 하한 10(>=), 상한 100(<=)으로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[4]",
+        "page": 10,
+        "source_text": "적절한 저농도의 생물학적 처리 설비에 도입 될 때 활성 슬러지의 분해 활성 억제는 예상되지 않음.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[5]",
+        "page": 10,
+        "source_text": "어류에 대한 만성독성: 어류독성 관련된 정보없음.",
+        "rules": [
+          "R15"
+        ],
+        "note": "'정보없음'을 자료없음 동의어로 봄"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[6]",
+        "page": 10,
+        "source_text": "수생무척추동물에 대한 만성독성: 수생무척추동물에 관한 정보 없음.",
+        "rules": [
+          "R15"
+        ],
+        "note": "'정보 없음'을 자료없음 동의어로 봄"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[7]",
+        "page": 10,
+        "source_text": "육생생물에 대한 독성 평가: 자료없음.",
+        "rules": [
+          "R15"
+        ],
+        "note": "맞는 값 없음: 육생생물 독성에 맞는 endpoint 코드가 없어 null"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[8]",
+        "page": 10,
+        "source_text": "환경 구분간의 수송평가: 자료없음.",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[9]",
+        "page": 10,
+        "source_text": "본 제품은 활성슬러지 흡착과 같은 비생물적 과정에 의해 물에서 제거됨.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[10]",
+        "page": 10,
+        "source_text": "> 70 % DOC 환원 (OECD 302B; ISO 9888; 88/302/EEC,part C) 물에서 쉽게 제거됨",
+        "rules": [
+          "R04"
+        ],
+        "note": "'> 70 %'를 하한 70(>)으로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[11]",
+        "page": 10,
+        "source_text": "구조적 특성에 따라 중합체는 생물학적으로 이용할 수 없음. 생물체내 축적 가능성 없음.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[12]",
+        "page": 10,
+        "source_text": "흡착성 유기결합 할로겐 (AOX): 자료없음.",
+        "rules": [
+          "R15"
+        ],
+        "note": "맞는 값 없음: AOX에 맞는 endpoint 코드가 없어 null"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[13]",
+        "page": 11,
+        "source_text": "처리되지 않은 상태로 자연수계에 방류하지 말 것 현재까지의 지식으로 볼때 부정적인 생태학적 영향은 예상되지 않음",
+        "rules": [],
+        "note": "'기타 유해 영향'을 ECO_OTHER 행으로 둠"
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"toxicity\": [{\"comp_ref\": \"MIX\", \"endpoint\": \"TX_ORAL\", \"descriptor\": \"LD50\", \"species\": \"쥐\", \"sex\": \"미표기\", \"q\": {\"raw\": \"> 2,000 - 10,000 mg/kg\", \"status\": \"값있음\", \"lower_op\": \">\", \"lower\": 2000, \"upper_op\": \"<=\", \"upper\": 10000, \"unit\": \"mg/kg\", \"dp\": 0}, \"statements\": [{\"seq\": 1, \"value\": \"단일 섭취 시 거의 무독성임. 본 제품은 테스트 되지 않았음. 본 물질과 유사한 구조 또는 성분의 물질/제품으로부터 유추된 것임.\", \"text\": \"단일 섭취 시 거의 무독성임. 본 제품은 테스트 되지 않았음. 본 물질과 유사한 구조 또는 성분의 물질/제품으로부터 유추된 것임.\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_INHAL\", \"q\": {\"raw\": \"자료없음.\", \"status\": \"자료없음\"}, \"statements\": [], \"status\": \"자료없음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_DERMAL\", \"q\": {\"raw\": \"자료없음.\", \"status\": \"자료없음\"}, \"statements\": [], \"status\": \"자료없음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_SKIN\", \"descriptor\": \"결과기술\", \"species\": \"토끼\", \"guideline\": \"OECD Guideline 404\", \"classification\": \"비자극성\", \"statements\": [{\"seq\": 1, \"value\": \"제품이 피부에 닿으면 건조될 때 염증이 발생할 수 있음.\", \"text\": \"제품이 피부에 닿으면 건조될 때 염증이 발생할 수 있음.\"}, {\"seq\": 2, \"value\": \"피부에 자극성 없음. 본 제품은 테스트 되지 않았음. 본 물질과 유사한 구조 또는 성분의 물질/제품으로부터 유추된 것임.\", \"text\": \"눈에 대한 자극성 없음. 피부에 자극성 없음. 본 제품은 테스트 되지 않았음. 본 물질과 유사한 구조 또는 성분의 물질/제품으로부터 유추된 것임.\"}, {\"seq\": 3, \"key\": \"피부 부식성 또는 자극성 (토끼)\", \"value\": \"비자극성 (OECD Guideline 404)\", \"text\": \"피부 부식성 또는 자극성 (토끼): 비자극성 (OECD Guideline 404)\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_EYE\", \"descriptor\": \"결과기술\", \"species\": \"토끼\", \"guideline\": \"OECD Guideline 405\", \"classification\": \"비자극성\", \"statements\": [{\"seq\": 1, \"value\": \"눈에 대한 자극성 없음.\", \"text\": \"눈에 대한 자극성 없음. 피부에 자극성 없음. 본 제품은 테스트 되지 않았음. 본 물질과 유사한 구조 또는 성분의 물질/제품으로부터 유추된 것임.\"}, {\"seq\": 2, \"key\": \"심한 눈 손상 또는 자극성 (토끼)\", \"value\": \"비자극성 (OECD Guideline 405)\", \"text\": \"심한 눈 손상 또는 자극성 (토끼): 비자극성 (OECD Guideline 405)\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_SKIN_SENS\", \"descriptor\": \"결과기술\", \"statements\": [{\"seq\": 1, \"key\": \"과민성 평가\", \"value\": \"감수성이 특히 예민한 사람에 대해서 감작작용이 있을 수 있음 경험과 이용 가능한 정보에 근거하면, 정해진 용도에 따라 적절한 주의사항 대로 취급할 경우 건강에 유해한 영향이 나타나지 않음.\", \"text\": \"감수성이 특히 예민한 사람에 대해서 감작작용이 있을 수 있음 경험과 이용 가능한 정보에 근거하면, 정해진 용도에 따라 적절한 주의사항 대로 취급할 경우 건강에 유해한 영향이 나타나지 않음.\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_STOT_RE\", \"descriptor\": \"결과기술\", \"statements\": [{\"seq\": 1, \"key\": \"반복투여 독성 평가\", \"value\": \"동물 연구에서 반복적인 흡입노출 후 유해성 영향이 관찰되었음. 본 제품은 테스트 되지 않았음. 본 물질과 유사한 구조 또는 성분의 물질/제품으로부터 유추된 것임.\", \"text\": \"동물 연구에서 반복적인 흡입노출 후 유해성 영향이 관찰되었음. 본 제품은 테스트 되지 않았음. 본 물질과 유사한 구조 또는 성분의 물질/제품으로부터 유추된 것임.\"}, {\"seq\": 2, \"key\": \"참조\", \"value\": \"반복투여독성\", \"text\": \"참조: 반복투여독성\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_ASP\", \"q\": {\"raw\": \"자료없음.\", \"status\": \"자료없음\"}, \"statements\": [], \"status\": \"자료없음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_MUTA\", \"descriptor\": \"결과기술\", \"statements\": [{\"seq\": 1, \"key\": \"변이원성 평가\", \"value\": \"본 제품 자체는 테스트되지 않음. 본 기술된 내용은 제품의 구조로부터 유추한 것임.\", \"text\": \"본 제품 자체는 테스트되지 않음. 본 기술된 내용은 제품의 구조로부터 유추한 것임.\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_CARC\", \"descriptor\": \"결과기술\", \"statements\": [{\"seq\": 1, \"key\": \"발암성 평가\", \"value\": \"제공되는 모든 정보평가에 따라 발암성영향의 징후가 없음.\", \"text\": \"제공되는 모든 정보평가에 따라 발암성영향의 징후가 없음.\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_REPRO\", \"descriptor\": \"결과기술\", \"statements\": [{\"seq\": 1, \"key\": \"생식독성 평가\", \"value\": \"생식독성을 유발할 가능성은 없다. (구성물질 기준)\", \"text\": \"생식독성을 유발할 가능성은 없다. (구성물질 기준)\"}, {\"seq\": 2, \"key\": \"최기형성 평가\", \"value\": \"본 데이터가 발달 독성 물질의 영향평가에 해당하는 적절한 평가를 위해 충분하지 않음.\", \"text\": \"본 데이터가 발달 독성 물질의 영향평가에 해당하는 적절한 평가를 위해 충분하지 않음.\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": null, \"descriptor\": \"결과기술\", \"statements\": [{\"seq\": 1, \"value\": \"경험과 이용 가능한 정보에 근거하면, 정해진 용도에 따라 적절한 주의사항 대로 취급할 경우 건강에 유해한 영향이 나타나지 않음. 본 기술된 내용은 유사한 성분을 가진 제품들로부터 유추되었음.\", \"text\": \"경험과 이용 가능한 정보에 근거하면, 정해진 용도에 따라 적절한 주의사항 대로 취급할 경우 건강에 유해한 영향이 나타나지 않음. 본 기술된 내용은 유사한 성분을 가진 제품들로부터 유추되었음.\"}, {\"seq\": 2, \"value\": \"이 제품은 5-chloro-2-methyl-4-isothiazolin-3-one 와 2-methyl-4-isothiazolin-3-one (3:1)의 혼합물을 포함함 (CAS번호:55965-84-9). 알러지 반응을 유발할 수 있음.\", \"refs\": [\"1\"], \"text\": \"이 제품은 5-chloro-2-methyl-4-isothiazolin-3-one 와 2-methyl-4-isothiazolin-3-one (3:1)의 혼합물을 포함함 (CAS번호:55965-84-9). 알러지 반응을 유발할 수 있음.\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_STOT_SE\", \"descriptor\": \"결과기술\", \"statements\": [{\"seq\": 1, \"value\": \"이용가능한 정보를 바탕으로, 특정 표적장기 독성 물질(1회노출) 은 없음.\", \"text\": \"이용가능한 정보를 바탕으로, 특정 표적장기 독성 물질(1회노출) 은 없음.\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": null, \"descriptor\": \"ATE\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"statements\": [], \"status\": \"자료없음\"}], \"cmr\": [], \"ecotox\": [{\"comp_ref\": \"MIX\", \"endpoint\": null, \"descriptor\": \"결과기술\", \"q\": {\"raw\": \"자료없음.\", \"status\": \"자료없음\"}, \"statements\": [{\"seq\": 1, \"key\": \"수생생물에 대한 독성 평가\", \"value\": \"자료없음.\", \"text\": \"자료없음.\"}], \"status\": \"자료없음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_FISH\", \"descriptor\": \"LC50\", \"duration_value\": 96, \"duration_unit\": \"hr\", \"species\": \"Danio rerio\", \"guideline\": \"OECD Guideline 203\", \"q\": {\"raw\": \"10 - 100 mg/l\", \"status\": \"값있음\", \"lower_op\": \">=\", \"lower\": 10, \"upper_op\": \"<=\", \"upper\": 100, \"unit\": \"mg/L\", \"note\": \"통계수치\"}, \"statements\": [{\"seq\": 1, \"value\": \"본 제품에 대해서는 실험되지 않음. 각 성분에 대한 성질에 대한 자료로부터 유추되었음.\", \"text\": \"본 제품에 대해서는 실험되지 않음. 각 성분에 대한 성질에 대한 자료로부터 유추되었음.\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_CRUST\", \"descriptor\": \"EC50\", \"duration_value\": 48, \"duration_unit\": \"hr\", \"species\": \"Daphnia magna(물벼룩)\", \"guideline\": \"OECD Guideline 202, part 1\", \"q\": {\"raw\": \"10 - 100 mg/l\", \"status\": \"값있음\", \"lower_op\": \">=\", \"lower\": 10, \"upper_op\": \"<=\", \"upper\": 100, \"unit\": \"mg/L\", \"note\": \"통계수치\"}, \"statements\": [{\"seq\": 1, \"value\": \"본 제품에 대해서는 실험되지 않음. 각 성분에 대한 성질에 대한 자료로부터 유추되었음.\", \"text\": \"본 제품에 대해서는 실험되지 않음. 각 성분에 대한 성질에 대한 자료로부터 유추되었음.\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_ALGAE\", \"descriptor\": \"EC50\", \"duration_value\": 72, \"duration_unit\": \"hr\", \"species\": \"Scenedesmus subspicatus\", \"guideline\": \"OECD Guideline 201\", \"q\": {\"raw\": \"10 - 100 mg/l\", \"status\": \"값있음\", \"lower_op\": \">=\", \"lower\": 10, \"upper_op\": \"<=\", \"upper\": 100, \"unit\": \"mg/L\"}, \"statements\": [{\"seq\": 1, \"value\": \"본 제품에 대해서는 실험되지 않음. 각 성분에 대한 성질에 대한 자료로부터 유추되었음.\", \"text\": \"본 제품에 대해서는 실험되지 않음. 각 성분에 대한 성질에 대한 자료로부터 유추되었음.\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_OTHER\", \"descriptor\": \"결과기술\", \"statements\": [{\"seq\": 1, \"key\": \"미생물/활성슬러지 영향\", \"value\": \"적절한 저농도의 생물학적 처리 설비에 도입 될 때 활성 슬러지의 분해 활성 억제는 예상되지 않음.\", \"text\": \"적절한 저농도의 생물학적 처리 설비에 도입 될 때 활성 슬러지의 분해 활성 억제는 예상되지 않음.\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_FISH\", \"descriptor\": \"결과기술\", \"q\": {\"raw\": \"어류독성 관련된 정보없음.\", \"status\": \"자료없음\"}, \"statements\": [{\"seq\": 1, \"key\": \"어류에 대한 만성독성\", \"value\": \"어류독성 관련된 정보없음.\", \"text\": \"어류독성 관련된 정보없음.\"}], \"status\": \"자료없음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_CRUST\", \"descriptor\": \"결과기술\", \"q\": {\"raw\": \"수생무척추동물에 관한 정보 없음.\", \"status\": \"자료없음\"}, \"statements\": [{\"seq\": 1, \"key\": \"수생무척추동물에 대한 만성독성\", \"value\": \"수생무척추동물에 관한 정보 없음.\", \"text\": \"수생무척추동물에 관한 정보 없음.\"}], \"status\": \"자료없음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": null, \"descriptor\": \"결과기술\", \"q\": {\"raw\": \"자료없음.\", \"status\": \"자료없음\"}, \"statements\": [{\"seq\": 1, \"key\": \"육생생물에 대한 독성 평가\", \"value\": \"자료없음.\", \"text\": \"자료없음.\"}], \"status\": \"자료없음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_SOIL\", \"q\": {\"raw\": \"자료없음.\", \"status\": \"자료없음\"}, \"statements\": [{\"seq\": 1, \"key\": \"환경 구분간의 수송평가\", \"value\": \"자료없음.\", \"text\": \"자료없음.\"}], \"status\": \"자료없음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": \"결과기술\", \"statements\": [{\"seq\": 1, \"key\": \"생분해성 및 제거율 평가 (H2O)\", \"value\": \"본 제품은 활성슬러지 흡착과 같은 비생물적 과정에 의해 물에서 제거됨.\", \"text\": \"본 제품은 활성슬러지 흡착과 같은 비생물적 과정에 의해 물에서 제거됨.\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": \"분해율\", \"guideline\": \"OECD 302B; ISO 9888; 88/302/EEC,part C\", \"q\": {\"raw\": \"> 70 % DOC 환원\", \"status\": \"값있음\", \"lower_op\": \">\", \"lower\": 70, \"unit\": \"%\", \"note\": \"DOC 환원\"}, \"statements\": [{\"seq\": 1, \"value\": \"물에서 쉽게 제거됨\", \"text\": \"> 70 % DOC 환원 (OECD 302B; ISO 9888; 88/302/EEC,part C) 물에서 쉽게 제거됨\"}, {\"seq\": 2, \"value\": \"본 제품은 충분히 테스트되지 않았으며, 유사한 구조 또는 제품의 구성성분에서 유추되었음.\", \"text\": \"본 제품은 충분히 테스트되지 않았으며, 유사한 구조 또는 제품의 구성성분에서 유추되었음.\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_BIOACC\", \"descriptor\": \"결과기술\", \"statements\": [{\"seq\": 1, \"value\": \"구조적 특성에 따라 중합체는 생물학적으로 이용할 수 없음. 생물체내 축적 가능성 없음.\", \"text\": \"구조적 특성에 따라 중합체는 생물학적으로 이용할 수 없음. 생물체내 축적 가능성 없음.\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": null, \"descriptor\": \"결과기술\", \"q\": {\"raw\": \"자료없음.\", \"status\": \"자료없음\"}, \"statements\": [{\"seq\": 1, \"key\": \"흡착성 유기결합 할로겐 (AOX)\", \"value\": \"자료없음.\", \"text\": \"자료없음.\"}], \"status\": \"자료없음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_OTHER\", \"descriptor\": \"결과기술\", \"statements\": [{\"seq\": 1, \"key\": \"다른 환경독성정보\", \"value\": \"처리되지 않은 상태로 자연수계에 방류하지 말 것 현재까지의 지식으로 볼때 부정적인 생태학적 영향은 예상되지 않음\", \"text\": \"처리되지 않은 상태로 자연수계에 방류하지 말 것 현재까지의 지식으로 볼때 부정적인 생태학적 영향은 예상되지 않음\"}, {\"seq\": 2, \"value\": \"생태 데이터는 유추하여 결정됨.\", \"text\": \"생태 데이터는 유추하여 결정됨.\"}], \"status\": \"값있음\"}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"toxicity[0]\", \"page\": 8, \"source_text\": \"LD50 쥐 (경구): > 2,000 - 10,000 mg/kg\", \"rules\": [\"R04\", \"R06\"], \"note\": \"'> 2,000 - 10,000'을 하한 2000(>), 상한 10000(<=)으로 나누고 천단위 콤마 제거\"}, {\"msds_index\": 0, \"field\": \"toxicity[1]\", \"page\": 8, \"source_text\": \"(흡입):자료없음.\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[2]\", \"page\": 8, \"source_text\": \"(경피):자료없음.\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[3]\", \"page\": 8, \"source_text\": \"피부 부식성 또는 자극성 (토끼): 비자극성 (OECD Guideline 404)\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[4]\", \"page\": 8, \"source_text\": \"심한 눈 손상 또는 자극성 (토끼): 비자극성 (OECD Guideline 405)\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[5]\", \"page\": 8, \"source_text\": \"과민성 평가: 감수성이 특히 예민한 사람에 대해서 감작작용이 있을 수 있음\", \"rules\": [], \"note\": \"'호흡기 또는 피부 과민성' 공통 평가 문장을 TX_SKIN_SENS 한 행으로 둠\"}, {\"msds_index\": 0, \"field\": \"toxicity[6]\", \"page\": 8, \"source_text\": \"동물 연구에서 반복적인 흡입노출 후 유해성 영향이 관찰되었음.\", \"rules\": [], \"note\": \"9쪽 '참조: 반복투여독성' 문장도 함께 넣음\"}, {\"msds_index\": 0, \"field\": \"toxicity[7]\", \"page\": 8, \"source_text\": \"흡인 유해성: 자료없음.\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[8]\", \"page\": 9, \"source_text\": \"본 제품 자체는 테스트되지 않음. 본 기술된 내용은 제품의 구조로부터 유추한 것임.\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[9]\", \"page\": 9, \"source_text\": \"제공되는 모든 정보평가에 따라 발암성영향의 징후가 없음.\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[10]\", \"page\": 9, \"source_text\": \"생식독성을 유발할 가능성은 없다. (구성물질 기준)\", \"rules\": [], \"note\": \"발달 독성(최기형성 평가) 문장도 함께 넣음\"}, {\"msds_index\": 0, \"field\": \"toxicity[11]\", \"page\": 9, \"source_text\": \"이 제품은 5-chloro-2-methyl-4-isothiazolin-3-one 와 2-methyl-4-isothiazolin-3-one (3:1)의 혼합물을 포함함 (CAS번호:55965-84-9). 알러지 반응을 유발할 수 있음.\", \"rules\": [\"R10\"], \"note\": \"맞는 값 없음: '기타 해당되는 독성정보'는 맞는 endpoint 코드가 없어 null로 둠. CAS로 성분 1 참조\"}, {\"msds_index\": 0, \"field\": \"toxicity[12]\", \"page\": 9, \"source_text\": \"이용가능한 정보를 바탕으로, 특정 표적장기 독성 물질(1회노출) 은 없음.\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[13]\", \"page\": 9, \"source_text\": \"독성의 수치적 척도 (급성독성 추정치 등) : 자료없음\", \"rules\": [\"R15\"], \"note\": \"경로가 없어 endpoint null\"}, {\"msds_index\": 0, \"field\": \"ecotox[0]\", \"page\": 9, \"source_text\": \"수생생물에 대한 독성 평가: 자료없음.\", \"rules\": [\"R15\"], \"note\": \"맞는 값 없음: 수생생물 전체 평가는 특정 endpoint 코드가 없어 null\"}, {\"msds_index\": 0, \"field\": \"ecotox[1]\", \"page\": 9, \"source_text\": \"LC50 (96 h) 10 - 100 mg/l, Danio rerio (OECD Guideline 203, 통계수치)\", \"rules\": [\"R04\", \"R08\"], \"note\": \"범위를 하한 10(>=), 상한 100(<=)으로 나눔\"}, {\"msds_index\": 0, \"field\": \"ecotox[2]\", \"page\": 10, \"source_text\": \"EC50 (48 h) 10 - 100 mg/l, Daphnia magna(물벼룩) (OECD Guideline 202, part 1, 통계수치)\", \"rules\": [\"R04\", \"R08\"], \"note\": \"범위를 하한 10(>=), 상한 100(<=)으로 나눔\"}, {\"msds_index\": 0, \"field\": \"ecotox[3]\", \"page\": 10, \"source_text\": \"EC50 (72 h) 10 - 100 mg/l, Scenedesmus subspicatus (OECD Guideline 201)\", \"rules\": [\"R04\", \"R08\"], \"note\": \"범위를 하한 10(>=), 상한 100(<=)으로 나눔\"}, {\"msds_index\": 0, \"field\": \"ecotox[4]\", \"page\": 10, \"source_text\": \"적절한 저농도의 생물학적 처리 설비에 도입 될 때 활성 슬러지의 분해 활성 억제는 예상되지 않음.\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[5]\", \"page\": 10, \"source_text\": \"어류에 대한 만성독성: 어류독성 관련된 정보없음.\", \"rules\": [\"R15\"], \"note\": \"'정보없음'을 자료없음 동의어로 봄\"}, {\"msds_index\": 0, \"field\": \"ecotox[6]\", \"page\": 10, \"source_text\": \"수생무척추동물에 대한 만성독성: 수생무척추동물에 관한 정보 없음.\", \"rules\": [\"R15\"], \"note\": \"'정보 없음'을 자료없음 동의어로 봄\"}, {\"msds_index\": 0, \"field\": \"ecotox[7]\", \"page\": 10, \"source_text\": \"육생생물에 대한 독성 평가: 자료없음.\", \"rules\": [\"R15\"], \"note\": \"맞는 값 없음: 육생생물 독성에 맞는 endpoint 코드가 없어 null\"}, {\"msds_index\": 0, \"field\": \"ecotox[8]\", \"page\": 10, \"source_text\": \"환경 구분간의 수송평가: 자료없음.\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[9]\", \"page\": 10, \"source_text\": \"본 제품은 활성슬러지 흡착과 같은 비생물적 과정에 의해 물에서 제거됨.\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[10]\", \"page\": 10, \"source_text\": \"> 70 % DOC 환원 (OECD 302B; ISO 9888; 88/302/EEC,part C) 물에서 쉽게 제거됨\", \"rules\": [\"R04\"], \"note\": \"'> 70 %'를 하한 70(>)으로 나눔\"}, {\"msds_index\": 0, \"field\": \"ecotox[11]\", \"page\": 10, \"source_text\": \"구조적 특성에 따라 중합체는 생물학적으로 이용할 수 없음. 생물체내 축적 가능성 없음.\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[12]\", \"page\": 10, \"source_text\": \"흡착성 유기결합 할로겐 (AOX): 자료없음.\", \"rules\": [\"R15\"], \"note\": \"맞는 값 없음: AOX에 맞는 endpoint 코드가 없어 null\"}, {\"msds_index\": 0, \"field\": \"ecotox[13]\", \"page\": 11, \"source_text\": \"처리되지 않은 상태로 자연수계에 방류하지 말 것 현재까지의 지식으로 볼때 부정적인 생태학적 영향은 예상되지 않음\", \"rules\": [], \"note\": \"'기타 유해 영향'을 ECO_OTHER 행으로 둠\"}]}"
+}

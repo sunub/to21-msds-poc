@@ -37,6 +37,9 @@ def to_float(v) -> Optional[float]:
         return None
 
 
+_RANGE_FACTORS = (1.0, 0.5, 0.25, 2 ** -0.5, 2.0, 4.0, 0.001, 1000.0)  # 그대로, 시간 환산(T-02·03), mg/㎥↔mg/L
+
+
 def parse_acute(text: str, primary_value: Optional[str], div_code: str, mw: Optional[float] = None) -> Optional[dict]:
     """급성독성 1건 → {descriptor, sign, value, value_max, unit, species, basis} 또는 None(정성 문장)."""
     text = text or ""
@@ -46,9 +49,31 @@ def parse_acute(text: str, primary_value: Optional[str], div_code: str, mw: Opti
     species = sp.group(1) if sp else ""
     target = ROUTE_UNIT.get(div_code, "")
     pv = to_float(primary_value)
-    if pv is not None:                                        # DB가 표준 단위로 바꿔 둔 숫자를 우선 사용
-        return {"descriptor": m.group(1) if m else "", "sign": "=", "value": pv, "value_max": None,
-                "unit": target, "species": species, "basis": "PRIMARY_VALUE"}
+    headline = bool(m) and not text[:m.start()].strip()  # 괄호 속 다른 시험 값은 보지 않는다
+    head_unit = UNITS.get(m.group(5) or "", m.group(5) or "") if headline else ""
+    # 정규식이 모르는 단위(㎖/㎏, ㎍ 등)가 붙은 문장이면 문장 숫자를 쓰지 않는다
+    unknown_unit = headline and not m.group(5) and text[m.end():].lstrip()[:1] in tuple("㎖㎍µμmMuU")
+    lo = _num(m.group(3)) if headline else None
+    hi = _num(m.group(4)) if headline and m.group(4) else None
+    # 숫자 칸이 단위를 안 바꾼 문장 값 그대로인 행(159행)은 문장을 읽는다. 흡입 칸의 'LC50 … ㎎/㎏'은 값이 행의 구분과
+    # 맞는 단위 오타라 숫자 칸을 쓰고, 'LD50 … ㎎/㎏'은 경피 값을 잘못 넣은 것이라 문장 쪽에서 계산에서 뺀다
+    unconverted = (headline and head_unit and target and head_unit != target and pv == (lo if hi is None else max(lo, hi))
+                   and not (head_unit == "mg/kg" and m.group(1) == "LC50"))
+    if pv is not None and not unconverted:  # DB가 표준 단위로 바꿔 둔 숫자를 우선 사용
+        # 문장 첫머리가 부등호면 숫자 칸이 차 있어도 부등호다. '<'는 실제 값이 더 낮으므로 그 값을 안전한 쪽 상한으로 계산한다
+        raw_sign = {">=": ">=", "<=": "<=", "<": "<="}.get(m.group(2), SIGNS.get(m.group(2), "=")) if headline else "="
+        value, value_max, basis = pv, None, "PRIMARY_VALUE"
+        if hi is not None and not unknown_unit:
+            small, big = min(lo, hi), max(lo, hi)
+            factor = pv / big if big else None
+            # 범위는 최솟값을 쓴다 (D-12). 숫자 칸은 대부분 상한이고(735행), 노출시간·단위 환산을 상한에만 한 행도 있어
+            # 같은 배율을 하한에 곱한다. 배율이 알려진 환산이 아니면(기하평균 등) 숫자 칸을 그대로 둔다
+            # 단위가 다르면 숫자 칸은 시간만 환산한 값일 수 있다(말로노니트릴 ㎎/㎥). ㎎/㎥만 단위까지 맞추고 나머지는 그대로 둔다
+            scale = 1.0 if head_unit in ("", target) else 0.001 if (head_unit, target) == ("mg/m3", "mg/L") else None
+            if scale and factor is not None and any(abs(factor - k) <= 0.01 * k for k in _RANGE_FACTORS):
+                value, value_max, basis = small * factor * scale, pv * scale, "PRIMARY_VALUE · 범위 최솟값"
+        return {"descriptor": m.group(1) if m else "", "sign": raw_sign, "value": value, "value_max": value_max,
+                "unit": target, "species": species, "basis": basis}
     if not m:
         return None
     sign = {">=": ">=", "<=": "<="}.get(m.group(2), SIGNS.get(m.group(2), "?"))
@@ -57,6 +82,8 @@ def parse_acute(text: str, primary_value: Optional[str], div_code: str, mw: Opti
     note = "PRIMARY_VALUE_TEXT 파싱"
     if unit == "ppm" and target == "mg/L" and mw:            # 증기 ppm → mg/L (25℃, 설계서 U-07 — 참고)
         v, vmax, unit, note = v * mw / 24450, (vmax * mw / 24450 if vmax else None), "mg/L", note + " · ppm→mg/L 환산(참고)"
+    if unit == "mg/m3" and target == "mg/L":
+        v, vmax, unit, note = v / 1000, (vmax / 1000 if vmax else None), "mg/L", note + " · mg/㎥→mg/L 환산"
     if target and unit and unit != target:
         note += f" · 단위 {unit} ≠ {target} — 계산 제외"
         return {"descriptor": m.group(1), "sign": "?", "value": v, "value_max": vmax, "unit": unit,

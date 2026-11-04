@@ -51,11 +51,13 @@ export const FINAL_STATUSES: readonly JobStatus[] = ["done", "failed", "interrup
 /**
  * 4xx·5xx 오류 응답 (FastAPI 기본 모양).
  * HTTPException 은 detail 이 문장 하나, 쿼리·경로 값이 틀린 422 는 detail 이 항목 목록이다.
+ * 판정 API 의 409 는 detail 이 객체다 (contracts/5-api conflict_response).
  */
 export const apiErrorSchema = z.object({
   detail: z.union([
     z.string(),
     z.array(z.looseObject({ loc: z.array(z.union([z.string(), z.number()])), msg: z.string() })),
+    z.looseObject({ message: z.string() }),
   ]),
 });
 export type ApiError = z.infer<typeof apiErrorSchema>;
@@ -81,6 +83,19 @@ export const sectionCountsSchema = z.object({
   needs_review: count,
 });
 export type SectionCounts = z.infer<typeof sectionCountsSchema>;
+
+/** 추출 이후의 스키마·공식 검증 요약. 구버전 서버는 이 값을 보내지 않을 수 있다. */
+export const validationSummarySchema = z.object({
+  status: z.enum(["passed", "needs_review", "invalid", "unavailable"]),
+  schema_errors: count.optional(),
+  validator_errors: count.optional(),
+  validator_warnings: count.optional(),
+  validator_exceptions: count.optional(),
+  failed_sections: z.array(z.object({ msds_index: msdsIndex, section: sectionNo })).optional(),
+  needs_review: z.array(z.object({ msds_index: msdsIndex, section: sectionNo })).optional(),
+  unmapped_findings: z.array(z.unknown()).optional(),
+});
+export type ValidationSummary = z.infer<typeof validationSummarySchema>;
 
 export const documentSummarySchema = z.object({
   /** U-<날짜>-<순번> */
@@ -109,6 +124,8 @@ export const documentSummarySchema = z.object({
   counts: sectionCountsSchema,
   /** POST /retry 로 다시 돌릴 수 있는가: 실패·멈춘 문서, 또는 끝났지만 실패한 항이 있는 문서 */
   can_retry: z.boolean(),
+  /** 최종 검사 요약. 없거나 null이면 검증 결과를 확인할 수 없다. */
+  validation: validationSummarySchema.nullable().optional(),
 });
 export type DocumentSummary = z.infer<typeof documentSummarySchema>;
 
@@ -141,6 +158,7 @@ export const runSummarySchema = z.object({
   sections_failed: count,
   reextracted: count,
   schema_errors: count,
+  validation: validationSummarySchema.nullable().optional(),
 });
 export type RunSummary = z.infer<typeof runSummarySchema>;
 
@@ -166,7 +184,7 @@ export const createDocumentParamsSchema = z.object({
 });
 export type CreateDocumentParams = z.infer<typeof createDocumentParamsSchema>;
 
-/** 서버가 받는 PDF 최대 크기 (extract_app.MAX_PDF_BYTES 와 같다). 넘으면 413 */
+/** 서버가 받는 PDF 최대 크기 (backend api/routers/extract/jobs.py 의 MAX_PDF_BYTES 와 같다). 넘으면 413 */
 export const MAX_PDF_BYTES = 50 * 1024 * 1024;
 /** 서버는 본문이 이 글자로 시작하지 않으면 400 으로 거절한다 */
 export const PDF_MAGIC = "%PDF-";
@@ -227,6 +245,7 @@ export const resultResponseSchema = z.object({
   /** 사람이 볼 항: 실패, 검사 문제, 펼치기 문제, 그림문자 대조 불일치 */
   needs_review: z.array(sectionRefSchema),
   warnings: z.array(z.string()),
+  validation: validationSummarySchema.nullable().optional(),
   /** validate_to21 (TO21 스키마 검증 문장) */
   schema_errors: z.array(z.string()),
   /** TO21 검증기 V01~V23 */

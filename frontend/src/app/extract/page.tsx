@@ -3,14 +3,15 @@
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { Suspense, useCallback, useState } from "react";
-import { documentDetailQuery } from "@/api/documents";
+import { documentDetailQuery, resultQuery } from "@/api/documents";
 import type { DocumentDetail, SectionProgress } from "@/api/schemas";
 import { RetryButton } from "@/components/documents/retry-button";
 import { RegeneratedPreview } from "@/components/extract/regenerated-preview";
+import { ValidationNotice } from "@/components/extract/validation-notice";
 import { SectionProgressTable, SectionValues, type SectionKey } from "@/components/extract/section-progress";
 import { SourceViewer } from "@/components/extract/source-viewer";
 import { DocFrame } from "@/components/shell/doc-frame";
-import { Foot, Pane, Row } from "@/components/shell/layout";
+import { Foot, Pane, Workspace } from "@/components/shell/layout";
 import { Progress, Skeleton, StatusLabel, Table, TableHead, buttonStyles } from "@/components/ui";
 import { useDocumentTransitions } from "@/hooks/use-document-transitions";
 import { usePageParam } from "@/hooks/use-page-param";
@@ -23,6 +24,10 @@ import { allSectionsFailed, stageMessage } from "@/lib/status";
  */
 function ExtractBody({ docId }: { docId: string }) {
   const { data: doc, isRefetchError } = useQuery(documentDetailQuery(docId));
+  const result = useQuery({
+    ...resultQuery(docId),
+    enabled: doc?.status === "done" && !doc.validation && !doc.summary?.validation,
+  });
   useDocumentTransitions(docId, doc?.status);
 
   if (!doc) return <LoadingBody />;
@@ -33,7 +38,7 @@ function ExtractBody({ docId }: { docId: string }) {
           서버와 연결이 끊겼습니다. 아래는 마지막으로 받은 내용이고, 연결되면 이어서 보여 줍니다.
         </p>
       )}
-      <LoadedBody doc={doc} />
+      <LoadedBody doc={{ ...doc, validation: doc.validation ?? doc.summary?.validation ?? result.data?.validation ?? null }} />
     </>
   );
 }
@@ -61,15 +66,16 @@ function LoadedBody({ doc }: { doc: DocumentDetail }) {
 
   return (
     <>
+      <ValidationNotice status={doc.status} counts={doc.counts} validation={doc.validation} />
       <DocumentNotices doc={doc} />
-      <Row>
+      <Workspace>
         <SourceViewer doc={doc} page={page} onPage={setPage} />
         {showPreview ? (
           <RegeneratedPreview doc={doc} onSection={openBySection} />
         ) : (
           <ProgressPane doc={doc} selected={selected} selectedSection={selectedSection} onSelect={openSection} />
         )}
-      </Row>
+      </Workspace>
       <ExtractFoot doc={doc} />
     </>
   );
@@ -91,7 +97,7 @@ function ProgressPane({
   return (
     <Pane
       title="항목별 추출 상태"
-      className="basis-105"
+      fill
       aside={
         total > 0 ? (
           <span className="text-sm text-mut tabular-nums">
@@ -221,25 +227,25 @@ function ExtractFoot({ doc }: { doc: DocumentDetail }) {
 /** 첫 응답을 받기 전 (1.2 모양) */
 function LoadingBody() {
   return (
-    <Row>
-      <Pane title="원문" className="basis-115">
+    <Workspace>
+      <Pane title="원문" fill>
         <div aria-hidden="true" className="grid gap-2.5">
           <Skeleton className="w-full" />
           <Skeleton className="w-4/5" />
           <Skeleton className="w-2/3" />
         </div>
       </Pane>
-      <Pane title="항목별 추출 상태" className="basis-105">
+      <Pane title="항목별 추출 상태" fill>
         <SkeletonTable />
       </Pane>
-    </Row>
+    </Workspace>
   );
 }
 
 export default function ExtractPage() {
   return (
     <Suspense>
-      <DocFrame stage="extract" width="max-w-320">
+      <DocFrame stage="extract" width="max-w-320" fill>
         {(doc) => <ExtractBody key={doc} docId={doc} />}
       </DocFrame>
     </Suspense>

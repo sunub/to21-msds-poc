@@ -1,0 +1,435 @@
+{
+  "doc_id": "T21-S011",
+  "bundle": "b4",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 54205,
+    "completion_tokens": 5078,
+    "cached_tokens": 8949,
+    "reasoning_tokens": 931,
+    "notional_cost_usd": 0.4653898
+  },
+  "seconds": 38.4,
+  "request_usage": [
+    {
+      "prompt_tokens": 54205,
+      "completion_tokens": 5078,
+      "cached_tokens": 8949,
+      "reasoning_tokens": 931,
+      "notional_cost_usd": 0.4653898
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "transport": [
+          {
+            "mode": "해상",
+            "basis_raw": "IMDG-CODE",
+            "regulated": true,
+            "un_no": "1077",
+            "shipping_name": "프로필렌 (PROPYLENE)",
+            "hazard_class": "2.1",
+            "sub_risk": null,
+            "packing_group": null,
+            "marine_pollutant": "비해당",
+            "ems_fire": null,
+            "ems_spill": null
+          },
+          {
+            "mode": "항공",
+            "basis_raw": "ICAO/IATA-DGR",
+            "regulated": true,
+            "un_no": "1077",
+            "shipping_name": "프로필렌 (PROPYLENE)",
+            "hazard_class": "2.1",
+            "sub_risk": null,
+            "packing_group": null,
+            "marine_pollutant": null,
+            "ems_fire": null,
+            "ems_spill": null
+          },
+          {
+            "mode": "육상",
+            "basis_raw": "UN-ADR",
+            "regulated": true,
+            "un_no": "1077",
+            "shipping_name": "프로필렌 (PROPYLENE)",
+            "hazard_class": "2.1",
+            "sub_risk": null,
+            "packing_group": null,
+            "marine_pollutant": null,
+            "ems_fire": null,
+            "ems_spill": null
+          }
+        ],
+        "regulations": [
+          {
+            "seq": 1,
+            "law": "INTL",
+            "item_code": "INTL_ETC",
+            "item_raw": "중국 기존 화학물질 목록 (IECSC)",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "country": "CN",
+            "value_raw": " "
+          },
+          {
+            "seq": 2,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "유럽연합 화학물질 목록 (EC inventory)",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "country": "EU",
+            "value_raw": " "
+          },
+          {
+            "seq": 3,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국 독성물질 규제법 목록 (TSCA)",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "country": "US",
+            "value_raw": " "
+          },
+          {
+            "seq": 4,
+            "law": "INTL",
+            "item_code": "INTL_ETC",
+            "item_raw": "캐나다 국내 물질 목록 (DSL)",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "country": "CA",
+            "value_raw": " "
+          },
+          {
+            "seq": 5,
+            "law": "INTL",
+            "item_code": "INTL_ETC",
+            "item_raw": "뉴질랜드 화학물질 목록 (NZIoC)",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "country": "NZ",
+            "value_raw": " "
+          },
+          {
+            "seq": 6,
+            "law": "INTL",
+            "item_code": "INTL_ETC",
+            "item_raw": "필리핀 화학물질 목록 (PICCS)",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "country": "PH",
+            "value_raw": " "
+          },
+          {
+            "seq": 7,
+            "law": "KREACH",
+            "item_code": "KREACH_EXIST",
+            "item_raw": "대한민국 기존 화학물질 목록 (KECL)",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "country": null,
+            "value_raw": " "
+          },
+          {
+            "seq": 8,
+            "law": "INTL",
+            "item_code": "INTL_ETC",
+            "item_raw": "호주 산업화학물질 목록 (AIIC)",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "country": "AU",
+            "value_raw": " "
+          },
+          {
+            "seq": 9,
+            "law": "INTL",
+            "item_code": "INTL_JP",
+            "item_raw": "일본 기존·신 화학물질 목록 (ENCS)",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "country": "JP",
+            "value_raw": " "
+          },
+          {
+            "seq": 10,
+            "law": "INTL",
+            "item_code": "INTL_ETC",
+            "item_raw": "태국 기존 물질 목록 (TECI)",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "country": "TH",
+            "value_raw": " "
+          },
+          {
+            "seq": 11,
+            "law": "INTL",
+            "item_code": "INTL_ETC",
+            "item_raw": "멕시코 국가 화학물질 목록 (INSQ)",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "country": "MX",
+            "value_raw": " "
+          },
+          {
+            "seq": 12,
+            "law": "INTL",
+            "item_code": "INTL_ETC",
+            "item_raw": "러시아 기존 물질 목록 (DRAFT)",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "country": "RU",
+            "value_raw": " "
+          },
+          {
+            "seq": 13,
+            "law": "INTL",
+            "item_code": "INTL_ETC",
+            "item_raw": "대만 기존 화학물질 목록 (TCSI)",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "country": "TW",
+            "value_raw": " "
+          },
+          {
+            "seq": 14,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "몬트리올 의정서 (오존층 파괴 물질)",
+            "comp_ref": "1",
+            "applicable": "자료없음",
+            "value_raw": "×"
+          },
+          {
+            "seq": 15,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "스톡홀름 협약 (잔류성 유기오염물질)",
+            "comp_ref": "1",
+            "applicable": "자료없음",
+            "value_raw": "×"
+          },
+          {
+            "seq": 16,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "로테르담 협약 (위험 화학품·농약 사전 동의)",
+            "comp_ref": "1",
+            "applicable": "자료없음",
+            "value_raw": "×"
+          }
+        ],
+        "dangerous_goods": [],
+        "waste": [],
+        "intl_class": []
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "transport[0]",
+        "page": 7,
+        "source_text": "해상 운송 (IMDG-CODE) | UN 위험물 번호 1077 | UN 정식 운송 명칭 프로필렌 (PROPYLENE) | 주요 위험 등급 2.1 | 보조 위험 등급 없음 | 포장 등급 해당 UN 번호 포장 규정 참조 | 해양 오염물질 아니오",
+        "rules": [
+          "R09",
+          "R17"
+        ],
+        "note": "보조 위험 '없음'은 sub_risk null, 포장 등급 '해당 UN 번호 포장 규정 참조'는 enum에 맞는 값 없어 null, 해양오염물질 '아니오'는 비해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "transport[1]",
+        "page": 7,
+        "source_text": "항공 운송 (ICAO/IATA-DGR) | UN 위험물 번호 1077 | UN 정식 운송 명칭 프로필렌 (PROPYLENE) | 주요 위험 등급 2.1 | 보조 위험 등급 없음 | 포장 등급 해당 UN 번호 포장 규정 참조",
+        "rules": [
+          "R09",
+          "R17"
+        ],
+        "note": "맞는 값 없음: 포장 등급 원문 '해당 UN 번호 포장 규정 참조'로 packing_group null"
+      },
+      {
+        "msds_index": 0,
+        "field": "transport[2]",
+        "page": 7,
+        "source_text": "도로 운송 (UN-ADR) | UN 위험물 번호 1077 | UN 정식 운송 명칭 프로필렌 (PROPYLENE) | 주요 위험 등급 2.1 | 보조 위험 등급 없음 | 포장 등급 해당 UN 번호 포장 규정 참조",
+        "rules": [
+          "R09",
+          "R17"
+        ],
+        "note": "맞는 값 없음: 포장 등급 원문 '해당 UN 번호 포장 규정 참조'로 packing_group null"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[0]",
+        "page": 7,
+        "source_text": "구성성분 A B C D E F G H I J K L M | 프로필렌 | 【A】 중국 기존 화학물질 목록 (IECSC)",
+        "rules": [
+          "R25",
+          "R10"
+        ],
+        "note": "표의 칸이 비어 있고 범례 '\" \" : 해당 법규에 등재된 물질'(8쪽)에 따라 해당으로 기록"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[1]",
+        "page": 7,
+        "source_text": "【B】 유럽연합 화학물질 목록 (EC inventory)",
+        "rules": [
+          "R25"
+        ],
+        "note": "빈 칸 = 범례상 등재 물질로 해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[2]",
+        "page": 7,
+        "source_text": "【C】 미국 독성물질 규제법 목록 (TSCA)",
+        "rules": [
+          "R25"
+        ],
+        "note": "빈 칸 = 범례상 등재 물질로 해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[3]",
+        "page": 7,
+        "source_text": "【D】 캐나다 국내 물질 목록 (DSL)",
+        "rules": [
+          "R25"
+        ],
+        "note": "빈 칸 = 범례상 등재 물질로 해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[4]",
+        "page": 8,
+        "source_text": "【E】 뉴질랜드 화학물질 목록 (NZIoC)",
+        "rules": [
+          "R25"
+        ],
+        "note": "빈 칸 = 범례상 등재 물질로 해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[5]",
+        "page": 8,
+        "source_text": "【F】 필리핀 화학물질 목록 (PICCS)",
+        "rules": [
+          "R25"
+        ],
+        "note": "빈 칸 = 범례상 등재 물질로 해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[6]",
+        "page": 8,
+        "source_text": "【G】 대한민국 기존 화학물질 목록 (KECL)",
+        "rules": [
+          "R25"
+        ],
+        "note": "기존화학물질 목록으로 KREACH_EXIST 매핑, 빈 칸 = 범례상 등재로 해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[7]",
+        "page": 8,
+        "source_text": "【H】 호주 산업화학물질 목록 (AIIC)",
+        "rules": [
+          "R25"
+        ],
+        "note": "빈 칸 = 범례상 등재 물질로 해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[8]",
+        "page": 8,
+        "source_text": "【I】 일본 기존·신 화학물질 목록 (ENCS)",
+        "rules": [
+          "R25"
+        ],
+        "note": "빈 칸 = 범례상 등재 물질로 해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[9]",
+        "page": 8,
+        "source_text": "【J】 태국 기존 물질 목록 (TECI)",
+        "rules": [
+          "R25"
+        ],
+        "note": "빈 칸 = 범례상 등재 물질로 해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[10]",
+        "page": 8,
+        "source_text": "【K】 멕시코 국가 화학물질 목록 (INSQ)",
+        "rules": [
+          "R25"
+        ],
+        "note": "빈 칸 = 범례상 등재 물질로 해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[11]",
+        "page": 8,
+        "source_text": "【L】 러시아 기존 물질 목록 (DRAFT)",
+        "rules": [
+          "R25"
+        ],
+        "note": "빈 칸 = 범례상 등재 물질로 해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[12]",
+        "page": 8,
+        "source_text": "【M】 대만 기존 화학물질 목록 (TCSI)",
+        "rules": [
+          "R25"
+        ],
+        "note": "빈 칸 = 범례상 등재 물질로 해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[13]",
+        "page": 8,
+        "source_text": "프로필렌 × × × | \"×\" : 자료 없음 또는 미등재",
+        "rules": [
+          "R25",
+          "R15"
+        ],
+        "note": "'×'는 범례상 '자료 없음 또는 미등재'로 구분 불가하여 자료없음으로 기록"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[14]",
+        "page": 8,
+        "source_text": "프로필렌 × × × | \"×\" : 자료 없음 또는 미등재",
+        "rules": [
+          "R25",
+          "R15"
+        ],
+        "note": "'×'는 범례상 '자료 없음 또는 미등재'로 구분 불가하여 자료없음으로 기록"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[15]",
+        "page": 8,
+        "source_text": "프로필렌 × × × | \"×\" : 자료 없음 또는 미등재",
+        "rules": [
+          "R25",
+          "R15"
+        ],
+        "note": "'×'는 범례상 '자료 없음 또는 미등재'로 구분 불가하여 자료없음으로 기록"
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"transport\": [{\"mode\": \"해상\", \"basis_raw\": \"IMDG-CODE\", \"regulated\": true, \"un_no\": \"1077\", \"shipping_name\": \"프로필렌 (PROPYLENE)\", \"hazard_class\": \"2.1\", \"sub_risk\": null, \"packing_group\": null, \"marine_pollutant\": \"비해당\", \"ems_fire\": null, \"ems_spill\": null}, {\"mode\": \"항공\", \"basis_raw\": \"ICAO/IATA-DGR\", \"regulated\": true, \"un_no\": \"1077\", \"shipping_name\": \"프로필렌 (PROPYLENE)\", \"hazard_class\": \"2.1\", \"sub_risk\": null, \"packing_group\": null, \"marine_pollutant\": null, \"ems_fire\": null, \"ems_spill\": null}, {\"mode\": \"육상\", \"basis_raw\": \"UN-ADR\", \"regulated\": true, \"un_no\": \"1077\", \"shipping_name\": \"프로필렌 (PROPYLENE)\", \"hazard_class\": \"2.1\", \"sub_risk\": null, \"packing_group\": null, \"marine_pollutant\": null, \"ems_fire\": null, \"ems_spill\": null}], \"regulations\": [{\"seq\": 1, \"law\": \"INTL\", \"item_code\": \"INTL_ETC\", \"item_raw\": \"중국 기존 화학물질 목록 (IECSC)\", \"comp_ref\": \"1\", \"applicable\": \"해당\", \"country\": \"CN\", \"value_raw\": \" \"}, {\"seq\": 2, \"law\": \"INTL\", \"item_code\": \"INTL_EU\", \"item_raw\": \"유럽연합 화학물질 목록 (EC inventory)\", \"comp_ref\": \"1\", \"applicable\": \"해당\", \"country\": \"EU\", \"value_raw\": \" \"}, {\"seq\": 3, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국 독성물질 규제법 목록 (TSCA)\", \"comp_ref\": \"1\", \"applicable\": \"해당\", \"country\": \"US\", \"value_raw\": \" \"}, {\"seq\": 4, \"law\": \"INTL\", \"item_code\": \"INTL_ETC\", \"item_raw\": \"캐나다 국내 물질 목록 (DSL)\", \"comp_ref\": \"1\", \"applicable\": \"해당\", \"country\": \"CA\", \"value_raw\": \" \"}, {\"seq\": 5, \"law\": \"INTL\", \"item_code\": \"INTL_ETC\", \"item_raw\": \"뉴질랜드 화학물질 목록 (NZIoC)\", \"comp_ref\": \"1\", \"applicable\": \"해당\", \"country\": \"NZ\", \"value_raw\": \" \"}, {\"seq\": 6, \"law\": \"INTL\", \"item_code\": \"INTL_ETC\", \"item_raw\": \"필리핀 화학물질 목록 (PICCS)\", \"comp_ref\": \"1\", \"applicable\": \"해당\", \"country\": \"PH\", \"value_raw\": \" \"}, {\"seq\": 7, \"law\": \"KREACH\", \"item_code\": \"KREACH_EXIST\", \"item_raw\": \"대한민국 기존 화학물질 목록 (KECL)\", \"comp_ref\": \"1\", \"applicable\": \"해당\", \"country\": null, \"value_raw\": \" \"}, {\"seq\": 8, \"law\": \"INTL\", \"item_code\": \"INTL_ETC\", \"item_raw\": \"호주 산업화학물질 목록 (AIIC)\", \"comp_ref\": \"1\", \"applicable\": \"해당\", \"country\": \"AU\", \"value_raw\": \" \"}, {\"seq\": 9, \"law\": \"INTL\", \"item_code\": \"INTL_JP\", \"item_raw\": \"일본 기존·신 화학물질 목록 (ENCS)\", \"comp_ref\": \"1\", \"applicable\": \"해당\", \"country\": \"JP\", \"value_raw\": \" \"}, {\"seq\": 10, \"law\": \"INTL\", \"item_code\": \"INTL_ETC\", \"item_raw\": \"태국 기존 물질 목록 (TECI)\", \"comp_ref\": \"1\", \"applicable\": \"해당\", \"country\": \"TH\", \"value_raw\": \" \"}, {\"seq\": 11, \"law\": \"INTL\", \"item_code\": \"INTL_ETC\", \"item_raw\": \"멕시코 국가 화학물질 목록 (INSQ)\", \"comp_ref\": \"1\", \"applicable\": \"해당\", \"country\": \"MX\", \"value_raw\": \" \"}, {\"seq\": 12, \"law\": \"INTL\", \"item_code\": \"INTL_ETC\", \"item_raw\": \"러시아 기존 물질 목록 (DRAFT)\", \"comp_ref\": \"1\", \"applicable\": \"해당\", \"country\": \"RU\", \"value_raw\": \" \"}, {\"seq\": 13, \"law\": \"INTL\", \"item_code\": \"INTL_ETC\", \"item_raw\": \"대만 기존 화학물질 목록 (TCSI)\", \"comp_ref\": \"1\", \"applicable\": \"해당\", \"country\": \"TW\", \"value_raw\": \" \"}, {\"seq\": 14, \"law\": \"INTL\", \"item_code\": \"INTL_TREATY\", \"item_raw\": \"몬트리올 의정서 (오존층 파괴 물질)\", \"comp_ref\": \"1\", \"applicable\": \"자료없음\", \"value_raw\": \"×\"}, {\"seq\": 15, \"law\": \"INTL\", \"item_code\": \"INTL_TREATY\", \"item_raw\": \"스톡홀름 협약 (잔류성 유기오염물질)\", \"comp_ref\": \"1\", \"applicable\": \"자료없음\", \"value_raw\": \"×\"}, {\"seq\": 16, \"law\": \"INTL\", \"item_code\": \"INTL_TREATY\", \"item_raw\": \"로테르담 협약 (위험 화학품·농약 사전 동의)\", \"comp_ref\": \"1\", \"applicable\": \"자료없음\", \"value_raw\": \"×\"}], \"dangerous_goods\": [], \"waste\": [], \"intl_class\": []}], \"evidence\": [{\"msds_index\": 0, \"field\": \"transport[0]\", \"page\": 7, \"source_text\": \"해상 운송 (IMDG-CODE) | UN 위험물 번호 1077 | UN 정식 운송 명칭 프로필렌 (PROPYLENE) | 주요 위험 등급 2.1 | 보조 위험 등급 없음 | 포장 등급 해당 UN 번호 포장 규정 참조 | 해양 오염물질 아니오\", \"rules\": [\"R09\", \"R17\"], \"note\": \"보조 위험 '없음'은 sub_risk null, 포장 등급 '해당 UN 번호 포장 규정 참조'는 enum에 맞는 값 없어 null, 해양오염물질 '아니오'는 비해당\"}, {\"msds_index\": 0, \"field\": \"transport[1]\", \"page\": 7, \"source_text\": \"항공 운송 (ICAO/IATA-DGR) | UN 위험물 번호 1077 | UN 정식 운송 명칭 프로필렌 (PROPYLENE) | 주요 위험 등급 2.1 | 보조 위험 등급 없음 | 포장 등급 해당 UN 번호 포장 규정 참조\", \"rules\": [\"R09\", \"R17\"], \"note\": \"맞는 값 없음: 포장 등급 원문 '해당 UN 번호 포장 규정 참조'로 packing_group null\"}, {\"msds_index\": 0, \"field\": \"transport[2]\", \"page\": 7, \"source_text\": \"도로 운송 (UN-ADR) | UN 위험물 번호 1077 | UN 정식 운송 명칭 프로필렌 (PROPYLENE) | 주요 위험 등급 2.1 | 보조 위험 등급 없음 | 포장 등급 해당 UN 번호 포장 규정 참조\", \"rules\": [\"R09\", \"R17\"], \"note\": \"맞는 값 없음: 포장 등급 원문 '해당 UN 번호 포장 규정 참조'로 packing_group null\"}, {\"msds_index\": 0, \"field\": \"regulations[0]\", \"page\": 7, \"source_text\": \"구성성분 A B C D E F G H I J K L M | 프로필렌 | 【A】 중국 기존 화학물질 목록 (IECSC)\", \"rules\": [\"R25\", \"R10\"], \"note\": \"표의 칸이 비어 있고 범례 '\\\" \\\" : 해당 법규에 등재된 물질'(8쪽)에 따라 해당으로 기록\"}, {\"msds_index\": 0, \"field\": \"regulations[1]\", \"page\": 7, \"source_text\": \"【B】 유럽연합 화학물질 목록 (EC inventory)\", \"rules\": [\"R25\"], \"note\": \"빈 칸 = 범례상 등재 물질로 해당\"}, {\"msds_index\": 0, \"field\": \"regulations[2]\", \"page\": 7, \"source_text\": \"【C】 미국 독성물질 규제법 목록 (TSCA)\", \"rules\": [\"R25\"], \"note\": \"빈 칸 = 범례상 등재 물질로 해당\"}, {\"msds_index\": 0, \"field\": \"regulations[3]\", \"page\": 7, \"source_text\": \"【D】 캐나다 국내 물질 목록 (DSL)\", \"rules\": [\"R25\"], \"note\": \"빈 칸 = 범례상 등재 물질로 해당\"}, {\"msds_index\": 0, \"field\": \"regulations[4]\", \"page\": 8, \"source_text\": \"【E】 뉴질랜드 화학물질 목록 (NZIoC)\", \"rules\": [\"R25\"], \"note\": \"빈 칸 = 범례상 등재 물질로 해당\"}, {\"msds_index\": 0, \"field\": \"regulations[5]\", \"page\": 8, \"source_text\": \"【F】 필리핀 화학물질 목록 (PICCS)\", \"rules\": [\"R25\"], \"note\": \"빈 칸 = 범례상 등재 물질로 해당\"}, {\"msds_index\": 0, \"field\": \"regulations[6]\", \"page\": 8, \"source_text\": \"【G】 대한민국 기존 화학물질 목록 (KECL)\", \"rules\": [\"R25\"], \"note\": \"기존화학물질 목록으로 KREACH_EXIST 매핑, 빈 칸 = 범례상 등재로 해당\"}, {\"msds_index\": 0, \"field\": \"regulations[7]\", \"page\": 8, \"source_text\": \"【H】 호주 산업화학물질 목록 (AIIC)\", \"rules\": [\"R25\"], \"note\": \"빈 칸 = 범례상 등재 물질로 해당\"}, {\"msds_index\": 0, \"field\": \"regulations[8]\", \"page\": 8, \"source_text\": \"【I】 일본 기존·신 화학물질 목록 (ENCS)\", \"rules\": [\"R25\"], \"note\": \"빈 칸 = 범례상 등재 물질로 해당\"}, {\"msds_index\": 0, \"field\": \"regulations[9]\", \"page\": 8, \"source_text\": \"【J】 태국 기존 물질 목록 (TECI)\", \"rules\": [\"R25\"], \"note\": \"빈 칸 = 범례상 등재 물질로 해당\"}, {\"msds_index\": 0, \"field\": \"regulations[10]\", \"page\": 8, \"source_text\": \"【K】 멕시코 국가 화학물질 목록 (INSQ)\", \"rules\": [\"R25\"], \"note\": \"빈 칸 = 범례상 등재 물질로 해당\"}, {\"msds_index\": 0, \"field\": \"regulations[11]\", \"page\": 8, \"source_text\": \"【L】 러시아 기존 물질 목록 (DRAFT)\", \"rules\": [\"R25\"], \"note\": \"빈 칸 = 범례상 등재 물질로 해당\"}, {\"msds_index\": 0, \"field\": \"regulations[12]\", \"page\": 8, \"source_text\": \"【M】 대만 기존 화학물질 목록 (TCSI)\", \"rules\": [\"R25\"], \"note\": \"빈 칸 = 범례상 등재 물질로 해당\"}, {\"msds_index\": 0, \"field\": \"regulations[13]\", \"page\": 8, \"source_text\": \"프로필렌 × × × | \\\"×\\\" : 자료 없음 또는 미등재\", \"rules\": [\"R25\", \"R15\"], \"note\": \"'×'는 범례상 '자료 없음 또는 미등재'로 구분 불가하여 자료없음으로 기록\"}, {\"msds_index\": 0, \"field\": \"regulations[14]\", \"page\": 8, \"source_text\": \"프로필렌 × × × | \\\"×\\\" : 자료 없음 또는 미등재\", \"rules\": [\"R25\", \"R15\"], \"note\": \"'×'는 범례상 '자료 없음 또는 미등재'로 구분 불가하여 자료없음으로 기록\"}, {\"msds_index\": 0, \"field\": \"regulations[15]\", \"page\": 8, \"source_text\": \"프로필렌 × × × | \\\"×\\\" : 자료 없음 또는 미등재\", \"rules\": [\"R25\", \"R15\"], \"note\": \"'×'는 범례상 '자료 없음 또는 미등재'로 구분 불가하여 자료없음으로 기록\"}]}"
+}

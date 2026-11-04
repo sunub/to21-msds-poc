@@ -1,0 +1,406 @@
+{
+  "doc_id": "T21-024",
+  "bundle": "b1",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 54493,
+    "completion_tokens": 4148,
+    "cached_tokens": 11700,
+    "reasoning_tokens": 927,
+    "notional_cost_usd": 0.427636
+  },
+  "seconds": 32.5,
+  "request_usage": [
+    {
+      "prompt_tokens": 54493,
+      "completion_tokens": 4148,
+      "cached_tokens": 11700,
+      "reasoning_tokens": 927,
+      "notional_cost_usd": 0.427636
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "doc": {
+      "language": "ko",
+      "msds_count": 1
+    },
+    "msds": [
+      {
+        "meta": {
+          "msds_no": "AA06401-0000000031",
+          "doc_code": null,
+          "revision_no": 7,
+          "revision_label": "Version: 1.0",
+          "header_product_name": "KZ-A-A002_Sb Metal(Antimony)",
+          "source_note": null,
+          "first_issue_date": "2013-12-30",
+          "last_revision_date": "2022-06-17",
+          "page_start": 1,
+          "page_end": 8
+        },
+        "product": {
+          "name": "KZ-A-A002_Sb Metal(Antimony)",
+          "code": null,
+          "synonyms": [],
+          "uses": [
+            "원료 및 중간체",
+            "금속(금속 광물 포함) 및 합금"
+          ],
+          "restrictions": [
+            "권고된 용도 외에 사용하지 마시오"
+          ],
+          "use_category_code": null
+        },
+        "companies": [
+          {
+            "seq": 1,
+            "role": "제조자",
+            "name": "고려아연(주)",
+            "site": "온산제련소",
+            "address": "울산 울주군 온산읍 이진로 139",
+            "postcode": null,
+            "department": null,
+            "contacts": [
+              {
+                "type": "대표",
+                "value": "052-240-7073",
+                "hours": null
+              },
+              {
+                "type": "긴급",
+                "value": "052-231-6119",
+                "hours": null
+              }
+            ]
+          }
+        ],
+        "hazard": {
+          "classified": true,
+          "classes": [
+            {
+              "seq": 1,
+              "group": "건강",
+              "class_code": "HH_STOT_RE",
+              "category": "2",
+              "route_form": null,
+              "effect": null,
+              "target_organs": [],
+              "raw": "특정표적장기 독성(반복 노출) : 구분2"
+            }
+          ],
+          "signal_word": "경고",
+          "pictograms": [
+            {
+              "code": "GHS08",
+              "detection": "이미지판독"
+            }
+          ],
+          "h_statements": [
+            {
+              "seq": 1,
+              "code": "H373",
+              "system": "GHS",
+              "mark": null,
+              "text": "장기간 또는 반복노출 되면 장기에 손상을 일으킬 수 있음"
+            }
+          ],
+          "p_statements": [
+            {
+              "seq": 1,
+              "code": "P260",
+              "type": "예방",
+              "text": "분진/흄을(를) 흡입하지 마시오."
+            },
+            {
+              "seq": 2,
+              "code": "P314",
+              "type": "대응",
+              "text": "불편함을 느끼면 의학적인 조치/조언을 받으시오."
+            },
+            {
+              "seq": 3,
+              "code": "P501",
+              "type": "폐기",
+              "text": "폐기물 관련 법령에 따라 내용물/용기를 폐기하시오."
+            }
+          ],
+          "other_hazards": [
+            {
+              "seq": 1,
+              "key": null,
+              "value": "자료없음",
+              "text": "- 자료없음"
+            }
+          ],
+          "nfpa": {
+            "health": null,
+            "fire": null,
+            "reactivity": null,
+            "special": null
+          }
+        },
+        "composition": {
+          "type": "단일물질",
+          "no_hazardous_component": false
+        },
+        "components": [
+          {
+            "seq": 1,
+            "name": "안티모니",
+            "name_en": null,
+            "synonyms": [
+              "안티모니 원소",
+              "안티모니 블랙",
+              "안티모니 파우더",
+              "안티모니 레귤러스"
+            ],
+            "cas_no": "7440-36-0",
+            "ke_no": "KE-01834",
+            "ec_no": null,
+            "other_id": null,
+            "other_id_type": null,
+            "parent_seq": null,
+            "read_across_cas": null,
+            "content": {
+              "raw": "99.97 ~ 99.99",
+              "status": "값있음",
+              "lower_op": ">=",
+              "lower": 99.97,
+              "upper_op": "<=",
+              "upper": 99.99,
+              "unit": "%",
+              "dp": 2,
+              "value": null
+            },
+            "content_note": null,
+            "content_basis": "미표기",
+            "trade_secret": false,
+            "approval_no": null,
+            "approval_expiry": null
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "meta.msds_no",
+        "page": 1,
+        "source_text": "MSDS 번호: AA06401-0000000031",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.header_product_name",
+        "page": 1,
+        "source_text": "KZ-A-A002_Sb Metal(Antimony)",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.first_issue_date",
+        "page": 8,
+        "source_text": "나. 최초 작성일자 - 2013-12-30",
+        "rules": [
+          "R01"
+        ],
+        "note": "머리글 Date of issue: 2013-12-30과 일치"
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.last_revision_date",
+        "page": 8,
+        "source_text": "- 7회, 2022-06-17",
+        "rules": [
+          "R01"
+        ],
+        "note": "머리글 'Revision date: 해당없음'과 다르나 16항의 최종 개정일자를 적음"
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.revision_no",
+        "page": 8,
+        "source_text": "- 7회, 2022-06-17",
+        "rules": [],
+        "note": "16항 개정횟수 '7회' → 7"
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.revision_label",
+        "page": 1,
+        "source_text": "Version: 1.0",
+        "rules": [],
+        "note": "머리글 버전 표기 원문; 16항 개정횟수(7회)와 다름"
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.page_start",
+        "page": 1,
+        "source_text": "1/8",
+        "rules": [
+          "R16"
+        ],
+        "note": "MSDS 1건, 1~8쪽"
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.page_end",
+        "page": 8,
+        "source_text": "8/8",
+        "rules": [
+          "R16"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "product.name",
+        "page": 1,
+        "source_text": "- KZ-A-A002_Sb Metal(Antimony)",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "product.uses",
+        "page": 1,
+        "source_text": "- 용도 : 원료 및 중간체,금속(금속 광물 포함) 및 합금",
+        "rules": [
+          "R11"
+        ],
+        "note": "쉼표 기준 분리, 괄호 안은 유지"
+      },
+      {
+        "msds_index": 0,
+        "field": "product.restrictions",
+        "page": 1,
+        "source_text": "- 사용상의 제한 : 권고된 용도 외에 사용하지 마시오",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "companies[0]",
+        "page": 1,
+        "source_text": "- 회사명 : 고려아연(주) 온산제련소 - 주소 : 울산 울주군 온산읍 이진로 139 - 전화번호 : 052-240-7073 - 긴급 전화번호 : 052-231-6119",
+        "rules": [
+          "R12"
+        ],
+        "note": "회사명에서 사업장명 '온산제련소' 분리; 공급자/유통업자 칸은 빈칸이라 객체 생성 안 함"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classified",
+        "page": 1,
+        "source_text": "- 특정표적장기 독성(반복 노출) : 구분2",
+        "rules": [],
+        "note": "분류 있음 → true"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classes[0]",
+        "page": 1,
+        "source_text": "- 특정표적장기 독성(반복 노출) : 구분2",
+        "rules": [
+          "R07"
+        ],
+        "note": "'구분2' → 2"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.signal_word",
+        "page": 1,
+        "source_text": "○ 신호어 - 경고",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.pictograms[0]",
+        "page": 1,
+        "source_text": "○ 그림문자",
+        "rules": [],
+        "note": "이미지에서 건강 유해성 그림문자(GHS08) 판독"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.h_statements[0]",
+        "page": 1,
+        "source_text": "- H373 장기간 또는 반복노출 되면 장기에 손상을 일으킬 수 있음",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[0]",
+        "page": 1,
+        "source_text": "- P260 분진/흄을(를) 흡입하지 마시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[1]",
+        "page": 1,
+        "source_text": "- P314 불편함을 느끼면 의학적인 조치/조언을 받으시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[2]",
+        "page": 1,
+        "source_text": "- P501 폐기물 관련 법령에 따라 내용물/용기를 폐기하시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": "저장 항목은 '해당없음'으로 P코드 없음"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.other_hazards[0]",
+        "page": 1,
+        "source_text": "- 자료없음",
+        "rules": [
+          "R14"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "composition.type",
+        "page": 2,
+        "source_text": "안티모니 | 7440-36-0 / KE-01834 | 99.97 ~ 99.99",
+        "rules": [],
+        "note": "성분 1개(99.97~99.99%)로 단일물질"
+      },
+      {
+        "msds_index": 0,
+        "field": "components[0]",
+        "page": 2,
+        "source_text": "안티모니 | 안티모니 원소 ; 안티모니 블랙 ; 안티모니 파우더 ; 안티 모니 레귤러스 ; | 7440-36-0 / KE-01834 | 99.97 ~ 99.99",
+        "rules": [
+          "R02",
+          "R03",
+          "R04",
+          "R06",
+          "R11"
+        ],
+        "note": "CAS/KE 분리, '99.97 ~ 99.99'를 하한 99.97(>=), 상한 99.99(<=)로 나눔(단위는 열 제목 '함유량(%)'); 이명은 ';' 분리, 표 줄바꿈으로 생긴 '안티 모니'는 이어붙임"
+      }
+    ]
+  },
+  "raw_text": "{\"doc\": {\"language\": \"ko\", \"msds_count\": 1}, \"msds\": [{\"meta\": {\"msds_no\": \"AA06401-0000000031\", \"doc_code\": null, \"revision_no\": 7, \"revision_label\": \"Version: 1.0\", \"header_product_name\": \"KZ-A-A002_Sb Metal(Antimony)\", \"source_note\": null, \"first_issue_date\": \"2013-12-30\", \"last_revision_date\": \"2022-06-17\", \"page_start\": 1, \"page_end\": 8}, \"product\": {\"name\": \"KZ-A-A002_Sb Metal(Antimony)\", \"code\": null, \"synonyms\": [], \"uses\": [\"원료 및 중간체\", \"금속(금속 광물 포함) 및 합금\"], \"restrictions\": [\"권고된 용도 외에 사용하지 마시오\"], \"use_category_code\": null}, \"companies\": [{\"seq\": 1, \"role\": \"제조자\", \"name\": \"고려아연(주)\", \"site\": \"온산제련소\", \"address\": \"울산 울주군 온산읍 이진로 139\", \"postcode\": null, \"department\": null, \"contacts\": [{\"type\": \"대표\", \"value\": \"052-240-7073\", \"hours\": null}, {\"type\": \"긴급\", \"value\": \"052-231-6119\", \"hours\": null}]}], \"hazard\": {\"classified\": true, \"classes\": [{\"seq\": 1, \"group\": \"건강\", \"class_code\": \"HH_STOT_RE\", \"category\": \"2\", \"route_form\": null, \"effect\": null, \"target_organs\": [], \"raw\": \"특정표적장기 독성(반복 노출) : 구분2\"}], \"signal_word\": \"경고\", \"pictograms\": [{\"code\": \"GHS08\", \"detection\": \"이미지판독\"}], \"h_statements\": [{\"seq\": 1, \"code\": \"H373\", \"system\": \"GHS\", \"mark\": null, \"text\": \"장기간 또는 반복노출 되면 장기에 손상을 일으킬 수 있음\"}], \"p_statements\": [{\"seq\": 1, \"code\": \"P260\", \"type\": \"예방\", \"text\": \"분진/흄을(를) 흡입하지 마시오.\"}, {\"seq\": 2, \"code\": \"P314\", \"type\": \"대응\", \"text\": \"불편함을 느끼면 의학적인 조치/조언을 받으시오.\"}, {\"seq\": 3, \"code\": \"P501\", \"type\": \"폐기\", \"text\": \"폐기물 관련 법령에 따라 내용물/용기를 폐기하시오.\"}], \"other_hazards\": [{\"seq\": 1, \"key\": null, \"value\": \"자료없음\", \"text\": \"- 자료없음\"}], \"nfpa\": {\"health\": null, \"fire\": null, \"reactivity\": null, \"special\": null}}, \"composition\": {\"type\": \"단일물질\", \"no_hazardous_component\": false}, \"components\": [{\"seq\": 1, \"name\": \"안티모니\", \"name_en\": null, \"synonyms\": [\"안티모니 원소\", \"안티모니 블랙\", \"안티모니 파우더\", \"안티모니 레귤러스\"], \"cas_no\": \"7440-36-0\", \"ke_no\": \"KE-01834\", \"ec_no\": null, \"other_id\": null, \"other_id_type\": null, \"parent_seq\": null, \"read_across_cas\": null, \"content\": {\"raw\": \"99.97 ~ 99.99\", \"status\": \"값있음\", \"lower_op\": \">=\", \"lower\": 99.97, \"upper_op\": \"<=\", \"upper\": 99.99, \"unit\": \"%\", \"dp\": 2, \"value\": null}, \"content_note\": null, \"content_basis\": \"미표기\", \"trade_secret\": false, \"approval_no\": null, \"approval_expiry\": null}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"meta.msds_no\", \"page\": 1, \"source_text\": \"MSDS 번호: AA06401-0000000031\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"meta.header_product_name\", \"page\": 1, \"source_text\": \"KZ-A-A002_Sb Metal(Antimony)\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"meta.first_issue_date\", \"page\": 8, \"source_text\": \"나. 최초 작성일자 - 2013-12-30\", \"rules\": [\"R01\"], \"note\": \"머리글 Date of issue: 2013-12-30과 일치\"}, {\"msds_index\": 0, \"field\": \"meta.last_revision_date\", \"page\": 8, \"source_text\": \"- 7회, 2022-06-17\", \"rules\": [\"R01\"], \"note\": \"머리글 'Revision date: 해당없음'과 다르나 16항의 최종 개정일자를 적음\"}, {\"msds_index\": 0, \"field\": \"meta.revision_no\", \"page\": 8, \"source_text\": \"- 7회, 2022-06-17\", \"rules\": [], \"note\": \"16항 개정횟수 '7회' → 7\"}, {\"msds_index\": 0, \"field\": \"meta.revision_label\", \"page\": 1, \"source_text\": \"Version: 1.0\", \"rules\": [], \"note\": \"머리글 버전 표기 원문; 16항 개정횟수(7회)와 다름\"}, {\"msds_index\": 0, \"field\": \"meta.page_start\", \"page\": 1, \"source_text\": \"1/8\", \"rules\": [\"R16\"], \"note\": \"MSDS 1건, 1~8쪽\"}, {\"msds_index\": 0, \"field\": \"meta.page_end\", \"page\": 8, \"source_text\": \"8/8\", \"rules\": [\"R16\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"product.name\", \"page\": 1, \"source_text\": \"- KZ-A-A002_Sb Metal(Antimony)\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"product.uses\", \"page\": 1, \"source_text\": \"- 용도 : 원료 및 중간체,금속(금속 광물 포함) 및 합금\", \"rules\": [\"R11\"], \"note\": \"쉼표 기준 분리, 괄호 안은 유지\"}, {\"msds_index\": 0, \"field\": \"product.restrictions\", \"page\": 1, \"source_text\": \"- 사용상의 제한 : 권고된 용도 외에 사용하지 마시오\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"companies[0]\", \"page\": 1, \"source_text\": \"- 회사명 : 고려아연(주) 온산제련소 - 주소 : 울산 울주군 온산읍 이진로 139 - 전화번호 : 052-240-7073 - 긴급 전화번호 : 052-231-6119\", \"rules\": [\"R12\"], \"note\": \"회사명에서 사업장명 '온산제련소' 분리; 공급자/유통업자 칸은 빈칸이라 객체 생성 안 함\"}, {\"msds_index\": 0, \"field\": \"hazard.classified\", \"page\": 1, \"source_text\": \"- 특정표적장기 독성(반복 노출) : 구분2\", \"rules\": [], \"note\": \"분류 있음 → true\"}, {\"msds_index\": 0, \"field\": \"hazard.classes[0]\", \"page\": 1, \"source_text\": \"- 특정표적장기 독성(반복 노출) : 구분2\", \"rules\": [\"R07\"], \"note\": \"'구분2' → 2\"}, {\"msds_index\": 0, \"field\": \"hazard.signal_word\", \"page\": 1, \"source_text\": \"○ 신호어 - 경고\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.pictograms[0]\", \"page\": 1, \"source_text\": \"○ 그림문자\", \"rules\": [], \"note\": \"이미지에서 건강 유해성 그림문자(GHS08) 판독\"}, {\"msds_index\": 0, \"field\": \"hazard.h_statements[0]\", \"page\": 1, \"source_text\": \"- H373 장기간 또는 반복노출 되면 장기에 손상을 일으킬 수 있음\", \"rules\": [\"R05\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.p_statements[0]\", \"page\": 1, \"source_text\": \"- P260 분진/흄을(를) 흡입하지 마시오.\", \"rules\": [\"R05\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.p_statements[1]\", \"page\": 1, \"source_text\": \"- P314 불편함을 느끼면 의학적인 조치/조언을 받으시오.\", \"rules\": [\"R05\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.p_statements[2]\", \"page\": 1, \"source_text\": \"- P501 폐기물 관련 법령에 따라 내용물/용기를 폐기하시오.\", \"rules\": [\"R05\"], \"note\": \"저장 항목은 '해당없음'으로 P코드 없음\"}, {\"msds_index\": 0, \"field\": \"hazard.other_hazards[0]\", \"page\": 1, \"source_text\": \"- 자료없음\", \"rules\": [\"R14\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"composition.type\", \"page\": 2, \"source_text\": \"안티모니 | 7440-36-0 / KE-01834 | 99.97 ~ 99.99\", \"rules\": [], \"note\": \"성분 1개(99.97~99.99%)로 단일물질\"}, {\"msds_index\": 0, \"field\": \"components[0]\", \"page\": 2, \"source_text\": \"안티모니 | 안티모니 원소 ; 안티모니 블랙 ; 안티모니 파우더 ; 안티 모니 레귤러스 ; | 7440-36-0 / KE-01834 | 99.97 ~ 99.99\", \"rules\": [\"R02\", \"R03\", \"R04\", \"R06\", \"R11\"], \"note\": \"CAS/KE 분리, '99.97 ~ 99.99'를 하한 99.97(>=), 상한 99.99(<=)로 나눔(단위는 열 제목 '함유량(%)'); 이명은 ';' 분리, 표 줄바꿈으로 생긴 '안티 모니'는 이어붙임\"}]}"
+}

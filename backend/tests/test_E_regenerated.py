@@ -70,6 +70,16 @@ def test_each_msds_uses_memory_db_and_closes_it():
     assert mod.paths == [":memory:"] and mod.Db.closed
 
 
+def test_empty_narrative_title_gets_standard_title_without_changing_doc(monkeypatch):
+    monkeypatch.setattr(regenerated, "_standard_titles", lambda: {"S8_EYE": "눈 보호"})
+    doc = {"msds": [{"narratives": [{"item_code": "S8_EYE", "title_raw": None},
+                                    {"item_code": "S8_RESP", "title_raw": "다. 개인 보호구"},
+                                    {"item_code": "모름", "title_raw": ""}]}, {}]}
+    seen = regenerated._fill_titles(doc)
+    assert [r["title_raw"] for r in seen["msds"][0]["narratives"]] == ["눈 보호", "다. 개인 보호구", regenerated.NO_TITLE]
+    assert doc["msds"][0]["narratives"][0]["title_raw"] is None and seen["msds"][1] == {}
+
+
 has_regen = pytest.mark.skipif(not (paths.TO21 / paths.TO21_FILES["regen"]).is_file(),
                                reason="TO21 제공 파일이 없습니다 (to21/README.md 참고)")
 
@@ -89,3 +99,34 @@ def test_real_module_survives_document_with_all_sections_failed():
     empty = {"doc": doc["doc"], "msds": [{"product": {}, "meta": {}}]}
     out = regenerated.regenerate_sections(empty, load_to21_module("regen"))
     assert [s["section"] for s in out[0]["sections"]] == list(EXTRACT_SECTIONS)
+
+
+@has_regen
+def test_real_module_survives_empty_title_with_extras():
+    """빈 제목과 extras가 함께 있으면 스크립트가 TypeError로 멈추던 문서 (49번 미리매)."""
+    doc = json.loads(paths.to21_file("example25").read_text(encoding="utf-8"))
+    m = doc["msds"][0]
+    target = next(r for r in m["narratives"] if r["item_code"].startswith("S8_"))
+    target["title_raw"] = None
+    m["extras"] = [{"section_no": 8, "title_raw": "가짜 미정의 항목", "statements": []}]
+    regen = load_to21_module("regen")
+    with pytest.raises(TypeError):
+        regen.regenerate(regen.to_db(doc, ":memory:"), 1)              # 스크립트 자체는 그대로 멈춘다
+    sec8 = next(s for s in regenerated.regenerate_sections(doc, regen)[0]["sections"] if s["section"] == 8)
+    assert any(line["text"] == regenerated._standard_titles()[target["item_code"]] for line in sec8["lines"])
+    assert not any("None" in line["text"] for line in sec8["lines"])
+
+
+def test_main에만_3_12_문법이_있는_TO21_스크립트도_읽는다(tmp_path, monkeypatch):
+    """TO21 재생성 스크립트 514행(main 안, f-string 속 백슬래시)은 3.11에서 못 읽는다. 쓰는 함수는 main 앞에 있다(B-15)."""
+    from msds.checks import validator
+
+    script = tmp_path / "regen.py"
+    script.write_text('def to_db(doc, path):\n    return "db"\n\n\ndef main():\n'
+                      '    tb = "t"\n    print(f"{tb}: {f\'SELECT \\"{tb}\\"\'}")\n', encoding="utf-8")
+    monkeypatch.setattr(validator, "to21_file", lambda kind: script)
+    load_to21_module.cache_clear()  # 앞 시험이 읽은 실제 스크립트가 캐시에 있다
+    try:
+        assert load_to21_module("regen").to_db({}, "x") == "db"
+    finally:
+        load_to21_module.cache_clear()

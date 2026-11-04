@@ -7,6 +7,7 @@ export * from "./feedback";
 export * from "./field";
 export * from "./icons";
 export * from "./paper";
+export * from "./scroll-table";
 export * from "./stepper";
 export * from "./table";
 export * from "./tabs";

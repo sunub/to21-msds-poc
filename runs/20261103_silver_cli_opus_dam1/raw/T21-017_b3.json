@@ -1,0 +1,562 @@
+{
+  "doc_id": "T21-017",
+  "bundle": "b3",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 42240,
+    "completion_tokens": 5073,
+    "cached_tokens": 8451,
+    "reasoning_tokens": 748,
+    "notional_cost_usd": 0.37345419999999996
+  },
+  "seconds": 38.9,
+  "request_usage": [
+    {
+      "prompt_tokens": 42240,
+      "completion_tokens": 5073,
+      "cached_tokens": 8451,
+      "reasoning_tokens": 748,
+      "notional_cost_usd": 0.37345419999999996
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "toxicity": [
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_ORAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "2000 mg/Kg(Rat)",
+              "value": 2000,
+              "unit": "mg/kg",
+              "status": "값있음"
+            },
+            "species": "Rat",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_ORAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "2000 mg/Kg(Rat)",
+              "value": 2000,
+              "unit": "mg/kg",
+              "status": "값있음"
+            },
+            "species": "Rat",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "TX_ORAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "300~500 mg/Kg(Rat)",
+              "lower_op": ">=",
+              "lower": 300,
+              "upper_op": "<=",
+              "upper": 500,
+              "unit": "mg/kg",
+              "status": "값있음"
+            },
+            "species": "Rat",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_DERMAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "2000mg/Kg(Rat)",
+              "value": 2000,
+              "unit": "mg/kg",
+              "status": "값있음"
+            },
+            "species": "Rat",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_DERMAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "2000mg/Kg(Rat)",
+              "value": 2000,
+              "unit": "mg/kg",
+              "status": "값있음"
+            },
+            "species": "Rat",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "TX_DERMAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "2000mg/Kg(Rat)",
+              "value": 2000,
+              "unit": "mg/kg",
+              "status": "값있음"
+            },
+            "species": "Rat",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_EYE",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_RESP_SENS",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN_SENS",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "알러지성 피부반응을 일으킬 수 있음",
+                "text": "피부 과민성 : 알러지성 피부반응을 일으킬 수 있음"
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_CARC",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_MUTA",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_REPRO",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_STOT_SE",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "장기(호흡기계)의 장해",
+                "text": "장기(호흡기계)의 장해"
+              },
+              {
+                "seq": 2,
+                "value": "(기도 자극성)호흡기에의 자극의 염려 있음",
+                "text": "(기도 자극성)호흡기에의 자극의 염려 있음"
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_STOT_RE",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "장기 또는 반복노출에 의한 장기(폐, 눈)의 장해",
+                "text": "장기 또는 반복노출에 의한 장기(폐, 눈)의 장해"
+              },
+              {
+                "seq": 2,
+                "value": "장기 또는 반복노출에 의한 장기(호흡계)의 장해",
+                "text": "장기 또는 반복노출에 의한 장기(호흡계)의 장해"
+              },
+              {
+                "seq": 3,
+                "value": "장기 또는 반복노출에 의한 장기(간)의 장해",
+                "text": "장기 또는 반복노출에 의한 장기(간)의 장해"
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ASP",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          }
+        ],
+        "cmr": [],
+        "ecotox": [
+          {
+            "comp_ref": "MIX",
+            "endpoint": null,
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "급성 수생환경 유해성",
+                "value": "자료부족으로 분류가 어려움",
+                "text": "급성 수생환경 유해성 : 자료부족으로 분류가 어려움"
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": null,
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "만성 수생환경 유해성",
+                "value": "장기적 영향에 따른 수생생물에 독성 구분3",
+                "text": "만성 수생환경 유해성 : 장기적 영향에 따른 수생생물에 독성 구분3"
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_OZONE",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "몬트리올 의정서 부속서에 기재하고 있는 물질을 함유하지 않음",
+                "text": "오존층 유해성 : 몬트리올 의정서 부속서에 기재하고 있는 물질을 함유하지 않음"
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_PERSIST",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_BIOACC",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_SOIL",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_OTHER",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "toxicity[0]",
+        "page": 5,
+        "source_text": "Sn | 2000 mg/Kg(Rat) | 2000mg/Kg(Rat)",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "경구 LD50 열 값, 단위 mg/Kg을 mg/kg으로 표기"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[1]",
+        "page": 5,
+        "source_text": "Ag | 2000 mg/Kg(Rat) | 2000mg/Kg(Rat)",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "경구 LD50 열 값"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[2]",
+        "page": 5,
+        "source_text": "Cu | 300~500 mg/Kg(Rat) | 2000mg/Kg(Rat)",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "'300~500'을 하한 300(>=), 상한 500(<=)으로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[3]",
+        "page": 5,
+        "source_text": "Sn | 2000 mg/Kg(Rat) | 2000mg/Kg(Rat)",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "경피 LD50 열 값"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[4]",
+        "page": 5,
+        "source_text": "Ag | 2000 mg/Kg(Rat) | 2000mg/Kg(Rat)",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "경피 LD50 열 값"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[5]",
+        "page": 5,
+        "source_text": "Cu | 300~500 mg/Kg(Rat) | 2000mg/Kg(Rat)",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "경피 LD50 열 값"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[6]",
+        "page": 5,
+        "source_text": "피부 부식성 또는 자극성 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[7]",
+        "page": 5,
+        "source_text": "심한 눈 손상 또는 자극성 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[8]",
+        "page": 5,
+        "source_text": "호흡기 과민성 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[9]",
+        "page": 5,
+        "source_text": "피부 과민성 : 알러지성 피부반응을 일으킬 수 있음",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[10]",
+        "page": 5,
+        "source_text": "발암성 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[11]",
+        "page": 5,
+        "source_text": "생식세포 변이원성 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[12]",
+        "page": 5,
+        "source_text": "생식독성 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[13]",
+        "page": 5,
+        "source_text": "표적장기 전신독성(1회 노출) 장기(호흡기계)의 장해 (기도 자극성)호흡기에의 자극의 염려 있음",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[14]",
+        "page": 5,
+        "source_text": "표적장기 전신독성(반복 노출) 장기 또는 반복노출에 의한 장기(폐, 눈)의 장해 장기 또는 반복노출에 의한 장기(호흡계)의 장해 장기 또는 반복노출에 의한 장기(간)의 장해",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[15]",
+        "page": 5,
+        "source_text": "흡인유해성 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[0]",
+        "page": 5,
+        "source_text": "급성 수생환경 유해성 : 자료부족으로 분류가 어려움",
+        "rules": [],
+        "note": "맞는 값 없음: 급성 수생환경 유해성에 맞는 C5 코드가 없어 endpoint null"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[1]",
+        "page": 5,
+        "source_text": "만성 수생환경 유해성 : 장기적 영향에 따른 수생생물에 독성 구분3",
+        "rules": [],
+        "note": "맞는 값 없음: 만성 수생환경 유해성에 맞는 C5 코드가 없어 endpoint null"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[2]",
+        "page": 5,
+        "source_text": "오존층 유해성 : 몬트리올 의정서 부속서에 기재하고 있는 물질을 함유하지 않음",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[3]",
+        "page": 5,
+        "source_text": "나. 잔류성 및 분해성 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[4]",
+        "page": 5,
+        "source_text": "다. 생물농축성 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[5]",
+        "page": 5,
+        "source_text": "라. 토양이동성 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[6]",
+        "page": 6,
+        "source_text": "마. 기타 유해 영향 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"toxicity\": [{\"comp_ref\": \"1\", \"endpoint\": \"TX_ORAL\", \"descriptor\": \"LD50\", \"q\": {\"raw\": \"2000 mg/Kg(Rat)\", \"value\": 2000, \"unit\": \"mg/kg\", \"status\": \"값있음\"}, \"species\": \"Rat\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"2\", \"endpoint\": \"TX_ORAL\", \"descriptor\": \"LD50\", \"q\": {\"raw\": \"2000 mg/Kg(Rat)\", \"value\": 2000, \"unit\": \"mg/kg\", \"status\": \"값있음\"}, \"species\": \"Rat\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"3\", \"endpoint\": \"TX_ORAL\", \"descriptor\": \"LD50\", \"q\": {\"raw\": \"300~500 mg/Kg(Rat)\", \"lower_op\": \">=\", \"lower\": 300, \"upper_op\": \"<=\", \"upper\": 500, \"unit\": \"mg/kg\", \"status\": \"값있음\"}, \"species\": \"Rat\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_DERMAL\", \"descriptor\": \"LD50\", \"q\": {\"raw\": \"2000mg/Kg(Rat)\", \"value\": 2000, \"unit\": \"mg/kg\", \"status\": \"값있음\"}, \"species\": \"Rat\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"2\", \"endpoint\": \"TX_DERMAL\", \"descriptor\": \"LD50\", \"q\": {\"raw\": \"2000mg/Kg(Rat)\", \"value\": 2000, \"unit\": \"mg/kg\", \"status\": \"값있음\"}, \"species\": \"Rat\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"3\", \"endpoint\": \"TX_DERMAL\", \"descriptor\": \"LD50\", \"q\": {\"raw\": \"2000mg/Kg(Rat)\", \"value\": 2000, \"unit\": \"mg/kg\", \"status\": \"값있음\"}, \"species\": \"Rat\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_SKIN\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_EYE\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_RESP_SENS\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_SKIN_SENS\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"알러지성 피부반응을 일으킬 수 있음\", \"text\": \"피부 과민성 : 알러지성 피부반응을 일으킬 수 있음\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_CARC\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_MUTA\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_REPRO\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_STOT_SE\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"장기(호흡기계)의 장해\", \"text\": \"장기(호흡기계)의 장해\"}, {\"seq\": 2, \"value\": \"(기도 자극성)호흡기에의 자극의 염려 있음\", \"text\": \"(기도 자극성)호흡기에의 자극의 염려 있음\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_STOT_RE\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"장기 또는 반복노출에 의한 장기(폐, 눈)의 장해\", \"text\": \"장기 또는 반복노출에 의한 장기(폐, 눈)의 장해\"}, {\"seq\": 2, \"value\": \"장기 또는 반복노출에 의한 장기(호흡계)의 장해\", \"text\": \"장기 또는 반복노출에 의한 장기(호흡계)의 장해\"}, {\"seq\": 3, \"value\": \"장기 또는 반복노출에 의한 장기(간)의 장해\", \"text\": \"장기 또는 반복노출에 의한 장기(간)의 장해\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_ASP\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}], \"cmr\": [], \"ecotox\": [{\"comp_ref\": \"MIX\", \"endpoint\": null, \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"급성 수생환경 유해성\", \"value\": \"자료부족으로 분류가 어려움\", \"text\": \"급성 수생환경 유해성 : 자료부족으로 분류가 어려움\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": null, \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"만성 수생환경 유해성\", \"value\": \"장기적 영향에 따른 수생생물에 독성 구분3\", \"text\": \"만성 수생환경 유해성 : 장기적 영향에 따른 수생생물에 독성 구분3\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_OZONE\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"몬트리올 의정서 부속서에 기재하고 있는 물질을 함유하지 않음\", \"text\": \"오존층 유해성 : 몬트리올 의정서 부속서에 기재하고 있는 물질을 함유하지 않음\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_PERSIST\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_BIOACC\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_SOIL\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_OTHER\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"toxicity[0]\", \"page\": 5, \"source_text\": \"Sn | 2000 mg/Kg(Rat) | 2000mg/Kg(Rat)\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": \"경구 LD50 열 값, 단위 mg/Kg을 mg/kg으로 표기\"}, {\"msds_index\": 0, \"field\": \"toxicity[1]\", \"page\": 5, \"source_text\": \"Ag | 2000 mg/Kg(Rat) | 2000mg/Kg(Rat)\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": \"경구 LD50 열 값\"}, {\"msds_index\": 0, \"field\": \"toxicity[2]\", \"page\": 5, \"source_text\": \"Cu | 300~500 mg/Kg(Rat) | 2000mg/Kg(Rat)\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": \"'300~500'을 하한 300(>=), 상한 500(<=)으로 나눔\"}, {\"msds_index\": 0, \"field\": \"toxicity[3]\", \"page\": 5, \"source_text\": \"Sn | 2000 mg/Kg(Rat) | 2000mg/Kg(Rat)\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": \"경피 LD50 열 값\"}, {\"msds_index\": 0, \"field\": \"toxicity[4]\", \"page\": 5, \"source_text\": \"Ag | 2000 mg/Kg(Rat) | 2000mg/Kg(Rat)\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": \"경피 LD50 열 값\"}, {\"msds_index\": 0, \"field\": \"toxicity[5]\", \"page\": 5, \"source_text\": \"Cu | 300~500 mg/Kg(Rat) | 2000mg/Kg(Rat)\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": \"경피 LD50 열 값\"}, {\"msds_index\": 0, \"field\": \"toxicity[6]\", \"page\": 5, \"source_text\": \"피부 부식성 또는 자극성 : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[7]\", \"page\": 5, \"source_text\": \"심한 눈 손상 또는 자극성 : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[8]\", \"page\": 5, \"source_text\": \"호흡기 과민성 : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[9]\", \"page\": 5, \"source_text\": \"피부 과민성 : 알러지성 피부반응을 일으킬 수 있음\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[10]\", \"page\": 5, \"source_text\": \"발암성 : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[11]\", \"page\": 5, \"source_text\": \"생식세포 변이원성 : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[12]\", \"page\": 5, \"source_text\": \"생식독성 : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[13]\", \"page\": 5, \"source_text\": \"표적장기 전신독성(1회 노출) 장기(호흡기계)의 장해 (기도 자극성)호흡기에의 자극의 염려 있음\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[14]\", \"page\": 5, \"source_text\": \"표적장기 전신독성(반복 노출) 장기 또는 반복노출에 의한 장기(폐, 눈)의 장해 장기 또는 반복노출에 의한 장기(호흡계)의 장해 장기 또는 반복노출에 의한 장기(간)의 장해\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[15]\", \"page\": 5, \"source_text\": \"흡인유해성 : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[0]\", \"page\": 5, \"source_text\": \"급성 수생환경 유해성 : 자료부족으로 분류가 어려움\", \"rules\": [], \"note\": \"맞는 값 없음: 급성 수생환경 유해성에 맞는 C5 코드가 없어 endpoint null\"}, {\"msds_index\": 0, \"field\": \"ecotox[1]\", \"page\": 5, \"source_text\": \"만성 수생환경 유해성 : 장기적 영향에 따른 수생생물에 독성 구분3\", \"rules\": [], \"note\": \"맞는 값 없음: 만성 수생환경 유해성에 맞는 C5 코드가 없어 endpoint null\"}, {\"msds_index\": 0, \"field\": \"ecotox[2]\", \"page\": 5, \"source_text\": \"오존층 유해성 : 몬트리올 의정서 부속서에 기재하고 있는 물질을 함유하지 않음\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[3]\", \"page\": 5, \"source_text\": \"나. 잔류성 및 분해성 : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[4]\", \"page\": 5, \"source_text\": \"다. 생물농축성 : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[5]\", \"page\": 5, \"source_text\": \"라. 토양이동성 : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[6]\", \"page\": 6, \"source_text\": \"마. 기타 유해 영향 : 자료없음\", \"rules\": [\"R15\"], \"note\": null}]}"
+}

@@ -1,0 +1,9406 @@
+[
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.doc_code",
+    "page": 1,
+    "source_text": "목록등재번호 | R-1",
+    "rules": [],
+    "note": "목록등재번호를 회사 자체 문서번호로 기록함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.revision_no",
+    "page": 1,
+    "source_text": "개정번호 | 4",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.revision_label",
+    "page": 1,
+    "source_text": "개정번호 | 4",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.header_product_name",
+    "page": 1,
+    "source_text": "RAFFINATE-1",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.first_issue_date",
+    "page": 1,
+    "source_text": "1996. 06. 05",
+    "rules": [
+      "R01"
+    ],
+    "note": "제정일자를 YYYY-MM-DD로 정규화함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.last_revision_date",
+    "page": 1,
+    "source_text": "2014. 11. 11",
+    "rules": [
+      "R01"
+    ],
+    "note": "개정일자를 YYYY-MM-DD로 정규화함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.page_start",
+    "page": 1,
+    "source_text": "RAFFINATE-1",
+    "rules": [
+      "R16"
+    ],
+    "note": "첨부 순서 기준 표지를 시작 쪽으로 기록함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.page_end",
+    "page": 27,
+    "source_text": "라. 기타 자료없음",
+    "rules": [
+      "R16"
+    ],
+    "note": "첨부 순서 기준 마지막 쪽을 기록함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "product.name",
+    "page": 2,
+    "source_text": "가. 제품명 RAFFINATE-1",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "product.uses[0]",
+    "page": 2,
+    "source_text": "판매 : 1,3부타디엔이 추출된 혼합-C4 성분으로서 구입회사에서 이소부텐을 추출하\n여 사용.",
+    "rules": [
+      "R17"
+    ],
+    "note": "줄바꿈으로 끊긴 단어를 연결하고 화학명 내부 쉼표는 목록 구분자로 처리하지 않음."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "product.restrictions[0]",
+    "page": 2,
+    "source_text": "제품의 사용상의 제한 자료없음",
+    "rules": [],
+    "note": "해당 필드는 문자열 배열로 상태 칸이 없어 원문을 보존함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "companies[0]",
+    "page": 2,
+    "source_text": "공급자 정보(수입품의 경우 긴급 연락 가능한 국내 공급자 정보 기재)\n회사명 대한유화공업(주)온산공장\n주소 울산광역시 울주군 온산읍 온산로 134\n긴급전화번호 052-231-1225, 052-231-1119(24 hours)",
+    "rules": [
+      "R12"
+    ],
+    "note": "회사명과 사업장명을 분리하고 긴급전화번호 두 개 및 두 번째 번호에 붙은 운영시간을 분리함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classified",
+    "page": 2,
+    "source_text": "인화성 가스 : 구분1",
+    "rules": [],
+    "note": "유해성·위험성 분류가 기재되어 true로 기록함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classes[0]",
+    "page": 2,
+    "source_text": "인화성 가스 : 구분1",
+    "rules": [
+      "R07"
+    ],
+    "note": "분류명을 코드에 대응하고 구분 글자를 제거함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classes[1]",
+    "page": 2,
+    "source_text": "고압가스 : 압축가스",
+    "rules": [],
+    "note": "고압가스 분류 코드에 대응하고 압축가스를 구분으로 기록함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classes[2]",
+    "page": 2,
+    "source_text": "고압가스 : 액화가스",
+    "rules": [],
+    "note": "고압가스 분류 코드에 대응하고 액화가스를 구분으로 기록함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classes[3]",
+    "page": 2,
+    "source_text": "피부 부식성/피부 자극성 : 구분2",
+    "rules": [
+      "R07"
+    ],
+    "note": "분류명을 코드에 대응하고 구분 글자를 제거함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classes[4]",
+    "page": 2,
+    "source_text": "심한 눈 손상성/눈 자극성 : 구분2",
+    "rules": [
+      "R07"
+    ],
+    "note": "분류명을 코드에 대응하고 구분 글자를 제거함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classes[5]",
+    "page": 2,
+    "source_text": "발암성 : 구분1A",
+    "rules": [
+      "R07"
+    ],
+    "note": "분류명을 코드에 대응하고 구분 글자를 제거함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classes[6]",
+    "page": 2,
+    "source_text": "생식세포 변이원성 : 구분1B",
+    "rules": [
+      "R07"
+    ],
+    "note": "분류명을 코드에 대응하고 구분 글자를 제거함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classes[7]",
+    "page": 2,
+    "source_text": "특정표적장기 독성(1회 노출) : 구분3(마취작용)",
+    "rules": [
+      "R07"
+    ],
+    "note": "구분 글자를 제거하고 괄호의 마취작용을 effect로 분리함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classes[8]",
+    "page": 2,
+    "source_text": "특정표적장기 독성(1회 노출) : 구분2",
+    "rules": [
+      "R07"
+    ],
+    "note": "분류명을 코드에 대응하고 구분 글자를 제거함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classes[9]",
+    "page": 2,
+    "source_text": "특정표적장기 독성(반복 노출) : 구분2",
+    "rules": [
+      "R07"
+    ],
+    "note": "분류명을 코드에 대응하고 구분 글자를 제거함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.signal_word",
+    "page": 2,
+    "source_text": "신호어 위험",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.pictograms[0]",
+    "page": 2,
+    "source_text": null,
+    "rules": [],
+    "note": "그림문자 첫 번째의 불꽃 그림을 이미지에서 판독함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.pictograms[1]",
+    "page": 2,
+    "source_text": null,
+    "rules": [],
+    "note": "그림문자 두 번째의 가스 실린더 그림을 이미지에서 판독함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.pictograms[2]",
+    "page": 2,
+    "source_text": null,
+    "rules": [],
+    "note": "그림문자 세 번째의 감탄부호 그림을 이미지에서 판독함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.pictograms[3]",
+    "page": 2,
+    "source_text": null,
+    "rules": [],
+    "note": "그림문자 네 번째의 건강 유해성 그림을 이미지에서 판독함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.h_statements[0]",
+    "page": 2,
+    "source_text": "H220 극인화성 가스",
+    "rules": [
+      "R05",
+      "R21"
+    ],
+    "note": "코드와 문구를 분리하고 GHS 체계를 기록함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.h_statements[1]",
+    "page": 2,
+    "source_text": "H280 고압가스 포함 ; 가열하면 폭발할 수 있음",
+    "rules": [
+      "R05",
+      "R21"
+    ],
+    "note": "코드와 문구를 분리하고 GHS 체계를 기록함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.h_statements[2]",
+    "page": 2,
+    "source_text": "H315 피부에 자극을 일으킴",
+    "rules": [
+      "R05",
+      "R21"
+    ],
+    "note": "코드와 문구를 분리하고 GHS 체계를 기록함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.h_statements[3]",
+    "page": 2,
+    "source_text": "H319 눈에 심한 자극을 일으킴",
+    "rules": [
+      "R05",
+      "R21"
+    ],
+    "note": "코드와 문구를 분리하고 GHS 체계를 기록함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.h_statements[4]",
+    "page": 2,
+    "source_text": "H336 졸음 또는 현기증을 일으킬 수 있음",
+    "rules": [
+      "R05",
+      "R21"
+    ],
+    "note": "코드와 문구를 분리하고 GHS 체계를 기록함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.h_statements[5]",
+    "page": 2,
+    "source_text": "H340 유전적인 결함을 일으킬 수 있음",
+    "rules": [
+      "R05",
+      "R21"
+    ],
+    "note": "코드와 문구를 분리하고 GHS 체계를 기록함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.h_statements[6]",
+    "page": 2,
+    "source_text": "H350 암을 일으킬 수 있음",
+    "rules": [
+      "R05",
+      "R21"
+    ],
+    "note": "코드와 문구를 분리하고 GHS 체계를 기록함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.h_statements[7]",
+    "page": 2,
+    "source_text": "H371 신체 중 (...)에 손상을 일으킬 수 있음",
+    "rules": [
+      "R05",
+      "R21"
+    ],
+    "note": "코드와 문구를 분리하고 GHS 체계를 기록함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.h_statements[8]",
+    "page": 2,
+    "source_text": "H373 장기간 또는 반복노출 되면 신체 중 (...)에 손상을 일으킬 수 있음",
+    "rules": [
+      "R05",
+      "R21"
+    ],
+    "note": "코드와 문구를 분리하고 GHS 체계를 기록함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[0]",
+    "page": 2,
+    "source_text": "P201 사용 전 취급 설명서를 확보하시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": "코드와 문구를 분리하고 코드 첫 자리로 유형을 지정함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[1]",
+    "page": 2,
+    "source_text": "P202 모든 안전 예방조치 문구를 읽고 이해하기 전에는 취급하지 마시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": "코드와 문구를 분리하고 코드 첫 자리로 유형을 지정함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[2]",
+    "page": 2,
+    "source_text": "P210 열·스파크·화염·고열로부터 멀리하시오 - 금연",
+    "rules": [
+      "R05"
+    ],
+    "note": "코드와 문구를 분리하고 코드 첫 자리로 유형을 지정함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[3]",
+    "page": 3,
+    "source_text": "P260 (분진·흄·가스·미스트·증기·스프레이)를(을) 흡입하지 마시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": "코드와 문구를 분리하고 코드 첫 자리로 유형을 지정함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[4]",
+    "page": 3,
+    "source_text": "P261 (분진·흄·가스·미스트·증기·스프레이)의 흡입을 피하시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": "코드와 문구를 분리하고 코드 첫 자리로 유형을 지정함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[5]",
+    "page": 3,
+    "source_text": "P264 취급 후에는 취급 부위를 철저히 씻으시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": "코드와 문구를 분리하고 코드 첫 자리로 유형을 지정함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[6]",
+    "page": 3,
+    "source_text": "P270 이 제품을 사용할 때에는 먹거나, 마시거나 흡연하지 마시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": "코드와 문구를 분리하고 코드 첫 자리로 유형을 지정함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[7]",
+    "page": 3,
+    "source_text": "P271 옥외 또는 환기가 잘 되는 곳에서만 취급하시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": "코드와 문구를 분리하고 코드 첫 자리로 유형을 지정함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[8]",
+    "page": 3,
+    "source_text": "P280 (보호장갑·보호의·보안경·안면보호구)를(을) 착용하시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": "코드와 문구를 분리하고 코드 첫 자리로 유형을 지정함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[9]",
+    "page": 3,
+    "source_text": "P281 적절한 개인 보호구를 착용하시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": "코드와 문구를 분리하고 코드 첫 자리로 유형을 지정함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[10]",
+    "page": 3,
+    "source_text": "P302+P352 피부에 묻으면 다량의 비누와 물로 씻으시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": "결합 코드를 유지하고 코드 첫 자리로 유형을 지정함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[11]",
+    "page": 3,
+    "source_text": "P304+P340 흡입하면 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정\n을 취하시오.",
+    "rules": [
+      "R05",
+      "R14"
+    ],
+    "note": "결합 코드를 유지하고 줄바꿈으로 끊긴 문구를 연결함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[12]",
+    "page": 3,
+    "source_text": "P305+P351+P338 눈에 묻으면 몇 분간 물로 조심해서 씻으시오. 가능하면 콘택트렌\n즈를 제거하시오. 계속 씻으시오.",
+    "rules": [
+      "R05",
+      "R14"
+    ],
+    "note": "결합 코드를 유지하고 줄바꿈으로 끊긴 문구를 연결함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[13]",
+    "page": 3,
+    "source_text": "P308+P313 노출되거나 노출이 우려되면 의학적인 조치·조언을 구하시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": "결합 코드를 유지하고 코드 첫 자리로 유형을 지정함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[14]",
+    "page": 3,
+    "source_text": "P309+P311 노출되거나 불편함을 느끼면 의료기관(의사)의 진찰을 받으시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": "결합 코드를 유지하고 코드 첫 자리로 유형을 지정함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[15]",
+    "page": 3,
+    "source_text": "P312 불편함을 느끼면 의료기관(의사)의 진찰을 받으시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": "코드와 문구를 분리하고 코드 첫 자리로 유형을 지정함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[16]",
+    "page": 3,
+    "source_text": "P314 불편함을 느끼면 의학적인 조치·조언을 구하시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": "코드와 문구를 분리하고 코드 첫 자리로 유형을 지정함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[17]",
+    "page": 3,
+    "source_text": "P321 (…) 처치를 하시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": "코드와 문구를 분리하고 코드 첫 자리로 유형을 지정함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[18]",
+    "page": 3,
+    "source_text": "P332+P313 피부 자극이 생기면 의학적인 조치·조언을 구하시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": "결합 코드를 유지하고 코드 첫 자리로 유형을 지정함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[19]",
+    "page": 3,
+    "source_text": "P337+P313 눈에 자극이 지속되면 의학적인 조치·조언을 구하시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": "결합 코드를 유지하고 코드 첫 자리로 유형을 지정함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[20]",
+    "page": 3,
+    "source_text": "P362 오염된 의복은 벗고 다시 사용 전 세탁하시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": "코드와 문구를 분리하고 코드 첫 자리로 유형을 지정함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[21]",
+    "page": 3,
+    "source_text": "P377 누출성 가스 화재 시 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": "코드와 문구를 분리하고 코드 첫 자리로 유형을 지정함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[22]",
+    "page": 3,
+    "source_text": "P381 안전하게 처리하는 것이 가능하면 모든 점화원을 제거하시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": "코드와 문구를 분리하고 코드 첫 자리로 유형을 지정함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[23]",
+    "page": 3,
+    "source_text": "P403 환기가 잘 되는 곳에 보관하시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": "코드와 문구를 분리하고 코드 첫 자리로 유형을 지정함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[24]",
+    "page": 3,
+    "source_text": "P403+P233 용기는 환기가 잘 되는 곳에 단단히 밀폐하여 저장하시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": "결합 코드를 유지하고 첫 코드의 첫 자리로 저장 유형을 지정함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[25]",
+    "page": 3,
+    "source_text": "P405 잠금장치가 있는 저장장소에 저장하시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": "코드와 문구를 분리하고 코드 첫 자리로 유형을 지정함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[26]",
+    "page": 3,
+    "source_text": "P410+P403 직사광선을 피하고 환기가 잘 되는 곳에 보관하시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": "결합 코드를 유지하고 코드 첫 자리로 유형을 지정함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[27]",
+    "page": 3,
+    "source_text": "P501 (관련 법규에 명시된 내용에 따라) 내용물 용기를 폐기하시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": "코드와 문구를 분리하고 코드 첫 자리로 유형을 지정함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.nfpa",
+    "page": 3,
+    "source_text": "아이소뷰테인(ISOBUTANE)\n보건 0\n화재 4\n반응성 0\n부탄\n보건 1\n화재 4\n반응성 0\n1-부텐\n보건 1\n화재 4\n반응성 0\n뷰타다이엔, 저해된\n보건 1\n화재 4\n반응성 2\n아이소부텐\n보건 2\n화재 4\n반응성 1\n시스-2-부텐\n보건 1",
+    "rules": [],
+    "note": "성분별 NFPA이므로 제품 단위 nfpa에는 넣지 않았으며, 지정 응답 스키마에 extras 칸이 없어 원문을 근거에 보존함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.nfpa",
+    "page": 4,
+    "source_text": "화재 4\n반응성 0\n트랜스-2-부텐\n보건 2\n화재 4\n반응성 1",
+    "rules": [],
+    "note": "첫 두 행은 앞 쪽 시스-2-부텐의 연속이며, 성분별 NFPA이므로 제품 단위 nfpa에는 넣지 않고 원문을 근거에 보존함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "composition.type",
+    "page": 2,
+    "source_text": "판매 : 1,3부타디엔이 추출된 혼합-C4 성분으로서 구입회사에서 이소부텐을 추출하\n여 사용.",
+    "rules": [],
+    "note": "원문의 혼합-C4 성분 표기에 따라 혼합물로 기록함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "composition.no_hazardous_component",
+    "page": 4,
+    "source_text": "뷰타다이엔, 저해된 | 1,3-부타디엔(1,3-BUTADIENE) | 106-99-0 | 0.24",
+    "rules": [],
+    "note": "성분표가 있으며 유해성분 미함유 표기가 없어 false로 기록함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "components[0]",
+    "page": 4,
+    "source_text": "아이소뷰테인(ISOBUTANE) | 2-메틸 프로페인(2-METHYL PROPANE) | 75-28-5 | 4.67",
+    "rules": [
+      "R02",
+      "R04",
+      "R06"
+    ],
+    "note": "물질명 괄호의 영문을 분리하고 CAS를 확인했으며 함유량의 단위는 열 제목 (%)에서 가져와 소수 두 자리를 보존함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "components[1]",
+    "page": 4,
+    "source_text": "부탄 | BUTANE | 106-97-8 | 9.16",
+    "rules": [
+      "R02",
+      "R04",
+      "R06"
+    ],
+    "note": "이명 열은 synonyms에 기록하고 CAS를 확인했으며 함유량의 단위는 열 제목 (%)에서 가져와 소수 두 자리를 보존함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "components[2]",
+    "page": 4,
+    "source_text": "1-부텐 | ALPHA-BUTYLENE | 106-98-9 | 24.69",
+    "rules": [
+      "R02",
+      "R04",
+      "R06"
+    ],
+    "note": "이명 열은 synonyms에 기록하고 CAS를 확인했으며 함유량의 단위는 열 제목 (%)에서 가져와 소수 두 자리를 보존함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "components[3]",
+    "page": 4,
+    "source_text": "뷰타다이엔, 저해된 | 1,3-부타디엔(1,3-BUTADIENE) | 106-99-0 | 0.24",
+    "rules": [
+      "R02",
+      "R04",
+      "R06",
+      "R17"
+    ],
+    "note": "화학명 내부 쉼표를 유지하고 CAS를 확인했으며 함유량의 단위는 열 제목 (%)에서 가져와 소수 두 자리를 보존함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "components[4]",
+    "page": 4,
+    "source_text": "아이소부텐 | 2-메틸프로펜(2-METHYLPROPENE); 아이소뷰틸렌(ISOBUTYLENE) | 115-11-7 | 46.22",
+    "rules": [
+      "R02",
+      "R04",
+      "R06",
+      "R11"
+    ],
+    "note": "두 줄에 걸친 이명을 같은 성분의 목록으로 분리하고 CAS를 확인했으며 함유량의 단위와 소수 두 자리를 기록함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "components[5]",
+    "page": 4,
+    "source_text": "시스-2-부텐 | 2-부텐-시스(2-BUTENE-CIS); (Z)-2-\nButene | 590-18-1 | 6.12",
+    "rules": [
+      "R02",
+      "R04",
+      "R06",
+      "R11"
+    ],
+    "note": "이명을 세미콜론으로 분리하고 줄바꿈된 영문명을 연결했으며 CAS와 함유량의 단위 및 소수 두 자리를 기록함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "components[6]",
+    "page": 4,
+    "source_text": "트랜스-2-부텐 | 베타-뷰틸렌(BETA-BUTYLENE); | 624-64-6 | 8.39",
+    "rules": [
+      "R02",
+      "R04",
+      "R06",
+      "R11"
+    ],
+    "note": "이명 끝의 목록 구분자를 분리하고 CAS를 확인했으며 함유량의 단위와 소수 두 자리를 기록함."
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "components[7]",
+    "page": 4,
+    "source_text": "* 기타성분 : 0.51 % (C3'S, C5+ 등)",
+    "rules": [
+      "R04",
+      "R06"
+    ],
+    "note": "성분표 아래 기타성분을 별도 성분으로 기록하고 함유량과 괄호 설명을 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[0]",
+    "page": 8,
+    "source_text": "아이소뷰테인(ISOBUTANE) | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "국내규정의 성분 1 행이며 자료없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[1]",
+    "page": 8,
+    "source_text": "부탄 | TWA - 800ppm 1900mg/m3",
+    "rules": [
+      "R04",
+      "R06",
+      "R10"
+    ],
+    "note": "병기된 두 단위의 값을 별도 행으로 보존하고 ppm 값을 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[2]",
+    "page": 8,
+    "source_text": "부탄 | TWA - 800ppm 1900mg/m3",
+    "rules": [
+      "R04",
+      "R06",
+      "R10"
+    ],
+    "note": "병기된 두 단위의 값을 별도 행으로 보존하고 mg/m3 값을 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[3]",
+    "page": 8,
+    "source_text": "1-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "국내규정의 성분 3 행이며 자료없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[4]",
+    "page": 8,
+    "source_text": "뷰타다이엔, 저해된 | TWA - 2ppm 4.4mg/m3 STEL - 10ppm 22mg/m3",
+    "rules": [
+      "R04",
+      "R06",
+      "R10"
+    ],
+    "note": "TWA와 STEL 및 병기 단위를 나누어 TWA 2ppm을 저장함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[5]",
+    "page": 8,
+    "source_text": "뷰타다이엔, 저해된 | TWA - 2ppm 4.4mg/m3 STEL - 10ppm 22mg/m3",
+    "rules": [
+      "R04",
+      "R06",
+      "R10"
+    ],
+    "note": "TWA와 STEL 및 병기 단위를 나누어 TWA 4.4mg/m3을 저장함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[6]",
+    "page": 8,
+    "source_text": "뷰타다이엔, 저해된 | TWA - 2ppm 4.4mg/m3 STEL - 10ppm 22mg/m3",
+    "rules": [
+      "R04",
+      "R06",
+      "R10"
+    ],
+    "note": "TWA와 STEL 및 병기 단위를 나누어 STEL 10ppm을 저장함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[7]",
+    "page": 8,
+    "source_text": "뷰타다이엔, 저해된 | TWA - 2ppm 4.4mg/m3 STEL - 10ppm 22mg/m3",
+    "rules": [
+      "R04",
+      "R06",
+      "R10"
+    ],
+    "note": "TWA와 STEL 및 병기 단위를 나누어 STEL 22mg/m3을 저장함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[8]",
+    "page": 8,
+    "source_text": "아이소부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "국내규정의 성분 5 행이며 자료없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[9]",
+    "page": 8,
+    "source_text": "시스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "국내규정의 성분 6 행이며 자료없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[10]",
+    "page": 8,
+    "source_text": "트랜스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "국내규정의 성분 7 행이며 자료없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[11]",
+    "page": 8,
+    "source_text": "아이소뷰테인(ISOBUTANE) | TWA 1000 ppm",
+    "rules": [
+      "R04",
+      "R06",
+      "R10"
+    ],
+    "note": "ACGIH의 TWA 수치와 단위를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[12]",
+    "page": 8,
+    "source_text": "부탄 | TWA 1000 ppm",
+    "rules": [
+      "R04",
+      "R06",
+      "R10"
+    ],
+    "note": "ACGIH의 TWA 수치와 단위를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[13]",
+    "page": 8,
+    "source_text": "1-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "ACGIH의 성분 3 행이며 자료없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[14]",
+    "page": 8,
+    "source_text": "뷰타다이엔, 저해된 | TWA 2 ppm",
+    "rules": [
+      "R04",
+      "R06",
+      "R10"
+    ],
+    "note": "ACGIH의 TWA 수치와 단위를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[15]",
+    "page": 8,
+    "source_text": "아이소부텐 | (Butenes, All isomers)\n아이소부텐 | TWA 250 ppm",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R11"
+    ],
+    "note": "동일 성분의 괄호 표기를 notations에 보존하고 TWA 수치와 단위를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[16]",
+    "page": 8,
+    "source_text": "시스-2-부텐 | (Butenes, All isomers)\n시스-2-부텐 | TWA 250 ppm",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R11"
+    ],
+    "note": "동일 성분의 괄호 표기를 notations에 보존하고 TWA 수치와 단위를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[17]",
+    "page": 8,
+    "source_text": "트랜스-2-부텐 | TWA 250 ppm",
+    "rules": [
+      "R04",
+      "R06",
+      "R10"
+    ],
+    "note": "ACGIH의 TWA 수치와 단위를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[18]",
+    "page": 8,
+    "source_text": "아이소뷰테인(ISOBUTANE) | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "생물학적 노출기준의 성분 1 행이며 자료없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[19]",
+    "page": 8,
+    "source_text": "부탄 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "생물학적 노출기준의 성분 2 행이며 자료없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[20]",
+    "page": 8,
+    "source_text": "1-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "생물학적 노출기준의 성분 3 행이며 자료없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[21]",
+    "page": 8,
+    "source_text": "뷰타다이엔, 저해된 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "생물학적 노출기준의 성분 4 행이며 자료없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[22]",
+    "page": 8,
+    "source_text": "아이소부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "생물학적 노출기준의 성분 5 행이며 자료없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[23]",
+    "page": 8,
+    "source_text": "시스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "생물학적 노출기준의 성분 6 행이며 자료없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[24]",
+    "page": 8,
+    "source_text": "트랜스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "생물학적 노출기준의 성분 7 행이며 자료없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[0]",
+    "page": 9,
+    "source_text": "성상 | 무색의 가스",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "제품 전체의 성상을 연결함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[1]",
+    "page": 9,
+    "source_text": "색상 | 무채색",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "제품 전체의 색상을 연결함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[2]",
+    "page": 9,
+    "source_text": "나. 냄새 | 석탄가스 냄새",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "제품 전체의 냄새를 연결함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[3]",
+    "page": 9,
+    "source_text": "다. 냄새역치 | 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "제품 전체의 자료없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[4]",
+    "page": 9,
+    "source_text": "라. pH | 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "제품 전체의 자료없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[5]",
+    "page": 9,
+    "source_text": "마. 녹는점/어는점 | -138 ℃ ~ -183 ℃",
+    "rules": [
+      "R10",
+      "R17",
+      "R25"
+    ],
+    "note": "범위 양 끝이 역순으로 기재되어 수치 순서를 바꾸지 않고 raw에 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[6]",
+    "page": 9,
+    "source_text": "바. 초기 끓는점과 끓는점 범위 | -6.9 ℃",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10",
+      "R25"
+    ],
+    "note": "수치와 온도 단위를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[7]",
+    "page": 9,
+    "source_text": "사. 인화점 | -76.0 ℃",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10",
+      "R25"
+    ],
+    "note": "수치와 온도 단위를 분리하고 소수 한 자리를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[8]",
+    "page": 9,
+    "source_text": "아. 증발속도 | 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "자료없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[9]",
+    "page": 9,
+    "source_text": "자. 인화성(고체, 기체) | 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "자료없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[10]",
+    "page": 9,
+    "source_text": "차. 인화 또는 폭발 범위의 상한/하한 | 8.5~10/1.6~1.9%",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "상한에 해당하는 8.5~10%를 양 끝 포함 범위로 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[11]",
+    "page": 9,
+    "source_text": "차. 인화 또는 폭발 범위의 상한/하한 | 8.5~10/1.6~1.9%",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "하한에 해당하는 1.6~1.9%를 양 끝 포함 범위로 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[12]",
+    "page": 9,
+    "source_text": "카. 증기압 | 257㎪(20℃) : 이소부텐기준",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10",
+      "R25"
+    ],
+    "note": "제품 물성의 수치·단위·온도 조건을 분리하고 이소부텐기준을 note에 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[13]",
+    "page": 9,
+    "source_text": "타. 용해도 | 0.00489 g/100㎖ (25℃) : 이소부텐기준",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10",
+      "R25"
+    ],
+    "note": "제품 물성의 수치·단위·온도 조건을 분리하고 이소부텐기준을 note에 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[14]",
+    "page": 9,
+    "source_text": "파. 증기밀도 | 1.94(Air=1) : 이소부텐기준",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "제품 물성의 수치와 기준 물질을 분리하고 이소부텐기준을 note에 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[15]",
+    "page": 9,
+    "source_text": "하. 비중 | 0.6005",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "무단위 수치를 분리하고 소수 네 자리를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[16]",
+    "page": 9,
+    "source_text": "거. n-옥탄올/물분배계수 | 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "자료없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[17]",
+    "page": 9,
+    "source_text": "너. 자연발화온도 | 287℃~465℃",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10",
+      "R25"
+    ],
+    "note": "287~465 C를 양 끝 포함 범위로 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[18]",
+    "page": 9,
+    "source_text": "더. 분해온도 | 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "자료없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[19]",
+    "page": 9,
+    "source_text": "러. 점도 | 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "자료없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[20]",
+    "page": 9,
+    "source_text": "머. 분자량 | 56.12",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "원문에 단위가 없어 무단위 수치로 저장함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[21]",
+    "page": 9,
+    "source_text": "성상 | 기체 (가스)",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "아이소뷰테인 항목을 성분 1에 연결함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[22]",
+    "page": 9,
+    "source_text": "색상 | 무색",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "아이소뷰테인 항목을 성분 1에 연결함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[23]",
+    "page": 9,
+    "source_text": "나. 냄새 | 석유 냄새",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "아이소뷰테인 항목을 성분 1에 연결함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[24]",
+    "page": 9,
+    "source_text": "다. 냄새역치 | 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 1의 자료없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[25]",
+    "page": 10,
+    "source_text": "라. pH | (해당없음)",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "앞쪽에서 이어지는 성분 1의 해당없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[26]",
+    "page": 10,
+    "source_text": "마. 녹는점/어는점 | -138.3 ℃",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10",
+      "R25"
+    ],
+    "note": "성분 1의 수치와 온도 단위를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[27]",
+    "page": 10,
+    "source_text": "바. 초기 끓는점과 끓는점 범위 | -11.7 ℃",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10",
+      "R25"
+    ],
+    "note": "성분 1의 수치와 온도 단위를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[28]",
+    "page": 10,
+    "source_text": "사. 인화점 | -76.1 ℃",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10",
+      "R25"
+    ],
+    "note": "성분 1의 수치와 온도 단위를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[29]",
+    "page": 10,
+    "source_text": "아. 증발속도 | (해당없음)",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "해당없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[30]",
+    "page": 10,
+    "source_text": "자. 인화성(고체, 기체) | 인화성 가스",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "성분 1의 텍스트 물성을 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[31]",
+    "page": 10,
+    "source_text": "차. 인화 또는 폭발 범위의 상한/하한 | 8.4 / 1.8 %",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "상한 8.4%를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[32]",
+    "page": 10,
+    "source_text": "차. 인화 또는 폭발 범위의 상한/하한 | 8.4 / 1.8 %",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "하한 1.8%를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[33]",
+    "page": 10,
+    "source_text": "카. 증기압 | 2611 ㎜Hg (25℃)",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10",
+      "R25"
+    ],
+    "note": "수치·압력 단위·온도 조건을 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[34]",
+    "page": 10,
+    "source_text": "타. 용해도 | 0.00489 g/100㎖ (25℃)",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10",
+      "R25"
+    ],
+    "note": "수치·단위·온도 조건을 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[35]",
+    "page": 10,
+    "source_text": "파. 증기밀도 | 2.01 (공기=1)",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "수치와 기준 물질 공기=1을 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[36]",
+    "page": 10,
+    "source_text": "하. 비중 | 0.6 (물=1, 액체)",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "수치와 기준 물질 물=1을 분리하고 액체 표기를 note에 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[37]",
+    "page": 10,
+    "source_text": "거. n-옥탄올/물분배계수 | 2.76",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "무단위 수치로 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[38]",
+    "page": 10,
+    "source_text": "너. 자연발화온도 | 460 ℃ (Closed cup)",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10",
+      "R25"
+    ],
+    "note": "수치·온도 단위와 원문에 기재된 측정 방법 Closed cup을 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[39]",
+    "page": 10,
+    "source_text": "더. 분해온도 | 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "자료없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[40]",
+    "page": 10,
+    "source_text": "러. 점도 | 0.238 cP (-10℃)",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10",
+      "R25"
+    ],
+    "note": "수치·단위와 측정 온도 -10 C를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[41]",
+    "page": 10,
+    "source_text": "머. 분자량 | 58.12",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "원문에 단위가 없어 무단위 수치로 저장함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[42]",
+    "page": 10,
+    "source_text": "성상 | 압축 액화가스",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "부탄 항목을 성분 2에 연결함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[43]",
+    "page": 10,
+    "source_text": "색상 | 무채색",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "부탄 항목을 성분 2에 연결함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[44]",
+    "page": 10,
+    "source_text": "나. 냄새 | 불쾌한 냄새",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "부탄 항목을 성분 2에 연결함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[45]",
+    "page": 10,
+    "source_text": "다. 냄새역치 | 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 2의 자료없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[46]",
+    "page": 10,
+    "source_text": "라. pH | (해당 안됨)",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "'해당 안됨'을 해당없음 상태로 저장하고 원문을 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[47]",
+    "page": 10,
+    "source_text": "마. 녹는점/어는점 | -138 ℃",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10",
+      "R25"
+    ],
+    "note": "성분 2의 수치와 온도 단위를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[48]",
+    "page": 10,
+    "source_text": "바. 초기 끓는점과 끓는점 범위 | -0.5 ℃",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10",
+      "R25"
+    ],
+    "note": "성분 2의 수치와 온도 단위를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[49]",
+    "page": 10,
+    "source_text": "사. 인화점 | -60 ℃",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10",
+      "R25"
+    ],
+    "note": "성분 2의 수치와 온도 단위를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[50]",
+    "page": 10,
+    "source_text": "아. 증발속도 | (해당 안됨)",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "'해당 안됨'을 해당없음 상태로 저장하고 원문을 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[51]",
+    "page": 10,
+    "source_text": "자. 인화성(고체, 기체) | 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "자료없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[52]",
+    "page": 10,
+    "source_text": "차. 인화 또는 폭발 범위의 상한/하한 | 8.4 / 1.8 %",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "상한 8.4%를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[53]",
+    "page": 10,
+    "source_text": "차. 인화 또는 폭발 범위의 상한/하한 | 8.4 / 1.8 %",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "하한 1.8%를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[54]",
+    "page": 10,
+    "source_text": "카. 증기압 | 213.7 kpa (21.1℃)",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10",
+      "R25"
+    ],
+    "note": "수치와 온도 조건을 분리하고 압력 단위를 kPa로 정규화함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[55]",
+    "page": 10,
+    "source_text": "타. 용해도 | 0.006 g/100㎖ (25℃)",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10",
+      "R25"
+    ],
+    "note": "수치·단위·온도 조건을 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[56]",
+    "page": 10,
+    "source_text": "파. 증기밀도 | 2.1",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "무단위 수치로 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[57]",
+    "page": 10,
+    "source_text": "하. 비중 | 0.6",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "무단위 수치로 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[58]",
+    "page": 10,
+    "source_text": "거. n-옥탄올/물분배계수 | 2.89",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "무단위 수치로 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[59]",
+    "page": 10,
+    "source_text": "너. 자연발화온도 | 365 ℃",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10",
+      "R25"
+    ],
+    "note": "수치와 온도 단위를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[60]",
+    "page": 10,
+    "source_text": "더. 분해온도 | 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "자료없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[61]",
+    "page": 10,
+    "source_text": "러. 점도 | 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "자료없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[62]",
+    "page": 10,
+    "source_text": "머. 분자량 | 58.12",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "원문에 단위가 없어 무단위 수치로 저장함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[63]",
+    "page": 10,
+    "source_text": "성상 | 압축 액화가스",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "1-부텐 항목을 성분 3에 연결함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[64]",
+    "page": 10,
+    "source_text": "색상 | 무채색",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "1-부텐 항목을 성분 3에 연결함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[65]",
+    "page": 10,
+    "source_text": "나. 냄새 | 독특한 냄새",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "1-부텐 항목을 성분 3에 연결함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[66]",
+    "page": 10,
+    "source_text": "다. 냄새역치 | 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 3의 자료없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[67]",
+    "page": 10,
+    "source_text": "라. pH | (해당없음)",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 3의 해당없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[68]",
+    "page": 10,
+    "source_text": "마. 녹는점/어는점 | -185 ℃",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10",
+      "R25"
+    ],
+    "note": "성분 3의 수치와 온도 단위를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[69]",
+    "page": 10,
+    "source_text": "바. 초기 끓는점과 끓는점 범위 | -6 ℃",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10",
+      "R25"
+    ],
+    "note": "성분 3의 수치와 온도 단위를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[70]",
+    "page": 11,
+    "source_text": "사. 인화점 | (인화성 가스)",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "앞쪽에서 이어지는 성분 3의 비수치 인화점 표기를 text_value에 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[71]",
+    "page": 11,
+    "source_text": "아. 증발속도 | (해당없음)",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "해당없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[72]",
+    "page": 11,
+    "source_text": "자. 인화성(고체, 기체) | 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "자료없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[73]",
+    "page": 11,
+    "source_text": "차. 인화 또는 폭발 범위의 상한/하한 | 10 / 1.6 %",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "상한 10%를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[74]",
+    "page": 11,
+    "source_text": "차. 인화 또는 폭발 범위의 상한/하한 | 10 / 1.6 %",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "하한 1.6%를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[75]",
+    "page": 11,
+    "source_text": "카. 증기압 | 1939 ㎜Hg (21℃)",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10",
+      "R25"
+    ],
+    "note": "수치·압력 단위·온도 조건을 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[76]",
+    "page": 11,
+    "source_text": "타. 용해도 | (녹지 않음)",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "비수치 용해도 표기를 text_value에 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[77]",
+    "page": 11,
+    "source_text": "파. 증기밀도 | 1.93",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "무단위 수치로 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[78]",
+    "page": 11,
+    "source_text": "하. 비중 | (해당없음)",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "해당없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[79]",
+    "page": 11,
+    "source_text": "거. n-옥탄올/물분배계수 | 2.4",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "무단위 수치로 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[80]",
+    "page": 11,
+    "source_text": "너. 자연발화온도 | 385 ℃",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10",
+      "R25"
+    ],
+    "note": "수치와 온도 단위를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[81]",
+    "page": 11,
+    "source_text": "더. 분해온도 | 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "자료없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[82]",
+    "page": 11,
+    "source_text": "러. 점도 | 0.00763 cP(at 20℃)",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10",
+      "R25"
+    ],
+    "note": "수치·단위와 측정 온도 20 C를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[83]",
+    "page": 11,
+    "source_text": "머. 분자량 | 56.11",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "원문에 단위가 없어 무단위 수치로 저장함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[84]",
+    "page": 11,
+    "source_text": "성상 | 기체 (가스)",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "뷰타다이엔, 저해된 항목을 성분 4에 연결함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[85]",
+    "page": 11,
+    "source_text": "색상 | 무색",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "뷰타다이엔, 저해된 항목을 성분 4에 연결함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[86]",
+    "page": 11,
+    "source_text": "나. 냄새 | 특유의 냄새",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "뷰타다이엔, 저해된 항목을 성분 4에 연결함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[87]",
+    "page": 11,
+    "source_text": "다. 냄새역치 | 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 4의 자료없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[88]",
+    "page": 11,
+    "source_text": "라. pH | 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 4의 자료없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[89]",
+    "page": 11,
+    "source_text": "마. 녹는점/어는점 | -109 ℃",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10",
+      "R25"
+    ],
+    "note": "성분 4의 수치와 온도 단위를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[90]",
+    "page": 11,
+    "source_text": "바. 초기 끓는점과 끓는점 범위 | -4 ℃",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10",
+      "R25"
+    ],
+    "note": "성분 4의 수치와 온도 단위를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[91]",
+    "page": 11,
+    "source_text": "사. 인화점 | -76 ℃",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10",
+      "R25"
+    ],
+    "note": "성분 4의 수치와 온도 단위를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[92]",
+    "page": 11,
+    "source_text": "아. 증발속도 | 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "자료없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[93]",
+    "page": 11,
+    "source_text": "자. 인화성(고체, 기체) | 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "자료없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[94]",
+    "page": 11,
+    "source_text": "차. 인화 또는 폭발 범위의 상한/하한 | 16.3 / 1.1 %",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "상한 16.3%를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[95]",
+    "page": 11,
+    "source_text": "차. 인화 또는 폭발 범위의 상한/하한 | 16.3 / 1.1 %",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "하한 1.1%를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[96]",
+    "page": 11,
+    "source_text": "카. 증기압 | 2110 ㎜Hg (25℃)",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10",
+      "R25"
+    ],
+    "note": "수치·압력 단위·온도 조건을 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[97]",
+    "page": 11,
+    "source_text": "타. 용해도 | 0.0735 g/100㎖ (20℃)",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10",
+      "R25"
+    ],
+    "note": "수치·단위·온도 조건을 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[98]",
+    "page": 11,
+    "source_text": "파. 증기밀도 | 1.9 (공기=1)",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "수치와 기준 물질 공기=1을 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[99]",
+    "page": 11,
+    "source_text": "하. 비중 | 0.6 (물=1)",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "수치와 기준 물질 물=1을 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[100]",
+    "page": 11,
+    "source_text": "거. n-옥탄올/물분배계수 | 1.99",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "무단위 수치로 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[101]",
+    "page": 11,
+    "source_text": "너. 자연발화온도 | 414 ℃",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10",
+      "R25"
+    ],
+    "note": "수치와 온도 단위를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[102]",
+    "page": 11,
+    "source_text": "더. 분해온도 | 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "자료없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[103]",
+    "page": 11,
+    "source_text": "러. 점도 | 0.00754 cP (가스)",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "수치와 단위를 분리하고 가스 표기를 note에 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[104]",
+    "page": 11,
+    "source_text": "머. 분자량 | 54.09",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "원문에 단위가 없어 무단위 수치로 저장함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[105]",
+    "page": 11,
+    "source_text": "성상 | 압축된 액화 가스",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "아이소부텐 항목을 성분 5에 연결함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[106]",
+    "page": 11,
+    "source_text": "색상 | 무색",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "아이소부텐 항목을 성분 5에 연결함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[107]",
+    "page": 11,
+    "source_text": "나. 냄새 | 석탄가스 냄새",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "아이소부텐 항목을 성분 5에 연결함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[108]",
+    "page": 11,
+    "source_text": "다. 냄새역치 | 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 5의 자료없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[109]",
+    "page": 11,
+    "source_text": "라. pH | 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 5의 자료없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[110]",
+    "page": 11,
+    "source_text": "마. 녹는점/어는점 | -140.3 ℃",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10",
+      "R25"
+    ],
+    "note": "성분 5의 수치와 온도 단위를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[111]",
+    "page": 11,
+    "source_text": "바. 초기 끓는점과 끓는점 범위 | -6.9 ℃",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10",
+      "R25"
+    ],
+    "note": "성분 5의 수치와 온도 단위를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[112]",
+    "page": 11,
+    "source_text": "사. 인화점 | -76.1 ℃",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10",
+      "R25"
+    ],
+    "note": "성분 5의 수치와 온도 단위를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[113]",
+    "page": 11,
+    "source_text": "아. 증발속도 | 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "자료없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[114]",
+    "page": 11,
+    "source_text": "자. 인화성(고체, 기체) | 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "자료없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[115]",
+    "page": 12,
+    "source_text": "차. 인화 또는 폭발 범위의 상한/하한 | 9.6 / 1.8 %",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "앞쪽에서 이어지는 성분 5의 상한 9.6%를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[116]",
+    "page": 12,
+    "source_text": "차. 인화 또는 폭발 범위의 상한/하한 | 9.6 / 1.8 %",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "앞쪽에서 이어지는 성분 5의 하한 1.8%를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[117]",
+    "page": 12,
+    "source_text": "카. 증기압 | 257 ㎪ (20℃)",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10",
+      "R25"
+    ],
+    "note": "수치·압력 단위·온도 조건을 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[118]",
+    "page": 12,
+    "source_text": "타. 용해도 | 0.03 g/100㎖ (20℃)",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10",
+      "R25"
+    ],
+    "note": "수치·단위·온도 조건을 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[119]",
+    "page": 12,
+    "source_text": "파. 증기밀도 | 1.94 (Air=1)",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "수치와 기준 물질 Air=1을 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[120]",
+    "page": 12,
+    "source_text": "하. 비중 | 0.605 (kg/l)",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10",
+      "R25"
+    ],
+    "note": "원문 비중 항목의 수치와 기재 단위를 분리하고 kg/L로 정규화함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[121]",
+    "page": 12,
+    "source_text": "거. n-옥탄올/물분배계수 | 2.35",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "무단위 수치로 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[122]",
+    "page": 12,
+    "source_text": "너. 자연발화온도 | 465 ℃",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10",
+      "R25"
+    ],
+    "note": "수치와 온도 단위를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[123]",
+    "page": 12,
+    "source_text": "더. 분해온도 | 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "자료없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[124]",
+    "page": 12,
+    "source_text": "러. 점도 | 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "자료없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[125]",
+    "page": 12,
+    "source_text": "머. 분자량 | 56.11 (HSDB)",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "무단위 수치와 자료 출처 HSDB를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[126]",
+    "page": 12,
+    "source_text": "성상 | 가스",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "시스-2-부텐 항목을 성분 6에 연결함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[127]",
+    "page": 12,
+    "source_text": "색상 | 무색",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "시스-2-부텐 항목을 성분 6에 연결함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[128]",
+    "page": 12,
+    "source_text": "나. 냄새 | 독특한 냄새",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "시스-2-부텐 항목을 성분 6에 연결함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[129]",
+    "page": 12,
+    "source_text": "다. 냄새역치 | 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 6의 자료없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[130]",
+    "page": 12,
+    "source_text": "라. pH | (해당없음)",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 6의 해당없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[131]",
+    "page": 12,
+    "source_text": "마. 녹는점/어는점 | -139 ℃",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10",
+      "R25"
+    ],
+    "note": "성분 6의 수치와 온도 단위를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[132]",
+    "page": 12,
+    "source_text": "바. 초기 끓는점과 끓는점 범위 | 4 ℃",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10",
+      "R25"
+    ],
+    "note": "성분 6의 수치와 온도 단위를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[133]",
+    "page": 12,
+    "source_text": "사. 인화점 | -73 ℃",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10",
+      "R25"
+    ],
+    "note": "성분 6의 수치와 온도 단위를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[134]",
+    "page": 12,
+    "source_text": "아. 증발속도 | 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "자료없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[135]",
+    "page": 12,
+    "source_text": "자. 인화성(고체, 기체) | 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "자료없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[136]",
+    "page": 12,
+    "source_text": "차. 인화 또는 폭발 범위의 상한/하한 | 9.0 / 1.7 %",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "상한 9.0%를 분리하고 소수 한 자리를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[137]",
+    "page": 12,
+    "source_text": "차. 인화 또는 폭발 범위의 상한/하한 | 9.0 / 1.7 %",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "하한 1.7%를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[138]",
+    "page": 12,
+    "source_text": "카. 증기압 | (188kPa at 21°C)",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10",
+      "R25"
+    ],
+    "note": "괄호 안의 증기압 188 kPa와 온도 조건 21 C를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[139]",
+    "page": 12,
+    "source_text": "타. 용해도 | 658 ㎎/ℓ",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10",
+      "R25"
+    ],
+    "note": "수치를 분리하고 단위를 mg/L로 정규화함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[140]",
+    "page": 12,
+    "source_text": "파. 증기밀도 | 1.9",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "무단위 수치로 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[141]",
+    "page": 12,
+    "source_text": "하. 비중 | 0.6",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "무단위 수치로 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[142]",
+    "page": 12,
+    "source_text": "거. n-옥탄올/물분배계수 | 2.33",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "무단위 수치로 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[143]",
+    "page": 12,
+    "source_text": "너. 자연발화온도 | 324 ℃",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10",
+      "R25"
+    ],
+    "note": "수치와 온도 단위를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[144]",
+    "page": 12,
+    "source_text": "더. 분해온도 | 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "자료없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[145]",
+    "page": 12,
+    "source_text": "러. 점도 | 0.0085 cP (50℃)",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10",
+      "R25"
+    ],
+    "note": "수치·단위와 측정 온도 50 C를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[146]",
+    "page": 12,
+    "source_text": "머. 분자량 | 56.11",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "원문에 단위가 없어 무단위 수치로 저장함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[147]",
+    "page": 12,
+    "source_text": "성상 | 가스",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "트랜스-2-부텐 항목을 성분 7에 연결함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[148]",
+    "page": 12,
+    "source_text": "색상 | 무채색",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "트랜스-2-부텐 항목을 성분 7에 연결함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[149]",
+    "page": 12,
+    "source_text": "나. 냄새 | 독특한 냄새",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "트랜스-2-부텐 항목을 성분 7에 연결함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[150]",
+    "page": 12,
+    "source_text": "다. 냄새역치 | 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 7의 자료없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[151]",
+    "page": 12,
+    "source_text": "라. pH | (해당없음.)",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 7의 해당없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[152]",
+    "page": 12,
+    "source_text": "마. 녹는점/어는점 | -105 ℃",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10",
+      "R25"
+    ],
+    "note": "성분 7의 수치와 온도 단위를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[153]",
+    "page": 12,
+    "source_text": "바. 초기 끓는점과 끓는점 범위 | 1 ℃",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10",
+      "R25"
+    ],
+    "note": "성분 7의 수치와 온도 단위를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[154]",
+    "page": 12,
+    "source_text": "사. 인화점 | -73 ℃",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10",
+      "R25"
+    ],
+    "note": "성분 7의 수치와 온도 단위를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[155]",
+    "page": 12,
+    "source_text": "아. 증발속도 | 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "자료없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[156]",
+    "page": 12,
+    "source_text": "자. 인화성(고체, 기체) | (인화성 기체(Flammable gas.))",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "비수치 인화성 표기를 text_value에 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[157]",
+    "page": 12,
+    "source_text": "차. 인화 또는 폭발 범위의 상한/하한 | 9.7 / 1.8 %",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "상한 9.7%를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[158]",
+    "page": 12,
+    "source_text": "차. 인화 또는 폭발 범위의 상한/하한 | 9.7 / 1.8 %",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "하한 1.8%를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[159]",
+    "page": 12,
+    "source_text": "카. 증기압 | 212 ㎪ (20℃)",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10",
+      "R25"
+    ],
+    "note": "수치·압력 단위·온도 조건을 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[160]",
+    "page": 12,
+    "source_text": "타. 용해도 | 511 g/100㎖ (25℃)",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10",
+      "R25"
+    ],
+    "note": "원문 수치 511을 그대로 보존하고 단위와 온도 조건을 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[161]",
+    "page": 13,
+    "source_text": "파. 증기밀도 | 1.9",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "앞쪽에서 이어지는 성분 7의 무단위 수치를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[162]",
+    "page": 13,
+    "source_text": "하. 비중 | 0.6",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "성분 7의 무단위 수치를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[163]",
+    "page": 13,
+    "source_text": "거. n-옥탄올/물분배계수 | 2.31",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "성분 7의 무단위 수치를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[164]",
+    "page": 13,
+    "source_text": "너. 자연발화온도 | 324 ℃",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10",
+      "R25"
+    ],
+    "note": "성분 7의 수치와 온도 단위를 분리함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[165]",
+    "page": 13,
+    "source_text": "더. 분해온도 | 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 7의 자료없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[166]",
+    "page": 13,
+    "source_text": "러. 점도 | 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 7의 자료없음 상태를 보존함."
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[167]",
+    "page": 13,
+    "source_text": "머. 분자량 | 56.11",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "原문에 단위가 없어 무단위 수치로 저장함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[0]",
+    "page": 15,
+    "source_text": "아이소뷰테인(ISOBUTANE) | 자극, 구역, 구토, 두통, 졸음, 현기증, 감정변화, 조정(기능) 손실, 질식, 경련, 의식불명, 혼수를 일으킬 수 있음.\n가스의 섭취가 발생할 것 같지 않음\n동상을 일으킬 수 있음.",
+    "rules": [
+      "R10",
+      "R17"
+    ],
+    "note": "맞는 값 없음: 가능성이 높은 노출 경로에 관한 정보에 대응하는 endpoint가 없어 null로 보존함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[1]",
+    "page": 15,
+    "source_text": "부탄 | 자극, 구역, 구토, 호흡곤란, 불규칙 심장박동, 두통, 졸음, 피로, 현기증, 지남력 상실, 감정변화, 얼얼한 느낌, 조정(기능) 손실, 질식, 경련, 의식불명, 혼수를 일으킬 수 있음.\n위험량의 섭취가 발생할 것 같지 않음\n동상을 일으킬 수 있음.",
+    "rules": [
+      "R10",
+      "R17"
+    ],
+    "note": "맞는 값 없음: 가능성이 높은 노출 경로에 관한 정보에 대응하는 endpoint가 없어 null로 보존함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[2]",
+    "page": 15,
+    "source_text": "1-부텐 | 경미한 자극, 구역, 구토, 명정증상, 질식, 경련, 혼수를 일으킬 수 있음.\n동상을 일으킬 수 있음.\n수포, 동상을 일으킬 수 있음.\n경미한 자극, 동상, 시력불선명을 일으킬 수 있음.",
+    "rules": [
+      "R10",
+      "R17"
+    ],
+    "note": "맞는 값 없음: 가능성이 높은 노출 경로에 관한 정보에 대응하는 endpoint가 없어 null로 보존함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[3]",
+    "page": 15,
+    "source_text": "뷰타다이엔, 저해된 | 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R17"
+    ],
+    "note": "맞는 값 없음: 가능성이 높은 노출 경로에 관한 정보에 대응하는 endpoint가 없어 null로 보존함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[4]",
+    "page": 15,
+    "source_text": "아이소부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R17"
+    ],
+    "note": "맞는 값 없음: 가능성이 높은 노출 경로에 관한 정보에 대응하는 endpoint가 없어 null로 보존함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[5]",
+    "page": 15,
+    "source_text": "시스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R17"
+    ],
+    "note": "맞는 값 없음: 가능성이 높은 노출 경로에 관한 정보에 대응하는 endpoint가 없어 null로 보존함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[6]",
+    "page": 15,
+    "source_text": "트랜스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R17"
+    ],
+    "note": "맞는 값 없음: 가능성이 높은 노출 경로에 관한 정보에 대응하는 endpoint가 없어 null로 보존함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[7]",
+    "page": 15,
+    "source_text": "아이소뷰테인(ISOBUTANE) | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "경구 항목의 자료없음 행을 보존함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[8]",
+    "page": 15,
+    "source_text": "부탄 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "경구 항목의 자료없음 행을 보존함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[9]",
+    "page": 15,
+    "source_text": "1-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "경구 항목의 자료없음 행을 보존함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[10]",
+    "page": 15,
+    "source_text": "뷰타다이엔, 저해된 | LD50 5480 ㎎/㎏ Rat",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10"
+    ],
+    "note": "경구 LD50 수치와 단위, 시험종을 분리함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[11]",
+    "page": 15,
+    "source_text": "아이소부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "경구 항목의 자료없음 행을 보존함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[12]",
+    "page": 16,
+    "source_text": "시스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "앞쪽에서 이어지는 경구 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[13]",
+    "page": 16,
+    "source_text": "트랜스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "앞쪽에서 이어지는 경구 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[14]",
+    "page": 16,
+    "source_text": "아이소뷰테인(ISOBUTANE) | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "경피 항목의 자료없음 행을 보존함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[15]",
+    "page": 16,
+    "source_text": "부탄 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "경피 항목의 자료없음 행을 보존함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[16]",
+    "page": 16,
+    "source_text": "1-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "경피 항목의 자료없음 행을 보존함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[17]",
+    "page": 16,
+    "source_text": "뷰타다이엔, 저해된 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "경피 항목의 자료없음 행을 보존함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[18]",
+    "page": 16,
+    "source_text": "아이소부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "경피 항목의 자료없음 행을 보존함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[19]",
+    "page": 16,
+    "source_text": "시스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "경피 항목의 자료없음 행을 보존함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[20]",
+    "page": 16,
+    "source_text": "트랜스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "경피 항목의 자료없음 행을 보존함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[21]",
+    "page": 16,
+    "source_text": "아이소뷰테인(ISOBUTANE) | LC50 658 ㎎/ℓ 4 hr Rat",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10"
+    ],
+    "note": "흡입 LC50 수치, 단위, 시간, 시험종을 분리하고 명시되지 않은 흡입 형태는 null로 둠."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[22]",
+    "page": 16,
+    "source_text": "부탄 | LC50 277374 ppm 4 hr Rat",
+    "rules": [
+      "R04",
+      "R06",
+      "R10"
+    ],
+    "note": "흡입 LC50 수치, 시간, 시험종을 분리하고 명시되지 않은 흡입 형태는 null로 둠."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[23]",
+    "page": 16,
+    "source_text": "1-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "흡입 항목의 자료없음 행을 보존함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[24]",
+    "page": 16,
+    "source_text": "뷰타다이엔, 저해된 | LC50 129000 ppm 4 hr",
+    "rules": [
+      "R04",
+      "R06",
+      "R10"
+    ],
+    "note": "흡입 LC50 수치와 시간을 분리하고 시험종과 흡입 형태는 추정하지 않음."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[25]",
+    "page": 16,
+    "source_text": "아이소부텐 | 가스 LC50 270000 ppm 4 hr Rat",
+    "rules": [
+      "R04",
+      "R06",
+      "R10"
+    ],
+    "note": "흡입 형태 가스와 LC50 수치, 시간, 시험종을 분리함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[26]",
+    "page": 16,
+    "source_text": "시스-2-부텐 | (극심한 인화성)",
+    "rules": [
+      "R10",
+      "R17"
+    ],
+    "note": "흡입 항목에 적힌 문구를 수치로 해석하지 않고 그대로 보존함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[27]",
+    "page": 16,
+    "source_text": "트랜스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "흡입 항목의 자료없음 행을 보존함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[28]",
+    "page": 16,
+    "source_text": "아이소뷰테인(ISOBUTANE) | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "피부부식성 또는 자극성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[29]",
+    "page": 16,
+    "source_text": "부탄 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "피부부식성 또는 자극성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[30]",
+    "page": 16,
+    "source_text": "1-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "피부부식성 또는 자극성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[31]",
+    "page": 16,
+    "source_text": "뷰타다이엔, 저해된 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "피부부식성 또는 자극성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[32]",
+    "page": 16,
+    "source_text": "아이소부텐 | 피부에 접촉시 자극을 일으킴(심한 경우도 있음)",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[33]",
+    "page": 16,
+    "source_text": "시스-2-부텐 | 단기간 노출시 피부에 자극을 일으킴(심한 경우도 있음)",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[34]",
+    "page": 16,
+    "source_text": "트랜스-2-부텐 | 피부에 접촉시 자극을 일으킴(심한 경우도 있음)",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[35]",
+    "page": 16,
+    "source_text": "아이소뷰테인(ISOBUTANE) | 토끼를 이용한 안 자극성 시험 결과 비자극성",
+    "rules": [
+      "R10"
+    ],
+    "note": "원문에 명시된 시험종 토끼를 분리함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[36]",
+    "page": 16,
+    "source_text": "부탄 | 비자극성(rabbit)",
+    "rules": [
+      "R10"
+    ],
+    "note": "괄호의 시험종 rabbit을 원문 표기로 보존함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[37]",
+    "page": 16,
+    "source_text": "1-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "심한 눈손상 또는 자극성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[38]",
+    "page": 16,
+    "source_text": "뷰타다이엔, 저해된 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "심한 눈손상 또는 자극성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[39]",
+    "page": 16,
+    "source_text": "아이소부텐 | 눈에 접촉시 자극을 일으킴(심한 경우도 있음)",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[40]",
+    "page": 16,
+    "source_text": "시스-2-부텐 | 단기간 노출시 시력 불선명 등 증상을 보일 수 있음",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[41]",
+    "page": 16,
+    "source_text": "트랜스-2-부텐 | 눈에 접촉시 시력불선명 증상을 보임",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[42]",
+    "page": 16,
+    "source_text": "아이소뷰테인(ISOBUTANE) | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "호흡기과민성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[43]",
+    "page": 16,
+    "source_text": "부탄 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "호흡기과민성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[44]",
+    "page": 16,
+    "source_text": "1-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "호흡기과민성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[45]",
+    "page": 16,
+    "source_text": "뷰타다이엔, 저해된 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "호흡기과민성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[46]",
+    "page": 16,
+    "source_text": "아이소부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "호흡기과민성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[47]",
+    "page": 16,
+    "source_text": "시스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "호흡기과민성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[48]",
+    "page": 16,
+    "source_text": "트랜스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "호흡기과민성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[49]",
+    "page": 17,
+    "source_text": "아이소뷰테인(ISOBUTANE) | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "피부과민성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[50]",
+    "page": 17,
+    "source_text": "부탄 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "피부과민성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[51]",
+    "page": 17,
+    "source_text": "1-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "피부과민성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[52]",
+    "page": 17,
+    "source_text": "뷰타다이엔, 저해된 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "피부과민성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[53]",
+    "page": 17,
+    "source_text": "아이소부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "피부과민성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[54]",
+    "page": 17,
+    "source_text": "시스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "피부과민성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[55]",
+    "page": 17,
+    "source_text": "트랜스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "피부과민성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[56]",
+    "page": 18,
+    "source_text": "아이소뷰테인(ISOBUTANE) | 미생물복귀돌연변이시험 음성",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[57]",
+    "page": 18,
+    "source_text": "1-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "생식세포변이원성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[58]",
+    "page": 18,
+    "source_text": "아이소부텐 | 미생물 복귀돌연변이시험 결과 음성",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[59]",
+    "page": 18,
+    "source_text": "시스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "생식세포변이원성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[60]",
+    "page": 18,
+    "source_text": "트랜스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "생식세포변이원성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[61]",
+    "page": 18,
+    "source_text": "아이소뷰테인(ISOBUTANE) | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "생식독성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[62]",
+    "page": 18,
+    "source_text": "부탄 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "생식독성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[63]",
+    "page": 18,
+    "source_text": "1-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "생식독성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[64]",
+    "page": 18,
+    "source_text": "뷰타다이엔, 저해된 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "생식독성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[65]",
+    "page": 18,
+    "source_text": "아이소부텐 | 동물시험 결과 생식독성과 발달독성이 나타나지 않음",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[66]",
+    "page": 18,
+    "source_text": "시스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "생식독성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[67]",
+    "page": 18,
+    "source_text": "트랜스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "생식독성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[68]",
+    "page": 18,
+    "source_text": "아이소뷰테인(ISOBUTANE) | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "특정 표적장기 독성 (1회 노출) 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[69]",
+    "page": 18,
+    "source_text": "부탄 | 고농도에서 마취작용 및 중추신경계 억제가 보고됨.",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[70]",
+    "page": 18,
+    "source_text": "1-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "특정 표적장기 독성 (1회 노출) 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[71]",
+    "page": 18,
+    "source_text": "뷰타다이엔, 저해된 | 사람에서 기침을 수반하는 눈, 비도, 후두 및 폐 자극이 나타남",
+    "rules": [
+      "R10"
+    ],
+    "note": "원문에 명시된 대상 사람을 species에 옮김."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[72]",
+    "page": 18,
+    "source_text": "아이소부텐 | 중추신경에 영향을 미칠 수 있음. 높은농도에 노출시 무의식발생",
+    "rules": [
+      "R10"
+    ],
+    "note": "서술을 문장 단위로 분리함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[73]",
+    "page": 18,
+    "source_text": "시스-2-부텐 | 중추신경에 영향을 미침. 노출시 무의식발생(ICSC), 자극을 일으킴",
+    "rules": [
+      "R10"
+    ],
+    "note": "서술을 문장 단위로 분리하고 괄호의 출처 ICSC를 옮김."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[74]",
+    "page": 18,
+    "source_text": "트랜스-2-부텐 | 흡입하면 구토, 두통, 명정증상, 지남력 상실, 질식, 경련을 일으킬 수 있음",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[75]",
+    "page": 18,
+    "source_text": "아이소뷰테인(ISOBUTANE) | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "특정 표적장기 독성 (반복 노출) 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[76]",
+    "page": 18,
+    "source_text": "부탄 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "특정 표적장기 독성 (반복 노출) 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[77]",
+    "page": 18,
+    "source_text": "1-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "특정 표적장기 독성 (반복 노출) 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[78]",
+    "page": 18,
+    "source_text": "뷰타다이엔, 저해된 | 실험동물에서 빈혈, 난소 위축, 심근의 광질화, 간장 떡잎 중심성 괴사, 골수 위축, 정소 위축이 나타남",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[79]",
+    "page": 19,
+    "source_text": "아이소부텐 | 만성 또는 반복노출시 피부에 지방질을 제거했기 때문에 피부자극이 될 수 있다",
+    "rules": [
+      "R10"
+    ],
+    "note": "앞쪽에서 이어지는 특정 표적장기 독성 (반복 노출) 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[80]",
+    "page": 19,
+    "source_text": "시스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "앞쪽에서 이어지는 특정 표적장기 독성 (반복 노출) 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[81]",
+    "page": 19,
+    "source_text": "트랜스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "앞쪽에서 이어지는 특정 표적장기 독성 (반복 노출) 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[82]",
+    "page": 19,
+    "source_text": "아이소뷰테인(ISOBUTANE) | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "흡인유해성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[83]",
+    "page": 19,
+    "source_text": "부탄 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "흡인유해성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[84]",
+    "page": 19,
+    "source_text": "1-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "흡인유해성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[85]",
+    "page": 19,
+    "source_text": "뷰타다이엔, 저해된 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "흡인유해성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[86]",
+    "page": 19,
+    "source_text": "아이소부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "흡인유해성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[87]",
+    "page": 19,
+    "source_text": "시스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "흡인유해성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[88]",
+    "page": 19,
+    "source_text": "트랜스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "흡인유해성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[0]",
+    "page": 17,
+    "source_text": "아이소뷰테인(ISOBUTANE) | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "발암성의 산업안전보건법 행을 KR_OSH로 옮김."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[1]",
+    "page": 17,
+    "source_text": "부탄 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "발암성의 산업안전보건법 행을 KR_OSH로 옮김."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[2]",
+    "page": 17,
+    "source_text": "1-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "발암성의 산업안전보건법 행을 KR_OSH로 옮김."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[3]",
+    "page": 17,
+    "source_text": "뷰타다이엔, 저해된 | 발암성 (특별관리물질)",
+    "rules": [
+      "R10"
+    ],
+    "note": "산업안전보건법을 KR_OSH로 옮기고 괄호의 특별관리물질을 note에 보존함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[4]",
+    "page": 17,
+    "source_text": "아이소부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "발암성의 산업안전보건법 행을 KR_OSH로 옮김."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[5]",
+    "page": 17,
+    "source_text": "시스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "발암성의 산업안전보건법 행을 KR_OSH로 옮김."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[6]",
+    "page": 17,
+    "source_text": "트랜스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "발암성의 산업안전보건법 행을 KR_OSH로 옮김."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[7]",
+    "page": 17,
+    "source_text": "아이소뷰테인(ISOBUTANE) | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "발암성의 고용노동부고시 행을 KR_OSH로 옮김."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[8]",
+    "page": 17,
+    "source_text": "부탄 | 1A (Butadiene 0.1% 이상인 경우에 한함)",
+    "rules": [
+      "R10"
+    ],
+    "note": "고용노동부고시를 KR_OSH로 옮기고 등급과 적용 조건을 분리함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[9]",
+    "page": 17,
+    "source_text": "1-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "발암성의 고용노동부고시 행을 KR_OSH로 옮김."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[10]",
+    "page": 17,
+    "source_text": "뷰타다이엔, 저해된 | 1A",
+    "rules": [
+      "R10"
+    ],
+    "note": "발암성의 고용노동부고시 행을 KR_OSH로 옮김."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[11]",
+    "page": 17,
+    "source_text": "아이소부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "발암성의 고용노동부고시 행을 KR_OSH로 옮김."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[12]",
+    "page": 17,
+    "source_text": "시스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "발암성의 고용노동부고시 행을 KR_OSH로 옮김."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[13]",
+    "page": 17,
+    "source_text": "트랜스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "발암성의 고용노동부고시 행을 KR_OSH로 옮김."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[14]",
+    "page": 17,
+    "source_text": "아이소뷰테인(ISOBUTANE) | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "발암성 IARC 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[15]",
+    "page": 17,
+    "source_text": "부탄 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "발암성 IARC 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[16]",
+    "page": 17,
+    "source_text": "1-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "발암성 IARC 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[17]",
+    "page": 17,
+    "source_text": "뷰타다이엔, 저해된 | Group 1",
+    "rules": [
+      "R10"
+    ],
+    "note": "발암성 IARC 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[18]",
+    "page": 17,
+    "source_text": "아이소부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "발암성 IARC 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[19]",
+    "page": 17,
+    "source_text": "시스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "발암성 IARC 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[20]",
+    "page": 17,
+    "source_text": "트랜스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "발암성 IARC 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[21]",
+    "page": 17,
+    "source_text": "아이소뷰테인(ISOBUTANE) | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "발암성 OSHA 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[22]",
+    "page": 17,
+    "source_text": "부탄 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "발암성 OSHA 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[23]",
+    "page": 17,
+    "source_text": "1-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "발암성 OSHA 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[24]",
+    "page": 17,
+    "source_text": "뷰타다이엔, 저해된 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "발암성 OSHA 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[25]",
+    "page": 17,
+    "source_text": "아이소부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "발암성 OSHA 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[26]",
+    "page": 17,
+    "source_text": "시스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "발암성 OSHA 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[27]",
+    "page": 17,
+    "source_text": "트랜스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "발암성 OSHA 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[28]",
+    "page": 17,
+    "source_text": "아이소뷰테인(ISOBUTANE) | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "발암성 ACGIH 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[29]",
+    "page": 17,
+    "source_text": "부탄 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "발암성 ACGIH 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[30]",
+    "page": 17,
+    "source_text": "1-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "발암성 ACGIH 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[31]",
+    "page": 17,
+    "source_text": "뷰타다이엔, 저해된 | A2",
+    "rules": [
+      "R10"
+    ],
+    "note": "발암성 ACGIH 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[32]",
+    "page": 17,
+    "source_text": "아이소부텐 | A4",
+    "rules": [
+      "R10"
+    ],
+    "note": "발암성 ACGIH 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[33]",
+    "page": 17,
+    "source_text": "시스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "발암성 ACGIH 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[34]",
+    "page": 17,
+    "source_text": "트랜스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "발암성 ACGIH 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[35]",
+    "page": 18,
+    "source_text": "아이소뷰테인(ISOBUTANE) | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "발암성 NTP 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[36]",
+    "page": 18,
+    "source_text": "부탄 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "발암성 NTP 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[37]",
+    "page": 18,
+    "source_text": "1-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "발암성 NTP 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[38]",
+    "page": 18,
+    "source_text": "뷰타다이엔, 저해된 | K",
+    "rules": [
+      "R10"
+    ],
+    "note": "발암성 NTP 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[39]",
+    "page": 18,
+    "source_text": "아이소부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "발암성 NTP 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[40]",
+    "page": 18,
+    "source_text": "시스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "발암성 NTP 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[41]",
+    "page": 18,
+    "source_text": "트랜스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "발암성 NTP 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[42]",
+    "page": 18,
+    "source_text": "아이소뷰테인(ISOBUTANE) | Carc. 1A(1,3-butadiene 0.1% 함유한 경우에 한함)",
+    "rules": [
+      "R10"
+    ],
+    "note": "EU CLP 발암성 등급과 괄호의 적용 조건을 분리함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[43]",
+    "page": 18,
+    "source_text": "부탄 | Carc. 1A",
+    "rules": [
+      "R10"
+    ],
+    "note": "발암성 EU CLP 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[44]",
+    "page": 18,
+    "source_text": "1-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "발암성 EU CLP 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[45]",
+    "page": 18,
+    "source_text": "뷰타다이엔, 저해된 | Carc. 1A",
+    "rules": [
+      "R10"
+    ],
+    "note": "발암성 EU CLP 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[46]",
+    "page": 18,
+    "source_text": "아이소부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "발암성 EU CLP 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[47]",
+    "page": 18,
+    "source_text": "시스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "발암성 EU CLP 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[48]",
+    "page": 18,
+    "source_text": "트랜스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "발암성 EU CLP 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[49]",
+    "page": 18,
+    "source_text": "** EU CLP: 1B(1,3-butadiene 0.1%이상 함유한 경우에 한함)",
+    "rules": [
+      "R10"
+    ],
+    "note": "아이소뷰테인의 생식세포변이원성 행에 이어지는 기관별 분류와 적용 조건을 분리함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[50]",
+    "page": 18,
+    "source_text": "부탄 | * 고용노동부고시 1B (부타디엔 0.1% 이상인 경우에 한정함)",
+    "rules": [
+      "R10"
+    ],
+    "note": "고용노동부고시를 KR_OSH로 옮기고 등급과 적용 조건을 분리함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[51]",
+    "page": 18,
+    "source_text": "뷰타다이엔, 저해된 | * 산업안전보건법 특별관리물질(생식세포 변이원성)",
+    "rules": [
+      "R10"
+    ],
+    "note": "산업안전보건법을 KR_OSH로 옮기고 특별관리물질 표기를 보존함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[52]",
+    "page": 18,
+    "source_text": "* 고용노동부고시 1B",
+    "rules": [
+      "R10"
+    ],
+    "note": "뷰타다이엔, 저해된의 생식세포변이원성 행에 이어지는 고용노동부고시 분류임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[0]",
+    "page": 19,
+    "source_text": "아이소뷰테인(ISOBUTANE) | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "어류 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[1]",
+    "page": 19,
+    "source_text": "부탄 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "어류 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[2]",
+    "page": 19,
+    "source_text": "1-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "어류 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[3]",
+    "page": 19,
+    "source_text": "뷰타다이엔, 저해된 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "어류 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[4]",
+    "page": 19,
+    "source_text": "아이소부텐 | LC50 19.9 ㎎/ℓ 96 hr",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10"
+    ],
+    "note": "어류 LC50 수치와 시간, 단위를 분리함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[5]",
+    "page": 19,
+    "source_text": "시스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "어류 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[6]",
+    "page": 19,
+    "source_text": "트랜스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "어류 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[7]",
+    "page": 19,
+    "source_text": "아이소뷰테인(ISOBUTANE) | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "갑각류 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[8]",
+    "page": 19,
+    "source_text": "부탄 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "갑각류 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[9]",
+    "page": 19,
+    "source_text": "1-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "갑각류 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[10]",
+    "page": 19,
+    "source_text": "뷰타다이엔, 저해된 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "갑각류 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[11]",
+    "page": 19,
+    "source_text": "아이소부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "갑각류 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[12]",
+    "page": 19,
+    "source_text": "시스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "갑각류 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[13]",
+    "page": 19,
+    "source_text": "트랜스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "갑각류 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[14]",
+    "page": 19,
+    "source_text": "아이소뷰테인(ISOBUTANE) | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "조류 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[15]",
+    "page": 19,
+    "source_text": "부탄 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "조류 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[16]",
+    "page": 19,
+    "source_text": "1-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "조류 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[17]",
+    "page": 19,
+    "source_text": "뷰타다이엔, 저해된 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "조류 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[18]",
+    "page": 19,
+    "source_text": "아이소부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "조류 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[19]",
+    "page": 19,
+    "source_text": "시스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "조류 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[20]",
+    "page": 19,
+    "source_text": "트랜스-2-부텐 | EC50 14.814 ㎎/ℓ 96 hr",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10"
+    ],
+    "note": "조류 EC50 수치와 시간, 단위를 분리함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[21]",
+    "page": 19,
+    "source_text": "아이소뷰테인(ISOBUTANE) | log Kow 2.76",
+    "rules": [
+      "R04",
+      "R06",
+      "R10"
+    ],
+    "note": "잔류성 항목의 지표를 logKow로 옮기고 수치를 분리함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[22]",
+    "page": 19,
+    "source_text": "부탄 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "잔류성 항목의 자료없음 행을 보존함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[23]",
+    "page": 19,
+    "source_text": "1-부텐 | log Kow 2.4",
+    "rules": [
+      "R04",
+      "R06",
+      "R10"
+    ],
+    "note": "잔류성 항목의 지표를 logKow로 옮기고 수치를 분리함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[24]",
+    "page": 19,
+    "source_text": "뷰타다이엔, 저해된 | log Kow 1.99",
+    "rules": [
+      "R04",
+      "R06",
+      "R10"
+    ],
+    "note": "잔류성 항목의 지표를 logKow로 옮기고 수치를 분리함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[25]",
+    "page": 19,
+    "source_text": "아이소부텐 | log Kow 2.35",
+    "rules": [
+      "R04",
+      "R06",
+      "R10"
+    ],
+    "note": "잔류성 항목의 지표를 logKow로 옮기고 수치를 분리함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[26]",
+    "page": 19,
+    "source_text": "시스-2-부텐 | log Kow 2.33",
+    "rules": [
+      "R04",
+      "R06",
+      "R10"
+    ],
+    "note": "잔류성 항목의 지표를 logKow로 옮기고 수치를 분리함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[27]",
+    "page": 19,
+    "source_text": "트랜스-2-부텐 | log Kow 2.31",
+    "rules": [
+      "R04",
+      "R06",
+      "R10"
+    ],
+    "note": "잔류성 항목의 지표를 logKow로 옮기고 수치를 분리함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[28]",
+    "page": 20,
+    "source_text": "아이소뷰테인(ISOBUTANE) | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "분해성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[29]",
+    "page": 20,
+    "source_text": "부탄 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "분해성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[30]",
+    "page": 20,
+    "source_text": "1-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "분해성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[31]",
+    "page": 20,
+    "source_text": "뷰타다이엔, 저해된 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "분해성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[32]",
+    "page": 20,
+    "source_text": "아이소부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "분해성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[33]",
+    "page": 20,
+    "source_text": "시스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "분해성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[34]",
+    "page": 20,
+    "source_text": "트랜스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "분해성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[35]",
+    "page": 20,
+    "source_text": "아이소뷰테인(ISOBUTANE) | BCF 1.57 ~ 1.97",
+    "rules": [
+      "R04",
+      "R06",
+      "R10"
+    ],
+    "note": "농축성 BCF 범위를 하한 1.57(>=), 상한 1.97(<=)로 분리함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[36]",
+    "page": 20,
+    "source_text": "부탄 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "농축성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[37]",
+    "page": 20,
+    "source_text": "1-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "농축성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[38]",
+    "page": 20,
+    "source_text": "뷰타다이엔, 저해된 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "농축성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[39]",
+    "page": 20,
+    "source_text": "아이소부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "농축성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[40]",
+    "page": 20,
+    "source_text": "시스-2-부텐 | BCF 11.99",
+    "rules": [
+      "R04",
+      "R06",
+      "R10"
+    ],
+    "note": "농축성 지표 BCF와 수치를 분리함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[41]",
+    "page": 20,
+    "source_text": "트랜스-2-부텐 | BCF 11.99",
+    "rules": [
+      "R04",
+      "R06",
+      "R10"
+    ],
+    "note": "농축성 지표 BCF와 수치를 분리함."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[42]",
+    "page": 20,
+    "source_text": "아이소뷰테인(ISOBUTANE) | 65.7 (%) 35 day ((호기성, 미생물, 매우 잘 분해됨))",
+    "rules": [
+      "R04",
+      "R06",
+      "R10"
+    ],
+    "note": "생분해성의 분해율과 기간을 분리하고 괄호 설명을 보존하여 ECO_PERSIST에 옮김."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[43]",
+    "page": 20,
+    "source_text": "부탄 | 65.7 (%) 35 day ((호기성, 미생물, 매우 잘 분해됨))",
+    "rules": [
+      "R04",
+      "R06",
+      "R10"
+    ],
+    "note": "생분해성의 분해율과 기간을 분리하고 괄호 설명을 보존하여 ECO_PERSIST에 옮김."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[44]",
+    "page": 20,
+    "source_text": "1-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "생분해성 항목의 행을 ECO_PERSIST에 옮김."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[45]",
+    "page": 20,
+    "source_text": "뷰타다이엔, 저해된 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "생분해성 항목의 행을 ECO_PERSIST에 옮김."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[46]",
+    "page": 20,
+    "source_text": "아이소부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "생분해성 항목의 행을 ECO_PERSIST에 옮김."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[47]",
+    "page": 20,
+    "source_text": "시스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "생분해성 항목의 행을 ECO_PERSIST에 옮김."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[48]",
+    "page": 20,
+    "source_text": "트랜스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "생분해성 항목의 행을 ECO_PERSIST에 옮김."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[49]",
+    "page": 20,
+    "source_text": "아이소뷰테인(ISOBUTANE) | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "토양이동성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[50]",
+    "page": 20,
+    "source_text": "부탄 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "토양이동성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[51]",
+    "page": 20,
+    "source_text": "1-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "토양이동성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[52]",
+    "page": 20,
+    "source_text": "뷰타다이엔, 저해된 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "토양이동성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[53]",
+    "page": 20,
+    "source_text": "아이소부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "토양이동성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[54]",
+    "page": 20,
+    "source_text": "시스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "토양이동성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[55]",
+    "page": 20,
+    "source_text": "트랜스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "토양이동성 항목의 행임."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[56]",
+    "page": 20,
+    "source_text": "아이소뷰테인(ISOBUTANE) | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "기타 유해 영향 행을 ECO_OTHER에 옮김."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[57]",
+    "page": 20,
+    "source_text": "부탄 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "기타 유해 영향 행을 ECO_OTHER에 옮김."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[58]",
+    "page": 20,
+    "source_text": "1-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "기타 유해 영향 행을 ECO_OTHER에 옮김."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[59]",
+    "page": 20,
+    "source_text": "뷰타다이엔, 저해된 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "기타 유해 영향 행을 ECO_OTHER에 옮김."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[60]",
+    "page": 20,
+    "source_text": "아이소부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "기타 유해 영향 행을 ECO_OTHER에 옮김."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[61]",
+    "page": 20,
+    "source_text": "시스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "기타 유해 영향 행을 ECO_OTHER에 옮김."
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[62]",
+    "page": 20,
+    "source_text": "트랜스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "기타 유해 영향 행을 ECO_OTHER에 옮김."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[0].un_no",
+    "page": 21,
+    "source_text": "아이소뷰테인(ISOBUTANE) 1969",
+    "rules": [
+      "R09",
+      "R15",
+      "R17"
+    ],
+    "note": "성분 1의 un_no 항목을 해당 표의 실제 연속 원문 행으로 인용함. 성분 1의 운송 정보를 별도 행으로 보존했으며, 운송 방식 구분이 없어 공통으로 두고 용기등급 '-'는 미기재를 나타낼 상태 칸이 없어 null로 둠."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[0].shipping_name",
+    "page": 21,
+    "source_text": "아이소뷰테인(ISOBUTANE) 이소부탄(ISOBUTANE)",
+    "rules": [
+      "R09",
+      "R15",
+      "R17"
+    ],
+    "note": "성분 1의 shipping_name 항목을 해당 표의 실제 연속 원문 행으로 인용함. 성분 1의 운송 정보를 별도 행으로 보존했으며, 운송 방식 구분이 없어 공통으로 두고 용기등급 '-'는 미기재를 나타낼 상태 칸이 없어 null로 둠."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[0].hazard_class",
+    "page": 21,
+    "source_text": "아이소뷰테인(ISOBUTANE) 2.2",
+    "rules": [
+      "R09",
+      "R15",
+      "R17"
+    ],
+    "note": "성분 1의 hazard_class 항목을 해당 표의 실제 연속 원문 행으로 인용함. 성분 1의 운송 정보를 별도 행으로 보존했으며, 운송 방식 구분이 없어 공통으로 두고 용기등급 '-'는 미기재를 나타낼 상태 칸이 없어 null로 둠."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[0].packing_group",
+    "page": 21,
+    "source_text": "아이소뷰테인(ISOBUTANE) -",
+    "rules": [
+      "R09",
+      "R15",
+      "R17"
+    ],
+    "note": "성분 1의 packing_group 항목을 해당 표의 실제 연속 원문 행으로 인용함. 성분 1의 운송 정보를 별도 행으로 보존했으며, 운송 방식 구분이 없어 공통으로 두고 용기등급 '-'는 미기재를 나타낼 상태 칸이 없어 null로 둠."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[0].marine_pollutant",
+    "page": 22,
+    "source_text": "아이소뷰테인(ISOBUTANE)  자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "성분 1의 marine_pollutant 항목을 해당 표의 실제 연속 원문 행으로 인용함. 성분 1의 해양오염물질, 화재시 비상조치, 유출시 비상조치를 순서대로 옮김."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[0].ems_fire",
+    "page": 22,
+    "source_text": "아이소뷰테인(ISOBUTANE)  F-D",
+    "rules": [
+      "R15"
+    ],
+    "note": "성분 1의 ems_fire 항목을 해당 표의 실제 연속 원문 행으로 인용함. 성분 1의 해양오염물질, 화재시 비상조치, 유출시 비상조치를 순서대로 옮김."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[0].ems_spill",
+    "page": 22,
+    "source_text": "아이소뷰테인(ISOBUTANE)  S-U",
+    "rules": [
+      "R15"
+    ],
+    "note": "성분 1의 ems_spill 항목을 해당 표의 실제 연속 원문 행으로 인용함. 성분 1의 해양오염물질, 화재시 비상조치, 유출시 비상조치를 순서대로 옮김."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[1].un_no",
+    "page": 21,
+    "source_text": "부탄 1011",
+    "rules": [
+      "R09",
+      "R15"
+    ],
+    "note": "성분 2의 un_no 항목을 해당 표의 실제 연속 원문 행으로 인용함. 성분 2의 운송 정보이며, 방식 구분이 없어 공통으로 두고 용기등급 '-'는 미기재를 나타낼 상태 칸이 없어 null로 둠."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[1].shipping_name",
+    "page": 21,
+    "source_text": "부탄 부탄(액화석유가스)(BUTANE)",
+    "rules": [
+      "R09",
+      "R15"
+    ],
+    "note": "성분 2의 shipping_name 항목을 해당 표의 실제 연속 원문 행으로 인용함. 성분 2의 운송 정보이며, 방식 구분이 없어 공통으로 두고 용기등급 '-'는 미기재를 나타낼 상태 칸이 없어 null로 둠."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[1].hazard_class",
+    "page": 21,
+    "source_text": "부탄 2.1",
+    "rules": [
+      "R09",
+      "R15"
+    ],
+    "note": "성분 2의 hazard_class 항목을 해당 표의 실제 연속 원문 행으로 인용함. 성분 2의 운송 정보이며, 방식 구분이 없어 공통으로 두고 용기등급 '-'는 미기재를 나타낼 상태 칸이 없어 null로 둠."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[1].packing_group",
+    "page": 21,
+    "source_text": "부탄 -",
+    "rules": [
+      "R09",
+      "R15"
+    ],
+    "note": "성분 2의 packing_group 항목을 해당 표의 실제 연속 원문 행으로 인용함. 성분 2의 운송 정보이며, 방식 구분이 없어 공통으로 두고 용기등급 '-'는 미기재를 나타낼 상태 칸이 없어 null로 둠."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[1].marine_pollutant",
+    "page": 22,
+    "source_text": "부탄  자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "성분 2의 marine_pollutant 항목을 해당 표의 실제 연속 원문 행으로 인용함. 성분 2의 해양오염물질, 화재시 비상조치, 유출시 비상조치를 순서대로 옮김."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[1].ems_fire",
+    "page": 22,
+    "source_text": "부탄  F-D",
+    "rules": [
+      "R15"
+    ],
+    "note": "성분 2의 ems_fire 항목을 해당 표의 실제 연속 원문 행으로 인용함. 성분 2의 해양오염물질, 화재시 비상조치, 유출시 비상조치를 순서대로 옮김."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[1].ems_spill",
+    "page": 22,
+    "source_text": "부탄  S-U",
+    "rules": [
+      "R15"
+    ],
+    "note": "성분 2의 ems_spill 항목을 해당 표의 실제 연속 원문 행으로 인용함. 성분 2의 해양오염물질, 화재시 비상조치, 유출시 비상조치를 순서대로 옮김."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[2].un_no",
+    "page": 21,
+    "source_text": "1-부텐 1012",
+    "rules": [
+      "R09",
+      "R15"
+    ],
+    "note": "성분 3의 un_no 항목을 해당 표의 실제 연속 원문 행으로 인용함. 성분 3의 운송 정보이며, 방식 구분이 없어 공통으로 두고 용기등급 '-'는 미기재를 나타낼 상태 칸이 없어 null로 둠."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[2].shipping_name",
+    "page": 21,
+    "source_text": "1-부텐 부틸렌(BUTYLENE)",
+    "rules": [
+      "R09",
+      "R15"
+    ],
+    "note": "성분 3의 shipping_name 항목을 해당 표의 실제 연속 원문 행으로 인용함. 성분 3의 운송 정보이며, 방식 구분이 없어 공통으로 두고 용기등급 '-'는 미기재를 나타낼 상태 칸이 없어 null로 둠."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[2].hazard_class",
+    "page": 21,
+    "source_text": "1-부텐 2.1",
+    "rules": [
+      "R09",
+      "R15"
+    ],
+    "note": "성분 3의 hazard_class 항목을 해당 표의 실제 연속 원문 행으로 인용함. 성분 3의 운송 정보이며, 방식 구분이 없어 공통으로 두고 용기등급 '-'는 미기재를 나타낼 상태 칸이 없어 null로 둠."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[2].packing_group",
+    "page": 21,
+    "source_text": "1-부텐 -",
+    "rules": [
+      "R09",
+      "R15"
+    ],
+    "note": "성분 3의 packing_group 항목을 해당 표의 실제 연속 원문 행으로 인용함. 성분 3의 운송 정보이며, 방식 구분이 없어 공통으로 두고 용기등급 '-'는 미기재를 나타낼 상태 칸이 없어 null로 둠."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[2].marine_pollutant",
+    "page": 22,
+    "source_text": "1-부텐  자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "성분 3의 marine_pollutant 항목을 해당 표의 실제 연속 원문 행으로 인용함. 성분 3의 해양오염물질, 화재시 비상조치, 유출시 비상조치를 순서대로 옮김."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[2].ems_fire",
+    "page": 22,
+    "source_text": "1-부텐  F-D",
+    "rules": [
+      "R15"
+    ],
+    "note": "성분 3의 ems_fire 항목을 해당 표의 실제 연속 원문 행으로 인용함. 성분 3의 해양오염물질, 화재시 비상조치, 유출시 비상조치를 순서대로 옮김."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[2].ems_spill",
+    "page": 22,
+    "source_text": "1-부텐  S-U",
+    "rules": [
+      "R15"
+    ],
+    "note": "성분 3의 ems_spill 항목을 해당 표의 실제 연속 원문 행으로 인용함. 성분 3의 해양오염물질, 화재시 비상조치, 유출시 비상조치를 순서대로 옮김."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[3].un_no",
+    "page": 21,
+    "source_text": "뷰타다이엔, 저해된 1010",
+    "rules": [
+      "R09",
+      "R15"
+    ],
+    "note": "성분 4의 un_no 항목을 해당 표의 실제 연속 원문 행으로 인용함. 성분 4의 운송 정보이며, 방식 구분이 없어 공통으로 두고 용기등급 '-'는 미기재를 나타낼 상태 칸이 없어 null로 둠."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[3].shipping_name",
+    "page": 21,
+    "source_text": "뷰타다이엔, 저해된 부타디엔 (안정제가 첨가된 것)(BUTADIENES, STABILIZED or BUTADIENES AND HYDROCARBON MIXTURE, STABILIZED with more than 40% butadienes)",
+    "rules": [
+      "R09",
+      "R15"
+    ],
+    "note": "성분 4의 shipping_name 항목을 해당 표의 실제 연속 원문 행으로 인용함. 성분 4의 운송 정보이며, 방식 구분이 없어 공통으로 두고 용기등급 '-'는 미기재를 나타낼 상태 칸이 없어 null로 둠."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[3].hazard_class",
+    "page": 21,
+    "source_text": "뷰타다이엔, 저해된 2.1",
+    "rules": [
+      "R09",
+      "R15"
+    ],
+    "note": "성분 4의 hazard_class 항목을 해당 표의 실제 연속 원문 행으로 인용함. 성분 4의 운송 정보이며, 방식 구분이 없어 공통으로 두고 용기등급 '-'는 미기재를 나타낼 상태 칸이 없어 null로 둠."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[3].packing_group",
+    "page": 21,
+    "source_text": "뷰타다이엔, 저해된 -",
+    "rules": [
+      "R09",
+      "R15"
+    ],
+    "note": "성분 4의 packing_group 항목을 해당 표의 실제 연속 원문 행으로 인용함. 성분 4의 운송 정보이며, 방식 구분이 없어 공통으로 두고 용기등급 '-'는 미기재를 나타낼 상태 칸이 없어 null로 둠."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[3].marine_pollutant",
+    "page": 22,
+    "source_text": "뷰타다이엔, 저해된  자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "성분 4의 marine_pollutant 항목을 해당 표의 실제 연속 원문 행으로 인용함. 성분 4의 해양오염물질, 화재시 비상조치, 유출시 비상조치를 순서대로 옮김."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[3].ems_fire",
+    "page": 22,
+    "source_text": "뷰타다이엔, 저해된  F-D",
+    "rules": [
+      "R15"
+    ],
+    "note": "성분 4의 ems_fire 항목을 해당 표의 실제 연속 원문 행으로 인용함. 성분 4의 해양오염물질, 화재시 비상조치, 유출시 비상조치를 순서대로 옮김."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[3].ems_spill",
+    "page": 22,
+    "source_text": "뷰타다이엔, 저해된  S-U",
+    "rules": [
+      "R15"
+    ],
+    "note": "성분 4의 ems_spill 항목을 해당 표의 실제 연속 원문 행으로 인용함. 성분 4의 해양오염물질, 화재시 비상조치, 유출시 비상조치를 순서대로 옮김."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[4].un_no",
+    "page": 21,
+    "source_text": "아이소부텐 1055",
+    "rules": [
+      "R09",
+      "R15"
+    ],
+    "note": "성분 5의 un_no 항목을 해당 표의 실제 연속 원문 행으로 인용함. 성분 5의 운송 정보이며, 방식 구분이 없어 공통으로 두고 용기등급 '-'는 미기재를 나타낼 상태 칸이 없어 null로 둠."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[4].shipping_name",
+    "page": 21,
+    "source_text": "아이소부텐 이소부틸렌",
+    "rules": [
+      "R09",
+      "R15"
+    ],
+    "note": "성분 5의 shipping_name 항목을 해당 표의 실제 연속 원문 행으로 인용함. 성분 5의 운송 정보이며, 방식 구분이 없어 공통으로 두고 용기등급 '-'는 미기재를 나타낼 상태 칸이 없어 null로 둠."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[4].hazard_class",
+    "page": 21,
+    "source_text": "아이소부텐 2.1",
+    "rules": [
+      "R09",
+      "R15"
+    ],
+    "note": "성분 5의 hazard_class 항목을 해당 표의 실제 연속 원문 행으로 인용함. 성분 5의 운송 정보이며, 방식 구분이 없어 공통으로 두고 용기등급 '-'는 미기재를 나타낼 상태 칸이 없어 null로 둠."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[4].packing_group",
+    "page": 21,
+    "source_text": "아이소부텐 -",
+    "rules": [
+      "R09",
+      "R15"
+    ],
+    "note": "성분 5의 packing_group 항목을 해당 표의 실제 연속 원문 행으로 인용함. 성분 5의 운송 정보이며, 방식 구분이 없어 공통으로 두고 용기등급 '-'는 미기재를 나타낼 상태 칸이 없어 null로 둠."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[4].marine_pollutant",
+    "page": 22,
+    "source_text": "아이소부텐  자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "성분 5의 marine_pollutant 항목을 해당 표의 실제 연속 원문 행으로 인용함. 성분 5의 해양오염물질, 화재시 비상조치, 유출시 비상조치를 순서대로 옮김."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[4].ems_fire",
+    "page": 22,
+    "source_text": "아이소부텐  F-D",
+    "rules": [
+      "R15"
+    ],
+    "note": "성분 5의 ems_fire 항목을 해당 표의 실제 연속 원문 행으로 인용함. 성분 5의 해양오염물질, 화재시 비상조치, 유출시 비상조치를 순서대로 옮김."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[4].ems_spill",
+    "page": 22,
+    "source_text": "아이소부텐  S-U",
+    "rules": [
+      "R15"
+    ],
+    "note": "성분 5의 ems_spill 항목을 해당 표의 실제 연속 원문 행으로 인용함. 성분 5의 해양오염물질, 화재시 비상조치, 유출시 비상조치를 순서대로 옮김."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[5].un_no",
+    "page": 21,
+    "source_text": "시스-2-부텐 1012",
+    "rules": [
+      "R09",
+      "R15"
+    ],
+    "note": "성분 6의 un_no 항목을 해당 표의 실제 연속 원문 행으로 인용함. 성분 6의 운송 정보이며, 방식 구분이 없어 공통으로 두고 용기등급 '-'는 미기재를 나타낼 상태 칸이 없어 null로 둠."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[5].shipping_name",
+    "page": 21,
+    "source_text": "시스-2-부텐 부틸렌(BUTYLENE)",
+    "rules": [
+      "R09",
+      "R15"
+    ],
+    "note": "성분 6의 shipping_name 항목을 해당 표의 실제 연속 원문 행으로 인용함. 성분 6의 운송 정보이며, 방식 구분이 없어 공통으로 두고 용기등급 '-'는 미기재를 나타낼 상태 칸이 없어 null로 둠."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[5].hazard_class",
+    "page": 21,
+    "source_text": "시스-2-부텐 2.1",
+    "rules": [
+      "R09",
+      "R15"
+    ],
+    "note": "성분 6의 hazard_class 항목을 해당 표의 실제 연속 원문 행으로 인용함. 성분 6의 운송 정보이며, 방식 구분이 없어 공통으로 두고 용기등급 '-'는 미기재를 나타낼 상태 칸이 없어 null로 둠."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[5].packing_group",
+    "page": 21,
+    "source_text": "시스-2-부텐 -",
+    "rules": [
+      "R09",
+      "R15"
+    ],
+    "note": "성분 6의 packing_group 항목을 해당 표의 실제 연속 원문 행으로 인용함. 성분 6의 운송 정보이며, 방식 구분이 없어 공통으로 두고 용기등급 '-'는 미기재를 나타낼 상태 칸이 없어 null로 둠."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[5].marine_pollutant",
+    "page": 22,
+    "source_text": "시스-2-부텐  자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "성분 6의 marine_pollutant 항목을 해당 표의 실제 연속 원문 행으로 인용함. 성분 6의 해양오염물질, 화재시 비상조치, 유출시 비상조치를 순서대로 옮김."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[5].ems_fire",
+    "page": 22,
+    "source_text": "시스-2-부텐  F-D",
+    "rules": [
+      "R15"
+    ],
+    "note": "성분 6의 ems_fire 항목을 해당 표의 실제 연속 원문 행으로 인용함. 성분 6의 해양오염물질, 화재시 비상조치, 유출시 비상조치를 순서대로 옮김."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[5].ems_spill",
+    "page": 22,
+    "source_text": "시스-2-부텐  S-U",
+    "rules": [
+      "R15"
+    ],
+    "note": "성분 6의 ems_spill 항목을 해당 표의 실제 연속 원문 행으로 인용함. 성분 6의 해양오염물질, 화재시 비상조치, 유출시 비상조치를 순서대로 옮김."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[6].un_no",
+    "page": 21,
+    "source_text": "트랜스-2-부텐 1012",
+    "rules": [
+      "R09",
+      "R15"
+    ],
+    "note": "성분 7의 un_no 항목을 해당 표의 실제 연속 원문 행으로 인용함. 성분 7의 운송 정보이며, 방식 구분이 없어 공통으로 두고 용기등급 '-'는 미기재를 나타낼 상태 칸이 없어 null로 둠."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[6].shipping_name",
+    "page": 21,
+    "source_text": "트랜스-2-부텐 부틸렌(BUTYLENE)",
+    "rules": [
+      "R09",
+      "R15"
+    ],
+    "note": "성분 7의 shipping_name 항목을 해당 표의 실제 연속 원문 행으로 인용함. 성분 7의 운송 정보이며, 방식 구분이 없어 공통으로 두고 용기등급 '-'는 미기재를 나타낼 상태 칸이 없어 null로 둠."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[6].hazard_class",
+    "page": 21,
+    "source_text": "트랜스-2-부텐 2.1",
+    "rules": [
+      "R09",
+      "R15"
+    ],
+    "note": "성분 7의 hazard_class 항목을 해당 표의 실제 연속 원문 행으로 인용함. 성분 7의 운송 정보이며, 방식 구분이 없어 공통으로 두고 용기등급 '-'는 미기재를 나타낼 상태 칸이 없어 null로 둠."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[6].packing_group",
+    "page": 21,
+    "source_text": "트랜스-2-부텐 -",
+    "rules": [
+      "R09",
+      "R15"
+    ],
+    "note": "성분 7의 packing_group 항목을 해당 표의 실제 연속 원문 행으로 인용함. 성분 7의 운송 정보이며, 방식 구분이 없어 공통으로 두고 용기등급 '-'는 미기재를 나타낼 상태 칸이 없어 null로 둠."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[6].marine_pollutant",
+    "page": 22,
+    "source_text": "트랜스-2-부텐  자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "성분 7의 marine_pollutant 항목을 해당 표의 실제 연속 원문 행으로 인용함. 성분 7의 해양오염물질, 화재시 비상조치, 유출시 비상조치를 순서대로 옮김."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[6].ems_fire",
+    "page": 22,
+    "source_text": "트랜스-2-부텐  F-D",
+    "rules": [
+      "R15"
+    ],
+    "note": "성분 7의 ems_fire 항목을 해당 표의 실제 연속 원문 행으로 인용함. 성분 7의 해양오염물질, 화재시 비상조치, 유출시 비상조치를 순서대로 옮김."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[6].ems_spill",
+    "page": 22,
+    "source_text": "트랜스-2-부텐  S-U",
+    "rules": [
+      "R15"
+    ],
+    "note": "성분 7의 ems_spill 항목을 해당 표의 실제 연속 원문 행으로 인용함. 성분 7의 해양오염물질, 화재시 비상조치, 유출시 비상조치를 순서대로 옮김."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[0]",
+    "page": 22,
+    "source_text": "가. 산업안전보건법에 의한 규제\n아이소뷰테인(ISOBUTANE) | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "성분 1로 연결했으며 세부 규제 항목이 명시되지 않아 item_code는 null로 둠."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[1]",
+    "page": 22,
+    "source_text": "부탄 | 노출기준설정물질",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "성분 2로 연결하고 노출기준설정물질을 OSH_EXPOSURE_STD에 매핑함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[2]",
+    "page": 22,
+    "source_text": "1-부텐  자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "성분 3으로 연결했으며 세부 규제 항목이 명시되지 않아 item_code는 null로 둠."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[3]",
+    "page": 22,
+    "source_text": "뷰타다이엔, 저해된 | 관리대상유해물질",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "성분 4로 연결하고 관리대상유해물질을 OSH_MANAGED에 매핑함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[4]",
+    "page": 22,
+    "source_text": "작업환경측정대상물질 (측정주기 : 6개월)",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "성분 4의 이어지는 행을 OSH_MEASURE로 매핑하고 측정주기 6개월을 Q로 분리함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[5]",
+    "page": 22,
+    "source_text": "특별관리물질",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "성분 4의 이어지는 행을 OSH_SPECIAL에 매핑함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[6]",
+    "page": 22,
+    "source_text": "특수건강진단대상물질 (진단주기 : 12개월)",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "성분 4의 이어지는 행을 OSH_HEALTH_EXAM으로 매핑하고 진단주기 12개월을 Q로 분리함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[7]",
+    "page": 22,
+    "source_text": "노출기준설정물질",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "성분 4의 이어지는 행을 OSH_EXPOSURE_STD에 매핑함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[8]",
+    "page": 22,
+    "source_text": "아이소부텐  자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "성분 5로 연결했으며 세부 규제 항목이 명시되지 않아 item_code는 null로 둠."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[9]",
+    "page": 22,
+    "source_text": "시스-2-부텐  자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "성분 6으로 연결했으며 세부 규제 항목이 명시되지 않아 item_code는 null로 둠."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[10]",
+    "page": 22,
+    "source_text": "트랜스-2-부텐  자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "성분 7로 연결했으며 세부 규제 항목이 명시되지 않아 item_code는 null로 둠."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[11]",
+    "page": 22,
+    "source_text": "나. 유해화학물질관리법에 의한 규제\n아이소뷰테인(ISOBUTANE) | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "성분 1의 구법 규제를 CCA로 저장하고 명시되지 않은 세부 항목 코드는 null로 둠."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[12]",
+    "page": 22,
+    "source_text": "부탄  자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "성분 2의 구법 규제를 CCA로 저장하고 명시되지 않은 세부 항목 코드는 null로 둠."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[13]",
+    "page": 22,
+    "source_text": "1-부텐  자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "성분 3의 구법 규제를 CCA로 저장하고 명시되지 않은 세부 항목 코드는 null로 둠."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[14]",
+    "page": 22,
+    "source_text": "뷰타다이엔, 저해된 | 유독물(1,3-butadiene 0.1%이상 함유되어 RAFFINATE-1 은 유독물로 분류됨)",
+    "rules": [
+      "R04",
+      "R06",
+      "R10"
+    ],
+    "note": "성분 4의 유독물 규제를 CCA_TOXIC에 저장하고 0.1%이상을 하한 0.1(>=)로 분리하며 제품의 유독물 분류 설명을 보존함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[15]",
+    "page": 22,
+    "source_text": "아이소부텐  자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "성분 5의 구법 규제를 CCA로 저장하고 명시되지 않은 세부 항목 코드는 null로 둠."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[16]",
+    "page": 22,
+    "source_text": "시스-2-부텐  자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "성분 6의 구법 규제를 CCA로 저장하고 명시되지 않은 세부 항목 코드는 null로 둠."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[17]",
+    "page": 22,
+    "source_text": "트랜스-2-부텐  자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "성분 7의 구법 규제를 CCA로 저장하고 명시되지 않은 세부 항목 코드는 null로 둠."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[18]",
+    "page": 22,
+    "source_text": "다. 위험물안전관리법에 의한 규제\n아이소뷰테인(ISOBUTANE) | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "성분 1의 위험물 규제 상태를 자료없음으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[19]",
+    "page": 23,
+    "source_text": "부탄 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "앞 쪽에서 이어지는 위험물안전관리법 항목의 성분 2 행임."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[20]",
+    "page": 23,
+    "source_text": "1-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "앞 쪽에서 이어지는 위험물안전관리법 항목의 성분 3 행임."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[21]",
+    "page": 23,
+    "source_text": "뷰타다이엔, 저해된 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "앞 쪽에서 이어지는 위험물안전관리법 항목의 성분 4 행임."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[22]",
+    "page": 23,
+    "source_text": "아이소부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "앞 쪽에서 이어지는 위험물안전관리법 항목의 성분 5 행임."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[23]",
+    "page": 23,
+    "source_text": "시스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "앞 쪽에서 이어지는 위험물안전관리법 항목의 성분 6 행임."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[24]",
+    "page": 23,
+    "source_text": "트랜스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "앞 쪽에서 이어지는 위험물안전관리법 항목의 성분 7 행임."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[25]",
+    "page": 23,
+    "source_text": "라. 폐기물관리법에 의한 규제\n아이소뷰테인(ISOBUTANE) | 지정폐기물",
+    "rules": [
+      "R10"
+    ],
+    "note": "성분 1의 지정폐기물 표기를 해당으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[26]",
+    "page": 23,
+    "source_text": "부탄  지정폐기물",
+    "rules": [
+      "R10"
+    ],
+    "note": "성분 2의 지정폐기물 표기를 해당으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[27]",
+    "page": 23,
+    "source_text": "1-부텐  자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "성분 3의 폐기물 규제 상태를 자료없음으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[28]",
+    "page": 23,
+    "source_text": "뷰타다이엔, 저해된  지정폐기물",
+    "rules": [
+      "R10"
+    ],
+    "note": "성분 4의 지정폐기물 표기를 해당으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[29]",
+    "page": 23,
+    "source_text": "아이소부텐  자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "성분 5의 폐기물 규제 상태를 자료없음으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[30]",
+    "page": 23,
+    "source_text": "시스-2-부텐  지정폐기물",
+    "rules": [
+      "R10"
+    ],
+    "note": "성분 6의 지정폐기물 표기를 해당으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[31]",
+    "page": 23,
+    "source_text": "트랜스-2-부텐  지정폐기물",
+    "rules": [
+      "R10"
+    ],
+    "note": "성분 7의 지정폐기물 표기를 해당으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[32]",
+    "page": 23,
+    "source_text": "잔류성유기오염물질관리법\n아이소뷰테인(ISOBUTANE) | 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 1의 POPS 규제로 매핑하고 해당없음을 비해당으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[33]",
+    "page": 23,
+    "source_text": "부탄  해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 2의 POPS 규제로 매핑하고 해당없음을 비해당으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[34]",
+    "page": 23,
+    "source_text": "1-부텐  해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 3의 POPS 규제로 매핑하고 해당없음을 비해당으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[35]",
+    "page": 23,
+    "source_text": "뷰타다이엔, 저해된  해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 4의 POPS 규제로 매핑하고 해당없음을 비해당으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[36]",
+    "page": 23,
+    "source_text": "아이소부텐  해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 5의 POPS 규제로 매핑하고 해당없음을 비해당으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[37]",
+    "page": 23,
+    "source_text": "시스-2-부텐  해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 6의 POPS 규제로 매핑하고 해당없음을 비해당으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[38]",
+    "page": 23,
+    "source_text": "트랜스-2-부텐  해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 7의 POPS 규제로 매핑하고 해당없음을 비해당으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[39]",
+    "page": 23,
+    "source_text": "미국관리정보(OSHA 규정)\n아이소뷰테인(ISOBUTANE) | 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 1의 미국 규제로 매핑하고 해당없음을 비해당으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[40]",
+    "page": 23,
+    "source_text": "부탄  해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 2의 미국 규제로 매핑하고 해당없음을 비해당으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[41]",
+    "page": 23,
+    "source_text": "1-부텐  해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 3의 미국 규제로 매핑하고 해당없음을 비해당으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[42]",
+    "page": 23,
+    "source_text": "뷰타다이엔, 저해된  해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 4의 미국 규제로 매핑하고 해당없음을 비해당으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[43]",
+    "page": 23,
+    "source_text": "아이소부텐  해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 5의 미국 규제로 매핑하고 해당없음을 비해당으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[44]",
+    "page": 23,
+    "source_text": "시스-2-부텐  해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 6의 미국 규제로 매핑하고 해당없음을 비해당으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[45]",
+    "page": 23,
+    "source_text": "트랜스-2-부텐  해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 7의 미국 규제로 매핑하고 해당없음을 비해당으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[46]",
+    "page": 23,
+    "source_text": "미국관리정보(CERCLA 규정)\n아이소뷰테인(ISOBUTANE) | 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 1의 미국 규제로 매핑하고 해당없음을 비해당으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[47]",
+    "page": 23,
+    "source_text": "부탄  해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 2의 미국 규제로 매핑하고 해당없음을 비해당으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[48]",
+    "page": 23,
+    "source_text": "1-부텐  해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 3의 미국 규제로 매핑하고 해당없음을 비해당으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[49]",
+    "page": 23,
+    "source_text": "뷰타다이엔, 저해된  4.53599 kg 10 lb",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": "성분 4의 규제 수량을 4.53599 kg과 병기 수량 10 lb로 분리하고 해당으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[50]",
+    "page": 23,
+    "source_text": "아이소부텐  해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 5의 미국 규제로 매핑하고 해당없음을 비해당으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[51]",
+    "page": 23,
+    "source_text": "시스-2-부텐  해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 6의 미국 규제로 매핑하고 해당없음을 비해당으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[52]",
+    "page": 23,
+    "source_text": "트랜스-2-부텐  해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 7의 미국 규제로 매핑하고 해당없음을 비해당으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[53]",
+    "page": 23,
+    "source_text": "미국관리정보(EPCRA 302 규정)\n아이소뷰테인(ISOBUTANE) | 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 1의 미국 규제로 매핑하고 해당없음을 비해당으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[54]",
+    "page": 23,
+    "source_text": "부탄  해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 2의 미국 규제로 매핑하고 해당없음을 비해당으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[55]",
+    "page": 23,
+    "source_text": "1-부텐  해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 3의 미국 규제로 매핑하고 해당없음을 비해당으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[56]",
+    "page": 23,
+    "source_text": "뷰타다이엔, 저해된  해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 4의 미국 규제로 매핑하고 해당없음을 비해당으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[57]",
+    "page": 23,
+    "source_text": "아이소부텐  해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 5의 미국 규제로 매핑하고 해당없음을 비해당으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[58]",
+    "page": 23,
+    "source_text": "시스-2-부텐  해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 6의 미국 규제로 매핑하고 해당없음을 비해당으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[59]",
+    "page": 23,
+    "source_text": "트랜스-2-부텐  해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 7의 미국 규제로 매핑하고 해당없음을 비해당으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[60]",
+    "page": 24,
+    "source_text": "미국관리정보(EPCRA 304 규정)\n아이소뷰테인(ISOBUTANE) | 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 1의 미국 규제로 매핑하고 해당없음을 비해당으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[61]",
+    "page": 24,
+    "source_text": "부탄  해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 2의 미국 규제로 매핑하고 해당없음을 비해당으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[62]",
+    "page": 24,
+    "source_text": "1-부텐  해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 3의 미국 규제로 매핑하고 해당없음을 비해당으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[63]",
+    "page": 24,
+    "source_text": "뷰타다이엔, 저해된  해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 4의 미국 규제로 매핑하고 해당없음을 비해당으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[64]",
+    "page": 24,
+    "source_text": "아이소부텐  해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 5의 미국 규제로 매핑하고 해당없음을 비해당으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[65]",
+    "page": 24,
+    "source_text": "시스-2-부텐  해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 6의 미국 규제로 매핑하고 해당없음을 비해당으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[66]",
+    "page": 24,
+    "source_text": "트랜스-2-부텐  해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 7의 미국 규제로 매핑하고 해당없음을 비해당으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[67]",
+    "page": 24,
+    "source_text": "미국관리정보(EPCRA 313 규정)\n아이소뷰테인(ISOBUTANE) | 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 1의 미국 규제로 매핑하고 해당없음을 비해당으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[68]",
+    "page": 24,
+    "source_text": "부탄  해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 2의 미국 규제로 매핑하고 해당없음을 비해당으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[69]",
+    "page": 24,
+    "source_text": "1-부텐  해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 3의 미국 규제로 매핑하고 해당없음을 비해당으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[70]",
+    "page": 24,
+    "source_text": "뷰타다이엔, 저해된  해당됨",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "성분 4의 미국 규제로 매핑하고 해당됨을 해당으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[71]",
+    "page": 24,
+    "source_text": "아이소부텐  해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 5의 미국 규제로 매핑하고 해당없음을 비해당으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[72]",
+    "page": 24,
+    "source_text": "시스-2-부텐  해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 6의 미국 규제로 매핑하고 해당없음을 비해당으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[73]",
+    "page": 24,
+    "source_text": "트랜스-2-부텐  해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 7의 미국 규제로 매핑하고 해당없음을 비해당으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[74]",
+    "page": 24,
+    "source_text": "미국관리정보(로테르담협약물질)\n아이소뷰테인(ISOBUTANE) | 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 1의 국제협약 항목으로 매핑하고 제목의 미국 표기에 따라 US를 저장하며 해당없음을 비해당으로 변환함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[75]",
+    "page": 24,
+    "source_text": "부탄  해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 2의 국제협약 항목으로 매핑하고 제목의 미국 표기에 따라 US를 저장하며 해당없음을 비해당으로 변환함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[76]",
+    "page": 24,
+    "source_text": "1-부텐  해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 3의 국제협약 항목으로 매핑하고 제목의 미국 표기에 따라 US를 저장하며 해당없음을 비해당으로 변환함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[77]",
+    "page": 24,
+    "source_text": "뷰타다이엔, 저해된  해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 4의 국제협약 항목으로 매핑하고 제목의 미국 표기에 따라 US를 저장하며 해당없음을 비해당으로 변환함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[78]",
+    "page": 24,
+    "source_text": "아이소부텐  해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 5의 국제협약 항목으로 매핑하고 제목의 미국 표기에 따라 US를 저장하며 해당없음을 비해당으로 변환함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[79]",
+    "page": 24,
+    "source_text": "시스-2-부텐  해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 6의 국제협약 항목으로 매핑하고 제목의 미국 표기에 따라 US를 저장하며 해당없음을 비해당으로 변환함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[80]",
+    "page": 24,
+    "source_text": "트랜스-2-부텐  해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 7의 국제협약 항목으로 매핑하고 제목의 미국 표기에 따라 US를 저장하며 해당없음을 비해당으로 변환함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[81]",
+    "page": 24,
+    "source_text": "미국관리정보(스톡홀름협약물질)\n아이소뷰테인(ISOBUTANE) | 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 1의 국제협약 항목으로 매핑하고 제목의 미국 표기에 따라 US를 저장하며 해당없음을 비해당으로 변환함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[82]",
+    "page": 24,
+    "source_text": "부탄  해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 2의 국제협약 항목으로 매핑하고 제목의 미국 표기에 따라 US를 저장하며 해당없음을 비해당으로 변환함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[83]",
+    "page": 24,
+    "source_text": "1-부텐  해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 3의 국제협약 항목으로 매핑하고 제목의 미국 표기에 따라 US를 저장하며 해당없음을 비해당으로 변환함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[84]",
+    "page": 24,
+    "source_text": "뷰타다이엔, 저해된  해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 4의 국제협약 항목으로 매핑하고 제목의 미국 표기에 따라 US를 저장하며 해당없음을 비해당으로 변환함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[85]",
+    "page": 24,
+    "source_text": "아이소부텐  해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 5의 국제협약 항목으로 매핑하고 제목의 미국 표기에 따라 US를 저장하며 해당없음을 비해당으로 변환함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[86]",
+    "page": 24,
+    "source_text": "시스-2-부텐  해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 6의 국제협약 항목으로 매핑하고 제목의 미국 표기에 따라 US를 저장하며 해당없음을 비해당으로 변환함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[87]",
+    "page": 24,
+    "source_text": "트랜스-2-부텐  해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 7의 국제협약 항목으로 매핑하고 제목의 미국 표기에 따라 US를 저장하며 해당없음을 비해당으로 변환함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[88]",
+    "page": 24,
+    "source_text": "미국관리정보(몬트리올의정서물질)\n아이소뷰테인(ISOBUTANE) | 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 1의 국제협약 항목으로 매핑하고 제목의 미국 표기에 따라 US를 저장하며 해당없음을 비해당으로 변환함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[89]",
+    "page": 24,
+    "source_text": "부탄  해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 2의 국제협약 항목으로 매핑하고 제목의 미국 표기에 따라 US를 저장하며 해당없음을 비해당으로 변환함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[90]",
+    "page": 24,
+    "source_text": "1-부텐  해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 3의 국제협약 항목으로 매핑하고 제목의 미국 표기에 따라 US를 저장하며 해당없음을 비해당으로 변환함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[91]",
+    "page": 24,
+    "source_text": "뷰타다이엔, 저해된  해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 4의 국제협약 항목으로 매핑하고 제목의 미국 표기에 따라 US를 저장하며 해당없음을 비해당으로 변환함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[92]",
+    "page": 24,
+    "source_text": "아이소부텐  해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 5의 국제협약 항목으로 매핑하고 제목의 미국 표기에 따라 US를 저장하며 해당없음을 비해당으로 변환함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[93]",
+    "page": 24,
+    "source_text": "시스-2-부텐  해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 6의 국제협약 항목으로 매핑하고 제목의 미국 표기에 따라 US를 저장하며 해당없음을 비해당으로 변환함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[94]",
+    "page": 24,
+    "source_text": "트랜스-2-부텐  해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "성분 7의 국제협약 항목으로 매핑하고 제목의 미국 표기에 따라 US를 저장하며 해당없음을 비해당으로 변환함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[95]",
+    "page": 24,
+    "source_text": "EU 분류정보(확정분류결과)\n아이소뷰테인(ISOBUTANE) | F+; R12",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "성분 1의 EU 분류 값을 INTL_EU 행의 value_raw에 보존함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[96]",
+    "page": 24,
+    "source_text": "부탄  F+; R12",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "성분 2의 EU 분류 값을 INTL_EU 행의 value_raw에 보존함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[97]",
+    "page": 24,
+    "source_text": "1-부텐  F+; R12",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "성분 3의 EU 분류 값을 INTL_EU 행의 value_raw에 보존함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[98]",
+    "page": 24,
+    "source_text": "뷰타다이엔, 저해된  F+; R12Carc. Cat. 1; R45Muta. Cat. 2; R46",
+    "rules": [
+      "R10",
+      "R17",
+      "R25"
+    ],
+    "note": "성분 4의 EU 분류에서 붙어 있는 코드와 분류명은 임의로 고치지 않고 value_raw에 원문을 보존함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[99]",
+    "page": 24,
+    "source_text": "아이소부텐  F+; R12",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "성분 5의 EU 분류 값을 INTL_EU 행의 value_raw에 보존함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[100]",
+    "page": 24,
+    "source_text": "시스-2-부텐  F+; R12",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "성분 6의 EU 분류 값을 INTL_EU 행의 value_raw에 보존함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[101]",
+    "page": 24,
+    "source_text": "트랜스-2-부텐  F+; R12",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "성분 7의 EU 분류 값을 INTL_EU 행의 value_raw에 보존함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[102]",
+    "page": 25,
+    "source_text": "EU 분류정보(위험문구)\n아이소뷰테인(ISOBUTANE) | R12",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "성분 1의 EU 위험문구 원문을 value_raw에 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[103]",
+    "page": 25,
+    "source_text": "부탄 R12",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "성분 2의 EU 위험문구 원문을 value_raw에 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[104]",
+    "page": 25,
+    "source_text": "1-부텐 R12",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "성분 3의 EU 위험문구 원문을 value_raw에 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[105]",
+    "page": 25,
+    "source_text": "뷰타다이엔, 저해된 R45, R46, R12",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "성분 4의 EU 위험문구 원문을 value_raw에 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[106]",
+    "page": 25,
+    "source_text": "아이소부텐 R12",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "성분 5의 EU 위험문구 원문을 value_raw에 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[107]",
+    "page": 25,
+    "source_text": "시스-2-부텐 R12",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "성분 6의 EU 위험문구 원문을 value_raw에 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[108]",
+    "page": 25,
+    "source_text": "트랜스-2-부텐 R12",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "성분 7의 EU 위험문구 원문을 value_raw에 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[109]",
+    "page": 25,
+    "source_text": "EU 분류정보(안전문구)\n아이소뷰테인(ISOBUTANE) | S2, S9, S16",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "성분 1의 EU 안전문구 원문을 value_raw에 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[110]",
+    "page": 25,
+    "source_text": "부탄 S2, S9, S16",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "성분 2의 EU 안전문구 원문을 value_raw에 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[111]",
+    "page": 25,
+    "source_text": "1-부텐 S2, S9, S16, S33",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "성분 3의 EU 안전문구 원문을 value_raw에 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[112]",
+    "page": 25,
+    "source_text": "뷰타다이엔, 저해된 S53, S45",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "성분 4의 EU 안전문구 원문을 value_raw에 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[113]",
+    "page": 25,
+    "source_text": "아이소부텐 S2, S9, S16, S33",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "성분 5의 EU 안전문구 원문을 value_raw에 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[114]",
+    "page": 25,
+    "source_text": "시스-2-부텐 S2, S9, S16, S33",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "성분 6의 EU 안전문구 원문을 value_raw에 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[115]",
+    "page": 25,
+    "source_text": "트랜스-2-부텐 S2, S9, S16, S33",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": "성분 7의 EU 안전문구 원문을 value_raw에 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[116]",
+    "page": 22,
+    "source_text": "15. 법적규제 현황\n  가. 산업안전보건법에 의한 규제",
+    "rules": [
+      "R18"
+    ],
+    "note": "22~25쪽의 구양식 15항에 화평법 항목이 없어 제품 전체에 대한 KREACH 미기재 행을 생성함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "waste[0]",
+    "page": 23,
+    "source_text": "라. 폐기물관리법에 의한 규제\n아이소뷰테인(ISOBUTANE) | 지정폐기물",
+    "rules": [
+      "R10"
+    ],
+    "note": "성분 1의 지정폐기물 여부를 해당으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "waste[1]",
+    "page": 23,
+    "source_text": "부탄  지정폐기물",
+    "rules": [
+      "R10"
+    ],
+    "note": "성분 2의 지정폐기물 여부를 해당으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "waste[2]",
+    "page": 23,
+    "source_text": "1-부텐  자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "성분 3의 지정폐기물 여부를 자료없음으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "waste[3]",
+    "page": 23,
+    "source_text": "뷰타다이엔, 저해된  지정폐기물",
+    "rules": [
+      "R10"
+    ],
+    "note": "성분 4의 지정폐기물 여부를 해당으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "waste[4]",
+    "page": 23,
+    "source_text": "아이소부텐  자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "성분 5의 지정폐기물 여부를 자료없음으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "waste[5]",
+    "page": 23,
+    "source_text": "시스-2-부텐  지정폐기물",
+    "rules": [
+      "R10"
+    ],
+    "note": "성분 6의 지정폐기물 여부를 해당으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "waste[6]",
+    "page": 23,
+    "source_text": "트랜스-2-부텐  지정폐기물",
+    "rules": [
+      "R10"
+    ],
+    "note": "성분 7의 지정폐기물 여부를 해당으로 저장함."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "dangerous_goods[0]",
+    "page": 22,
+    "source_text": "아이소뷰테인(ISOBUTANE)  자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R17"
+    ],
+    "note": "15항 위험물안전관리법의 성분 1 자료없음 행을 보존함. 해당 상태는 regulations[18].applicable=자료없음에 있으며, 류별·품명·지정수량은 별도 명시가 없어 null로 둠."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "dangerous_goods[1]",
+    "page": 23,
+    "source_text": "부탄  자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R17"
+    ],
+    "note": "15항 위험물안전관리법의 성분 2 자료없음 행을 보존함. 해당 상태는 regulations[19].applicable=자료없음에 있으며, 류별·품명·지정수량은 별도 명시가 없어 null로 둠."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "dangerous_goods[2]",
+    "page": 23,
+    "source_text": "1-부텐  자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R17"
+    ],
+    "note": "15항 위험물안전관리법의 성분 3 자료없음 행을 보존함. 해당 상태는 regulations[20].applicable=자료없음에 있으며, 류별·품명·지정수량은 별도 명시가 없어 null로 둠."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "dangerous_goods[3]",
+    "page": 23,
+    "source_text": "뷰타다이엔, 저해된  자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R17"
+    ],
+    "note": "15항 위험물안전관리법의 성분 4 자료없음 행을 보존함. 해당 상태는 regulations[21].applicable=자료없음에 있으며, 류별·품명·지정수량은 별도 명시가 없어 null로 둠."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "dangerous_goods[4]",
+    "page": 23,
+    "source_text": "아이소부텐  자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R17"
+    ],
+    "note": "15항 위험물안전관리법의 성분 5 자료없음 행을 보존함. 해당 상태는 regulations[22].applicable=자료없음에 있으며, 류별·품명·지정수량은 별도 명시가 없어 null로 둠."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "dangerous_goods[5]",
+    "page": 23,
+    "source_text": "시스-2-부텐  자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R17"
+    ],
+    "note": "15항 위험물안전관리법의 성분 6 자료없음 행을 보존함. 해당 상태는 regulations[23].applicable=자료없음에 있으며, 류별·품명·지정수량은 별도 명시가 없어 null로 둠."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "dangerous_goods[6]",
+    "page": 23,
+    "source_text": "트랜스-2-부텐  자료없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R17"
+    ],
+    "note": "15항 위험물안전관리법의 성분 7 자료없음 행을 보존함. 해당 상태는 regulations[24].applicable=자료없음에 있으며, 류별·품명·지정수량은 별도 명시가 없어 null로 둠."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[0]",
+    "page": 4,
+    "source_text": "가. 눈에 들어갔을 때\n눈에 묻으면 몇 분간 물로 조심해서 씻으시오. 가능하면 콘택트렌즈를 제거하시오. 계속 씻으시오.\n눈에 자극이 지속되면 의학적인 조치·조언을 구하시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "문장 단위로 나누고 줄바꿈으로 나뉜 단어를 이어 붙임."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[1]",
+    "page": 4,
+    "source_text": "나. 피부에 접촉했을 때\n피부 자극이 생기면 의학적인 조치·조언을 구하시오.\n오염된 의복은 벗고 다시 사용 전 세탁하시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "각 지시문을 문장 단위로 분리함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[1].statements[4]",
+    "page": 4,
+    "source_text": "물질과 접촉시 즉시 20분 이상 흐르는 물에 피부와 눈을 씻어내시오",
+    "rules": [
+      "R04",
+      "R14"
+    ],
+    "note": "20분 이상을 하한 20(>=), 단위 min으로 분리함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[2]",
+    "page": 4,
+    "source_text": "다. 흡입했을 때\n노출되거나 불편함을 느끼면 의료기관(의사)의 진찰을 받으시오.\n과량의 먼지 또는 흄에 노출된 경우 깨끗한 공기로 제거하고 기침이나 다른 증상이 있을 경우 의료 조치를 취하시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "줄바꿈으로 나뉜 문장을 이어 붙임."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[3]",
+    "page": 4,
+    "source_text": "라. 먹었을 때\n노출되거나 불편함을 느끼면 의료기관(의사)의 진찰을 받으시오.\n물질을 먹거나 흡입하였을 경우 구강대구강법으로 인공호흡을 하지 말고 적절한 호흡의료장비를 이용하시오",
+    "rules": [
+      "R14"
+    ],
+    "note": "줄바꿈으로 나뉜 문장을 이어 붙임."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[4]",
+    "page": 4,
+    "source_text": "마. 기타 의사의 주의사항\n폭로시 의료진에게 연락하고 추적조사 등의 특별한 응급조치를 취하시오.\n의료인력이 해당물질에 대해 인지하고 보호조치를 취하도록 하시오",
+    "rules": [
+      "R14"
+    ],
+    "note": "두 지시문을 분리함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[5]",
+    "page": 4,
+    "source_text": "이 물질과 관련된 소화시 알콜 포말, 이산화탄소 또는 물분무를 사용할 것\n질식소화시 건조한 모래 또는 흙을 사용할 것",
+    "rules": [
+      "R14"
+    ],
+    "note": "이미지의 항목 배치에 따라 두 문장을 소화제 항목에 배정함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[6]",
+    "page": 4,
+    "source_text": "극인화성 가스\n고압가스 포함 ; 가열하면 폭발할 수 있음\n격렬하게 중합반응하여 화재와 폭발을 일으킬 수 있음",
+    "rules": [
+      "R14"
+    ],
+    "note": "각 원문 줄을 문장으로 분리함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[6]",
+    "page": 5,
+    "source_text": "극인화성\n열, 스파크, 화염에 의해 쉽게 점화함\n일부는 탈 수 있으나 쉽게 점화하지 않음\n증기는 점화원까지 이동하여 역화(flash back)할 수 있음\n화재에 노출된 실린더는 가연성 가스를 방출할 수 있음",
+    "rules": [
+      "R14"
+    ],
+    "note": "앞쪽에서 이어지는 특정 유해성 문장을 같은 항목에 추가함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[6]",
+    "page": 5,
+    "source_text": "비인화성, 물질 자체는 타지 않으나 가열시 분해하여 부식성/독성 흄을 발생할 수 있음\n일부는 증발 후 가연성인 잔여물을 남기므로 주의하시오",
+    "rules": [
+      "R14"
+    ],
+    "note": "이미지에서 화재진압 항목 제목 위에 있는 두 문장을 특정 유해성에 배정함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[7]",
+    "page": 5,
+    "source_text": "아이소뷰테인(ISOBUTANE) | 누출성 가스 화재 시 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오.",
+    "rules": [
+      "R10",
+      "R14"
+    ],
+    "note": "아이소뷰테인 아래의 14개 지시문에 refs 1을 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[7]",
+    "page": 5,
+    "source_text": "부탄 | 누출성 가스 화재 시 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오.",
+    "rules": [
+      "R10",
+      "R14"
+    ],
+    "note": "부탄 아래의 14개 지시문에 refs 2를 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[7]",
+    "page": 5,
+    "source_text": "1-부텐 | 누출성 가스 화재 시 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오.",
+    "rules": [
+      "R10",
+      "R14"
+    ],
+    "note": "1-부텐 지시문에 refs 3을 연결하고 다음 쪽의 마지막 지시문을 이어 붙임."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[7].statements[40]",
+    "page": 6,
+    "source_text": "탱크 화재시 대규모 화재의 경우 무인 소화장비를 이용하고 불가능하다면 물러나 타\n게 놔두시오",
+    "rules": [
+      "R10",
+      "R14"
+    ],
+    "note": "앞쪽 1-부텐 항목의 계속 문장으로 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[7]",
+    "page": 6,
+    "source_text": "뷰타다이엔, 저해된 | 구조자는 적절한 보호구를 착용하시오.",
+    "rules": [
+      "R10",
+      "R14"
+    ],
+    "note": "뷰타다이엔, 저해된 아래의 12개 지시문에 refs 4를 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[7]",
+    "page": 6,
+    "source_text": "아이소부텐 | 누출성 가스 화재 시 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오.",
+    "rules": [
+      "R10",
+      "R14"
+    ],
+    "note": "아이소부텐 아래의 14개 지시문에 refs 5를 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[7]",
+    "page": 6,
+    "source_text": "시스-2-부텐 | 누출성 가스 화재 시 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오.",
+    "rules": [
+      "R10",
+      "R14"
+    ],
+    "note": "시스-2-부텐 아래의 14개 지시문에 refs 6을 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[7]",
+    "page": 6,
+    "source_text": "트랜스-2-부텐 | 누출성 가스 화재 시 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오.",
+    "rules": [
+      "R10",
+      "R14"
+    ],
+    "note": "트랜스-2-부텐 지시문에 refs 7을 연결하고 다음 쪽의 계속 문장을 같은 항목에 추가함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[7]",
+    "page": 7,
+    "source_text": "누출이 중지되지 않는다면 누출가스화재를 소화하지 마시오\n위험하지 않다면 화재지역에서 용기를 옮기시오\n탱크 화재시 결빙될 수 있으므로 노출원 또는 안전장치에 직접주수하지 마시오",
+    "rules": [
+      "R10",
+      "R14"
+    ],
+    "note": "앞쪽 트랜스-2-부텐 항목에서 이어지는 8개 지시문에 refs 7을 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[8]",
+    "page": 7,
+    "source_text": "(분진·흄·가스·미스트·증기·스프레이)의 흡입을 피하시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "인체 보호 조치의 19개 지시문을 원문 순서대로 분리함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[8]",
+    "page": 7,
+    "source_text": "누출성 가스 화재 시 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "인체 보호 조치의 19개 지시문을 원문 순서대로 분리함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[9]",
+    "page": 7,
+    "source_text": "나. 환경을 보호하기 위해 필요한 조치사항\n수로, 하수구, 지하실, 밀폐공간으로의 유입을 방지하시오\n증기가 하수구, 환기장치, 밀폐공간을 통해 확산되지 않도록 하시오",
+    "rules": [
+      "R14"
+    ],
+    "note": "두 지시문을 분리함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[10]",
+    "page": 7,
+    "source_text": "다. 정화 또는 제거 방법\n소화를 위해 제방을 쌓고 물을 수거하시오.\n불활성 물질(예를 들어 건조한 모래 또는 흙)로 엎지른 것을 흡수하고, 화학폐기물 용기에 넣으시오.\n액체를 흡수하고 오염된 지역을 세제와 물로 씻어 내시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "줄바꿈을 연결하고 세 지시문으로 분리함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[11]",
+    "page": 7,
+    "source_text": "가. 안전취급요령\n모든 안전 예방조치 문구를 읽고 이해하기 전에는 취급하지 마시오.\n(분진·흄·가스·미스트·증기·스프레이)의 흡입을 피하시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "안전취급요령을 지시문 단위로 분리함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[11]",
+    "page": 8,
+    "source_text": "물질 취급시 모든 장비를 반드시 접지하시오\n피해야할 물질 및 조건에 유의하시오",
+    "rules": [
+      "R14"
+    ],
+    "note": "앞쪽 안전취급요령에서 이어지는 두 문장을 추가함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[12]",
+    "page": 8,
+    "source_text": "나. 안전한 저장방법\n열·스파크·화염·고열로부터 멀리하시오 - 금연\n용기는 환기가 잘 되는 곳에 단단히 밀폐하여 저장하시오.\n직사광선을 피하고 환기가 잘 되는 곳에 보관하시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "저장방법의 여섯 지시문을 분리함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[13]",
+    "page": 8,
+    "source_text": "나. 적절한 공학적 관리\n공정격리, 국소배기를 사용하거나, 공기수준을 노출기준 이하로 조절하는 다른 공학적 관리를 하시오.\n이 물질을 저장하거나 사용하는 설비는 세안설비와 안전 샤워를 설치하시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "줄바꿈을 연결하고 두 문장으로 분리함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[14]",
+    "page": 9,
+    "source_text": "아이소뷰테인(ISOBUTANE) | 노출되는 물질의 물리화학적 특성에 맞는 한국산업안전보건공단의 인증을 필한 호흡용 보호구를 착용하시오",
+    "rules": [
+      "R10",
+      "R14"
+    ],
+    "note": "성분별 호흡기 보호 지시문을 해당 성분 번호에 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[14].statements[1]",
+    "page": 9,
+    "source_text": "1-부텐 | 노출되는 물질의 물리화학적 특성에 맞는 한국산업안전보건공단의 인증을 필한 호흡용 보호구를 착용하시오",
+    "rules": [
+      "R10",
+      "R14"
+    ],
+    "note": "refs 3으로 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[14].statements[2]",
+    "page": 9,
+    "source_text": "뷰타다이엔, 저해된 | 노출되는 기체/액체 물리화학적 특성에 맞는 한국산업안전보건공단의 인증을 필한 호흡용 보호구를 착용하시오",
+    "rules": [
+      "R10",
+      "R14"
+    ],
+    "note": "refs 4로 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[14].statements[3]",
+    "page": 9,
+    "source_text": "노출농도가 20ppm보다 낮을 경우 적절한 필터 또는 정화통을 장착한 반면형 호흡보호구를 착용하시오",
+    "rules": [
+      "R04",
+      "R10",
+      "R14"
+    ],
+    "note": "조건을 20 ppm 미만으로 분해하고 refs 4로 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[14].statements[4]",
+    "page": 9,
+    "source_text": "노출농도가 50ppm보다 낮을 경우 적절한 필터 또는 정화통을 장착한 비밀착형\n(loose-fitting) 후드/헬멧형 전동식 호흡보호구 혹은 연속흐름식 방진마스크를 착용\n하시오",
+    "rules": [
+      "R04",
+      "R10",
+      "R14"
+    ],
+    "note": "조건을 50 ppm 미만으로 분해하고 refs 4로 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[14].statements[5]",
+    "page": 9,
+    "source_text": "노출농도가 100ppm보다 낮을 경우 적절한 필터 또는 정화통을 장착한 전면형 또는\n전동식 반면형 또는 공기 공급형 연속흐름식/압력요구식 반면형 호흡보호구를 착용하\n시오",
+    "rules": [
+      "R04",
+      "R10",
+      "R14"
+    ],
+    "note": "조건을 100 ppm 미만으로 분해하고 refs 4로 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[14].statements[6]",
+    "page": 9,
+    "source_text": "노출농도가 2000ppm보다 낮을 경우 적절한 필터 또는 정화통을 장착한 전면형 또는\n헬멧/후드 타입, 압력요구식 송기마스크를 착용하시오",
+    "rules": [
+      "R04",
+      "R10",
+      "R14"
+    ],
+    "note": "조건을 2000 ppm 미만으로 분해하고 refs 4로 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[14].statements[7]",
+    "page": 9,
+    "source_text": "노출농도가 20000ppm보다 낮을 경우 적절한 필터 또는 정화통을 장착한 자가공기공\n급식(SCBA) 또는 압력요구식 자가공기공급식(SCBA) 호흡보호구를 착용하시오",
+    "rules": [
+      "R04",
+      "R10",
+      "R14"
+    ],
+    "note": "조건을 20000 ppm 미만으로 분해하고 refs 4로 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[14].statements[8]",
+    "page": 9,
+    "source_text": "아이소부텐 | 노출되는 물질의 물리화학적 특성에 맞는 한국산업안전보건공단의 인증을 필한 호흡용 보호구를 착용하시오",
+    "rules": [
+      "R10",
+      "R14"
+    ],
+    "note": "refs 5로 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[14].statements[9]",
+    "page": 9,
+    "source_text": "시스-2-부텐 | 노출되는 물질의 물리화학적 특성에 맞는 한국산업안전보건공단의 인증을 필한 호흡용 보호구를 착용하시오",
+    "rules": [
+      "R10",
+      "R14"
+    ],
+    "note": "refs 6으로 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[14].statements[10]",
+    "page": 9,
+    "source_text": "트랜스-2-부텐 | 노출되는 물질의 물리화학적 특성에 맞는 한국산업안전보건공단의 인증을 필한 호흡용 보호구를 착용하시오",
+    "rules": [
+      "R10",
+      "R14"
+    ],
+    "note": "refs 7로 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[15]",
+    "page": 13,
+    "source_text": "가. 화학적 안정성 및 유해 반응의 가능성\n아이소뷰테인(ISOBUTANE) | 극인화성 가스\n고온에서 분해되어 독성가스를 생성할 수 있음",
+    "rules": [
+      "R10",
+      "R14"
+    ],
+    "note": "아이소뷰테인의 11개 문장에 refs 1을 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[15]",
+    "page": 13,
+    "source_text": "부탄 | 극인화성 가스\n고압가스 포함 ; 가열하면 폭발할 수 있음\n고온에서 분해되어 독성가스를 생성할 수 있음",
+    "rules": [
+      "R10",
+      "R14"
+    ],
+    "note": "부탄의 12개 문장에 refs 2를 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[15]",
+    "page": 13,
+    "source_text": "1-부텐 | 극인화성 가스\n고온에서 분해되어 독성가스를 생성할 수 있음",
+    "rules": [
+      "R10",
+      "R14"
+    ],
+    "note": "1-부텐의 11개 문장에 refs 3을 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[15]",
+    "page": 13,
+    "source_text": "뷰타다이엔, 저해된 | 고압가스 포함 ; 가열하면 폭발할 수 있음\n고온에서 분해되어 독성가스를 생성할 수 있음\n가열시 용기가 폭발할 수 있음\n공기와 폭발성 혼합물을 형성함",
+    "rules": [
+      "R10",
+      "R14"
+    ],
+    "note": "뷰타다이엔, 저해된 문장에 refs 4를 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[15]",
+    "page": 14,
+    "source_text": "극인화성\n열, 스파크, 화염에 의해 쉽게 점화함\n증기는 점화원까지 이동하여 역화(flash back)할 수 있음\n화재에 노출된 실린더는 가연성 가스를 방출할 수 있음\nsilane은 공기 중에서 자연점화함",
+    "rules": [
+      "R10",
+      "R14",
+      "R17"
+    ],
+    "note": "앞쪽 뷰타다이엔 항목의 계속 문장으로 연결하고 silane 표기를 원문대로 보존함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[15]",
+    "page": 14,
+    "source_text": "아이소부텐 | 극인화성 가스\n고압가스 포함 ; 가열하면 폭발할 수 있음\n격렬하게 중합반응하여 화재와 폭발을 일으킬 수 있음",
+    "rules": [
+      "R10",
+      "R14"
+    ],
+    "note": "아이소부텐의 12개 문장에 refs 5를 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[15]",
+    "page": 14,
+    "source_text": "시스-2-부텐 | 극인화성 가스\n고압가스 포함 ; 가열하면 폭발할 수 있음\n격렬하게 중합반응하여 화재와 폭발을 일으킬 수 있음",
+    "rules": [
+      "R10",
+      "R14"
+    ],
+    "note": "시스-2-부텐의 12개 문장에 refs 6을 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[15]",
+    "page": 14,
+    "source_text": "트랜스-2-부텐 | 극인화성 가스\n격렬하게 중합반응하여 화재와 폭발을 일으킬 수 있음\n가열시 용기가 폭발할 수 있음",
+    "rules": [
+      "R10",
+      "R14"
+    ],
+    "note": "트랜스-2-부텐의 11개 문장에 refs 7을 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[16]",
+    "page": 15,
+    "source_text": "아이소뷰테인(ISOBUTANE) 열·스파크·화염·고열로부터 멀리하시오 - 금연",
+    "rules": [
+      "R10",
+      "R14"
+    ],
+    "note": "일곱 성분의 조건을 각각 해당 성분 번호에 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[16]",
+    "page": 15,
+    "source_text": "부탄 열·스파크·화염·고열로부터 멀리하시오 - 금연",
+    "rules": [
+      "R10",
+      "R14"
+    ],
+    "note": "일곱 성분의 조건을 각각 해당 성분 번호에 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[16]",
+    "page": 15,
+    "source_text": "1-부텐 열·스파크·화염·고열로부터 멀리하시오 - 금연",
+    "rules": [
+      "R10",
+      "R14"
+    ],
+    "note": "일곱 성분의 조건을 각각 해당 성분 번호에 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[16]",
+    "page": 15,
+    "source_text": "뷰타다이엔, 저해된 열, 스파크, 화염 등 점화원",
+    "rules": [
+      "R10",
+      "R14"
+    ],
+    "note": "일곱 성분의 조건을 각각 해당 성분 번호에 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[16]",
+    "page": 15,
+    "source_text": "아이소부텐 열·스파크·화염·고열로부터 멀리하시오 - 금연",
+    "rules": [
+      "R10",
+      "R14"
+    ],
+    "note": "일곱 성분의 조건을 각각 해당 성분 번호에 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[16]",
+    "page": 15,
+    "source_text": "시스-2-부텐 열·스파크·화염·고열로부터 멀리하시오 - 금연",
+    "rules": [
+      "R10",
+      "R14"
+    ],
+    "note": "일곱 성분의 조건을 각각 해당 성분 번호에 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[16]",
+    "page": 15,
+    "source_text": "트랜스-2-부텐 열·스파크·화염·고열로부터 멀리하시오 - 금연",
+    "rules": [
+      "R10",
+      "R14"
+    ],
+    "note": "일곱 성분의 조건을 각각 해당 성분 번호에 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[17]",
+    "page": 15,
+    "source_text": "다. 피해야 할 물질\n아이소뷰테인(ISOBUTANE) | 자료없음\n부탄 | 자료없음\n1-부텐 | 자료없음\n뷰타다이엔, 저해된 | 자료없음\n아이소부텐 | 자료없음\n시스-2-부텐 | 자료없음\n트랜스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R14",
+      "R15"
+    ],
+    "note": "일곱 성분의 자료없음 행을 유지하고 항목 상태를 자료없음으로 저장함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[18]",
+    "page": 15,
+    "source_text": "아이소뷰테인(ISOBUTANE) 자극성, 부식성, 독성 가스",
+    "rules": [
+      "R10",
+      "R14"
+    ],
+    "note": "일곱 성분의 분해 생성물 문장을 각각 해당 성분 번호에 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[18]",
+    "page": 15,
+    "source_text": "부탄 자극성, 부식성, 독성 가스",
+    "rules": [
+      "R10",
+      "R14"
+    ],
+    "note": "일곱 성분의 분해 생성물 문장을 각각 해당 성분 번호에 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[18]",
+    "page": 15,
+    "source_text": "1-부텐 자극성, 부식성, 독성 가스",
+    "rules": [
+      "R10",
+      "R14"
+    ],
+    "note": "일곱 성분의 분해 생성물 문장을 각각 해당 성분 번호에 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[18]",
+    "page": 15,
+    "source_text": "뷰타다이엔, 저해된 타는 동안 열분해 또는 연소에 의해 자극적이고 매우 유독한 가스가 발생될 수 있음",
+    "rules": [
+      "R10",
+      "R14"
+    ],
+    "note": "일곱 성분의 분해 생성물 문장을 각각 해당 성분 번호에 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[18]",
+    "page": 15,
+    "source_text": "아이소부텐 타는 동안 열분해 또는 연소에 의해 자극적이고 매우 유독한 가스가 발생될 수 있음",
+    "rules": [
+      "R10",
+      "R14"
+    ],
+    "note": "일곱 성분의 분해 생성물 문장을 각각 해당 성분 번호에 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[18]",
+    "page": 15,
+    "source_text": "시스-2-부텐 타는 동안 열분해 또는 연소에 의해 자극적이고 매우 유독한 가스가 발생될 수 있음",
+    "rules": [
+      "R10",
+      "R14"
+    ],
+    "note": "일곱 성분의 분해 생성물 문장을 각각 해당 성분 번호에 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[18]",
+    "page": 15,
+    "source_text": "트랜스-2-부텐 타는 동안 열분해 또는 연소에 의해 자극적이고 매우 유독한 가스가 발생될 수 있음",
+    "rules": [
+      "R10",
+      "R14"
+    ],
+    "note": "일곱 성분의 분해 생성물 문장을 각각 해당 성분 번호에 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[19]",
+    "page": 15,
+    "source_text": "아이소뷰테인(ISOBUTANE) | 자극, 구역, 구토, 두통, 졸음, 현기증, 감정변화, 조정(기능) 손실, 질식, 경련, 의식불명, 혼수를 일으킬 수 있음.\n가스의 섭취가 발생할 것 같지 않음\n동상을 일으킬 수 있음.",
+    "rules": [
+      "R10",
+      "R14"
+    ],
+    "note": "노출 경로 항목의 세 문장을 refs 1에 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[19]",
+    "page": 15,
+    "source_text": "부탄 | 자극, 구역, 구토, 호흡곤란, 불규칙 심장박동, 두통, 졸음, 피로, 현기증, 지남력 상실, 감정변화, 얼얼한 느낌, 조정(기능) 손실, 질식, 경련, 의식불명, 혼수를 일으킬 수 있음.\n위험량의 섭취가 발생할 것 같지 않음\n동상을 일으킬 수 있음.",
+    "rules": [
+      "R10",
+      "R14"
+    ],
+    "note": "노출 경로 항목의 세 문장을 refs 2에 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[19]",
+    "page": 15,
+    "source_text": "1-부텐 | 경미한 자극, 구역, 구토, 명정증상, 질식, 경련, 혼수를 일으킬 수 있음.\n동상을 일으킬 수 있음.\n수포, 동상을 일으킬 수 있음.\n경미한 자극, 동상, 시력불선명을 일으킬 수 있음.",
+    "rules": [
+      "R10",
+      "R14"
+    ],
+    "note": "네 문장을 refs 3에 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[19]",
+    "page": 15,
+    "source_text": "뷰타다이엔, 저해된 | 자료없음\n아이소부텐 | 자료없음\n시스-2-부텐 | 자료없음\n트랜스-2-부텐 | 자료없음",
+    "rules": [
+      "R10",
+      "R14"
+    ],
+    "note": "자료없음으로 기재된 네 성분 행도 유지함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[20]",
+    "page": 20,
+    "source_text": "아이소뷰테인(ISOBUTANE) | 1) 소각하시오.\n2) 소각이 곤란한 경우에는 최대지름 15센티미터 이하의 크기로 파쇄ㆍ절단 또는 용\n융한 후 지정폐기물을 매립할 수 있는 관리형 매립시설에 매립하시오.",
+    "rules": [
+      "R04",
+      "R10",
+      "R14"
+    ],
+    "note": "불릿을 분리하고 최대지름 조건을 15 cm 이하로 저장함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[20]",
+    "page": 20,
+    "source_text": "부탄 | 1) 기름과 물 분리가 가능한 것은 기름과 물 분리방법으로 사전처리 하시오.\n1-부텐 | 폐기물관리법에 명시된 경우 규정에 따라 내용물 및 용기를 폐기하시오.",
+    "rules": [
+      "R10",
+      "R14"
+    ],
+    "note": "각 지시문을 refs 2와 3에 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[20]",
+    "page": 21,
+    "source_text": "뷰타다이엔, 저해된 | 1) 소각하시오.\n2) 소각이 곤란한 경우에는 최대지름 15센티미터 이하의 크기로 파쇄ㆍ절단 또는 용\n융한 후 지정폐기물을 매립할 수 있는 관리형 매립시설에 매립하시오.",
+    "rules": [
+      "R04",
+      "R10",
+      "R14"
+    ],
+    "note": "refs 4로 연결하고 최대지름 조건을 15 cm 이하로 저장함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[20]",
+    "page": 21,
+    "source_text": "아이소부텐 | 폐기물관리법에 명시된 경우 규정에 따라 내용물 및 용기를 폐기하시오.\n시스-2-부텐 | 1) 기름과 물 분리가 가능한 것은 기름과 물 분리방법으로 사전처리 하시오.\n트랜스-2-부텐 | 1) 기름과 물 분리가 가능한 것은 기름과 물 분리방법으로 사전처리 하시오.",
+    "rules": [
+      "R10",
+      "R14"
+    ],
+    "note": "각 지시문을 refs 5, 6, 7에 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[21]",
+    "page": 21,
+    "source_text": "나. 폐기시 주의사항\n아이소뷰테인(ISOBUTANE) | (관련 법규에 명시된 내용에 따라) 내용물 용기를 폐기하시오.\n부탄 | (관련 법규에 명시된 내용에 따라) 내용물 용기를 폐기하시오.",
+    "rules": [
+      "R10",
+      "R14"
+    ],
+    "note": "일곱 성분별 동일 지시문을 각각 원문 순서대로 유지함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[22]",
+    "page": 25,
+    "source_text": "가.자료의 출처\n아이소뷰테인(ISOBUTANE)\nECB-ESIS(European chemical Substances Information System)(http://ecb.jrc.it/esis)",
+    "rules": [
+      "R10",
+      "R14"
+    ],
+    "note": "아이소뷰테인의 출처 여섯 줄을 refs 1에 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[22]",
+    "page": 25,
+    "source_text": "부탄\nCorporate Solution From Thomson Micromedex(http://csi.micromedex.com)",
+    "rules": [
+      "R10",
+      "R14"
+    ],
+    "note": "부탄의 출처 열 줄을 refs 2에 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[22]",
+    "page": 25,
+    "source_text": "1-부텐\nCorporate Solution From Thomson Micromedex(http://csi.micromedex.com)",
+    "rules": [
+      "R10",
+      "R14"
+    ],
+    "note": "1-부텐의 출처 열 줄을 refs 3에 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[22]",
+    "page": 26,
+    "source_text": "뷰타다이엔, 저해된\n(1) ICSC (2000)\n(2) EU-RAR No.20 (2002)\n(3) 노동부 (2002)\n(4) NTP (2005)\n(5) IARC (2005)\n(6) ACGIH (2006)\n(7) EU REACH법령 (2006)",
+    "rules": [
+      "R10",
+      "R14"
+    ],
+    "note": "번호가 붙은 아홉 출처를 분리하고 refs 4에 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[22]",
+    "page": 26,
+    "source_text": "아이소부텐\nInternational Chemical Safety Cards\n(ICSC)(http://www.ilo.org/public/english/protection/safework/cis/products/icsc/dtasht/index.htm)(성상)",
+    "rules": [
+      "R10",
+      "R14"
+    ],
+    "note": "아이소부텐의 21개 출처에서 줄바꿈을 연결하고 refs 5를 지정함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[22].statements[41]",
+    "page": 26,
+    "source_text": "International Chemical Safety Cards\n(ICSC)(http://www.ilo.org/public/english/protection/safework/cis/products/icsc/dtasht/index.htm)(차. 인화 또는 폭발 범위의 상",
+    "rules": [
+      "R14",
+      "R17"
+    ],
+    "note": "원문에서 잘린 항목명을 보완하지 않고 그대로 보존함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[22]",
+    "page": 26,
+    "source_text": "시스-2-부텐\nInternational Chemical Safety Cards\n(ICSC)(http://www.ilo.org/public/english/protection/safework/cis/products/icsc/dtasht/index.htm)(성상)",
+    "rules": [
+      "R10",
+      "R14"
+    ],
+    "note": "시스-2-부텐 출처에 refs 6을 지정하고 다음 쪽의 계속 목록을 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[22].statements[60]",
+    "page": 26,
+    "source_text": "International Chemical Safety Cards\n(ICSC)(http://www.ilo.org/public/english/protection/safework/cis/products/icsc/dtasht/index.htm)(차. 인화 또는 폭발 범위의 상",
+    "rules": [
+      "R14",
+      "R17"
+    ],
+    "note": "원문에서 잘린 항목명을 보완하지 않고 그대로 보존함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[22]",
+    "page": 27,
+    "source_text": "International Chemical Safety Cards\n(ICSC)(http://www.ilo.org/public/english/protection/safework/cis/products/icsc/dtasht/index.htm)(파. 증기밀도)",
+    "rules": [
+      "R10",
+      "R14"
+    ],
+    "note": "앞쪽 시스-2-부텐에서 이어지는 출처 목록에 refs 6을 유지함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[22]",
+    "page": 27,
+    "source_text": "트랜스-2-부텐\nInternational Chemical Safety Cards\n(ICSC)(http://www.ilo.org/public/english/protection/safework/cis/products/icsc/dtasht/index.htm)(성상)",
+    "rules": [
+      "R10",
+      "R14"
+    ],
+    "note": "트랜스-2-부텐의 18개 출처에 refs 7을 지정함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[22].statements[78]",
+    "page": 27,
+    "source_text": "International Chemical Safety Cards\n(ICSC)(http://www.ilo.org/public/english/protection/safework/cis/products/icsc/dtasht/index.htm)(차. 인화 또는 폭발 범위의 상",
+    "rules": [
+      "R14",
+      "R17"
+    ],
+    "note": "원문에서 잘린 항목명을 보완하지 않고 그대로 보존함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[23]",
+    "page": 27,
+    "source_text": "라. 기타 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "기타 항목의 상태를 자료없음으로 저장함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[0]",
+    "page": 1,
+    "source_text": "작성자 | 장현석",
+    "rules": [
+      "R24"
+    ],
+    "note": "표지의 개인 작성자 정보를 담을 정식 칸이 없어 extras에 보존함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[1]",
+    "page": 1,
+    "source_text": "검토자/서명일자 | 환경안전2팀장 | 11/11",
+    "rules": [
+      "R14",
+      "R17",
+      "R24"
+    ],
+    "note": "검토자 직책과 수기 날짜를 보존하고 기재되지 않은 연도는 보완하지 않음."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[2]",
+    "page": 1,
+    "source_text": "승인자/서명일자 | 환경안전부장 | 11/11",
+    "rules": [
+      "R14",
+      "R17",
+      "R24"
+    ],
+    "note": "승인자 직책과 수기 날짜를 보존하고 기재되지 않은 연도는 보완하지 않음."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[3]",
+    "page": 3,
+    "source_text": "아이소뷰테인(ISOBUTANE) | 보건 | 0",
+    "rules": [
+      "R04",
+      "R10",
+      "R24"
+    ],
+    "note": "성분별 NFPA 보건 점수로서 제품 전체 NFPA 칸 대신 extras에 저장함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[4]",
+    "page": 3,
+    "source_text": "아이소뷰테인(ISOBUTANE)\n            보건 0\n            화재 4\n            반응성 0",
+    "rules": [
+      "R04",
+      "R10",
+      "R24"
+    ],
+    "note": "성분별 NFPA 화재 점수를 extras에 저장함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[5]",
+    "page": 3,
+    "source_text": "아이소뷰테인(ISOBUTANE)\n            보건 0\n            화재 4\n            반응성 0",
+    "rules": [
+      "R04",
+      "R10",
+      "R24"
+    ],
+    "note": "성분별 NFPA 반응성 점수를 extras에 저장함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[6]",
+    "page": 3,
+    "source_text": "부탄 | 보건 | 1",
+    "rules": [
+      "R04",
+      "R10",
+      "R24"
+    ],
+    "note": "성분별 NFPA 보건 점수를 extras에 저장함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[7]",
+    "page": 3,
+    "source_text": "부탄\n            보건 1\n            화재 4\n            반응성 0",
+    "rules": [
+      "R04",
+      "R10",
+      "R24"
+    ],
+    "note": "성분별 NFPA 화재 점수를 extras에 저장함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[8]",
+    "page": 3,
+    "source_text": "부탄\n            보건 1\n            화재 4\n            반응성 0",
+    "rules": [
+      "R04",
+      "R10",
+      "R24"
+    ],
+    "note": "성분별 NFPA 반응성 점수를 extras에 저장함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[9]",
+    "page": 3,
+    "source_text": "1-부텐 | 보건 | 1",
+    "rules": [
+      "R04",
+      "R10",
+      "R24"
+    ],
+    "note": "성분별 NFPA 보건 점수를 extras에 저장함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[10]",
+    "page": 3,
+    "source_text": "1-부텐\n            보건 1\n            화재 4\n            반응성 0",
+    "rules": [
+      "R04",
+      "R10",
+      "R24"
+    ],
+    "note": "성분별 NFPA 화재 점수를 extras에 저장함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[11]",
+    "page": 3,
+    "source_text": "1-부텐\n            보건 1\n            화재 4\n            반응성 0",
+    "rules": [
+      "R04",
+      "R10",
+      "R24"
+    ],
+    "note": "성분별 NFPA 반응성 점수를 extras에 저장함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[12]",
+    "page": 3,
+    "source_text": "뷰타다이엔, 저해된 | 보건 | 1",
+    "rules": [
+      "R04",
+      "R10",
+      "R24"
+    ],
+    "note": "성분별 NFPA 보건 점수를 extras에 저장함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[13]",
+    "page": 3,
+    "source_text": "뷰타다이엔, 저해된\n            보건 1\n            화재 4\n            반응성 2",
+    "rules": [
+      "R04",
+      "R10",
+      "R24"
+    ],
+    "note": "성분별 NFPA 화재 점수를 extras에 저장함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[14]",
+    "page": 3,
+    "source_text": "뷰타다이엔, 저해된\n            보건 1\n            화재 4\n            반응성 2",
+    "rules": [
+      "R04",
+      "R10",
+      "R24"
+    ],
+    "note": "성분별 NFPA 반응성 점수를 extras에 저장함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[15]",
+    "page": 3,
+    "source_text": "아이소부텐 | 보건 | 2",
+    "rules": [
+      "R04",
+      "R10",
+      "R24"
+    ],
+    "note": "성분별 NFPA 보건 점수를 extras에 저장함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[16]",
+    "page": 3,
+    "source_text": "아이소부텐\n            보건 2\n            화재 4\n            반응성 1",
+    "rules": [
+      "R04",
+      "R10",
+      "R24"
+    ],
+    "note": "성분별 NFPA 화재 점수를 extras에 저장함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[17]",
+    "page": 3,
+    "source_text": "아이소부텐\n            보건 2\n            화재 4\n            반응성 1",
+    "rules": [
+      "R04",
+      "R10",
+      "R24"
+    ],
+    "note": "성분별 NFPA 반응성 점수를 extras에 저장함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[18]",
+    "page": 3,
+    "source_text": "시스-2-부텐 | 보건 | 1",
+    "rules": [
+      "R04",
+      "R10",
+      "R24"
+    ],
+    "note": "성분별 NFPA 보건 점수를 extras에 저장함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[19]",
+    "page": 4,
+    "source_text": "화재 4",
+    "rules": [
+      "R04",
+      "R10",
+      "R14",
+      "R24"
+    ],
+    "note": "앞쪽 시스-2-부텐 항목에서 이어지는 NFPA 화재 점수로 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[20]",
+    "page": 4,
+    "source_text": "반응성 0",
+    "rules": [
+      "R04",
+      "R10",
+      "R14",
+      "R24"
+    ],
+    "note": "앞쪽 시스-2-부텐 항목에서 이어지는 NFPA 반응성 점수로 연결함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[21]",
+    "page": 4,
+    "source_text": "트랜스-2-부텐 | 보건 | 2",
+    "rules": [
+      "R04",
+      "R10",
+      "R24"
+    ],
+    "note": "성분별 NFPA 보건 점수를 extras에 저장함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[22]",
+    "page": 4,
+    "source_text": "트랜스-2-부텐\n            보건 2\n            화재 4\n            반응성 1",
+    "rules": [
+      "R04",
+      "R10",
+      "R24"
+    ],
+    "note": "성분별 NFPA 화재 점수를 extras에 저장함."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[23]",
+    "page": 4,
+    "source_text": "트랜스-2-부텐\n            보건 2\n            화재 4\n            반응성 1",
+    "rules": [
+      "R04",
+      "R10",
+      "R24"
+    ],
+    "note": "성분별 NFPA 반응성 점수를 extras에 저장함."
+  }
+]

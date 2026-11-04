@@ -45,12 +45,14 @@ m<msds_index>/<종류>:<키>
 
 - **성분 키**: CAS가 있으면 CAS, 없으면 `name:<성분명 원문>`, 제품 전체면 `MIX`. 공백은 `_`로 바꾼다.
 - **흡입 형태**: `F2`의 route_form은 기준 쪽(expected) 형태를 쓴다. MSDS가 형태를 다르게 적은 경우도 같은 항목으로 묶어 "형태·세부 표기" 불일치로 낸다.
-- 같은 키가 둘 생기면(같은 CAS가 두 번 적힌 MSDS 등) 뒤에 `#2`, `#3`을 붙인다.
+- 같은 키가 둘 생기면(같은 CAS가 두 번 적힌 MSDS 등) 뒤에 `#2`, `#3`을 붙인다. 번호는 성분 순번이 아니라 내용(함량·이름·기재값) 순서로 준다.
+- CAS도 이름도 없는 성분은 `seq:<성분 번호>`를 쓴다. 원문에 다른 키가 없어 생기는 예외다.
 
 ## 4. 계약 시험과 견본
 
 - 각 주인은 `backend/tests/contracts/`에 자기 계약의 시험을 둔다. 쓰는 쪽은 "내 출력이 스키마를 통과한다", 읽는 쪽은 "견본을 넣으면 내 코드가 돈다"를 시험한다.
-- **견본은 저장소에 JSON 파일로 올리지 않는다.** 넘김 기록 견본은 TO21 정답 예제(`TO21_MSDS_추출예제_25_황산_v0.6.json`)를 통째로 담기 때문이다(D-47). 대신 시험 픽스처 함수가 `to21_file()`로 예제를 읽어 그 자리에서 견본을 만든다. 다른 견본(판정 결과·설명·API)은 TO21 원문을 담지 않는 손으로 만든 값만 쓴다.
+- 화면용 견본은 `contracts/samples/*.json`(TO21 원문 없음, 파일 이름 = `$defs` 이름)이다. 가짜는 `backend/tests/contracts/fakes.py`(`make_handoff`, `fake_process`, `FakeGate`)에 있다.
+- **넘김 기록 견본은 저장소에 JSON 파일로 올리지 않는다.** 넘김 기록 견본은 TO21 정답 예제(`TO21_MSDS_추출예제_25_황산_v0.6.json`)를 통째로 담기 때문이다(D-47). 대신 시험 픽스처 함수가 `to21_file()`로 예제를 읽어 그 자리에서 견본을 만든다. 다른 견본(판정 결과·설명·API)은 TO21 원문을 담지 않는 손으로 만든 값만 쓴다.
 - 이 스키마들은 2026-11-02에 25번 황산으로 만든 견본(통과 기대)과 틀린 견본(걸림 기대)으로 한 번 점검했다: 메타스키마 6개 통과, 견본 24건 통과, 틀린 견본 7건 모두 걸림 (화면 칸 보강 뒤 다시 점검).
 
 ## 5. 약속 ④ 모델 호출 창구 (파이썬)
@@ -68,6 +70,7 @@ async with gate.slot("explain"):
     response = await client.chat(...)
 ```
 
+- A1 구현(`get_model_gate()`)은 `extract/client.py`의 `ChatClient`가 호출마다 잡는다. 이 클라이언트를 쓰는 쪽은 바깥에서 다시 잡지 않는다 (B-35).
 - 가짜 창구: `asyncio.Semaphore`만 쓰는 구현. A2·B2는 A1의 창구가 나오기 전까지 이것으로 개발한다.
 - 동기 코드에서 쓸 `slot_sync(kind)`도 같은 뜻으로 둔다 (지금 `extract/client.py`는 스레드에서 돈다).
 
@@ -84,3 +87,28 @@ async with gate.slot("explain"):
 | 검토 상태에 `stale` | 검토 뒤 판정이 바뀌면 화면이 다시 확인을 요청할 수 있게 |
 | 검토·저장 요청에 `seen_version` | 보던 버전보다 새 판정이 있으면 409로 막아, 옛 화면을 보고 확정하는 일을 막는다 |
 | 검토 동작에 `확인`(일치 확인)·`되돌리기` | 화면 2.3·2.4의 "처리"에 일치 항목 확인과 실수 되돌리기가 필요하다고 봄 |
+
+## 7. 구현하며 바꾼 것 (B1·B2, 2026-11-02)
+
+쓰는 쪽과 읽는 쪽이 모두 B라 1절 규칙대로 번호를 올렸다 (`consistency/1` → `/2`). 화면 쪽은 `contract` 상수 하나와 아래 칸을 맞추면 된다.
+
+| 계약 | 변경 | 이유 |
+|---|---|---|
+| ③ | `trace`의 칸 강제 해제, `cause_texts`·`basis_lines`·`calc_lines` 추가 | 엔진 trace는 계산 종류마다 칸이 다르다. 우진 실측에서 원인 문장과 근거 묶음이 설명 품질을 좌우했다 |
+| ③ | finding에 `reason` 추가 | trace 없는 줄(범위 외·참고)의 근거. 문서 전체 가정은 trace `assumptions`에 넣는다 |
+| 공용 | `cause_code`에 엔진 코드 추가, `law_label`에 `해외`, `out_of_scope_reason`에 `구버전 제외`·`해외 규제` 추가 | 엔진이 이미 쓰는 코드. 설계서의 "제외 항목은 범위 외로 표시" |
+| 설명 | 요청에 `causes`와 요약 trace, `finding`에 `kind`·`item_name`, 근거는 `{page,text,field}`, 응답에서 `finding_id`·`used_numbers`와 길이 제한 제거 | 우진 측정 2~7차 |
+| ⑤ 동작 | 확인은 일치·참고·범위 외에만, 확정·승인은 처리 대상에만 (422). 최신 넘김 판정 전 검토·저장 409. 글이 빠진 PDF 422. `stale`·`changed_findings`에 msds 포함. 골드는 저장 뒤 바뀌면 실버 | 저장본의 추출값과 판정이 어긋나지 않게, 거짓 골드 방지 (6-screens 미결 2보다 좁다) |
+| ⑤ | `judgment_status.unreviewed`, `review_state.last_event_id`, `review_event_request.seen_event_id`, `conflict_response`, `report_document` 추가 | 6-screens 0절 미검토 수, 동시 처리 충돌, 409 모양, JSON 리포트 모양 |
+
+`mismatch_type`에 `내부 불일치`를 더했다. 단일물질의 11·12항 수치와 2항 구분이 다를 때의 경고다 (설계서 19장). id는 `m0/F2:CROSS:<class_code>:<route_form 또는 ->`.
+
+`mismatch_type`에 `화평법 항목 누락`을 더했다. 15항 전체에 화평법 규제현황이 없을 때 제품 한 줄로 나온다 (설계서 30장). id는 `m0/F15:MIX:KREACH.KREACH_SECTION`, 심각도 중간. 트레이스의 `excluded`에 `무독성`이 새로 나올 수 있다.
+
+`judgment_status`의 `판정 실패`에 연결 장애도 포함된다. 이 경우 `error`가 자동 재시도를 알리고, 복구되면 새 넘김 없이 `판정 있음`이 된다.
+
+`4-explanation` 요청의 `finding.type`·`severity`는 값이 없으면 보내지 않으므로 필수에서 뺐다 (측정된 프롬프트 유지).
+
+3절의 `#n` 번호 순서·`seq:` 키와 4절의 `samples/`도 이때 더했다.
+
+`extract.handoff` 표 (약속 ①): A2 표(`a2_0003_extract_handoff.sql`, 브랜치 `a2/one-pdf`)를 따른다. 칸은 `job_id, handoff_seq, reason, as_of, extraction_sha256, payload_json, created_at`, 기본 키 `(job_id, handoff_seq)`. `payload_json`이 `1-handoff.schema.json` 한 건이다. B 계정 `judge_writer`는 이 표만 읽는다. 처음에는 `body` 칸이었으나 A2 표에 맞춰 바꿨다 (2026-11-03).
