@@ -150,12 +150,16 @@ function SkeletonTable() {
   );
 }
 
+/** 업로드 문서는 항상 manifest 밖이라 나오는 내부 안내 경고는 숨긴다 */
+const HIDDEN_WARNING_PREFIX = "manifest에 없는 문서";
+
 /** 실패 사유, 경고, 같은 PDF 안내 */
 function DocumentNotices({ doc }: { doc: DocumentDetail }) {
+  const warnings = doc.warnings.filter((w) => !w.startsWith(HIDDEN_WARNING_PREFIX));
   const failedAll = doc.status === "done" && allSectionsFailed(doc);
   const failedSome = !failedAll && doc.status === "done" && doc.counts.failed > 0;
   const firstError = doc.sections.find((s) => s.errors.length)?.errors[0];
-  if (!doc.error && !failedAll && !failedSome && doc.warnings.length === 0 && doc.duplicate_of.length === 0) {
+  if (!doc.error && !failedAll && !failedSome && warnings.length === 0 && doc.duplicate_of.length === 0) {
     return null;
   }
   return (
@@ -173,7 +177,7 @@ function DocumentNotices({ doc }: { doc: DocumentDetail }) {
       {failedSome && (
         <StatusLabel tone="warning">{doc.counts.failed}개 항을 추출하지 못했습니다. 해당 항은 비어 있습니다.</StatusLabel>
       )}
-      {doc.warnings.map((w, i) => (
+      {warnings.map((w, i) => (
         <p key={i} className="break-words text-amb-text">
           {w}
         </p>
