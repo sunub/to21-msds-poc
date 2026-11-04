@@ -191,10 +191,6 @@ function RegulationLoaded({
           ))}
         </div>
       )}
-      <p className="text-sm text-mut">
-        지식 {data.consistency.knowledge.provider} / {data.consistency.knowledge.version} · 판정 버전 {data.version}
-        {newer && ` (최신 ${latest})`}
-      </p>
       <RegulationTable
         view={data}
         findings={findings}

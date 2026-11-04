@@ -133,11 +133,7 @@ function ComponentsLoaded({
           ))}
         </div>
       )}
-      <p className="text-sm text-mut">
-        판정 기준 {productType} · 지식 {data.consistency.knowledge.provider} / {data.consistency.knowledge.version} · 판정 버전{" "}
-        {data.version}
-        {newer && ` (최신 ${ready.latest})`}
-      </p>
+      <p className="text-sm text-mut">판정 기준 {productType}</p>
     </>
   );
 
