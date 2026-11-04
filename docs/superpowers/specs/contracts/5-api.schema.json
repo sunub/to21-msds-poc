@@ -913,7 +913,8 @@
         "verdicts",
         "reviews",
         "values",
-        "snapshots"
+        "snapshots",
+        "last_review_event_id"
       ],
       "properties": {
         "job_id": {
@@ -1038,6 +1039,13 @@
           "items": {
             "$ref": "#/$defs/snapshot"
           }
+        },
+        "last_review_event_id": {
+          "description": "지금까지의 마지막 검토 이벤트 번호. 없으면 null. 최신 저장본의 last_review_event_id와 다르면 저장 뒤 검토 처리가 더 있다",
+          "type": [
+            "integer",
+            "null"
+          ]
         }
       }
     },
