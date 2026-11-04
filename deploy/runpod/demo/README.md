@@ -44,6 +44,17 @@
 - 앱 → 모델은 Pod 안(127.0.0.1)이라 프록시 100초 제한과 상관없다. 브라우저 요청은 업로드 뒤 진행 조회라 짧다.
 - 원격으로 Pod 프로세스를 띄울 때 `ssh -n`과 `setsid … < /dev/null &`을 쓰지 않으면 ssh가 끝나지 않는다.
 
+## 최종 모델(ft_q38, B-46)로 띄울 때
+
+원본 `Qwen/Qwen3.8-27B`(bf16, 가중치 약 54GB) + LoRA `ft`. **48GB(L40S)에는 안 들어가므로 80GB 이상 GPU**(같은 데이터센터의 RTX PRO 6000 96GB, H100·A100 80GB)로 Pod를 새로 만들어 같은 볼륨을 붙인다.
+
+1. 원본 가중치 받기(볼륨에 남음): Pod에서 `HF_HOME=/workspace/hf /workspace/venv/bin/hf download Qwen/Qwen3.8-27B`
+2. 어댑터(`q38_lora_v2/adapter_vllm`, 158MB, sha256 `380f3bc40c3a4489`로 시작)를 볼륨으로 복사. 저장소에는 없다. `adapter`가 아니라 `adapter_vllm`을 쓴다(아니면 오류 없이 원본처럼 답한다)
+3. 기존 vLLM을 끄고 `TAG=ft_q38 MODEL=Qwen/Qwen3.8-27B ADAPTER=<adapter_vllm 폴더> RESTART_APP=1 bash pod_start.sh`
+   - `finetune/serve_lora.sh`로 띄운다(최대 길이 40960, 동시 8, GPU 0.90 기본. `MAX_NUM_SEQS`·`GPU_UTIL`로 바꿈). 앱 동시 호출 상한도 같은 값으로 맞춘다
+   - 판정 설명도 같은 모델(`ft`)로 쓴다. 원본 Qwen3.8을 RUNPOD 주소로 부르는 설명용 태그가 없어서다
+4. `smoke_test.py`로 확인. 48GB가 아닌 GPU와 LoRA 조합은 2026-11-04 기준 체험 서버에서 띄워 본 적이 없다
+
 ## 모델을 바꿀 때
 
 `models.yaml`에 태그가 있으면 코드 수정 없이 바꾼다: Pod에서 vLLM을 그 모델로 다시 띄우고 `TAG=<태그> MODEL=<모델> bash pod_start.sh`. 파인튜닝 LoRA는 `finetune/serve_lora.sh`가 `to21-ft` 이름으로 붙인다.
