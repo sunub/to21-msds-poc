@@ -52,7 +52,8 @@
 2. 어댑터(`q38_lora_v2/adapter_vllm`, 158MB, sha256 `380f3bc40c3a4489`로 시작)를 볼륨으로 복사. 저장소에는 없다. `adapter`가 아니라 `adapter_vllm`을 쓴다(아니면 오류 없이 원본처럼 답한다)
 3. 기존 vLLM을 끄고 `TAG=ft_q38 MODEL=Qwen/Qwen3.8-27B ADAPTER=<adapter_vllm 폴더> RESTART_APP=1 bash pod_start.sh`
    - `finetune/serve_lora.sh`로 띄운다(최대 길이 40960, 동시 8, GPU 0.90 기본. `MAX_NUM_SEQS`·`GPU_UTIL`로 바꿈). 앱 동시 호출 상한도 같은 값으로 맞춘다
-   - 판정 설명도 같은 모델(`ft`)로 쓴다. 원본 Qwen3.8을 RUNPOD 주소로 부르는 설명용 태그가 없어서다
+   - 판정 설명은 같은 서버의 원본 이름(`Qwen/Qwen3.8-27B`, 태그 `q38_base_explain`)으로 쓴다. 추출용 LoRA로 설명을 만든 적이 없어서다
+   - 앱 동시 호출 상한(`MSDS_MODEL_MAX_INFLIGHT`)은 두 경로 모두 vLLM 동시 수(`MAX_NUM_SEQS`, 기본 8)와 같게 맞춘다
 4. `smoke_test.py`로 확인. 48GB가 아닌 GPU와 LoRA 조합은 2026-11-04 기준 체험 서버에서 띄워 본 적이 없다
 
 ## 모델을 바꿀 때

@@ -39,7 +39,8 @@ grep -E "Maximum concurrency" $W/serve_vllm.log | tail -1 || true
 # 전처리는 예전 방식(legacy). version17(#172 기본값)은 OCR 패키지가 필요한데 체험 서버는 OCR 그룹을 깔지 않아
 # 글꼴 깨짐·스캔 PDF가 실패한다. legacy는 그런 쪽을 이미지로 넘긴다. OCR을 깔고 확인한 뒤에만 PREPROCESS= 로 바꾼다
 { echo "RUNPOD_VLLM_BASE_URL=http://127.0.0.1:8000/v1"; echo "RUNPOD_VLLM_API_KEY=$(cat $W/vllm_api_key)"; echo "MSDS_SERVICE_MODEL=$TAG"
-  echo "MSDS_PREPROCESS=${PREPROCESS-legacy}"; } > $APP/.env
+  echo "MSDS_PREPROCESS=${PREPROCESS-legacy}"
+  [ -z "$ADAPTER" ] || echo "MSDS_EXPLAIN_MODEL=${EXPLAIN_TAG:-q38_base_explain}"; } > $APP/.env   # LoRA면 설명은 같은 서버의 원본 이름으로
 
 if [ "${RESTART_APP:-0}" = "1" ] && pgrep -f "[u]vicorn --app-dir src msds.api.extract_app" >/dev/null; then
   kill $(pgrep -f "[u]vicorn --app-dir src msds.api.extract_app")
