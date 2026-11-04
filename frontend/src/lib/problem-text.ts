@@ -20,12 +20,22 @@ const NOT_VALID = /is not valid under any of the given schemas/;
 const FIELD_VALUE = /'([^']+)'\s*:\s*'([^']*)'/;
 const UNKNOWN_CELL = /'칸=값'이 아니거나 모르는 칸\s*'([^']+)'/;
 
-export function describeProblem(raw: string): { summary: string; where: string | null; raw: string } {
+export function describeProblem(raw: string): {
+  summary: string;
+  where: string | null;
+  page: number | null;
+  line: number | null;
+  raw: string;
+} {
   const text = typeof raw === "string" ? raw : String(raw);
 
   let where: string | null = null;
+  let page: number | null = null;
+  let line: number | null = null;
   const w = WHERE.exec(text);
   if (w) {
+    page = Number(w[1]);
+    line = Number(w[2]);
     const place = `${w[1]}쪽 ${w[2]}줄`;
     where = w[3] ? `${ITEM_NAMES[w[3]] ?? w[3]} · ${place}` : place;
   }
@@ -36,5 +46,5 @@ export function describeProblem(raw: string): { summary: string; where: string |
   if (fv) summary = `${fv[2]}은(는) 허용되지 않는 표기입니다 (필드: ${fv[1]})`;
   else if (cell) summary = `조건 '${cell[1]}'를 온도·압력 등 칸으로 나눌 수 없습니다`;
 
-  return { summary, where, raw: text };
+  return { summary, where, page, line, raw: text };
 }
