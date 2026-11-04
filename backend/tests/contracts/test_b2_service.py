@@ -401,6 +401,22 @@ def test_미검토가_남아도_저장되고_다시_저장하면_새_번호다(s
     assert svc.status(JOB)["saved_snapshot"] == 2
 
 
+def test_저장_뒤_검토_처리를_하면_저장_개요의_마지막_처리_번호가_저장본과_달라진다(svc, put, gold25, contract_errors):
+    # 판정 버전·넘김 번호가 그대로라 화면이 "저장본이 최신"이라 하고, 리포트는 옛 저장본(처리 전)으로 나가던 일 (#162 검토)
+    put(handoff(gold25))
+    svc.drain()
+    assert svc.save_overview(JOB)["last_review_event_id"] is None
+    svc.add_review(JOB, FID, "의견", "확인 중", "김검수", 1)
+    snap = svc.save_snapshot(JOB, "김검수", 1, None)
+    o = svc.save_overview(JOB)
+    assert contract_errors("5-api.schema.json#/$defs/save_overview", o) == []
+    assert o["last_review_event_id"] == snap["last_review_event_id"] is not None
+    svc.add_review(JOB, FID, "불일치 확정", None, "김검수", 1)
+    after = svc.save_overview(JOB)
+    assert after["last_review_event_id"] > snap["last_review_event_id"]
+    assert (after["version"], after["handoff_seq"]) == (o["version"], o["handoff_seq"])  # 이 둘만 보면 바뀐 것을 모른다
+
+
 def test_옛_버전을_보고_저장하면_막는다(svc, put, gold25):
     put(handoff(gold25))
     svc.drain()
@@ -788,6 +804,33 @@ def test_15항_경계_줄에_방향을_말하면_검사에_걸린다(section, ve
     # 15항 경계 요약은 문장틀로 덮어쓰므로(_fixed_summary) 모델 글인 이유 문장에서 본다
     assert any(p.startswith("경계 줄에 방향") for p in ex.claim_problems({"summary": "확인이 필요합니다.", "reasons": [text]}, req)) is bad
 
+
+def test_설명_모델_태그는_따로_없으면_추출_모델을_따른다(monkeypatch):
+    # 48GB 태그로 띄운 서버를 80GB 기본 태그로 부르지 않게. 한 포트 실행 스크립트가 sed로 하던 일
+    from msds.extract.client import load_model_config
+    seen = []
+    monkeypatch.setattr("msds.extract.client.load_model_config", lambda t: seen.append(t) or {"base_url_env": "NO_SUCH_URL_ENV"})
+    monkeypatch.delenv("NO_SUCH_URL_ENV", raising=False)
+    for explain, service, want in [(None, None, ex.EXPLAIN_MODEL_DEFAULT), (None, "qwen36_35b_runpod_48g", "qwen36_35b_runpod_48g"),
+                                   ("gpt", "qwen36_35b_runpod_48g", "gpt"), ("", "qwen36_35b_runpod_48g", "qwen36_35b_runpod_48g")]:
+        for k, v in (("MSDS_EXPLAIN_MODEL", explain), ("MSDS_SERVICE_MODEL", service)):
+            monkeypatch.setenv(k, v) if v is not None else monkeypatch.delenv(k, raising=False)
+        assert ex.make_llm() is None and seen[-1] == want
+
+
+def test_설명_모델_태그는_env를_읽은_뒤에_정한다(monkeypatch, capsys):
+    # 판정 앱을 혼자 띄우면 msds.extract.client를 아직 안 읽었다. 가져올 때 load_dotenv가 .env를 읽으므로 태그는 그 뒤에 읽어야 한다
+    import sys
+    import dotenv
+    for k in ("MSDS_EXPLAIN_MODEL", "MSDS_SERVICE_MODEL"):
+        monkeypatch.delenv(k, raising=False)
+    # 시험이 끝나면 원래 모듈·환경으로 돌아온다 (혼자 돌려도, 다른 시험과 같이 돌려도 새지 않게 모두 monkeypatch로)
+    import msds.extract
+    monkeypatch.delitem(sys.modules, "msds.extract.client", raising=False)
+    monkeypatch.delattr(msds.extract, "client", raising=False)
+    monkeypatch.setattr(dotenv, "load_dotenv", lambda *a, **k: monkeypatch.setenv("MSDS_SERVICE_MODEL", "태그_env파일") or True)
+    assert ex.make_llm() is None  # 없는 태그라 설정을 못 읽고 문장틀로 간다
+    assert "태그_env파일" in capsys.readouterr().out  # .env에서 온 태그로 설정을 찾았다
 
 def test_설명_모델은_문법_강제_없이_받는다(monkeypatch):
     # json_schema 강제로 받으면 실제 모델이 요약을 ": "로 자주 채웠다 (T-26). 설명만 바꾸고 같은 모델을 쓰는 추출에는 번지지 않아야 한다

@@ -119,6 +119,7 @@ def create_app(
         CORSMiddleware,
         allow_methods=["*"],
         allow_headers=["*"],
+        expose_headers=judge_app.CORS_EXPOSE,
         allow_origins=[
             o.strip()
             for o in os.environ.get(CORS_ENV, DEFAULT_CORS).split(",")

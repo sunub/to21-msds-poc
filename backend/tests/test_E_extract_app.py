@@ -395,6 +395,22 @@ def test_real_worker_runs_pipeline_in_background(tmp_path):
         assert client.get(f"/api/documents/{doc}").json()["status"] == "done"
 
 
+def test_cors_exposes_download_and_range_headers(ctx):
+    # 화면 개발 서버(3000)가 내려받기 파일 이름과 PDF 부분 받기 머리글을 읽을 수 있어야 한다 (#162 검토)
+    client, *_ = ctx
+    r = client.get("/api/health", headers={"Origin": "http://localhost:3000"})
+    exposed = {h.strip().lower() for h in r.headers.get("access-control-expose-headers", "").split(",")}
+    assert {"content-disposition", "accept-ranges", "content-range"} <= exposed
+
+
+def test_judge_app_alone_exposes_download_headers():
+    # 판정 앱을 혼자 띄워도(8011, 시험용) 화면이 리포트 파일 이름을 읽을 수 있어야 한다
+    from msds.api import judge_app
+    from starlette.testclient import TestClient as Plain
+    r = Plain(judge_app.app).get("/docs", headers={"Origin": "http://localhost:3000"})  # lifespan 없이 미들웨어만 본다
+    assert "content-disposition" in r.headers.get("access-control-expose-headers", "").lower()
+
+
 def test_to_judgment_needs_reviewer(ctx):
     client, *_ = ctx
     doc_id = upload(client).json()["id"]
