@@ -1,0 +1,10 @@
+# Qwen3-30B-A3B-Instruct-2507 (RNGD 운영 모델 furiosa-ai/Qwen3-30B-A3B-Instruct-2507-FP8의 원본). 11/04 F
+# 학습 데이터: ft_build_data.py --student qwen3_30b_a3b_rngd (행 형식 항 [3, 8, 9, 11, 12, 14, 15], json_schema_compact)
+# MoE(128 전문가, 48층)라 전문가 약 290억 개가 4bit로 줄지 않는다. 4bit로 아끼는 건 주의 층 약 1.4GB뿐이라
+# 4bit 없이 bf16 LoRA로 돌린다. bf16 가중치 약 61GB + 학습 중 메모리. A100 80GB 한 장에서 --check-memory로 먼저 본다.
+base: qlora.yaml
+run_name: to21_lora_qwen3_30b_a3b_v1
+base_model: Qwen/Qwen3-30B-A3B-Instruct-2507
+chat_template_kwargs: {}            # 지시형(Instruct-2507)은 생각 모드가 없다. models.yaml qwen3_30b_a3b_rngd도 인자 없음
+quantization:
+  load_in_4bit: false
