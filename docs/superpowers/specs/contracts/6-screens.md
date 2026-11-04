@@ -29,18 +29,19 @@
 | 업로드(PDF, 기준일) | `POST /api/documents` | 기존 |
 | 작업한 문서 표: 문서·쪽 수·마지막 작업, 보기 전환 개수 | `GET /api/documents?status=` → `documentListResponseSchema` | 기존 |
 | 문서 칸의 제품명·문서 코드 | `items[]` + `document_extras` | 추가 [A2] |
-| 단계 칸: `추출 중 3/4단계` · `검수 중 · 미검수` · `완료`, 진행 칸 `9 / 9항` | A: `status`·`stage_index`·`counts` / B: `judgment_batch_item` | 기존 + 신규 [B2] |
-| 데이터 등급 칸 `실버`/`골드` | `judgment_batch_item.data_grade` | 신규 [B2] (미결 2) |
-| 버튼: 진행 보기 / 이어서 하기 / 열기 | 화면이 A 상태와 B 상태를 합쳐 정한다 (아래 규칙) | — |
+| 단계 칸: `추출 중 3/4단계` · `검수 중` · `완료`, 진행 칸 `9 / 9항 · 추출값 미검수/확인 n/9항/확인 완료 · 판정 미검토 n건` | A: `status`·`stage_index`·`counts`·`document_extras.values_review` / B: `judgment_batch_item` | 반영 (`lib/document-row.ts`) |
+| 데이터 등급 칸 `실버`/`골드` | `judgment_batch_item.data_grade`. 판정 요약을 못 받으면 `-` | 반영 (미결 2) |
+| 버튼: 진행 보기 / 검수하기 / 이어서 하기 / 열기 / 다시 시도 | 화면이 A 상태와 B 상태를 합쳐 정한다 (아래 규칙) | 반영 |
+| 추출 직후 자동 검사 결과 (단계 아래 작은 글: `자동 검사 오류 n건` 등) | A: `validation`. 모델이 뽑은 원래 값 기준이라 검수해도 바뀌지 않는다 | 반영 |
 | 대기 순번·예상 시간 | `queue_fields` | 추가 [A1] |
 
 목록은 A의 `GET /api/documents` 한 번과 B의 `GET /api/judgments/summary?job_ids=…` 한 번으로 그린다. 두 응답은 `job_id`(= A의 `id`)로 합친다. A와 B가 서로를 부르지 않게 하려고 합치는 일은 화면이 맡는다.
 
 | A `status` | B `state` / 저장 | 단계 칸 | 버튼 |
 |---|---|---|---|
-| queued·running | — | 추출 중 n/4단계 (대기 중이면 대기 n번째) | 진행 보기 |
+| queued·running | — | 대기 · 전처리 · 항목 나누기 · 추출 대기 · 추출 중 · 정리 중. 진행 칸은 끝낸 단계만큼 막대를 채우고(`n / 4단계 끝 · 대기 n번째`), 항을 나눈 뒤에는 `n / 9항` | 진행 보기 |
 | failed·interrupted | — | 실패 | 진행 보기 (다시 실행) |
-| done | 저장본 없음 | 검수 중 · (미검수/일부/완료) | 이어서 하기 |
+| done | 저장본 없음 | 검수 중 (진행 칸에 미검수/일부/완료) | `review_stage`가 검수 대기면 검수하기(방식 선택), 추출값 확인 중이면 이어서 하기(추출값 탭), 판정으로 넘김이면 이어서 하기(2항 탭) |
 | done | 저장본 있음 | 완료 | 열기 |
 
 ## 1.2 · 1.3 추출 진행 (`app/extract/page.tsx`)
@@ -60,7 +61,7 @@
 |---|---|---|
 | 입력 유형, 권장 방식 | `text_layer` → `lib/status.ts inputType()` | 기존 |
 | 추출 상태 (n개 항 중 완료·실패·검토 필요) | `counts` | 기존 |
-| 고른 방식 기억 (다시 열 때 이어서) | `queue_fields.review_stage`. "추출값 확인 시작하기"를 누르면 `추출값 확인 중`이 된다 | 추가 [A2] |
+| 고른 방식 기억 (다시 열 때 이어서) | `queue_fields.review_stage`. 검수 기록이 하나라도 생기면 `추출값 확인 중`, 판정으로 넘긴 기록이 있으면 `판정으로 넘김` | 반영 (서버가 검수 기록·넘김 기록에서 계산) |
 
 ## 2.2 추출값 확인 (`components/review/values-panel.tsx`)
 

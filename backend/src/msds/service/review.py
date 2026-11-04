@@ -251,3 +251,41 @@ def build_view(doc: dict, checks: dict, state_sections: list[dict], record: dict
     return {"msds": out, "summary": {"sections_total": total, "sections_confirmed": len(record["sections"]),
                                      "fields_total": total_fields, "fields_checked": checked_fields,
                                      "fields_edited": edited}}
+
+
+_COMPOSITION_TYPES = {"단일물질": "단일물질", "혼합물": "혼합물"}
+
+
+def document_extras(doc: dict, checks: dict, state_sections: list[dict], record: dict) -> dict:
+    """[A2] 목록·머리줄 칸 (contracts/5-api document_extras). 첫 MSDS 기준이고 사람이 고친 값을 얹는다.
+
+    values_review.state: 미검수(확인한 칸·항 0) / 일부 / 완료(모든 항 확인 완료)."""
+    summary = build_view(doc, checks, state_sections, record)["summary"]
+    started = summary["fields_checked"] > 0 or summary["sections_confirmed"] > 0
+    finished = summary["sections_total"] > 0 and summary["sections_confirmed"] >= summary["sections_total"]
+    values_review = {"state": "완료" if finished else "일부" if started else "미검수", **summary}
+    msds_list = apply_edits(doc, record)["msds"]
+    if not msds_list:
+        return {"product_name": None, "doc_code": None, "msds_revision_date": None, "composition": None,
+                "values_review": values_review}
+    first = msds_list[0]
+    meta = first.get("meta") or {}
+    return {"product_name": (first.get("product") or {}).get("name"),
+            "doc_code": meta.get("doc_code"),
+            "msds_revision_date": meta.get("last_revision_date") or meta.get("first_issue_date"),
+            # 검수에서 이 칸을 자유 글로 고칠 수 있다. 계약(단일물질·혼합물·null) 밖 값은 내리지 않는다
+            "composition": {"type": _COMPOSITION_TYPES.get((first.get("composition") or {}).get("type")),
+                            "component_count": len(first.get("components") or [])},
+            "values_review": values_review}
+
+
+def review_stage(status: str, record: dict, *, handed_off: bool) -> str | None:
+    """[A2] 사람 구간 상태 (contracts/5-api queue_fields.review_stage). 화면이 어디서 이어 열지 정한다.
+
+    추출이 끝나지 않았으면 None. 판정으로 넘긴 기록이 있으면 '판정으로 넘김', 검수 기록이 하나라도 있으면
+    '추출값 확인 중'(되돌림도 확인을 시작한 것이다), 아니면 '검수 대기'."""
+    if status != "done":
+        return None
+    if handed_off:
+        return "판정으로 넘김"
+    return "추출값 확인 중" if record.get("log") else "검수 대기"

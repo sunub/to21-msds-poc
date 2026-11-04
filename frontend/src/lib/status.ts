@@ -43,7 +43,7 @@ export function validationLabel(validation: ValidationSummary | null | undefined
   return { tone: "success", label: "검증 통과", detail };
 }
 
-/** 목록의 "단계" 칸 */
+/** 추출이 끝난 문서의 추출 상태 (방식 선택·진행 화면). 목록은 lib/document-row.ts 가 따로 정한다 */
 export function statusLabel(doc: Pick<DocumentSummary, "status" | "stage" | "counts" | "validation">): { tone: Tone; label: string } {
   switch (doc.status) {
     case "queued":
@@ -69,16 +69,6 @@ export function statusLabel(doc: Pick<DocumentSummary, "status" | "stage" | "cou
     case "interrupted":
       return { tone: "warning", label: "멈춤" };
   }
-}
-
-/**
- * 목록의 "진행" 칸: 항을 나누기 전에는 단계("1 / 4단계"), 나눈 뒤에는 항("9 / 9항", 추출 대상 항만 센다).
- * percent 는 진행 막대 길이.
- */
-export function progressLabel(doc: Pick<DocumentSummary, "stage_index" | "stage_total" | "counts">) {
-  const { done, total } = doc.counts;
-  if (total > 0) return { text: `${done} / ${total}항`, percent: (done / total) * 100 };
-  return { text: `${doc.stage_index} / ${doc.stage_total}단계`, percent: (doc.stage_index / doc.stage_total) * 100 };
 }
 
 export function allSectionsFailed(doc: Pick<DocumentSummary, "counts">) {

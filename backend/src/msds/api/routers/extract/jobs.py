@@ -1,13 +1,15 @@
-"""작업 접수·목록·상태·재시도 API (A1)."""
+"""작업 접수·목록·상태·재시도 API (A1). 목록·상세에는 검수 진행(A2 document_extras·review_stage)도 붙는다."""
 
+import json
+import logging
 import os
 from pathlib import Path
 from typing import Literal
 
 from fastapi import APIRouter, HTTPException, Query, Request
 
-from msds.api.routers.extract.deps import get_state
-from msds.service import pipeline, progress
+from msds.api.routers.extract.deps import get_state, result_paths_for
+from msds.service import pipeline, progress, review
 
 MAX_PDF_BYTES = 50 * 1024 * 1024
 
@@ -15,10 +17,46 @@ _DATE = r"^\d{4}-\d{2}-\d{2}$"
 _ACTIVE = ("queued", "running")
 _FAILED = ("failed", "interrupted")
 
+LOG = logging.getLogger(__name__)
+
 router = APIRouter(tags=["documents"])
 
 
-def queue_fields(request: Request, state: dict) -> dict:
+def review_context(request: Request, states: list[dict]) -> dict:
+    """[A2] 끝난 문서들의 검수 기록과 판정 넘김 여부를 한 번에 읽는다 (목록 폴링마다 문서당 연결을 열지 않는다)."""
+    store = request.app.state.store
+    done = [s for s in states if s["status"] == "done"]
+    if not done:
+        return {"records": {}, "handed": set()}
+    ask = getattr(store, "handed_off", None)
+    try:
+        return {"records": store.review_records(done), "handed": set(ask([s["id"] for s in done])) if ask else set()}
+    except Exception:
+        # 검수 진행은 덧붙이는 정보다. 읽지 못해도 목록·상세는 보여 준다 (진행 칸만 비고 단계는 '검수 중')
+        LOG.exception("검수 진행을 읽지 못했습니다")
+        return {"records": {}, "handed": set()}
+
+
+def review_fields(request: Request, state: dict, ctx: dict) -> dict:
+    """[A2] 검수 진행. 끝나지 않았거나 결과 파일이 없으면 document_extras 는 None."""
+    record = ctx["records"].get(state["id"])
+    if state["status"] != "done" or record is None:  # 목록을 읽는 사이 다시 실행되었으면 기록이 없다
+        return {"review_stage": None, "document_extras": None}
+    extras = None
+    out, checks = result_paths_for(request, state)
+    try:
+        if out.is_file():
+            doc = json.loads(out.read_text(encoding="utf-8"))
+            chk = json.loads(checks.read_text(encoding="utf-8")) if checks.is_file() else {}
+            extras = review.document_extras(doc, chk, state["sections"], record)
+    except (OSError, ValueError, KeyError, TypeError):
+        # 결과 파일 하나가 깨져도 목록 전체를 막지 않는다. 그 문서의 결과 화면이 오류를 보여 준다
+        LOG.exception("검수 진행을 계산하지 못했습니다: %s", state["id"])
+    stage = review.review_stage(state["status"], record, handed_off=state["id"] in ctx["handed"])
+    return {"review_stage": stage, "document_extras": extras}
+
+
+def queue_fields(request: Request, state: dict, ctx: dict | None = None) -> dict:
     store = request.app.state.store
     position = eta = None
     if hasattr(store, "queue_info") and state["status"] == "queued":
@@ -29,7 +67,7 @@ def queue_fields(request: Request, state: dict) -> dict:
     return {
         "queue_position": position,
         "eta_seconds": eta,
-        "review_stage": state.get("review_stage"),
+        **review_fields(request, state, ctx if ctx is not None else review_context(request, [state])),
     }
 
 
@@ -71,9 +109,10 @@ def list_documents(
         "done": [s for s in states if s["status"] == "done"],
         "failed": [s for s in states if s["status"] in _FAILED],
     }
+    ctx = review_context(request, groups[status])
     return {
         "items": [
-            {**progress.summary_view(s), **queue_fields(request, s)}
+            {**progress.summary_view(s), **queue_fields(request, s, ctx)}
             for s in groups[status]
         ],
         "counts": {k: len(v) for k, v in groups.items()},

@@ -97,6 +97,31 @@ export const validationSummarySchema = z.object({
 });
 export type ValidationSummary = z.infer<typeof validationSummarySchema>;
 
+/** [A2] 사람 구간 상태. 목록이 어디서 이어 열지 정한다. 추출이 끝나지 않았으면 null (contracts/5-api queue_fields) */
+export const reviewStageSchema = z.enum(["검수 대기", "추출값 확인 중", "판정으로 넘김"]);
+export type ReviewStage = z.infer<typeof reviewStageSchema>;
+
+/** [A2] 추출값 검수 진행. 미검수(확인 0) / 일부 / 완료(모든 항 확인) */
+export const valuesReviewSchema = z.object({
+  state: z.enum(["미검수", "일부", "완료"]),
+  sections_confirmed: count,
+  sections_total: count,
+  fields_checked: count,
+  fields_edited: count,
+  fields_total: count,
+});
+export type ValuesReview = z.infer<typeof valuesReviewSchema>;
+
+/** [A2] 목록·머리줄 칸 (contracts/5-api document_extras). 첨 MSDS 기준이고 사람이 고친 값을 얹는다 */
+export const documentExtrasSchema = z.object({
+  product_name: z.string().nullable(),
+  doc_code: z.string().nullable(),
+  msds_revision_date: z.string().nullable(),
+  composition: z.object({ type: z.enum(["단일물질", "혼합물"]).nullable(), component_count: count }).nullable(),
+  values_review: valuesReviewSchema,
+});
+export type DocumentExtras = z.infer<typeof documentExtrasSchema>;
+
 export const documentSummarySchema = z.object({
   /** U-<날짜>-<순번> */
   id: z.string(),
@@ -126,6 +151,13 @@ export const documentSummarySchema = z.object({
   can_retry: z.boolean(),
   /** 최종 검사 요약. 없거나 null이면 검증 결과를 확인할 수 없다. */
   validation: validationSummarySchema.nullable().optional(),
+  /** [A1] 대기 중이면 1부터, 아니면 null */
+  queue_position: z.int().positive().nullable(),
+  /** [A1] 대략적인 완료 예상 초. 표본이 모자라면 null */
+  eta_seconds: z.number().nonnegative().nullable(),
+  review_stage: reviewStageSchema.nullable(),
+  /** 추출이 끝나지 않았거나 결과 파일이 없으면 null */
+  document_extras: documentExtrasSchema.nullable(),
 });
 export type DocumentSummary = z.infer<typeof documentSummarySchema>;
 

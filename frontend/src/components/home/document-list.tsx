@@ -4,13 +4,14 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { documentListQuery } from "@/api/documents";
+import { judgmentSummaryQuery, type JudgmentBatchItem } from "@/api/judgment";
 import type { DocumentFilter, DocumentSummary } from "@/api/schemas";
 import { RetryButton } from "@/components/documents/retry-button";
 import { Button, PillTabs, Progress, Skeleton, StatusLabel, Table, TableHead, buttonStyles } from "@/components/ui";
 import { cn } from "@/lib/cn";
+import { documentRow, type RowAction as RowActionView } from "@/lib/document-row";
 import { formatDateTime } from "@/lib/format";
-import { routes } from "@/lib/routes";
-import { allSectionsFailed, progressLabel, statusLabel } from "@/lib/status";
+import { validationLabel } from "@/lib/status";
 
 const FILTERS: { id: DocumentFilter; label: string }[] = [
   { id: "all", label: "전체" },
@@ -29,7 +30,7 @@ const EMPTY: Record<DocumentFilter, string> = {
 /** 표의 칸 너비. 머리줄과 행이 같이 쓴다 (templates 1.1) */
 const COL = {
   doc: "min-w-0 flex-3",
-  status: "w-22",
+  status: "w-28",
   progress: "min-w-0 flex-2",
   layer: "w-28",
   updated: "w-35",
@@ -84,6 +85,11 @@ export function DocumentList() {
         }
       : list.data?.counts;
   const items = list.data?.items.filter((d) => !hidden.includes(d.id));
+  // 끝난 문서의 판정·저장 상태는 B 가 갖고 있다. 한 번에 묻고 작업 번호로 합친다 (6-screens 1.1)
+  const doneIds = (items ?? []).filter((d) => d.status === "done").map((d) => d.id);
+  // 끝난 문서가 늘어 키가 바뀌는 동안 이전 판정 상태를 남겨 '완료'가 잠깐 '검수 중'으로 바뀌지 않게 한다
+  const judgments = useQuery({ ...judgmentSummaryQuery(doneIds), placeholderData: keepPreviousData });
+  const judgmentOf = new Map((judgments.data ?? []).map((j) => [j.job_id, j]));
 
   return (
     <section className="flex flex-col gap-3">
@@ -129,6 +135,7 @@ export function DocumentList() {
               <DocumentRow
                 key={doc.id}
                 doc={doc}
+                judgment={judgmentOf.get(doc.id)}
                 confirming={confirmId === doc.id}
                 onAskHide={() => setConfirmId(doc.id)}
                 onCancelHide={() => setConfirmId(null)}
@@ -153,21 +160,24 @@ export function DocumentList() {
   );
 }
 
+const NOTE_TEXT: Partial<Record<string, string>> = { danger: "text-red", warning: "text-amb-text" };
+
 function DocumentRow({
   doc,
+  judgment,
   confirming,
   onAskHide,
   onCancelHide,
   onHide,
 }: {
   doc: DocumentSummary;
+  judgment: JudgmentBatchItem | undefined;
   confirming: boolean;
   onAskHide: () => void;
   onCancelHide: () => void;
   onHide: () => void;
 }) {
-  const status = statusLabel(doc);
-  const progress = progressLabel(doc);
+  const row = documentRow(doc, judgment, validationLabel(doc.validation));
   // 처리 중인 문서는 숨기지 않는다
   const canHide = doc.status !== "queued" && doc.status !== "running";
 
@@ -210,23 +220,28 @@ function DocumentRow({
         )}
       </div>
       <div className={COL.status}>
-        <StatusLabel tone={status.tone} className="text-base">
-          {status.label}
+        <StatusLabel tone={row.stage.tone} className="text-base">
+          {row.stage.label}
         </StatusLabel>
+        {row.note && (
+          <div className={cn("mt-0.5 text-sm", NOTE_TEXT[row.note.tone] ?? "text-sub")} title={row.note.title}>
+            {row.note.text}
+          </div>
+        )}
       </div>
       <div className={COL.progress}>
         <div className="mb-1 text-sm">
-          {progress.text}
-          {doc.counts.needs_review > 0 && <span className="text-amb-text"> · 확인 {doc.counts.needs_review}항</span>}
+          {row.progress.text}
+          {row.progress.detail && <span className="text-sub"> · {row.progress.detail}</span>}
         </div>
-        <Progress value={progress.percent} label={`${doc.filename} 진행률`} />
+        <Progress value={row.progress.percent} label={`${doc.filename} 진행률`} />
       </div>
       <div className={cn(COL.layer, "text-sm", doc.text_layer && doc.text_layer !== "정상" ? "text-amb-text" : "text-sub")}>
         {doc.text_layer ?? <span className="text-mut">판정 전</span>}
       </div>
       <div className={cn(COL.updated, "text-sm text-mut")}>{formatDateTime(doc.updated_at)}</div>
       <div className={cn(COL.action, "items-center gap-1")}>
-        <RowAction doc={doc} />
+        <RowAction doc={doc} action={row.action} />
         {canHide ? (
           <button
             type="button"
@@ -259,20 +274,12 @@ function DocumentRow({
   );
 }
 
-/** 상태마다 다음 행동 하나: 진행 보기 · 검수하기 · 다시 시도 */
-function RowAction({ doc }: { doc: DocumentSummary }) {
-  // 모든 항이 실패한 문서는 검수할 값이 없다
-  if (doc.status === "done" && !allSectionsFailed(doc)) {
-    return (
-      <Link href={routes.reviewMode(doc.id)} className={buttonStyles({ variant: "primary" })}>
-        검수하기
-      </Link>
-    );
-  }
-  if (doc.can_retry) return <RetryButton docId={doc.id} filename={doc.filename} />;
+/** 상태마다 다음 행동 하나: 진행 보기 · 검수하기 · 이어서 하기 · 열기 · 다시 시도 (lib/document-row.ts) */
+function RowAction({ doc, action }: { doc: DocumentSummary; action: RowActionView }) {
+  if (action.kind === "retry") return <RetryButton docId={doc.id} filename={doc.filename} />;
   return (
-    <Link href={routes.extract(doc.id)} className={buttonStyles()}>
-      진행 보기
+    <Link href={action.href} className={buttonStyles(action.primary ? { variant: "primary" } : undefined)}>
+      {action.label}
     </Link>
   );
 }

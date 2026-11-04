@@ -83,6 +83,7 @@ def apply_event(state: dict, event: dict) -> dict:
     elif kind == "done":
         summary = dict(event.get("summary") or {})
         state["warnings"] += list(summary.pop("warnings", []) or [])
+        _mark_final_review(state, (summary.get("validation") or {}).get("needs_review") or [])
         state.update(status="done", stage="done", summary=summary)
     elif kind == "failed":
         state.update(status="failed", error=event["error"])
@@ -91,6 +92,15 @@ def apply_event(state: dict, event: dict) -> dict:
     else:
         raise ValueError(f"모르는 진행 이벤트: {kind}")
     return state
+
+
+def _mark_final_review(state: dict, flagged: list[dict]) -> None:
+    """최종 검증이 검수 필요로 본 항(펼치기 문제·검증기 위치 포함)을 항별 표시에도 옮긴다.
+    항 호출이 끝날 때의 표시는 펼치기 뒤의 문제를 모른다. 계획에 없는 항은 건너뛴다."""
+    keys = {(f.get("msds_index"), f.get("section")) for f in flagged if isinstance(f, dict)}
+    for s in state["sections"]:
+        if (s["msds_index"], s["section"]) in keys:
+            s["needs_review"] = True
 
 
 def counts(state: dict) -> dict:

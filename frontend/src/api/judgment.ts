@@ -126,6 +126,19 @@ export const judgmentStatusSchema = z.object({
   error: z.string().nullable().optional(),
 });
 
+/** [B2] GET /api/judgments/summary?job_ids= 의 한 줄. 목록이 A 문서 목록과 작업 번호로 합친다 (contracts/5-api judgment_batch_item) */
+export const judgmentBatchItemSchema = z.object({
+  job_id: z.string(),
+  state: z.enum(["판정 없음", "판정 중", "판정 있음", "판정 실패"]),
+  latest_version: z.number().nullable(),
+  /** 미검토이면서 처리가 필요한(불일치·경계·근거부족·경고) 판정 수 */
+  unreviewed: z.number(),
+  saved_snapshot: z.number().nullable(),
+  saved_at: z.string().nullable(),
+  data_grade: z.enum(["실버", "골드"]),
+});
+export const judgmentSummarySchema = z.array(judgmentBatchItemSchema);
+
 export const judgmentViewSchema = z
   .object({
     job_id: z.string(),
@@ -176,6 +189,7 @@ export type FindingDisplay = z.infer<typeof displaySchema>;
 export type ReviewState = z.infer<typeof reviewStateSchema>;
 export type Explanation = z.infer<typeof explanationSchema>;
 export type JudgmentStatus = z.infer<typeof judgmentStatusSchema>;
+export type JudgmentBatchItem = z.infer<typeof judgmentBatchItemSchema>;
 export type JudgmentView = z.infer<typeof judgmentViewSchema>;
 export type ReviewAction = (typeof REVIEW_ACTIONS)[number];
 export type ReviewEventRequest = {
@@ -218,6 +232,7 @@ const send = (body: unknown): RequestInit => ({
 });
 
 export const judgmentKeys = {
+  summary: (ids: readonly string[]) => ["judgments", "summary", ids.join(",")] as const,
   all: (id: string) => ["judgments", id] as const,
   status: (id: string) => [...judgmentKeys.all(id), "status"] as const,
   view: (id: string, version: number) => [...judgmentKeys.all(id), "view", version] as const,
@@ -235,6 +250,25 @@ export const judgmentStatusQuery = (id: string) =>
       if (!s) return false;
       return s.state === "판정 중" || s.pending_handoff !== null || s.explanations.done < s.explanations.total ? POLL_MS : false;
     },
+  });
+
+/** 서버가 한 번에 받는 작업 번호 수 (api/judge_app.py MAX_SUMMARY_JOBS) */
+const SUMMARY_MAX_JOBS = 200;
+
+/** 목록의 끝난 문서들의 판정·저장 상태를 한 번에. 판정 중인 문서가 있을 때만 다시 묻는다 */
+export const judgmentSummaryQuery = (ids: readonly string[]) =>
+  queryOptions({
+    queryKey: judgmentKeys.summary(ids),
+    queryFn: async ({ signal }) => {
+      const chunks = Array.from({ length: Math.ceil(ids.length / SUMMARY_MAX_JOBS) }, (_, i) => ids.slice(i * SUMMARY_MAX_JOBS, (i + 1) * SUMMARY_MAX_JOBS));
+      const parts = await Promise.all(chunks.map((chunk) =>
+        call(judgmentSummarySchema, `/api/judgments/summary?${new URLSearchParams({ job_ids: chunk.join(",") })}`, { signal })));
+      return parts.flat();
+    },
+    enabled: ids.length > 0,
+    // 검수·저장 화면에서 돌아오면 바로 새 상태를 받는다 (기본 staleTime 30초면 지난 상태가 남는다)
+    staleTime: 0,
+    refetchInterval: (query) => (query.state.data?.some((j) => j.state === "판정 중") ? POLL_MS : false),
   });
 
 /** 버전을 키에 넣는다. 새 버전이 생겨도 읽던 표가 저절로 바뀌지 않는다. 설명을 쓰는 동안에는 같은 버전을 다시 받는다 */

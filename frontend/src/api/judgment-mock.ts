@@ -441,6 +441,14 @@ export async function mockResponse(path: string, init?: RequestInit): Promise<un
   const scenario = mockScenario() ?? "ready";
   await wait(200);
   const id = decodeURIComponent((path.split("?")[0].split("/")[3]) ?? "");
+  if (path.startsWith("/api/judgments/summary")) {
+    const ids = (new URLSearchParams(path.split("?")[1]).get("job_ids") ?? "").split(",").filter(Boolean);
+    return ids.map((jobId) => {
+      const s = status(jobId, scenario);
+      return { job_id: jobId, state: s.state, latest_version: s.latest_version, unreviewed: TODO.length,
+               saved_snapshot: s.saved_snapshot, saved_at: null, data_grade: "실버" };
+    });
+  }
   if (path.endsWith("/to-judgment")) {
     handedOff = true;
     startedAt = Date.now();
