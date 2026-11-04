@@ -221,6 +221,23 @@ models:
       presence_penalty: 0
       reasoning_effort: none
 
+  # 최종 선정 모델 (B-46). 개발 골드 10건 91.2점, 필수 9/17. 요청 방식은 qwen36_35b_runpod와 같고 model만 LoRA 이름이다.
+  # 서버: Qwen/Qwen3.8-27B(bf16) + --lora-modules ft=<adapter_vllm>(sha256 380f3bc40c3a4489). 어댑터는 저장소에 없다
+  ft_q38:
+    model: ft
+    base_url_env: RUNPOD_VLLM_BASE_URL
+    api_key_env: RUNPOD_VLLM_API_KEY
+    structured: [json_schema, json_object, none]
+    max_tokens: 8192
+    concurrency: 16
+    rows_sections: [3, 8, 9, 11, 12, 14, 15]
+    rows_max_tokens: 16384
+    image_input: true
+    params:
+      temperature: 0
+      extra_body:
+        chat_template_kwargs: {enable_thinking: false}
+
 run:
   max_retries: 2            # 스키마 검증 실패 시 재시도 횟수
   request_timeout: 600      # 초
