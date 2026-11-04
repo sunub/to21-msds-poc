@@ -4,7 +4,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { isJudgmentApiMissing, type Finding, type JudgmentView } from "@/api/judgment";
 import { downloadJudgmentReport, type ReportFormat } from "@/api/judgment-report";
-import { Button, PillTabs, StatusLabel, Table, TableHead, TableRow } from "@/components/ui";
+import { Button, PillTabs, ScrollTable, StatusLabel, TableHead, TableRow } from "@/components/ui";
 import { cn } from "@/lib/cn";
 import { buildHazardTable, hazardFilterItems, type HazardFilter } from "@/lib/hazard";
 import { noteBreakdown, regulationCounts, reviewText, verdictText, verdictTone } from "@/lib/regulation";
@@ -99,8 +99,8 @@ export function HazardTable({
         </div>
         <ReportButtons docId={docId} />
       </div>
-      <Table>
-        <TableHead className="max-lg:hidden">
+      <ScrollTable follow={selected?.id}>
+        <TableHead sticky className="max-lg:hidden">
           <div className={WIDE}>유해성 항목</div>
           <div className={NARROW}>MSDS 기재</div>
           <div className={WIDE}>검증 결과</div>
@@ -122,7 +122,7 @@ export function HazardTable({
             )}
           </div>
         )}
-      </Table>
+      </ScrollTable>
     </section>
   );
 }

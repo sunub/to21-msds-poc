@@ -7,10 +7,9 @@ import { ApiRequestError } from "@/api/client";
 import { documentDetailQuery, documentKeys, reviewQuery, saveFieldReview, saveSectionReview } from "@/api/documents";
 import type { DocumentDetail, FieldReviewRequest, ReviewField, ReviewResponse, ReviewSection, SectionReviewRequest } from "@/api/schemas";
 import { SourceViewer } from "@/components/extract/source-viewer";
-import { Foot, Pane, Row } from "@/components/shell/layout";
+import { Foot, Pane, Workspace } from "@/components/shell/layout";
 import { Button, Input, Skeleton, StatusLabel, buttonStyles } from "@/components/ui";
 import { usePageParam } from "@/hooks/use-page-param";
-import { useObservedHeight } from "@/hooks/use-observed-height";
 import { cn } from "@/lib/cn";
 import { useReviewer } from "@/lib/reviewer";
 import { routes } from "@/lib/routes";
@@ -55,7 +54,6 @@ function Values({ doc }: { doc: DocumentDetail }) {
   const [page, setPage] = usePageParam();
   const [evidence, setEvidence] = useState<string | null>(null);
   const [open, setOpen] = useState<string | null>(null);
-  const preview = useObservedHeight<HTMLDivElement>();
 
   const showSource = useCallback(
     (nextPage: number | null, text: string | null) => {
@@ -81,12 +79,12 @@ function Values({ doc }: { doc: DocumentDetail }) {
 
   return (
     <>
-      <Row>
-        <SourceViewer doc={doc} page={page} onPage={setPage} highlight={evidence} panelHeight={preview.height} />
-        <div ref={preview.ref} className="min-w-0 grow basis-105">
+      <Workspace>
+        <SourceViewer doc={doc} page={page} onPage={setPage} highlight={evidence} />
+        <div className="min-w-0 lg:min-h-0">
           <Pane
             title="재생성 MSDS"
-            className="basis-105"
+            fill
             aside={
               <span className="text-sm text-mut tabular-nums">
                 {total}항 중 {confirmed}항 확인{edited > 0 && ` · 수정 ${edited}칸`} · 항을 눌러 펼칩니다
@@ -120,7 +118,7 @@ function Values({ doc }: { doc: DocumentDetail }) {
             ))}
           </Pane>
         </div>
-      </Row>
+      </Workspace>
       <Foot>
         <p className="text-mut">
           {total}항 중 {confirmed}항을 확인했습니다.
@@ -320,13 +318,14 @@ const FieldRow = memo(function FieldRow({
       ) : (
         <div className="mt-1 flex flex-wrap gap-x-3">
           {field.state !== "confirmed" && field.state !== "edited" && (
-            <Button variant="link" className="min-h-0 text-sm" disabled={!reviewer || write.isPending} onClick={() => send("confirm")}>
+            <Button variant="outline" size="md" className="px-2.5 text-sm" disabled={!reviewer || write.isPending} onClick={() => send("confirm")}>
               확인함
             </Button>
           )}
           <Button
-            variant="link"
-            className="min-h-0 text-sm"
+            variant="outline"
+            size="md"
+            className="px-2.5 text-sm"
             disabled={!reviewer || write.isPending}
             onClick={() => {
               setDraft(field.value === null ? "" : String(field.value));
@@ -336,7 +335,7 @@ const FieldRow = memo(function FieldRow({
             고치기
           </Button>
           {field.state !== "unchecked" && (
-            <Button variant="link" className="min-h-0 text-sm" disabled={!reviewer || write.isPending} onClick={() => send("reset")}>
+            <Button variant="default" size="md" className="px-2.5 text-sm" disabled={!reviewer || write.isPending} onClick={() => send("reset")}>
               되돌리기
             </Button>
           )}

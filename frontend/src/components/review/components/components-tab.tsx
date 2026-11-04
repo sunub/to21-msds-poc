@@ -11,9 +11,8 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useState } from "react";
 import { judgmentViewQuery, type JudgmentView } from "@/api/judgment";
 import { SourceViewer } from "@/components/extract/source-viewer";
-import { Foot, Pane } from "@/components/shell/layout";
+import { Foot, Pane, Workspace } from "@/components/shell/layout";
 import { Button, PillTabs, Skeleton, buttonStyles } from "@/components/ui";
-import { useObservedHeight } from "@/hooks/use-observed-height";
 import { componentFindings, limitationCards, pickResult, sourceTabs, type LimitationCard } from "@/lib/components";
 import { isUnreviewed } from "@/lib/regulation";
 import { routes } from "@/lib/routes";
@@ -95,7 +94,6 @@ function ComponentsLoaded({
   onSave: (unreviewed: number) => void;
 }) {
   const params = useComponentParams();
-  const details = useObservedHeight<HTMLDivElement>();
   const results = data.consistency.results;
   const result = pickResult(results, params.msds);
   const msdsIndex = result.msds_index;
@@ -197,8 +195,8 @@ function ComponentsLoaded({
   return (
     <div className="flex flex-col gap-5">
       {banners}
-      <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)]">
-        <div className="order-2 flex min-w-0 flex-col gap-2 lg:order-1">
+      <Workspace viewport className="lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)]">
+        <div className="order-2 flex min-w-0 flex-col gap-2 lg:order-1 lg:min-h-0">
           <div className="flex flex-wrap items-center justify-between gap-2">
             {single ? (
               <span className="text-sm text-mut">성분이 1개라 3항만 봅니다</span>
@@ -220,11 +218,10 @@ function ComponentsLoaded({
             page={page}
             onPage={(next) => params.update({ page: String(next) })}
             highlight={selected.cas ?? selected.name}
-            panelHeight={details.height}
-            className="basis-auto"
+            className="lg:h-auto lg:min-h-0 lg:flex-1"
           />
         </div>
-        <div ref={details.ref} className="order-1 min-w-0 lg:order-2">
+        <div className="order-1 min-w-0 lg:order-2 lg:min-h-0">
           <ComponentDetail
             key={selected.comp_ref}
             component={selected}
@@ -233,7 +230,7 @@ function ComponentsLoaded({
             regulationHref={firstRegulation ? routes.review(docId, "regulation", { finding: firstRegulation.id }) : null}
           />
         </div>
-      </div>
+      </Workspace>
 
       <ComponentTable
         components={components}

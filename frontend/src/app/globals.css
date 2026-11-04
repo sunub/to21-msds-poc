@@ -1,10 +1,30 @@
 @import "tailwindcss";
 @import "../styles/tokens.css";
 @import "../styles/theme.css";
+@import "../styles/pdf.css";
 
 @layer base {
+  /* 화면 높이의 기준. 머리줄을 뺀 나머지는 PageMain 이 차지하고 스크롤도 거기서 한다 */
+  html,
   body {
+    height: 100%;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
     @apply bg-bg font-sans text-base text-ink;
+  }
+
+  @media print {
+    html,
+    body {
+      height: auto;
+    }
+
+    body {
+      display: block;
+    }
   }
 
   a {

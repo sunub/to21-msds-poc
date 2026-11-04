@@ -6,10 +6,9 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useState } from "react";
 import { judgmentViewQuery, type Finding, type JudgmentView } from "@/api/judgment";
 import { SourceViewer } from "@/components/extract/source-viewer";
-import { Foot, Pane } from "@/components/shell/layout";
+import { Foot, Pane, Workspace } from "@/components/shell/layout";
 import { Button, PillTabs, Skeleton, buttonStyles } from "@/components/ui";
-import { useObservedHeight } from "@/hooks/use-observed-height";
-import { hazardFindings, hiddenByFilter, isHazardFilter, sourceTabs } from "@/lib/hazard";
+import { hazardFindings, hiddenByFilter, isHazardFilter, ownSectionPage, sectionTabs } from "@/lib/hazard";
 import { defaultFindingId, nextUnreviewedId } from "@/lib/regulation";
 import { routes } from "@/lib/routes";
 import { JudgmentError, JudgmentGate, type JudgmentReady } from "../judgment-gate";
@@ -107,7 +106,6 @@ function HazardLoaded({
 } & DraftProps) {
   const { doc, latest, pending } = ready;
   const params = useHazardParams();
-  const details = useObservedHeight<HTMLDivElement>();
 
   const results = data.consistency.results;
   const msdsIndex = results.some((r) => r.msds_index === params.msds) ? params.msds : results[0].msds_index;
@@ -118,8 +116,8 @@ function HazardLoaded({
     null;
   const display = selected ? data.display[selected.id] : null;
   const firstPage = doc.sections.find((s) => s.msds_index === msdsIndex && s.section === 2)?.pages[0] ?? 1;
-  const page = params.page ?? display?.source_pages[0]?.page ?? firstPage;
-  const tabs = sourceTabs(display);
+  const page = params.page ?? ownSectionPage(display, 2, firstPage);
+  const tabs = sectionTabs(display, 2, firstPage);
   const highlight = selected?.msds.evidence?.[0]?.source_text ?? null;
 
   const newer = version < latest;
@@ -129,7 +127,7 @@ function HazardLoaded({
   const select = (f: Finding | string) => {
     const target = typeof f === "string" ? findings.find((x) => x.id === f) : f;
     if (!target) return;
-    params.update({ finding: target.id, page: String(data.display[target.id]?.source_pages[0]?.page ?? firstPage) });
+    params.update({ finding: target.id, page: String(ownSectionPage(data.display[target.id], 2, firstPage)) });
   };
 
   return (
@@ -168,25 +166,36 @@ function HazardLoaded({
         {newer && ` (최신 ${latest})`}
       </p>
 
-      <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)]">
-        <div className="order-2 flex min-w-0 flex-col gap-2 lg:order-1">
-          {tabs.length > 0 && (
-            <PillTabs
-              label="근거 쪽으로 이동"
-              items={tabs.map((t) => ({ id: t.id, label: t.label }))}
-              value={tabs.find((t) => t.page === page)?.id ?? ""}
-              onChange={(id) => {
-                const target = tabs.find((t) => t.id === id);
-                if (target) params.update({ page: String(target.page) });
-              }}
-            />
-          )}
-          {selected && !selected.msds.present && (
-            <p className="rounded-sm bg-tint px-3 py-2 text-sm text-amb-text">이 항목은 MSDS 2항에 적혀 있지 않습니다. 2항 첫 쪽을 보여 줍니다.</p>
-          )}
-          <SourceViewer doc={doc} page={page} onPage={(next) => params.update({ page: String(next) })} highlight={highlight} panelHeight={details.height} className="basis-auto" />
+      <HazardTable
+        docId={docId}
+        view={data}
+        findings={findings}
+        filter={params.filter}
+        selected={selected}
+        onSelect={select}
+        onFilter={(filter) => params.update({ verdict: filter })}
+      />
+
+      <Workspace viewport className="lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)]">
+        <div className="order-2 min-w-0 lg:order-1 lg:min-h-0">
+          <SourceViewer doc={doc} page={page} onPage={(next) => params.update({ page: String(next) })} highlight={highlight}>
+            {tabs.length > 0 && (
+              <PillTabs
+                label="근거 쪽으로 이동"
+                items={tabs.map((t) => ({ id: t.id, label: t.label }))}
+                value={tabs.find((t) => t.page === page)?.id ?? ""}
+                onChange={(id) => {
+                  const target = tabs.find((t) => t.id === id);
+                  if (target) params.update({ page: String(target.page) });
+                }}
+              />
+            )}
+            {selected && !selected.msds.present && (
+              <p className="rounded-sm bg-tint px-3 py-2 text-sm text-amb-text">이 항목은 MSDS 2항에 적혀 있지 않습니다. 2항 첫 쪽을 보여 줍니다.</p>
+            )}
+          </SourceViewer>
         </div>
-        <div ref={details.ref} className="order-1 min-w-0 lg:order-2">
+        <div className="order-1 min-w-0 lg:order-2 lg:min-h-0">
           {selected ? (
             <HazardDetail
               key={selected.id}
@@ -203,22 +212,12 @@ function HazardLoaded({
               }}
             />
           ) : (
-            <Pane title="선택한 판정">
+            <Pane title="선택한 판정" fill>
               <p className="text-mut">{findings.length ? "처리할 판정이 없습니다. 아래 표에서 일치 항목을 펼쳐 볼 수 있습니다." : "2항에서 판정할 항목이 없습니다."}</p>
             </Pane>
           )}
         </div>
-      </div>
-
-      <HazardTable
-        docId={docId}
-        view={data}
-        findings={findings}
-        filter={params.filter}
-        selected={selected}
-        onSelect={select}
-        onFilter={(filter) => params.update({ verdict: filter })}
-      />
+      </Workspace>
 
       <Foot>
         <p className="text-mut">확인하지 않은 추출값은 저장 결과에 &quot;미검수&quot;로 남습니다.</p>

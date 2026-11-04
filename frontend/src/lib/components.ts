@@ -138,7 +138,7 @@ export function ateSummary(ate: AteEntry[], productType: string): string {
   if (allSame) return `${ate[0].excluded} 제외${ate[0].step ? ` (${ate[0].step}단계)` : ""}`;
   return ate
     .map((a) => {
-      if (a.excluded) return `${routeLabel(a.route)} 제외(${a.excluded})`;
+      if (a.excluded) return `${ateTabLabel(a)} 제외(${a.excluded})`;
       const where = [a.source, a.step ? `${a.step}단계` : null].filter(Boolean).join(", ");
       const value = a.value == null ? "값 없음" : `${num(a.value)}${a.unit ? ` ${a.unit}` : ""}`;
       return `${routeLabel(a.route)} ${value}${a.form ? ` ${formLabel(a.form)}` : ""}${where ? ` (${where})` : ""}`;
@@ -160,9 +160,19 @@ export function ateLadder(a: AteEntry): LadderStep[] {
   });
 }
 
-/** 상세에서 처음 보여 줄 경로: 값을 쓴 경로 → 흡입 → 첫 경로 */
-export function defaultRoute(ate: AteEntry[]): AteEntry["route"] | null {
-  return (ate.find((a) => !a.excluded && a.value != null) ?? ate.find((a) => a.route === "inhal") ?? ate[0])?.route ?? null;
+/**
+ * ATE 한 줄을 가리키는 값. 판정 API는 흡입을 형태(가스·증기·분진·미스트)마다 한 줄씩 주므로
+ * 경로만으로는 줄이 겹친다. 경구·경피처럼 형태가 없으면 경로 그대로다.
+ */
+export const ateKey = (a: AteEntry) => (a.form ? `${a.route}:${a.form}` : a.route);
+
+/** 경로 버튼 이름. 형태가 있으면 '흡입(증기)' */
+export const ateTabLabel = (a: AteEntry) => (a.form ? `${routeLabel(a.route)}(${a.form})` : routeLabel(a.route));
+
+/** 상세에서 처음 보여 줄 줄: 값을 쓴 줄 → 흡입 → 첫 줄 */
+export function defaultAteKey(ate: AteEntry[]): string | null {
+  const first = ate.find((a) => !a.excluded && a.value != null) ?? ate.find((a) => a.route === "inhal") ?? ate[0];
+  return first ? ateKey(first) : null;
 }
 
 const RELIABILITY_TONE: Record<ComponentSummary["reliability"], Tone> = { 높음: "success", 보통: "warning", 낮음: "danger" };

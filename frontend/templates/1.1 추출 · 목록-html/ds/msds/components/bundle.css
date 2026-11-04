@@ -1,0 +1,50 @@
+/* MSDS 검수 디자인 시스템 v2 — 파랑 계열, 14px 본문, 얇은 선과 8px 모서리 */
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-sans);font-size:14px;line-height:1.5}
+a{color:var(--blue2)}
+button,input,textarea{font-family:inherit;font-size:14px}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+h1,h2,h3,p{margin:0}
+.mut{color:var(--mut)} .sep{color:#9FB0C3} .note{font-size:13px;color:var(--mut)} .sub{color:var(--sub)}
+.hd{background:#fff;border-bottom:1px solid var(--line)}
+.hd>div{max-width:var(--w,1360px);margin:0 auto;padding:0 32px;min-height:56px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.brand{font-size:16px;font-weight:700;color:var(--ink);text-decoration:none}
+.linkbtn{border:0;background:transparent;color:var(--blue2);padding:4px 6px}
+.stp{background:#fff;border-bottom:1px solid var(--line)}
+.stp ol{list-style:none;margin:0 auto;padding:0 32px;max-width:var(--w,1360px);display:flex;gap:32px;flex-wrap:wrap}
+.stp li{padding:14px 0 12px;border-bottom:2px solid transparent;color:var(--mut)}
+.stp li.on{border-color:var(--blue);color:var(--blue2);font-weight:700}
+.stp li.on span{font-weight:400;color:var(--mut)}
+.wrap{max-width:var(--w,1360px);margin:0 auto;padding:28px 32px 56px;display:flex;flex-direction:column;gap:20px}
+.row{display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start}
+.card{background:#fff;border:1px solid var(--line);border-radius:8px;padding:20px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:36px;padding:0 14px;border:1px solid var(--field-line);border-radius:6px;background:#fff;color:var(--ink);font-weight:500;text-decoration:none}
+.btn.p{background:var(--blue);border-color:var(--blue);color:#fff}
+.btn.p2{border-color:var(--blue);color:var(--blue2)}
+.btn.lg{min-height:40px;padding:0 18px}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;flex:none}
+.pill{border:0;background:transparent;color:var(--mut);font-weight:500;border-radius:6px;padding:0 12px;min-height:34px}
+.pill.on{background:var(--blue-soft);color:var(--blue2);font-weight:700}
+.tbl{background:#fff;border:1px solid var(--line);border-radius:8px;overflow-x:auto}
+.th,.tr{display:flex;align-items:center;gap:12px;padding:10px 16px}
+.th{background:var(--tint);border-bottom:1px solid var(--line);font-size:13px;font-weight:500;color:var(--mut);padding:9px 16px}
+.tr{border-bottom:1px solid var(--line2);width:100%;text-align:left;background:#fff;color:var(--ink)}
+.tr.sel{background:var(--sel)}
+.tabs{display:flex;gap:24px;flex-wrap:wrap}
+.tabs>*{padding:8px 0 10px;border-bottom:2px solid transparent;color:var(--mut);text-decoration:none}
+.tabs>.on{border-color:var(--blue);color:var(--blue2);font-weight:700}
+.bar{height:4px;border-radius:2px;background:#E3EBF4}.bar>i{display:block;height:4px;border-radius:2px;background:var(--blue)}
+.paper{background:#EEF3F9;border-radius:6px;padding:12px}
+.paper>div{background:#fff;border:1px solid var(--line);padding:18px 20px;min-height:480px;display:flex;flex-direction:column;gap:7px;font-size:12px;line-height:1.6}
+.lab{font-size:13px;font-weight:700;color:var(--mut);margin-bottom:4px}
+.field{width:100%;border:1px solid var(--field-line);border-radius:6px;padding:0 12px;min-height:40px;color:var(--ink);background:#fff}
+textarea.field{padding:8px 10px;resize:vertical}
+.foot{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:16px}
+.sec{background:#fff;border:1px solid var(--line);border-radius:8px}
+.sec.open{border-color:var(--blue-line)}
+.sech{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;padding:12px 16px;color:var(--ink)}
+.chk{width:18px;height:18px}
+.ai{font-size:12px;font-weight:500;color:var(--blue2);background:var(--blue-soft);border-radius:4px;padding:1px 6px}
+.sk{display:block;height:14px;border-radius:6px;background:var(--line2)}
+.spin{width:28px;height:28px;border-radius:50%;border:3px solid var(--line);border-top-color:var(--blue)}
