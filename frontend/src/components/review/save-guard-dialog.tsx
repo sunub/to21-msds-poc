@@ -29,7 +29,7 @@ export function SaveGuardDialog({
         </>
       }
     >
-      미검토 판정 목록이 들어올 자리
+      처리하지 않은 판정은 저장본에 &apos;미검토&apos;로 남습니다. 그대로 저장하거나, 돌아가서 처리한 뒤 저장할 수 있습니다.
     </Dialog>
   );
 }
