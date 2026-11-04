@@ -23,7 +23,13 @@ export function AppHeader({
 }) {
   return (
     <header className="border-b border-line bg-white print:hidden">
-      <div className={cn("mx-auto flex min-h-14 flex-wrap items-center justify-between gap-4 px-8", width)}>
+      <div
+        className={cn(
+          "mx-auto flex min-h-14 flex-wrap items-center justify-between gap-4 px-8",
+          center && "lg:grid lg:grid-cols-[1fr_auto_1fr]",
+          width,
+        )}
+      >
         <div className={cn("flex items-center gap-2.5", center ? "min-w-0 flex-1" : "flex-wrap")}>
           <Link href={routes.home()} className="text-lg font-bold text-ink no-underline">
             MSDS 검수
@@ -41,7 +47,13 @@ export function AppHeader({
           )}
         </div>
         {center && <div className="shrink-0">{center}</div>}
-        <ReviewerBadge />
+        {center ? (
+          <div className="lg:justify-self-end">
+            <ReviewerBadge />
+          </div>
+        ) : (
+          <ReviewerBadge />
+        )}
       </div>
     </header>
   );
