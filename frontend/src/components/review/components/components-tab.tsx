@@ -208,7 +208,7 @@ function ComponentsLoaded({
               />
             )}
           </div>
-          {tabs.length === 0 && <p className="rounded-md bg-tint px-3 py-2 text-sm text-amb-text">3항 쪽을 찾지 못해 첫 쪽을 보여 줍니다.</p>}
+          {tabs.length === 0 && <p className="rounded-md bg-tint px-3 py-2 text-sm text-amb-text">3항 페이지를 찾지 못해 첫 페이지를 보여 줍니다.</p>}
           <SourceViewer
             doc={ready.doc}
             page={page}

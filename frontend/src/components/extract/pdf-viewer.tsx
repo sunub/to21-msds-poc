@@ -284,7 +284,7 @@ export function PdfViewer({
           폭 맞춤
         </Button>
         <Button variant={zoom === "page" ? "outline" : "default"} aria-pressed={zoom === "page"} onClick={() => setZoom("page")}>
-          쪽 맞춤
+          페이지 맞춤
         </Button>
         <a
           href={`${pdfUrl(docId)}#page=${pageNo}`}
@@ -298,7 +298,7 @@ export function PdfViewer({
       <div
         ref={scroller}
         tabIndex={0}
-        aria-label={`원본 ${pageNo}쪽. 두 번 누르면 확대, Ctrl+휠로 크기 조절, PageUp·PageDown으로 쪽 이동`}
+        aria-label={`원본 ${pageNo}페이지. 두 번 누르면 확대, Ctrl+휠로 크기 조절, PageUp·PageDown으로 페이지 이동`}
         onKeyDown={onKeyDown}
         onDoubleClick={onDoubleClick}
         onPointerDown={onPointerDown}
@@ -322,7 +322,7 @@ export function PdfViewer({
           className={cn("relative mx-auto bg-white shadow-[0_1px_4px_rgb(0_0_0/0.18)]", (!current || !scale) && "hidden")}
           style={{ width, height, ["--total-scale-factor" as string]: scale }}
         >
-          <canvas ref={canvas} aria-label={`원문 ${pageNo}쪽`} role="img" style={{ width, height }} className="block" />
+          <canvas ref={canvas} aria-label={`원문 ${pageNo}페이지`} role="img" style={{ width, height }} className="block" />
           <div ref={textLayer} className="textLayer" />
         </div>
       </div>

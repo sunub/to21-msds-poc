@@ -178,7 +178,7 @@ function HazardLoaded({
           <SourceViewer doc={doc} page={page} onPage={(next) => params.update({ page: String(next) })} highlight={highlight}>
             {tabs.length > 0 && (
               <PillTabs
-                label="근거 쪽으로 이동"
+                label="근거 페이지로 이동"
                 items={tabs.map((t) => ({ id: t.id, label: t.label }))}
                 value={tabs.find((t) => t.page === page)?.id ?? ""}
                 onChange={(id) => {
@@ -188,7 +188,7 @@ function HazardLoaded({
               />
             )}
             {selected && !selected.msds.present && (
-              <p className="rounded-md bg-tint px-3 py-2 text-sm text-amb-text">이 항목은 MSDS 2항에 적혀 있지 않습니다. 2항 첫 쪽을 보여 줍니다.</p>
+              <p className="rounded-md bg-tint px-3 py-2 text-sm text-amb-text">이 항목은 MSDS 2항에 적혀 있지 않습니다. 2항 첫 페이지를 보여 줍니다.</p>
             )}
           </SourceViewer>
         </div>

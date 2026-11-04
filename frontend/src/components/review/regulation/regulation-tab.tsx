@@ -205,7 +205,7 @@ function RegulationLoaded({
       <p className="text-sm text-mut">구버전은 시행일 자료가 없어 PoC 판정에서 제외하고 참고로만 보여 줍니다.</p>
       {/* 원문 칸 안에 두면 원문 카드만 내려가 옆 판정 카드와 위아래가 어긋난다 */}
       {absentInSource && (
-        <p role="status" className="rounded-md bg-tint px-3 py-2 text-sm text-amb-text">이 항목은 원문에 없습니다. 15항 첫 쪽을 보여 줍니다.</p>
+        <p role="status" className="rounded-md bg-tint px-3 py-2 text-sm text-amb-text">이 항목은 원문에 없습니다. 15항 첫 페이지를 보여 줍니다.</p>
       )}
 
       <Workspace viewport className="lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)]">
@@ -213,7 +213,7 @@ function RegulationLoaded({
           <SourceViewer doc={doc} page={page} onPage={(next) => params.update({ page: String(next) })} highlight={highlight}>
             {tabs.length > 0 && (
               <PillTabs
-                label="근거 쪽으로 이동"
+                label="근거 페이지로 이동"
                 items={tabs.map((t) => ({ id: t.id, label: t.label }))}
                 value={tabs.find((t) => t.page === page)?.id ?? ""}
                 onChange={(id) => {

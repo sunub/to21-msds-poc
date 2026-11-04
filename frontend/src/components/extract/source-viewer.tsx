@@ -82,12 +82,12 @@ function PageNav({ page, total, onPage }: { page: number; total: number; onPage:
   };
   return (
     <div className="flex items-center gap-1.5">
-      <Button disabled={page <= 1} onClick={() => onPage(page - 1)} aria-label="이전 쪽">
+      <Button disabled={page <= 1} onClick={() => onPage(page - 1)} aria-label="이전 페이지">
         ‹ 이전
       </Button>
       <label className="flex items-center gap-1 text-sm text-mut tabular-nums">
         <input
-          aria-label="쪽 번호"
+          aria-label="페이지 번호"
           inputMode="numeric"
           value={draft ?? String(page)}
           onChange={(e) => setDraft(e.target.value)}
@@ -99,9 +99,9 @@ function PageNav({ page, total, onPage }: { page: number; total: number; onPage:
           }}
           className="h-9 w-12 rounded-sm border border-field-line bg-white text-center text-base text-ink"
         />
-        / {total}쪽
+        / {total}페이지
       </label>
-      <Button disabled={page >= total} onClick={() => onPage(page + 1)} aria-label="다음 쪽">
+      <Button disabled={page >= total} onClick={() => onPage(page + 1)} aria-label="다음 페이지">
         다음 ›
       </Button>
     </div>
@@ -120,7 +120,7 @@ function ExtractedText({ doc, page, total, highlight }: { doc: DocumentDetail; p
           <div className="w-full">
             <Progress value={(doc.preprocess.done / total) * 100} label="전처리 진행" />
             <p className="mt-2 text-center text-mut tabular-nums">
-              {doc.preprocess.done} / {total}쪽
+              {doc.preprocess.done} / {total}페이지
             </p>
           </div>
         )}
@@ -162,7 +162,7 @@ function PageLines({
       </div>
     );
   }
-  if (isError) return <p className="text-mut">이 쪽의 텍스트를 읽지 못했습니다.</p>;
+  if (isError) return <p className="text-mut">이 페이지의 텍스트를 읽지 못했습니다.</p>;
   const isHit = (text: string) => !!highlight && text.trim().length > 1 && highlight.includes(text.trim());
   const first = data.lines.find((l) => isHit(l.text))?.id;
   return data.lines.map((line) => (

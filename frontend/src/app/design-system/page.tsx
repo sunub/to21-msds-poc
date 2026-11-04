@@ -285,7 +285,7 @@ export default function DesignSystemPage() {
           </div>
         </Section>
 
-        <Section title="원문 종이" note="원문 쪽을 보여 줄 때 씁니다. 연한 둘레 위의 흰 종이에 12px 글자로 적습니다.">
+        <Section title="원문 종이" note="원문 페이지를 보여 줄 때 씁니다. 연한 둘레 위의 흰 종이에 12px 글자로 적습니다.">
           <div className="max-w-xl">
             <Paper className="min-h-0">
               <b>3. 구성성분의 명칭 및 함유량</b>
@@ -317,9 +317,9 @@ export default function DesignSystemPage() {
 
         <Section title="진행과 불러오기">
           <div className="flex max-w-xl flex-col gap-4">
-            <Progress value={62} label="쪽별 추출 진행률" />
+            <Progress value={62} label="페이지별 추출 진행률" />
             <div className="flex items-center gap-3">
-              <Spinner /> <span className="text-mut">쪽 이미지를 만드는 중입니다.</span>
+              <Spinner /> <span className="text-mut">페이지 이미지를 만드는 중입니다.</span>
             </div>
             <div className="flex flex-col gap-2">
               <Skeleton className="w-2/3" />
