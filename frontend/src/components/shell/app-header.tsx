@@ -12,6 +12,7 @@ export function AppHeader({
   doc,
   note,
   center,
+  right,
   width = "max-w-page",
 }: {
   doc?: string;
@@ -19,6 +20,8 @@ export function AppHeader({
   note?: string;
   /** 제목과 검토자 사이(가운데)에 그릴 내용. 문서 화면의 단계 알약 */
   center?: ReactNode;
+  /** 검토자 앞(오른쪽 끝 쪽)에 그릴 내용. 문서 화면의 기준일 알약 */
+  right?: ReactNode;
   width?: string;
 }) {
   return (
@@ -47,13 +50,10 @@ export function AppHeader({
           )}
         </div>
         {center && <div className="shrink-0">{center}</div>}
-        {center ? (
-          <div className="lg:justify-self-end">
-            <ReviewerBadge />
-          </div>
-        ) : (
+        <div className={cn("flex flex-wrap items-center justify-end gap-3", center && "lg:justify-self-end")}>
+          {right}
           <ReviewerBadge />
-        )}
+        </div>
       </div>
     </header>
   );
