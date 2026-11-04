@@ -9,7 +9,7 @@ import { SourceViewer } from "@/components/extract/source-viewer";
 import { Foot, Pane, Workspace } from "@/components/shell/layout";
 import { Button, PillTabs, Skeleton, buttonStyles } from "@/components/ui";
 import { hazardFindings, hiddenByFilter, isHazardFilter, ownSectionPage, sectionTabs } from "@/lib/hazard";
-import { defaultFindingId, nextUnreviewedId } from "@/lib/regulation";
+import { defaultFindingId, nextUnreviewedId, prevUnreviewedId } from "@/lib/regulation";
 import { routes } from "@/lib/routes";
 import { JudgmentError, JudgmentGate, type JudgmentReady } from "../judgment-gate";
 import type { LockReason } from "../regulation/regulation-detail";
@@ -123,6 +123,7 @@ function HazardLoaded({
   const newer = version < latest;
   const lock: LockReason = pending ? "rerun" : newer ? "new" : offline ? "offline" : null;
   const nextId = nextUnreviewedId(findings, data.reviews, selected?.id ?? null);
+  const prevId = prevUnreviewedId(findings, data.reviews, selected?.id ?? null);
 
   const select = (f: Finding | string) => {
     const target = typeof f === "string" ? findings.find((x) => x.id === f) : f;
@@ -203,6 +204,7 @@ function HazardLoaded({
               draft={drafts[selected.id] ?? ""}
               onDraft={(text) => onDraft(selected.id, text)}
               onNext={nextId ? () => select(nextId) : null}
+              onPrev={prevId ? () => select(prevId) : null}
               onPin={() => {
                 if (params.finding !== selected.id) params.update({ finding: selected.id });
               }}

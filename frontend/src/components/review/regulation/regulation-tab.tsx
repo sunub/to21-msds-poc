@@ -10,7 +10,7 @@ import { SourceViewer } from "@/components/extract/source-viewer";
 import { Foot, Pane, Workspace } from "@/components/shell/layout";
 import { Button, PillTabs, Skeleton, buttonStyles } from "@/components/ui";
 import { ownSectionPage, sectionTabs } from "@/lib/hazard";
-import { defaultFindingId, nextUnreviewedId, regulationCounts, regulationFindings, unreviewedFindings } from "@/lib/regulation";
+import { defaultFindingId, nextUnreviewedId, prevUnreviewedId, regulationCounts, regulationFindings, unreviewedFindings } from "@/lib/regulation";
 import { routes } from "@/lib/routes";
 import { JudgmentError, JudgmentGate, type JudgmentReady } from "../judgment-gate";
 import { RegulationDetail, type LockReason } from "./regulation-detail";
@@ -153,6 +153,7 @@ function RegulationLoaded({
   const hidden = !!selected && !!params.law && selected.law_label !== params.law;
   const counts = regulationCounts(findings, data.reviews);
   const nextId = nextUnreviewedId(findings, data.reviews, selected?.id ?? null);
+  const prevId = prevUnreviewedId(findings, data.reviews, selected?.id ?? null);
 
   const select = (f: Finding | string) => {
     const target = typeof f === "string" ? findings.find((x) => x.id === f) : f;
@@ -235,6 +236,7 @@ function RegulationLoaded({
               draft={drafts[selected.id] ?? ""}
               onDraft={(text) => onDraft(selected.id, text)}
               onNext={nextId ? () => select(nextId) : null}
+              onPrev={prevId ? () => select(prevId) : null}
               onPin={() => {
                 if (params.finding !== selected.id) params.update({ finding: selected.id });
               }}

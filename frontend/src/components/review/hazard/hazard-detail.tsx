@@ -24,6 +24,7 @@ export function HazardDetail({
   draft,
   onDraft,
   onNext,
+  onPrev,
   onPin,
 }: {
   docId: string;
@@ -34,6 +35,7 @@ export function HazardDetail({
   draft: string;
   onDraft: (text: string) => void;
   onNext: (() => void) | null;
+  onPrev: (() => void) | null;
   onPin: () => void;
 }) {
   const display = view.display[finding.id];
@@ -101,6 +103,7 @@ export function HazardDetail({
           draft={draft}
           onDraft={onDraft}
           onNext={onNext}
+          onPrev={onPrev}
           onPin={onPin}
         />
       )}
