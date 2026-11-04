@@ -31,6 +31,16 @@
 
 전처리는 예전 방식(`MSDS_PREPROCESS=legacy`)으로 띄운다. version17(#172)은 OCR 패키지가 있어야 글꼴 깨짐·스캔 PDF를 처리하는데 체험 서버는 OCR 그룹을 깔지 않는다. OCR을 쓰려면 OCR 가중치와 GPU 메모리(vLLM 0.92면 약 4GB만 남음)를 먼저 확인하고 `UV_SYNC_EXTRA="--group ocr" bash pod_app_setup.sh` → `PREPROCESS= RESTART_APP=1 bash pod_start.sh`(앱이 떠 있으면 다시 켜야 반영된다).
 
+version17은 가중치를 내려받지 않고 설치된 것만 쓴다(없으면 `Local OCR model is missing`으로 전처리가 멈춘다). 2026-11-04 L40S에서 아래로 받은 뒤 S003(글꼴 깨짐)이 끝까지 됐다(143초, GPU 사용 약 0.5GB 늘어남):
+
+```bash
+mkdir -p /workspace/paddlex/official_models && ln -sfn /workspace/paddlex /root/.paddlex   # 앱은 ~/.paddlex/official_models 를 본다(TO21_OCR_MODELS_DIR로 바꿈)
+for m in PP-OCRv5_server_det korean_PP-OCRv5_mobile_rec; do /workspace/venv/bin/hf download PaddlePaddle/$m --local-dir /workspace/paddlex/official_models/$m; done
+/workspace/venv/bin/hf download docling-project/docling-models; /workspace/venv/bin/hf download docling-project/docling-layout-heron   # 앱의 HF 캐시(~/.cache/huggingface)
+```
+
+`/root`는 컨테이너 디스크라 Pod를 멈추면 링크와 Docling 캐시가 지워진다. 켤 때마다 위를 다시 실행한다(받아 둔 Paddle 가중치는 볼륨에 남는다).
+
 ## 오늘 확인한 사실 (2026-11-04, L40S 48GB, Qwen3.6-35B-A3B-FP8 원본)
 
 - 문서 1건(S016 9쪽, S014 7쪽): 업로드부터 PDF 리포트까지 90~100초(추출 77~83초, 판정·설명 9~15초). 이 PR을 만들며 `smoke_test.py`로 잰 값이다.
