@@ -34,12 +34,30 @@ export function Stepper({
                 aria-hidden="true"
                 className={cn(
                   "inline-flex size-5 shrink-0 items-center justify-center rounded-full text-xs",
-                  on ? "bg-white/25" : done ? "text-grn" : "bg-line",
+                  on ? "bg-white/25" : "bg-line",
                 )}
               >
-                {done ? "✓" : i + 1}
+                {i + 1}
               </span>
-              {s.label}
+              <span className="inline-flex items-center gap-1">
+                {s.label}
+                {done && (
+                  <svg
+                    viewBox="0 0 12 12"
+                    width="12"
+                    height="12"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                    className="shrink-0 text-grn"
+                  >
+                    <path d="M2.5 4.5 L6 8 L9.5 4.5" />
+                  </svg>
+                )}
+              </span>
               {s.note && <span className="sr-only">{s.note}</span>}
             </li>
           );
