@@ -419,12 +419,12 @@ function ReviewerPrompt() {
       onSubmit={(e) => {
         e.preventDefault();
         const name = draft.trim();
-        if (!name) return setError("검토자 이름을 적어 주세요.");
-        if (name.length > 40) return setError("검토자 이름은 40자 이하로 적어 주세요.");
+        if (!name) return setError("검토자 이름을 입력해 주세요.");
+        if (name.length > 40) return setError("검토자 이름은 40자 이내로 입력해 주세요.");
         setReviewer(name);
       }}
     >
-      <label htmlFor="values-reviewer" className="break-keep">검토자 이름을 정하면 확인하고 고칠 수 있습니다. 기록에 이 이름이 남습니다.</label>
+      <label htmlFor="values-reviewer" className="break-keep">검토자 이름을 입력해야 확인·수정할 수 있습니다. 기록에 이 이름이 남습니다.</label>
       <Input
         id="values-reviewer"
         autoComplete="name"
@@ -437,7 +437,7 @@ function ReviewerPrompt() {
           setError(null);
         }}
       />
-      <Button type="submit" size="md" className="min-h-8 px-2.5">이름 정하기</Button>
+      <Button type="submit" size="md" className="min-h-8 px-2.5">저장</Button>
       {error && <span id="values-reviewer-error" className="text-red">{error}</span>}
     </form>
   );

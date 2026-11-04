@@ -134,7 +134,7 @@ export function pagesLabel(pages: number[]) {
 export function inputType(textLayer: DocumentSummary["text_layer"]): { label: string; note: string; recommendValues: boolean } {
   switch (textLayer) {
     case "정상":
-      return { label: "디지털 PDF", note: "글자를 파일에서 바로 읽어 신뢰도가 높습니다.", recommendValues: false };
+      return { label: "일반 PDF", note: "글자를 파일에서 바로 읽어 신뢰도가 높습니다.", recommendValues: false };
     case "없음":
       return { label: "스캔본 (이미지로 된 PDF)", note: "글자를 이미지에서 읽어 잘못 읽힌 칸이 있을 수 있습니다.", recommendValues: true };
     case "글꼴깨짐":

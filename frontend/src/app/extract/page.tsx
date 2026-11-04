@@ -170,7 +170,7 @@ function DocumentNotices({ doc }: { doc: DocumentDetail }) {
         <div role="alert" className="text-red">
           <p className="break-keep">{failure.text}</p>
           <details className="mt-1 text-sub">
-            <summary className="cursor-pointer text-sm">오류 원문</summary>
+            <summary className="cursor-pointer text-sm">자세히 보기</summary>
             <p className="break-words">{failure.detail}</p>
           </details>
         </div>

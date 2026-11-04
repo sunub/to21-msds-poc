@@ -108,7 +108,7 @@ export function DocumentList() {
             <span className={COL.doc}>문서</span>
             <span className={COL.status}>단계</span>
             <span className={COL.progress}>진행</span>
-            <span className={COL.layer}>PDF 종류</span>
+            <span className={COL.layer}>파일 종류</span>
             <span className={COL.updated}>마지막 작업</span>
             <span className={COL.action} />
           </TableHead>

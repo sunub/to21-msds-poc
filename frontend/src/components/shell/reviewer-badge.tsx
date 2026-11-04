@@ -17,8 +17,8 @@ export function ReviewerBadge() {
   };
   const save = () => {
     const name = draft.trim();
-    if (!name) return setError("검토자 이름을 적어 주세요.");
-    if (name.length > 40) return setError("검토자 이름은 40자 이하로 적어 주세요.");
+    if (!name) return setError("검토자 이름을 입력해 주세요.");
+    if (name.length > 40) return setError("검토자 이름은 40자 이내로 입력해 주세요.");
     setReviewer(name);
     close();
   };
