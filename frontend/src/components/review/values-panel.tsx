@@ -12,7 +12,7 @@ import { Button, Input, Skeleton, StatusLabel, buttonStyles } from "@/components
 import { usePageParam } from "@/hooks/use-page-param";
 import { cn } from "@/lib/cn";
 import { describeProblem } from "@/lib/problem-text";
-import { useReviewer } from "@/lib/reviewer";
+import { setReviewer, useReviewer } from "@/lib/reviewer";
 import { routes } from "@/lib/routes";
 
 /**
@@ -92,11 +92,7 @@ function Values({ doc }: { doc: DocumentDetail }) {
               </span>
             }
           >
-            {!reviewer && (
-              <p role="alert" className="text-sm text-amb-text">
-                위쪽에서 검토자 이름을 정하면 확인하고 고칠 수 있습니다. 기록에 이 이름이 남습니다.
-              </p>
-            )}
+            {!reviewer && <ReviewerPrompt />}
             {data.msds.map((m) => (
               <div key={m.msds_index} role="group" aria-label={`MSDS ${m.msds_index + 1}건`} className="flex flex-col gap-2">
                 {data.msds.length > 1 && <h3 className="font-bold">MSDS {m.msds_index + 1}건 · {m.info.product_name}</h3>}
@@ -410,3 +406,39 @@ const FieldRow = memo(function FieldRow({
     </div>
   );
 });
+
+/** 검토자 이름이 없으면 확인·수정 단추가 잠긴다. 머리줄을 찾아가지 않고 이 자리에서 바로 정하게 한다 */
+function ReviewerPrompt() {
+  const [draft, setDraft] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  return (
+    <form
+      role="alert"
+      noValidate
+      className="flex flex-wrap items-center gap-2 rounded-md bg-tint px-3 py-2 text-sm text-amb-text"
+      onSubmit={(e) => {
+        e.preventDefault();
+        const name = draft.trim();
+        if (!name) return setError("검토자 이름을 적어 주세요.");
+        if (name.length > 40) return setError("검토자 이름은 40자 이하로 적어 주세요.");
+        setReviewer(name);
+      }}
+    >
+      <label htmlFor="values-reviewer" className="break-keep">검토자 이름을 정하면 확인하고 고칠 수 있습니다. 기록에 이 이름이 남습니다.</label>
+      <Input
+        id="values-reviewer"
+        autoComplete="name"
+        className="w-40"
+        value={draft}
+        aria-invalid={!!error}
+        aria-describedby={error ? "values-reviewer-error" : undefined}
+        onChange={(e) => {
+          setDraft(e.target.value);
+          setError(null);
+        }}
+      />
+      <Button type="submit" size="md" className="min-h-8 px-2.5">이름 정하기</Button>
+      {error && <span id="values-reviewer-error" className="text-red">{error}</span>}
+    </form>
+  );
+}

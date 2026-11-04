@@ -9,9 +9,9 @@ import type { DocumentFilter, DocumentSummary } from "@/api/schemas";
 import { RetryButton } from "@/components/documents/retry-button";
 import { Button, PillTabs, Progress, Skeleton, StatusLabel, Table, TableHead, buttonStyles } from "@/components/ui";
 import { cn } from "@/lib/cn";
-import { documentRow, type RowAction as RowActionView } from "@/lib/document-row";
+import { documentRow, failureMessage, type RowAction as RowActionView } from "@/lib/document-row";
 import { formatDateTime } from "@/lib/format";
-import { validationLabel } from "@/lib/status";
+import { inputType, validationLabel } from "@/lib/status";
 
 const FILTERS: { id: DocumentFilter; label: string }[] = [
   { id: "all", label: "전체" },
@@ -32,7 +32,7 @@ const COL = {
   doc: "min-w-0 flex-3",
   status: "w-28",
   progress: "min-w-0 flex-2",
-  layer: "w-28",
+  layer: "w-32",
   updated: "w-35",
   action: "flex w-32 justify-end",
 };
@@ -108,7 +108,7 @@ export function DocumentList() {
             <span className={COL.doc}>문서</span>
             <span className={COL.status}>단계</span>
             <span className={COL.progress}>진행</span>
-            <span className={COL.layer}>텍스트층</span>
+            <span className={COL.layer}>PDF 종류</span>
             <span className={COL.updated}>마지막 작업</span>
             <span className={COL.action} />
           </TableHead>
@@ -178,20 +178,19 @@ function DocumentRow({
   onHide: () => void;
 }) {
   const row = documentRow(doc, judgment, validationLabel(doc.validation));
+  const failure = doc.status === "failed" || doc.status === "interrupted" ? failureMessage(doc.error, doc.status) : null;
+  const pdf = inputType(doc.text_layer);
   // 처리 중인 문서는 숨기지 않는다
   const canHide = doc.status !== "queued" && doc.status !== "running";
 
   return (
     <div className={ROW}>
       <div className={COL.doc}>
-        <div className="truncate font-medium">{doc.filename}</div>
-        <div className="truncate text-sm text-mut">
-          {doc.id}
-          {doc.page_count != null && ` · ${doc.page_count}쪽`}
-        </div>
-        {doc.error && (doc.status === "failed" || doc.status === "interrupted") && (
-          <div className="truncate text-sm text-red" title={doc.error}>
-            {doc.error}
+        <div className="truncate font-medium" title={row.title}>{row.title}</div>
+        <div className="truncate text-sm text-mut" title={row.subtitle}>{row.subtitle}</div>
+        {failure && (
+          <div className="text-sm text-red break-keep" title={failure.detail}>
+            {failure.text}
           </div>
         )}
         {confirming && (
@@ -224,20 +223,20 @@ function DocumentRow({
           {row.stage.label}
         </StatusLabel>
         {row.note && (
-          <div className={cn("mt-0.5 text-sm", NOTE_TEXT[row.note.tone] ?? "text-sub")} title={row.note.title}>
+          <div className={cn("mt-0.5 text-sm break-keep", NOTE_TEXT[row.note.tone] ?? "text-sub")} title={row.note.title}>
             {row.note.text}
           </div>
         )}
       </div>
       <div className={COL.progress}>
-        <div className="mb-1 text-sm">
+        <div className="mb-1 text-sm break-keep">
           {row.progress.text}
           {row.progress.detail && <span className="text-sub"> · {row.progress.detail}</span>}
         </div>
         <Progress value={row.progress.percent} label={`${doc.filename} 진행률`} />
       </div>
       <div className={cn(COL.layer, "text-sm", doc.text_layer && doc.text_layer !== "정상" ? "text-amb-text" : "text-sub")}>
-        {doc.text_layer ?? <span className="text-mut">판정 전</span>}
+        <span className="break-keep" title={pdf.note}>{doc.text_layer ? pdf.label : <span className="text-mut">판정 전</span>}</span>
       </div>
       <div className={cn(COL.updated, "text-sm text-mut")}>{formatDateTime(doc.updated_at)}</div>
       <div className={cn(COL.action, "items-center gap-1")}>
