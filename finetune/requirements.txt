@@ -8,3 +8,5 @@ bitsandbytes>=0.48
 pyyaml>=6
 wandb==0.31.0                       # 학습 곡선 보기(선택, configs/qlora.yaml의 wandb)
 pytest>=8
+flash-linear-attention==0.6.0      # Qwen3.5·3.6·3.8 계열의 Gated DeltaNet 층을 빠르게(11/04 122B: 한 걸음 4배 이상). 없으면 느린 기본 계산으로 돈다
+kernels==0.17.2                     # transformers 5.22.1이 0.17.2 이상 0.18 미만만 받는다(11/04 Pod). FP8 체크포인트(configs/qwen35_122b_a10b_fp8.yaml) 학습에만 쓴다. Pod에서 FP8 커널을 받는다

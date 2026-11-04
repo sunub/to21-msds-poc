@@ -152,7 +152,7 @@ def test_W_B를_켜면_학습_곡선만_남기고_학습_글은_보내지_않는
 
 def test_모델별_설정은_공통_설정을_읽고_다른_값만_덮는다():
     base = tq.load_config(HERE.parent / "configs" / "qlora.yaml", {})
-    for name in ("qwen3_30b_a3b", "qwen36_35b_a3b", "qwen38_27b", "qwen35_122b_a10b"):
+    for name in ("qwen3_30b_a3b", "qwen36_35b_a3b", "qwen38_27b", "qwen35_122b_a10b", "qwen35_122b_a10b_fp8"):
         cfg = tq.load_config(HERE.parent / "configs" / f"{name}.yaml", {"train.lr": 5e-5})
         assert "base" not in cfg and cfg["run_name"] != base["run_name"] and cfg["train"]["lr"] == 5e-5
         assert cfg["quantization"]["quant_type"] == "nf4" and cfg["train"]["epochs"] == base["train"]["epochs"]
@@ -161,6 +161,9 @@ def test_모델별_설정은_공통_설정을_읽고_다른_값만_덮는다():
     assert moe["chat_template_kwargs"] == {"enable_thinking": False}
     big = tq.load_config(HERE.parent / "configs" / "qwen35_122b_a10b.yaml", {})
     assert big["device_map"] == "auto" and big["lora"]["target_modules"] == moe["lora"]["target_modules"]
+    fp8 = tq.load_config(HERE.parent / "configs" / "qwen35_122b_a10b_fp8.yaml", {})
+    assert fp8["base_model"].endswith("-FP8") and not fp8.get("device_map") and fp8["train"]["optim"] == "adamw_torch"
+    assert fp8["quantization"]["load_in_4bit"] is False and fp8["lora"]["target_modules"] == moe["lora"]["target_modules"]
 
 
 @pytest.mark.parametrize("kind", ["dense", "moe"])
@@ -234,5 +237,60 @@ def test_메모리_점검은_가장_긴_예시로_한_걸음만_재고_저장하
     c = info["check"]
     assert c["example_id"].endswith("_s03") and c["tokens"] > c["completion_tokens"] > 0       # 길이가 같으면 앞의 것
     assert c["logits_to_keep"] == c["completion_tokens"] + 1 and c["loss"] > 0 and len(c["seconds_per_step"]) == 2
-    assert c["peak_gb"] is None and info["model"]["lora"]["layers_with_lora"] == 2             # CPU라 GPU 메모리는 없다
+    import torch
+    if torch.cuda.is_available():                                                           # GPU Pod: GPU마다 최대 메모리
+        assert len(c["peak_gb"]) == torch.cuda.device_count()
+    else:                                                                                   # CPU: GPU 메모리는 없다
+        assert c["peak_gb"] is None
+    assert info["model"]["lora"]["layers_with_lora"] == 2
     assert "최대 GPU 메모리" in p.stdout
+
+
+def test_vLLM용_LoRA는_이미지_모델일_때만_층_이름을_바꾼다(tmp_path):
+    """학습은 글 전용 클래스라 model.layers.N, vLLM은 model.language_model.layers.N으로 찾는다(11/04 122B에서 확인)."""
+    import json as _json
+    import torch
+    from safetensors.torch import load_file
+    from transformers import Qwen3_5MoeForCausalLM, Qwen3_5MoeTextConfig
+    sys.path.insert(0, str(HERE.parent))
+    import adapter_for_vllm as av
+    cfg = Qwen3_5MoeTextConfig(vocab_size=128, hidden_size=64, num_hidden_layers=4, num_attention_heads=4,
+                               num_key_value_heads=2, head_dim=16, linear_key_head_dim=16, linear_value_head_dim=16,
+                               linear_num_key_heads=2, linear_num_value_heads=4, moe_intermediate_size=32,
+                               shared_expert_intermediate_size=32, num_experts=4, num_experts_per_tok=2,
+                               layer_types=["linear_attention"] * 3 + ["full_attention"])
+    lora = tq.load_config(HERE.parent / "configs" / "qwen36_35b_a3b.yaml", {})["lora"] | {"r": 4, "alpha": 8}
+    m = tq.add_lora(Qwen3_5MoeForCausalLM(cfg).to(torch.float32), {"lora": lora})
+    adapter = tmp_path / "adapter"
+    m.save_pretrained(adapter)
+    keys = list(load_file(str(adapter / "adapter_model.safetensors")))
+    assert keys and all(k.startswith(av.OLD) for k in keys)
+    vlm, text = tmp_path / "vlm", tmp_path / "text"
+    for d, c in ((vlm, {"architectures": ["Qwen3_5MoeForConditionalGeneration"], "vision_config": {}}),
+                 (text, {"architectures": ["Qwen3MoeForCausalLM"]})):
+        d.mkdir()
+        (d / "config.json").write_text(_json.dumps(c), encoding="utf-8")
+    out, n = av.convert(adapter, av.base_config(str(vlm)))
+    new = list(load_file(str(out / "adapter_model.safetensors")))
+    assert out.name == "adapter_vllm" and n == len(keys) == len(new) and all(k.startswith(av.NEW) for k in new)
+    assert (out / "adapter_config.json").read_text(encoding="utf-8") == (adapter / "adapter_config.json").read_text(encoding="utf-8")
+    assert av.convert(adapter, av.base_config(str(text))) == (adapter, 0)             # 글 전용 모델은 그대로
+    assert av.convert(out, av.base_config(str(vlm)))[1] == 0                          # 이미 바꾼 것은 다시 안 바꾼다
+
+
+def test_이미_학습한_LoRA에서_이어서_학습한다(tiny, tmp_path):
+    """2단계 학습(교사 답 → 골드): --init-adapter로 앞 단계 LoRA를 불러와 이어 학습한다. 새 LoRA를 만들지 않는다."""
+    from safetensors.torch import load_file
+    p = _train(tmp_path, tiny["dense"])
+    assert p.returncode == 0, p.stderr[-3000:]
+    first = tmp_path / "out" / "t" / "adapter"
+    s2 = tmp_path / "s2"
+    s2.mkdir()
+    p = _train(s2, tiny["dense"], "--init-adapter", str(first))
+    assert p.returncode == 0, p.stdout[-2000:] + p.stderr[-3000:]
+    import yaml
+    info = yaml.safe_load((s2 / "out" / "t" / "train_info.yaml").read_text(encoding="utf-8"))
+    assert info["init_adapter"] == str(first) and info["model"]["lora"]["layers_with_lora"] == 2
+    a, b = load_file(str(first / "adapter_model.safetensors")), load_file(str(s2 / "out" / "t" / "adapter" / "adapter_model.safetensors"))
+    assert a.keys() == b.keys() and any(not (a[k] == b[k]).all() for k in a)          # 같은 이름, 값은 더 학습됨
+    assert sum(abs(a[k]).sum() for k in a if "lora_B" in k) > 0                            # 앞 단계 LoRA가 0이 아니었다(이어서 학습)
