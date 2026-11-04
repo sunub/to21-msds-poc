@@ -1,12 +1,12 @@
 """업로드한 PDF 한 건을 처음부터 끝까지 처리한다 (서비스 API).
 
-1 전처리     render.preprocess        쪽 이미지·쪽 글 → data/pages/<번호>/  (쪽마다 page 이벤트)
+1 전처리     preprocess_v17           version17(pdf_pipeline) 쪽 이미지·쪽 글 → data/pages/<번호>/  (쪽마다 page 이벤트)
 2 항목 나누기 write_sections           16개 항 경계 → <서비스 폴더>/sections/<번호>.json
 3 모델 추출   section_runner.run_document  항별 동시 호출 (plan, section_started, section_done 이벤트)
 4 정리·검증   run_document 안의 펼치기·검사 (finalize 이벤트) → <서비스 폴더>/runs/<번호>/
 
 진행은 store.apply로 바로 저장한다. 어느 단계에서 실패해도 예외를 밖으로 내지 않고 failed로 남긴다.
-OCR은 아직 붙이지 않았다. 텍스트층을 믿기 어려운 문서는 경고만 남긴다 (progress.UNTRUSTED_TEXT_LAYERS).
+글꼴이 깨진 쪽은 전처리가 PaddleOCR로 읽는다. 텍스트층을 믿기 어려운 문서에는 확인 안내를 남긴다 (progress.UNTRUSTED_TEXT_LAYERS).
 """
 from __future__ import annotations
 
@@ -18,8 +18,8 @@ from typing import Callable
 
 from msds.common import paths
 from msds.extract.section_runner import raw_path, run_document, save_run_info
-from msds.preprocess.render import preprocess
 from msds.preprocess.section_contract import extract_sections
+from msds.service.preprocess_v17 import preprocess_v17
 from msds.service.store import DocumentStore
 
 # 시험 단계에서는 RunPod vLLM으로 돌린다. 다른 모델은 configs/models.yaml 태그를 환경변수로 준다.
@@ -50,7 +50,7 @@ def write_sections(doc_id: str, pages_dir: Path, sections_dir: Path) -> dict:
 @dataclass
 class Steps:
     """단계 함수. 시험에서 가짜로 바꿔 끼운다."""
-    preprocess: Callable = field(default=preprocess)
+    preprocess: Callable = field(default=preprocess_v17)
     sections: Callable = field(default=write_sections)
     save_run_info: Callable = field(default=save_run_info)
     extract: Callable = field(default=run_document)
