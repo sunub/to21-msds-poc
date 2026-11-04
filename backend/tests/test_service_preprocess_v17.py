@@ -12,6 +12,7 @@ from msds.extract.inputs import read_page_lines, render_lines
 from msds.extract.section_runner import doc_meta_from_pages
 from msds.preprocess.render import load_pages, match_pages
 from msds.service import pipeline
+from msds.service import preprocess_v17 as preprocess_mod
 from msds.service.preprocess_v17 import DPI, preprocess_v17
 
 TEXTS = {1: "L001 1. 화학제품과 회사에 관한 정보\nL002 제품명 시험물질\n", 2: "L001 2. 유해성·위험성\nL002 H302\n"}
@@ -38,9 +39,32 @@ def fake_extract_pdf(calls):
     return run
 
 
-def test_steps_default_is_v17_and_dpi_is_200():
-    assert pipeline.Steps().preprocess is preprocess_v17
+def test_steps_default_is_v17_and_dpi_is_200(monkeypatch):
+    monkeypatch.delenv("MSDS_PREPROCESS", raising=False)
+    calls = []
+    monkeypatch.setattr(pipeline, "preprocess_v17", lambda *a, **k: calls.append((a, k)) or {"v": 17})
+    assert pipeline.Steps().preprocess("x.pdf", "D") == {"v": 17} and len(calls) == 1
     assert DPI == 200
+
+
+def test_legacy_switch_uses_old_preprocess(monkeypatch):
+    import msds.preprocess.render as render
+    calls = []
+    monkeypatch.setenv("MSDS_PREPROCESS", "legacy")
+    monkeypatch.setattr(render, "preprocess", lambda *a, **k: calls.append((a, k)) or {"v": "old"})
+    monkeypatch.setattr(pipeline, "preprocess_v17", lambda *a, **k: pytest.fail("v17 호출됨"))
+    assert pipeline.Steps().preprocess("x.pdf", "D", pages_root="r") == {"v": "old"}
+    assert calls == [(("x.pdf", "D"), {"pages_root": "r"})]
+
+
+def test_match_txt_has_no_line_numbers_for_layer_and_ocr_pages(tmp_path):
+    preprocess_v17(tmp_path / "in.pdf", "D1", force=True, pages_root=tmp_path, extractor=fake_extract_pdf([]))
+    assert (tmp_path / "D1" / "p001.match.txt").read_text(encoding="utf-8") == "1. 화학제품과 회사에 관한 정보\n제품명 시험물질\n"
+    assert (tmp_path / "D1" / "p002.match.txt").read_text(encoding="utf-8") == "2. 유해성·위험성\nH302\n"
+    pages = {p["page"]: p for p in load_pages("D1", pages_root=tmp_path)["pages"]}
+    assert pages[1]["match_text"] == "1. 화학제품과 회사에 관한 정보\n제품명 시험물질\n"
+    assert pages[1]["text"].startswith("L001 ")
+    assert pages[2]["match_text"] == "2. 유해성·위험성\nH302\n"
 
 
 def test_output_contract_is_what_model_input_reads(tmp_path):
@@ -61,10 +85,11 @@ def test_output_contract_is_what_model_input_reads(tmp_path):
     # 문서 정보
     assert doc_meta_from_pages("D1", tmp_path)["pages"] == 2
     assert doc_meta_from_pages("D1", tmp_path)["text_layer"] == "혼합"
-    # 넘김의 원문 대조: OCR 쪽의 최종 글은 ocr_input.txt에서 읽는다
+    # 넘김의 원문 대조: 줄 번호(L001 )를 뗀 글 (pNNN.match.txt)
     pages = load_pages("D1", pages_root=tmp_path)["pages"]
     texts, states = match_pages(pages)
-    assert texts[2] == TEXTS[2] and texts[1] == TEXTS[1]
+    strip = lambda t: preprocess_mod.strip_line_numbers(t)
+    assert texts[2] == strip(TEXTS[2]) and texts[1] == strip(TEXTS[1])
     assert states == {1: "정상", 2: "정상"}
 
 

@@ -134,7 +134,13 @@ def _build_part(index: int, entry: dict, lines: list[Line], pos: dict[str, int],
             sections[n] = SectionSpan(None, None, "fallback")
         else:
             sections[n] = SectionSpan(span["start"], span["end"], span.get("method", "title"))
-    return MsdsPart(index, (first, last), sections, _preamble(index, first, sections, lines, pos))
+    part = MsdsPart(index, (first, last), sections, _preamble(index, first, sections, lines, pos))
+    if entry.get("format") == "legacy":
+        # 구양식은 2항이 구성성분, 3항이 유해·위험성이라 번호와 의미가 반대다. 추출은 2항=유해성, 3항=성분으로 고정이라
+        # 두 구간을 맞바꿔 그 항의 의미에 맞는 글을 보낸다. 줄 id와 원문은 그대로다 (항 분할이 format을 정한다).
+        sections[2], sections[3] = sections[3], sections[2]
+        warnings.append(f"2항(구성성분)과 3항(유해·위험성)의 순서가 현행 양식과 반대라서 서로 바꿔 읽었습니다 (MSDS {index})")
+    return part
 
 
 def load_document(doc_id: str, pages_dir: Path = PAGES, sections_dir: Path = DATA / "sections",

@@ -2,7 +2,8 @@
 
 render.preprocess와 이름·인자·반환(meta)이 같아 service.pipeline.Steps.preprocess 자리에 그대로 들어간다.
 결과물은 extract_pdf가 만든 그대로(pNNN.txt, pNNN.png, meta.json)이고 소비하는 쪽은 바꾸지 않는다.
-다만 render.load_pages가 출처가 OCR인 쪽의 최종 글을 pNNN.ocr_input.txt에서 읽으므로, 그 파일만 덧붙인다.
+다만 render.load_pages가 읽는 파일 두 가지를 덧붙인다: 출처가 OCR인 쪽의 최종 글 pNNN.ocr_input.txt,
+원문 대조용으로 줄 번호(L001 )를 뗀 글 pNNN.match.txt (OCR·텍스트층 쪽 모두).
 
 실행 위치는 둘 중 하나다.
 - 기본: 이 프로세스 안에서 extract_pdf를 직접 부른다. 설정은 MSDS_OCR_DEVICE(기본 gpu:0, cpu도 가능), MSDS_USE_DOCLING(0이면 보조 표 분석을 끈다).
@@ -14,6 +15,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import shutil
 import time
 import urllib.error
@@ -23,6 +25,7 @@ from pathlib import Path
 from typing import Callable
 
 from msds.common import paths
+from msds.preprocess.render import page_match_txt
 from msds.preprocess.source import page_ocr_input
 
 DPI = 200   # v17 기본값 (pdf_pipeline.extract_pdf)
@@ -31,6 +34,7 @@ DOCLING_ENV = "MSDS_USE_DOCLING"
 API_URL_ENV = "MSDS_EXTRACTION_API_URL"
 API_TIMEOUT_ENV = "MSDS_EXTRACTION_API_TIMEOUT"
 API_POLL_SECONDS = 1.0
+LINE_NO = re.compile(r"^L\d{3} ", re.MULTILINE)   # page_text가 줄마다 붙이는 줄 번호
 PIPELINE = "msds.preprocess.pdf_pipeline"   # pdf_pipeline.PIPELINE. 무거운 모델 라이브러리를 부르지 않으려 여기에 적는다
 
 
@@ -56,6 +60,11 @@ def _multipart(pdf_path: Path) -> tuple[bytes, str]:
             "Content-Type: application/pdf\r\n\r\n").encode("utf-8")
     body = head + pdf_path.read_bytes() + f"\r\n--{boundary}--\r\n".encode("utf-8")
     return body, f"multipart/form-data; boundary={boundary}"
+
+
+def strip_line_numbers(text: str) -> str:
+    """모델 입력용 글(L001 …)에서 줄 번호를 뗀다. 원문 대조는 줄 번호가 없는 글로 한다."""
+    return LINE_NO.sub("", text)
 
 
 def _check_destination(out: Path, force: bool) -> None:
@@ -127,7 +136,7 @@ def preprocess_v17(pdf_path: Path, doc_id: str, dpi: int = DPI, force: bool = Fa
     if meta_path.exists() and not force:
         return json.loads(meta_path.read_text(encoding="utf-8"))
     # extract_pdf의 force는 자기가 만든 파일만 있는 폴더만 교체한다. 이 모듈이 덧붙인 파일은 먼저 지운다.
-    for stale in out_dir.glob("p[0-9][0-9][0-9].ocr_input.txt"):
+    for stale in (*out_dir.glob("p[0-9][0-9][0-9].ocr_input.txt"), *out_dir.glob("p[0-9][0-9][0-9].match.txt")):
         stale.unlink()
     if extractor is None:
         api_url = (os.environ.get(API_URL_ENV) or "").strip()
@@ -147,7 +156,14 @@ def preprocess_v17(pdf_path: Path, doc_id: str, dpi: int = DPI, force: bool = Fa
     meta = extractor(pdf_path, out_dir, doc_id=doc_id, dpi=dpi, force=force, on_progress=progress, **options)
 
     for page in meta.get("pages", []):
-        if page.get("text_source") == "OCR":
-            final = (out_dir / page["text_file"]).read_text(encoding="utf-8")
+        source = page.get("text_source")
+        if source not in ("OCR", "텍스트층"):
+            continue
+        final = (out_dir / page["text_file"]).read_text(encoding="utf-8")
+        if source == "OCR":
             page_ocr_input(doc_id, page["page"], pages_root=pages_root).write_text(final, encoding="utf-8")
+        match_path = page_match_txt(doc_id, page["page"], pages_root=pages_root)
+        match_path.write_text(strip_line_numbers(final), encoding="utf-8")
+        page["match_file"] = match_path.name   # render.load_pages가 이 이름이 있을 때만 대조 글로 읽는다
+    (out_dir / "meta.json").write_text(json.dumps(meta, ensure_ascii=False, indent=2), encoding="utf-8")
     return meta
