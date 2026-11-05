@@ -14,6 +14,7 @@ import {
 import { Pane } from "@/components/shell/layout";
 import { AiChip, Button, Skeleton, StatusLabel, Textarea } from "@/components/ui";
 import { actionsFor, commentRequired, isNote, verdictText, verdictTone } from "@/lib/regulation";
+import { formatDateTime } from "@/lib/format";
 import { useReviewer } from "@/lib/reviewer";
 import { verdictCard } from "./regulation-table";
 
@@ -211,6 +212,19 @@ export function ReviewControls({
           {review.reviewer && ` · ${review.reviewer}`}
           {review.comment && ` — ${review.comment}`}
         </p>
+      )}
+      {review && review.notes.length > 0 && (
+        <ul aria-label="추가한 의견" className="m-0 flex list-none flex-col gap-1 p-0 text-sm">
+          {review.notes.map((n, i) => (
+            <li key={i} className="rounded-md bg-tint px-3 py-1.5 break-words">
+              {n.comment}
+              <span className="text-mut">
+                {n.reviewer && ` · ${n.reviewer}`}
+                {n.at && ` · ${formatDateTime(n.at)}`}
+              </span>
+            </li>
+          ))}
+        </ul>
       )}
       <label htmlFor="regulation-comment" className="text-sm">
         의견

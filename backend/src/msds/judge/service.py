@@ -319,12 +319,14 @@ class JudgeService:
         out: dict[str, dict] = {}
         for e in events:
             s = out.setdefault(e["finding_id"], {"status": "미검토", "comment": None, "reviewer": None, "at": None,
-                                                 "history_count": 0, "stale": False, "_sha": None})
+                                                 "history_count": 0, "stale": False, "notes": [], "_sha": None})
             s["history_count"] += 1
             s["last_event_id"] = e["event_id"]
             if e["action"] == "되돌리기":
                 s.update(status="미검토", comment=None, reviewer=e["reviewer"], at=_iso(e["at"]), _sha=None)
             elif e["action"] == "의견":  # 처리 상태와 stale 을 바꾸지 않는다 (5-api status). 처리한 항목은 승인 사유·처리자도 지우지 않고 이력에만 남긴다
+                # 화면이 더한 의견을 모두 보이게 쌓는다 (오래된 것부터)
+                s["notes"].append({"comment": e["comment"], "reviewer": e["reviewer"], "at": _iso(e["at"])})
                 if s["status"] == "미검토":
                     s.update(comment=e["comment"], reviewer=e["reviewer"], at=_iso(e["at"]))
             else:

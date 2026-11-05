@@ -44,6 +44,7 @@ const review = (patch: Partial<ReviewState> = {}): ReviewState => ({
   at: "2026-11-03T00:00:00+09:00",
   history_count: 1,
   stale: false,
+  notes: [],
   ...patch,
 });
 const display = (component: string | null): FindingDisplay => ({

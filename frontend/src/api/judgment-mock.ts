@@ -368,7 +368,7 @@ function view(id: string, version: number, scenario: string) {
   if (scenario === "bad") delete display[finding(TODO[0], 0).id];
   const seeded: Record<string, unknown> =
     scenario === "stale"
-      ? { [finding(TODO[0], 0).id]: { status: "예외 승인", comment: "가상 사유", reviewer: "가상 검토자", at: "2026-11-03T09:00:00+09:00", history_count: 1, stale: true } }
+      ? { [finding(TODO[0], 0).id]: { status: "예외 승인", comment: "가상 사유", reviewer: "가상 검토자", at: "2026-11-03T09:00:00+09:00", history_count: 1, stale: true, notes: [] } }
       : {};
   return {
     job_id: id,
@@ -469,7 +469,7 @@ export async function mockResponse(path: string, init?: RequestInit): Promise<un
     if (scenario === "conflict") throw new ApiRequestError(409, "http_409", "보던 판정보다 새 판정이 있습니다");
     if (scenario === "savefail") throw new ApiRequestError(500, "http_500", "가상 서버 오류");
     const body = JSON.parse(String(init?.body)) as { finding_id: string; action: string; comment: string | null; reviewer: string };
-    const prev = reviews.get(body.finding_id) as { status: string; comment: string | null } | undefined;
+    const prev = reviews.get(body.finding_id) as { status: string; comment: string | null; notes?: { comment: string | null; reviewer: string | null; at: string | null }[] } | undefined;
     judgmentLog.unshift({
       at: new Date().toISOString(),
       reviewer: body.reviewer,
@@ -489,6 +489,7 @@ export async function mockResponse(path: string, init?: RequestInit): Promise<un
         at: "2026-11-03T09:10:00+09:00",
         history_count: 1,
         stale: false,
+        notes: [...(prev?.notes ?? []), ...(body.action === "의견" ? [{ comment: body.comment, reviewer: body.reviewer, at: "2026-11-03T09:10:00+09:00" }] : [])],
       });
     }
     return { event_id: nextEvent++, job_id: id, finding_id: body.finding_id, action: body.action, comment: body.comment, reviewer: body.reviewer, at: "2026-11-03T09:10:00+09:00", version: 1, verdict_seen: "불일치" };
