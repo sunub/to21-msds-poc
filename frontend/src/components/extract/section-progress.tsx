@@ -5,6 +5,7 @@ import { memo, useMemo } from "react";
 import { sectionResultQuery } from "@/api/documents";
 import type { DocumentDetail, JobStatus, SectionProgress } from "@/api/schemas";
 import { Skeleton, StatusLabel, Table, TableHead, TableRow } from "@/components/ui";
+import { describeProblem } from "@/lib/problem-text";
 import { flattenValues } from "@/lib/section-values";
 import { pagesLabel, sectionLabel } from "@/lib/status";
 
@@ -34,7 +35,7 @@ export function SectionProgressTable({
       <TableHead className="sticky top-0 px-3.5 py-2">
         <span className="w-8">항</span>
         <span className="min-w-0 flex-1">제목</span>
-        <span className="w-14">쪽</span>
+        <span className="w-14">페이지</span>
         <span className="w-20">상태</span>
       </TableHead>
       {groups.map(([index, sections]) => (
@@ -101,11 +102,15 @@ export function SectionValues({ docId, section }: { docId: string; section: Sect
       </div>
       {problems.length > 0 && (
         <ul className="m-0 list-none p-0 text-sm text-amb-text">
-          {problems.slice(0, 5).map((p, i) => (
-            <li key={i} className="break-words">
-              {p}
-            </li>
-          ))}
+          {problems.slice(0, 5).map((p, i) => {
+            const d = describeProblem(p);
+            return (
+              <li key={i} className="break-words">
+                {d.where && <b className="font-bold">{d.where} </b>}
+                {d.summary}
+              </li>
+            );
+          })}
           {problems.length > 5 && <li>외 {problems.length - 5}건</li>}
         </ul>
       )}

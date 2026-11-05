@@ -105,18 +105,18 @@ function ComponentsLoaded({
   const banners = (
     <>
       {ready.pending && (
-        <p role="status" className="rounded-sm bg-blue-soft px-4 py-2.5 text-sm text-blue2">
+        <p role="status" className="rounded-md bg-blue-soft px-4 py-2.5 text-sm text-blue2">
           추출값이 바뀌어 다시 판정하는 중입니다. 아래는 이전 판정입니다.
         </p>
       )}
       {!ready.pending && newer && (
-        <div role="status" className="flex flex-wrap items-center justify-between gap-3 rounded-sm border border-amb bg-tint px-4 py-2.5 text-sm text-amb-text">
+        <div role="status" className="flex flex-wrap items-center justify-between gap-3 rounded-md border border-amb bg-tint px-4 py-2.5 text-sm text-amb-text">
           <span>새 판정이 있습니다.</span>
           <Button onClick={onNewest}>새 판정 보기</Button>
         </div>
       )}
       {offline && (
-        <p role="status" className="rounded-sm border border-amb bg-tint px-4 py-2.5 text-sm text-amb-text">
+        <p role="status" className="rounded-md border border-amb bg-tint px-4 py-2.5 text-sm text-amb-text">
           서버와 연결이 끊겼습니다. 아래는 마지막으로 받은 내용입니다.
         </p>
       )}
@@ -133,11 +133,7 @@ function ComponentsLoaded({
           ))}
         </div>
       )}
-      <p className="text-sm text-mut">
-        판정 기준 {productType} · 지식 {data.consistency.knowledge.provider} / {data.consistency.knowledge.version} · 판정 버전{" "}
-        {data.version}
-        {newer && ` (최신 ${ready.latest})`}
-      </p>
+      <p className="text-sm text-mut">판정 기준 {productType}</p>
     </>
   );
 
@@ -212,7 +208,7 @@ function ComponentsLoaded({
               />
             )}
           </div>
-          {tabs.length === 0 && <p className="rounded-sm bg-tint px-3 py-2 text-sm text-amb-text">3항 쪽을 찾지 못해 첫 쪽을 보여 줍니다.</p>}
+          {tabs.length === 0 && <p className="rounded-md bg-tint px-3 py-2 text-sm text-amb-text">3항 페이지를 찾지 못해 첫 페이지를 보여 줍니다.</p>}
           <SourceViewer
             doc={ready.doc}
             page={page}

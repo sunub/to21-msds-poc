@@ -15,6 +15,7 @@ import { Foot, Pane, Workspace } from "@/components/shell/layout";
 import { Progress, Skeleton, StatusLabel, Table, TableHead, buttonStyles } from "@/components/ui";
 import { useDocumentTransitions } from "@/hooks/use-document-transitions";
 import { usePageParam } from "@/hooks/use-page-param";
+import { failureMessage } from "@/lib/document-row";
 import { routes } from "@/lib/routes";
 import { allSectionsFailed, stageMessage } from "@/lib/status";
 
@@ -150,20 +151,29 @@ function SkeletonTable() {
   );
 }
 
+/** 사용자에게 의미 없는 내부 진단 경고. 하나라도 맞으면 숨긴다 */
+const HIDDEN_WARNINGS: RegExp[] = [/^manifest에 없는 문서/, /^\d+항: 분할 실패/];
+
 /** 실패 사유, 경고, 같은 PDF 안내 */
 function DocumentNotices({ doc }: { doc: DocumentDetail }) {
+  const warnings = doc.warnings.filter((w) => !HIDDEN_WARNINGS.some((re) => re.test(w)));
   const failedAll = doc.status === "done" && allSectionsFailed(doc);
   const failedSome = !failedAll && doc.status === "done" && doc.counts.failed > 0;
   const firstError = doc.sections.find((s) => s.errors.length)?.errors[0];
-  if (!doc.error && !failedAll && !failedSome && doc.warnings.length === 0 && doc.duplicate_of.length === 0) {
+  const failure = failureMessage(doc.error, doc.status);
+  if (!doc.error && !failedAll && !failedSome && warnings.length === 0 && doc.duplicate_of.length === 0) {
     return null;
   }
   return (
     <div className="flex flex-col gap-1.5 rounded-md border border-line bg-white px-5 py-3.5 text-sm print:hidden">
-      {doc.error && (
-        <p role="alert" className="break-words text-red">
-          {doc.status === "interrupted" ? "처리가 멈췄습니다" : "처리하지 못했습니다"}: {doc.error}
-        </p>
+      {failure && (
+        <div role="alert" className="text-red">
+          <p className="break-keep">{failure.text}</p>
+          <details className="mt-1 text-sub">
+            <summary className="cursor-pointer text-sm">자세히 보기</summary>
+            <p className="break-words">{failure.detail}</p>
+          </details>
+        </div>
       )}
       {failedAll && (
         <p role="alert" className="break-words text-red">
@@ -173,7 +183,7 @@ function DocumentNotices({ doc }: { doc: DocumentDetail }) {
       {failedSome && (
         <StatusLabel tone="warning">{doc.counts.failed}개 항을 추출하지 못했습니다. 해당 항은 비어 있습니다.</StatusLabel>
       )}
-      {doc.warnings.map((w, i) => (
+      {warnings.map((w, i) => (
         <p key={i} className="break-words text-amb-text">
           {w}
         </p>

@@ -2,7 +2,7 @@ import type { ComponentProps, ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
 const control =
-  "w-full rounded-sm border border-field-line bg-white text-ink placeholder:text-outline aria-invalid:border-red disabled:bg-tint disabled:text-mut";
+  "w-full rounded-md border border-field-line bg-white text-ink placeholder:text-outline aria-invalid:border-red disabled:bg-tint disabled:text-mut";
 
 /** react-hook-form 의 register() 결과를 그대로 펼쳐 쓸 수 있다 (React 19 는 ref 가 일반 prop). */
 export function Input({ className, ...props }: ComponentProps<"input">) {

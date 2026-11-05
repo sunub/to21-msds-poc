@@ -34,7 +34,7 @@ MSDS(물질안전보건자료) PDF → TO21 스키마 v0.6 JSON → 법 기준 �
 
 | <a href="https://github.com/sunub"><img src="https://github.com/sunub.png?size=160" width="110" alt="sunub"></a> | <a href="https://github.com/steve0joo"><img src="https://github.com/steve0joo.png?size=160" width="110" alt="steve0joo"></a> | <a href="https://github.com/azeroo0"><img src="https://github.com/azeroo0.png?size=160" width="110" alt="azeroo0"></a> | <a href="https://github.com/nnieun"><img src="https://github.com/nnieun.png?size=160" width="110" alt="nnieun"></a> | <a href="https://github.com/HwangSoon96"><img src="https://github.com/HwangSoon96.png?size=160" width="110" alt="HwangSoon96"></a> | <a href="https://github.com/JINI1018"><img src="https://github.com/JINI1018.png?size=160" width="110" alt="JINI1018"></a> |
 |:-:|:-:|:-:|:-:|:-:|:-:|
-| **최정민<br>(팀장)** | **주세환** | **윤아영** | **김나경** | **최태순** | **김우진** |
+| **최정민<br>(팀장)** | **주세환** | **윤아영** | **김나경** | **황태순** | **김우진** |
 | [@sunub](https://github.com/sunub) | [@steve0joo](https://github.com/steve0joo) | [@azeroo0](https://github.com/azeroo0) | [@nnieun](https://github.com/nnieun) | [@HwangSoon96](https://github.com/HwangSoon96) | [@JINI1018](https://github.com/JINI1018) |
 | <sub>전처리·OCR<br>추출<br>프론트엔드</sub> | <sub>추출<br>모델·평가<br>파인튜닝</sub> | <sub>PM<br>프론트엔드<br>정합성 엔진</sub> | <sub>전처리·OCR<br>추출 백엔드<br>문서·데이터</sub> | <sub>온프레미스 배포<br>정합성 백엔드<br>문서·데이터</sub> | <sub>PM<br>정합성 엔진<br>모델·평가<br>파인튜닝</sub> |
 
@@ -178,7 +178,7 @@ AI는 읽고 설명만 하고, 판정은 규칙 엔진이 내고, 확정은 사�
   <img src="docs/images/sequence.png" alt="시퀀스 다이어그램: 업로드, 전처리·추출, 정합성 검증, 사람 검수·저장" width="100%">
 </p>
 
-### 아키텍처
+### 시스템 구성과 기술 스택
 
 계층별로 어떤 기술을 쓰는지 한 장에 모았습니다. `deploy/compose/compose.yaml` 기준이고, 바깥에 열리는 포트는 `web` 하나뿐입니다.
 

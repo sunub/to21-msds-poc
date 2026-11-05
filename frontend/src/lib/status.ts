@@ -22,24 +22,28 @@ export function validationLabel(validation: ValidationSummary | null | undefined
   if ([schema_errors, validator_errors, validator_warnings, validator_exceptions].some((value) => value === undefined)
       || !failed_sections || !needs_review || !unmapped_findings) {
     if (validation.status === "invalid") {
-      return { tone: "danger", label: "추출값 검증 오류", detail: "검증 오류가 보고됐지만 세부 결과를 확인할 수 없습니다." };
+      return { tone: "danger", label: "추출 오류", detail: "검증 오류가 보고됐지만 세부 결과를 확인할 수 없습니다." };
     }
     if (validation.status === "needs_review") {
-      return { tone: "warning", label: "추출값 검토 필요", detail: "검토가 필요하지만 세부 결과를 확인할 수 없습니다." };
+      return { tone: "warning", label: "검토 필요", detail: "검토가 필요하지만 세부 결과를 확인할 수 없습니다." };
     }
     return { tone: "warning", label: "검증 미확인", detail: "추출값 검증 결과가 완전하지 않습니다." };
   }
   const detail = `스키마 오류 ${schema_errors}건 · TO21 오류 ${validator_errors}건 · 경고 ${validator_warnings}건 · 검사 예외 ${validator_exceptions}건 · 추출 실패 ${failed_sections.length}항`;
-  if (validation.status === "invalid" || schema_errors! > 0 || validator_errors! > 0 || validator_exceptions! > 0 || failed_sections.length > 0) {
-    return { tone: "danger", label: "추출값 검증 오류", detail };
+  // invalid 는 누락·깨진 항 기록, 잘못된 MSDS 때문에도 온다. TO21 오류 때문이 아니면 추출 오류로 본다
+  if (schema_errors! > 0 || validator_exceptions! > 0 || failed_sections.length > 0 || (validation.status === "invalid" && validator_errors === 0)) {
+    return { tone: "danger", label: "추출 오류", detail };
   }
-  if (validation.status === "needs_review" || validator_warnings! > 0 || needs_review.length > 0 || unmapped_findings.length > 0) {
-    return { tone: "warning", label: "추출값 검토 필요", detail };
+  if (validator_errors! > 0) {
+    return { tone: "warning", label: `값 확인 ${validator_errors! + validator_warnings!}건`, detail };
   }
-  return { tone: "success", label: "추출값 검증 통과", detail };
+  if (validator_warnings! > 0 || needs_review.length > 0 || unmapped_findings.length > 0) {
+    return { tone: "warning", label: "검토 필요", detail };
+  }
+  return { tone: "success", label: "검증 통과", detail };
 }
 
-/** 목록의 "단계" 칸 */
+/** 추출이 끝난 문서의 추출 상태 (방식 선택·진행 화면). 목록은 lib/document-row.ts 가 따로 정한다 */
 export function statusLabel(doc: Pick<DocumentSummary, "status" | "stage" | "counts" | "validation">): { tone: Tone; label: string } {
   switch (doc.status) {
     case "queued":
@@ -56,7 +60,7 @@ export function statusLabel(doc: Pick<DocumentSummary, "status" | "stage" | "cou
       {
         const validation = validationLabel(doc.validation);
         if (doc.counts.needs_review > 0 && validation.tone === "success") {
-          return { tone: "warning", label: "추출값 검토 필요" };
+          return { tone: "warning", label: "검토 필요" };
         }
         return validation;
       }
@@ -65,16 +69,6 @@ export function statusLabel(doc: Pick<DocumentSummary, "status" | "stage" | "cou
     case "interrupted":
       return { tone: "warning", label: "멈춤" };
   }
-}
-
-/**
- * 목록의 "진행" 칸: 항을 나누기 전에는 단계("1 / 4단계"), 나눈 뒤에는 항("9 / 9항", 추출 대상 항만 센다).
- * percent 는 진행 막대 길이.
- */
-export function progressLabel(doc: Pick<DocumentSummary, "stage_index" | "stage_total" | "counts">) {
-  const { done, total } = doc.counts;
-  if (total > 0) return { text: `${done} / ${total}항`, percent: (done / total) * 100 };
-  return { text: `${doc.stage_index} / ${doc.stage_total}단계`, percent: (doc.stage_index / doc.stage_total) * 100 };
 }
 
 export function allSectionsFailed(doc: Pick<DocumentSummary, "counts">) {
@@ -102,7 +96,7 @@ export function stageMessage(doc: Pick<DocumentSummary, "status" | "stage">) {
   if (doc.status === "queued") return "앞 문서가 끝나기를 기다리고 있습니다";
   switch (doc.stage) {
     case "preprocess":
-      return "쪽 이미지와 글자를 만드는 중입니다";
+      return "페이지 이미지와 텍스트를 만드는 중입니다";
     case "sections":
       return "항목을 나누는 중입니다";
     case "extract":
@@ -130,23 +124,24 @@ export function sectionLabel(section: SectionProgress, docStatus: JobStatus): { 
   }
 }
 
+/** 항 진행 표의 '페이지' 칸 값. 칸 이름에 단위가 있어 숫자만 쓴다 (칸 폭 w-14) */
 export function pagesLabel(pages: number[]) {
   if (pages.length === 0) return "-";
   const [first, last] = [pages[0], pages[pages.length - 1]];
-  return first === last ? `${first}쪽` : `${first}~${last}쪽`;
+  return first === last ? `${first}` : `${first}~${last}`;
 }
 
 /** 텍스트층을 입력 유형으로 (2.1). 정상이면 글자를 그대로 읽은 PDF 이고, 나머지는 잘못 읽힌 칸이 있을 수 있다 */
 export function inputType(textLayer: DocumentSummary["text_layer"]): { label: string; note: string; recommendValues: boolean } {
   switch (textLayer) {
     case "정상":
-      return { label: "디지털 PDF", note: "글자를 파일에서 바로 읽어 신뢰도가 높습니다.", recommendValues: false };
+      return { label: "일반 PDF", note: "글자를 파일에서 바로 읽어 신뢰도가 높습니다.", recommendValues: false };
     case "없음":
       return { label: "스캔본 (이미지로 된 PDF)", note: "글자를 이미지에서 읽어 잘못 읽힌 칸이 있을 수 있습니다.", recommendValues: true };
     case "글꼴깨짐":
       return { label: "글자가 깨진 PDF", note: "파일의 글자가 깨져 있어 잘못 읽힌 칸이 있을 수 있습니다.", recommendValues: true };
     case "혼합":
-      return { label: "글자와 이미지가 섞인 PDF", note: "이미지로 된 쪽에 잘못 읽힌 칸이 있을 수 있습니다.", recommendValues: true };
+      return { label: "글자와 이미지가 섞인 PDF", note: "이미지로 된 페이지에 잘못 읽힌 칸이 있을 수 있습니다.", recommendValues: true };
     case null:
       return { label: "판정 전", note: "입력 유형을 판정하지 못했습니다.", recommendValues: true };
   }

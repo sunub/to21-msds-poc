@@ -57,7 +57,8 @@ def apply_event(state: dict, event: dict) -> dict:
         n = event["page_count"]
         state.update(page_count=n, text_layer=event.get("text_layer"), preprocess={"done": n, "total": n})
         if state["text_layer"] in UNTRUSTED_TEXT_LAYERS:
-            state["warnings"].append(f"텍스트층 {state['text_layer']}: 일부 쪽은 OCR로 읽었습니다. "
+            # 전처리 방식(version17 OCR / 예전 방식은 쪽 이미지만)에 따라 다르므로 OCR을 썼다고 단정하지 않는다
+            state["warnings"].append(f"텍스트층 {state['text_layer']}: 일부 쪽 글자를 믿기 어렵습니다(OCR로 읽었거나 쪽 이미지만 봤습니다). "
                                      "그 쪽의 추출값은 원문과 꼭 맞춰 보세요")
     elif kind == "stage":
         if event["stage"] not in STAGES:
@@ -83,6 +84,7 @@ def apply_event(state: dict, event: dict) -> dict:
     elif kind == "done":
         summary = dict(event.get("summary") or {})
         state["warnings"] += list(summary.pop("warnings", []) or [])
+        _mark_final_review(state, (summary.get("validation") or {}).get("needs_review") or [])
         state.update(status="done", stage="done", summary=summary)
     elif kind == "failed":
         state.update(status="failed", error=event["error"])
@@ -91,6 +93,15 @@ def apply_event(state: dict, event: dict) -> dict:
     else:
         raise ValueError(f"모르는 진행 이벤트: {kind}")
     return state
+
+
+def _mark_final_review(state: dict, flagged: list[dict]) -> None:
+    """최종 검증이 검수 필요로 본 항(펼치기 문제·검증기 위치 포함)을 항별 표시에도 옮긴다.
+    항 호출이 끝날 때의 표시는 펼치기 뒤의 문제를 모른다. 계획에 없는 항은 건너뛴다."""
+    keys = {(f.get("msds_index"), f.get("section")) for f in flagged if isinstance(f, dict)}
+    for s in state["sections"]:
+        if (s["msds_index"], s["section"]) in keys:
+            s["needs_review"] = True
 
 
 def counts(state: dict) -> dict:

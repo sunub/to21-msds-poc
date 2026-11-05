@@ -6,16 +6,16 @@ import { pageLinesQuery } from "@/api/documents";
 import type { DocumentDetail } from "@/api/schemas";
 import { Button, Paper, PillTabs, Progress, Skeleton, Spinner } from "@/components/ui";
 import { cn } from "@/lib/cn";
-import { parsePage, scrollWithin } from "@/lib/viewer";
+import { matchSpans, parsePage, scrollWithin, type Highlight } from "@/lib/viewer";
 import { PdfViewer } from "./pdf-viewer";
 
 type Mode = "pdf" | "text";
-// 원본/추출 글 선택은 탭을 옮겨도 그대로 둔다
+// 원본/추출 텍스트 선택은 탭을 옮겨도 그대로 둔다
 let lastMode: Mode = "pdf";
 
 /**
  * 원문 칸. 기본은 올린 원본 PDF를 그대로 그린다 (pdf-viewer). 근거 글은 원본 글자 위에 강조한다.
- * "추출 글"로 바꾸면 전처리에서 읽은 쪽 글(근거 줄 번호 p2:L23과 같은 번호)을 본다. 이건 전처리가 끝난 쪽만 있다.
+ * "추출 텍스트"로 바꾸면 전처리에서 읽은 쪽 글(근거 줄 번호 p2:L23과 같은 번호)을 본다. 이건 전처리가 끝난 쪽만 있다.
  * 넓은 화면에서는 Workspace 칸 높이를 채우고, 위아래로 쌓이는 좁은 화면에서는 본문 높이의 80%를 쓴다.
  */
 export function SourceViewer({
@@ -30,7 +30,7 @@ export function SourceViewer({
   page: number;
   onPage: (page: number) => void;
   /** 근거 글. 이 글이 들어 있는 곳을 강조한다 (근거에 줄 번호가 없어 글로 찾으므로 같은 글이 여러 곳이면 모두 강조된다) */
-  highlight?: string | null;
+  highlight?: Highlight;
   className?: string;
   /** 제목과 원문 사이에 넣을 쪽 이동, 안내 */
   children?: ReactNode;
@@ -55,7 +55,7 @@ export function SourceViewer({
             label="원문 보기 방식"
             items={[
               { id: "pdf", label: "원본 PDF" },
-              { id: "text", label: "추출 글" },
+              { id: "text", label: "추출 텍스트" },
             ]}
             value={mode}
             onChange={(id) => setMode(id as Mode)}
@@ -82,12 +82,12 @@ function PageNav({ page, total, onPage }: { page: number; total: number; onPage:
   };
   return (
     <div className="flex items-center gap-1.5">
-      <Button disabled={page <= 1} onClick={() => onPage(page - 1)} aria-label="이전 쪽">
+      <Button disabled={page <= 1} onClick={() => onPage(page - 1)} aria-label="이전 페이지">
         ‹ 이전
       </Button>
       <label className="flex items-center gap-1 text-sm text-mut tabular-nums">
         <input
-          aria-label="쪽 번호"
+          aria-label="페이지 번호"
           inputMode="numeric"
           value={draft ?? String(page)}
           onChange={(e) => setDraft(e.target.value)}
@@ -99,9 +99,9 @@ function PageNav({ page, total, onPage }: { page: number; total: number; onPage:
           }}
           className="h-9 w-12 rounded-sm border border-field-line bg-white text-center text-base text-ink"
         />
-        / {total}쪽
+        / {total}페이지
       </label>
-      <Button disabled={page >= total} onClick={() => onPage(page + 1)} aria-label="다음 쪽">
+      <Button disabled={page >= total} onClick={() => onPage(page + 1)} aria-label="다음 페이지">
         다음 ›
       </Button>
     </div>
@@ -109,18 +109,18 @@ function PageNav({ page, total, onPage }: { page: number; total: number; onPage:
 }
 
 /** 전처리에서 읽은 쪽 글. 전처리가 끝나기 전에는 진행만 보여 준다 */
-function ExtractedText({ doc, page, total, highlight }: { doc: DocumentDetail; page: number; total: number; highlight?: string | null }) {
+function ExtractedText({ doc, page, total, highlight }: { doc: DocumentDetail; page: number; total: number; highlight?: Highlight }) {
   const box = useRef<HTMLDivElement>(null);
   if (page > doc.preprocess.done) {
     return (
       <Paper fill className="items-center justify-center gap-4">
-        <Spinner label="쪽 글을 읽는 중" />
-        <span className="text-base">{doc.status === "queued" ? "차례를 기다리고 있습니다" : "쪽 글을 읽는 중입니다"}</span>
+        <Spinner label="텍스트를 읽는 중" />
+        <span className="text-base">{doc.status === "queued" ? "차례를 기다리고 있습니다" : "텍스트를 읽는 중입니다"}</span>
         {total > 0 && (
           <div className="w-full">
             <Progress value={(doc.preprocess.done / total) * 100} label="전처리 진행" />
             <p className="mt-2 text-center text-mut tabular-nums">
-              {doc.preprocess.done} / {total}쪽
+              {doc.preprocess.done} / {total}페이지
             </p>
           </div>
         )}
@@ -144,7 +144,7 @@ function PageLines({
 }: {
   id: string;
   page: number;
-  highlight?: string | null;
+  highlight?: Highlight;
   /** 스크롤할 칸. 바깥 본문은 움직이지 않는다 */
   box: RefObject<HTMLDivElement | null>;
 }) {
@@ -162,15 +162,17 @@ function PageLines({
       </div>
     );
   }
-  if (isError) return <p className="text-mut">이 쪽의 글을 읽지 못했습니다.</p>;
-  const isHit = (text: string) => !!highlight && text.trim().length > 1 && highlight.includes(text.trim());
-  const first = data.lines.find((l) => isHit(l.text))?.id;
+  if (isError) return <p className="text-mut">이 페이지의 텍스트를 읽지 못했습니다.</p>;
+  // 원본 PDF 보기와 같은 규칙으로 찾는다 (lib/viewer matchSpans)
+  const hits = new Set(matchSpans(data.lines.map((l) => l.text), highlight).map((i) => data.lines[i].id));
+  const isHit = (line: { id: string }) => hits.has(line.id);
+  const first = data.lines.find(isHit)?.id;
   return data.lines.map((line) => (
     <p
       key={line.id}
       ref={line.id === first ? firstHit : undefined}
       data-line-id={line.id}
-      className={cn(isHit(line.text) && "bg-sel")}
+      className={cn(isHit(line) && "bg-sel")}
     >
       {line.text}
     </p>

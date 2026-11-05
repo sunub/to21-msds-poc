@@ -9,7 +9,7 @@ import { SourceViewer } from "@/components/extract/source-viewer";
 import { Foot, Pane, Workspace } from "@/components/shell/layout";
 import { Button, PillTabs, Skeleton, buttonStyles } from "@/components/ui";
 import { hazardFindings, hiddenByFilter, isHazardFilter, ownSectionPage, sectionTabs } from "@/lib/hazard";
-import { defaultFindingId, nextUnreviewedId } from "@/lib/regulation";
+import { defaultFindingId, nextUnreviewedId, prevUnreviewedId } from "@/lib/regulation";
 import { routes } from "@/lib/routes";
 import { JudgmentError, JudgmentGate, type JudgmentReady } from "../judgment-gate";
 import type { LockReason } from "../regulation/regulation-detail";
@@ -123,6 +123,7 @@ function HazardLoaded({
   const newer = version < latest;
   const lock: LockReason = pending ? "rerun" : newer ? "new" : offline ? "offline" : null;
   const nextId = nextUnreviewedId(findings, data.reviews, selected?.id ?? null);
+  const prevId = prevUnreviewedId(findings, data.reviews, selected?.id ?? null);
 
   const select = (f: Finding | string) => {
     const target = typeof f === "string" ? findings.find((x) => x.id === f) : f;
@@ -133,18 +134,18 @@ function HazardLoaded({
   return (
     <div className="flex flex-col gap-5">
       {pending && (
-        <p role="status" className="rounded-sm bg-blue-soft px-4 py-2.5 text-sm text-blue2">
+        <p role="status" className="rounded-md bg-blue-soft px-4 py-2.5 text-sm text-blue2">
           추출값이 바뀌어 다시 판정하는 중입니다. 아래는 이전 판정이며 처리는 잠시 잠급니다.
         </p>
       )}
       {!pending && newer && (
-        <div role="status" className="flex flex-wrap items-center justify-between gap-3 rounded-sm border border-amb bg-tint px-4 py-2.5 text-sm text-amb-text">
+        <div role="status" className="flex flex-wrap items-center justify-between gap-3 rounded-md border border-amb bg-tint px-4 py-2.5 text-sm text-amb-text">
           <span>새 판정이 있습니다. 쓰던 의견은 그대로 남습니다.</span>
           <Button onClick={onNewest}>새 판정 보기</Button>
         </div>
       )}
       {lock === "offline" && (
-        <p role="status" className="rounded-sm border border-amb bg-tint px-4 py-2.5 text-sm text-amb-text">
+        <p role="status" className="rounded-md border border-amb bg-tint px-4 py-2.5 text-sm text-amb-text">
           서버와 연결이 끊겼습니다. 아래는 마지막으로 받은 내용입니다.
         </p>
       )}
@@ -161,10 +162,6 @@ function HazardLoaded({
           ))}
         </div>
       )}
-      <p className="text-sm text-mut">
-        지식 {data.consistency.knowledge.provider} / {data.consistency.knowledge.version} · 판정 버전 {data.version}
-        {newer && ` (최신 ${latest})`}
-      </p>
 
       <HazardTable
         docId={docId}
@@ -181,7 +178,7 @@ function HazardLoaded({
           <SourceViewer doc={doc} page={page} onPage={(next) => params.update({ page: String(next) })} highlight={highlight}>
             {tabs.length > 0 && (
               <PillTabs
-                label="근거 쪽으로 이동"
+                label="근거 페이지로 이동"
                 items={tabs.map((t) => ({ id: t.id, label: t.label }))}
                 value={tabs.find((t) => t.page === page)?.id ?? ""}
                 onChange={(id) => {
@@ -191,7 +188,7 @@ function HazardLoaded({
               />
             )}
             {selected && !selected.msds.present && (
-              <p className="rounded-sm bg-tint px-3 py-2 text-sm text-amb-text">이 항목은 MSDS 2항에 적혀 있지 않습니다. 2항 첫 쪽을 보여 줍니다.</p>
+              <p className="rounded-md bg-tint px-3 py-2 text-sm text-amb-text">이 항목은 MSDS 2항에 적혀 있지 않습니다. 2항 첫 페이지를 보여 줍니다.</p>
             )}
           </SourceViewer>
         </div>
@@ -207,6 +204,7 @@ function HazardLoaded({
               draft={drafts[selected.id] ?? ""}
               onDraft={(text) => onDraft(selected.id, text)}
               onNext={nextId ? () => select(nextId) : null}
+              onPrev={prevId ? () => select(prevId) : null}
               onPin={() => {
                 if (params.finding !== selected.id) params.update({ finding: selected.id });
               }}

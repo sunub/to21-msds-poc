@@ -137,6 +137,71 @@ def test_section_confirm_counts_in_summary():
         review.set_section(rec, 0, 4, True, "김", "t")
 
 
+# ── document_extras · review_stage (목록·머리줄, contracts/5-api) ──
+
+def extras(record=None, doc=DOC):
+    return review.document_extras(doc, CHECKS, [], record or review.empty())
+
+
+def test_document_extras_reads_first_msds_and_starts_unreviewed():
+    ex = extras()
+    assert ex["product_name"] == "젯소" and ex["doc_code"] is None and ex["msds_revision_date"] is None
+    assert ex["composition"] == {"type": None, "component_count": 1}
+    assert ex["values_review"] == {"state": "미검수", "sections_confirmed": 0, "sections_total": len(EXTRACT_SECTIONS),
+                                   "fields_checked": 0, "fields_edited": 0,
+                                   "fields_total": build()["summary"]["fields_total"]}
+
+
+def test_document_extras_revision_date_falls_back_to_first_issue():
+    meta = {**MSDS["meta"], "first_issue_date": "2020-01-02"}
+    doc = {"doc": {}, "msds": [{**MSDS, "meta": meta, "composition": {"type": "혼합물"}}]}
+    ex = extras(doc=doc)
+    assert ex["msds_revision_date"] == "2020-01-02" and ex["composition"]["type"] == "혼합물"
+    doc["msds"][0]["meta"] = {**meta, "last_revision_date": "2024-05-06"}
+    assert extras(doc=doc)["msds_revision_date"] == "2024-05-06"
+
+
+def test_document_extras_without_msds_has_no_header_values():
+    ex = extras(doc={"doc": {}, "msds": []})
+    assert ex["product_name"] is None and ex["composition"] is None
+    assert ex["values_review"]["state"] == "미검수" and ex["values_review"]["sections_total"] == 0
+
+
+def test_document_extras_drops_composition_type_outside_contract():
+    """검수에서 구성 종류 칸을 아무 글자로나 고칠 수 있다. 계약 밖 값을 내리면 화면 목록 파싱이 깨진다."""
+    doc = {"doc": {}, "msds": [{**MSDS, "composition": {"type": "혼합물"}}]}
+    rec = review.empty()
+    review.set_field(rec, doc, 0, "composition.type", "edit", "혼합 제품", "김", "t")
+    assert extras(rec, doc)["composition"]["type"] is None
+    review.set_field(rec, doc, 0, "composition.type", "edit", "단일물질", "김", "t")
+    assert extras(rec, doc)["composition"]["type"] == "단일물질"
+
+
+def test_values_review_moves_from_partial_to_done_and_header_follows_edit():
+    rec = review.empty()
+    review.set_field(rec, DOC, 0, "product.name", "edit", "새 젯소", "김", "t")
+    ex = extras(rec)
+    assert ex["product_name"] == "새 젯소"
+    assert ex["values_review"]["state"] == "일부" and ex["values_review"]["fields_edited"] == 1
+    only_section = review.empty()
+    review.set_section(only_section, 0, 3, True, "김", "t")
+    assert extras(only_section)["values_review"]["state"] == "일부"
+    for no in EXTRACT_SECTIONS:
+        review.set_section(rec, 0, no, True, "김", "t")
+    assert extras(rec)["values_review"]["state"] == "완료"
+
+
+def test_review_stage_follows_record_and_handoff():
+    rec = review.empty()
+    assert review.review_stage("running", rec, handed_off=False) is None
+    assert review.review_stage("done", rec, handed_off=False) == "검수 대기"
+    review.set_field(rec, DOC, 0, "product.name", "confirm", None, "김", "t")
+    assert review.review_stage("done", rec, handed_off=False) == "추출값 확인 중"
+    review.set_field(rec, DOC, 0, "product.name", "reset", None, "김", "t")
+    assert review.review_stage("done", rec, handed_off=False) == "추출값 확인 중"   # 되돌려도 확인을 시작했다
+    assert review.review_stage("done", review.empty(), handed_off=True) == "판정으로 넘김"
+
+
 # ── API ─────────────────────────────────────────────
 
 class W:
@@ -210,6 +275,63 @@ def test_api_section_confirm(api):
     assert client.put(f"/api/documents/{doc}/review/sections", json={**body, "section": 2, "msds_index": 5}).status_code == 404
 
 
+def list_item(client, doc):
+    return next(d for d in client.get("/api/documents").json()["items"] if d["id"] == doc)
+
+
+def test_list_and_detail_show_values_review_and_review_stage(api):
+    client, store, doc = api
+    item = list_item(client, doc)
+    assert item["document_extras"] is None and item["review_stage"] is None
+    done(store, doc)
+    item = list_item(client, doc)
+    assert item["review_stage"] == "검수 대기" and item["document_extras"]["product_name"] == "젯소"
+    assert item["document_extras"]["values_review"]["state"] == "미검수"
+    body = {"msds_index": 0, "path": "product.name", "action": "confirm", "reviewer": "김"}
+    assert client.put(f"/api/documents/{doc}/review/fields", json=body).status_code == 200
+    item = list_item(client, doc)
+    assert item["review_stage"] == "추출값 확인 중"
+    assert item["document_extras"]["values_review"]["state"] == "일부"
+    detail = client.get(f"/api/documents/{doc}").json()
+    assert detail["document_extras"] == item["document_extras"] and detail["review_stage"] == "추출값 확인 중"
+
+
+def test_list_review_stage_shows_handoff(api, monkeypatch):
+    client, store, doc = api
+    done(store, doc)
+    asked = []
+    monkeypatch.setattr(store, "handed_off", lambda ids: asked.append(list(ids)) or {doc}, raising=False)
+    assert list_item(client, doc)["review_stage"] == "판정으로 넘김"
+    assert asked == [[doc]]          # 목록 한 번에 한 번만 묻는다
+
+
+def test_list_keeps_done_document_without_result_file(api):
+    client, store, doc = api
+    other = client.post("/api/documents", params={"filename": "b.pdf"}, content=b"%PDF-1.7 b").json()["id"]
+    done(store, other)
+    item = list_item(client, other)
+    assert item["document_extras"] is None and item["review_stage"] == "검수 대기"
+
+
+def test_list_survives_review_lookup_failure(api, monkeypatch):
+    client, store, doc = api
+    done(store, doc)
+    def boom(states):
+        raise ValueError("깨진 검수 기록")
+    monkeypatch.setattr(store, "review_records", boom)
+    item = list_item(client, doc)
+    assert item["status"] == "done" and item["review_stage"] is None and item["document_extras"] is None
+
+
+def test_list_survives_broken_result_file(api):
+    client, store, doc = api
+    done(store, doc)
+    out, _ = pipeline.result_paths(store, doc)
+    out.write_text("{깨짐", encoding="utf-8")
+    item = list_item(client, doc)
+    assert item["document_extras"] is None and item["review_stage"] == "검수 대기"
+
+
 def test_retry_sets_aside_review_of_previous_run(api):
     client, store, doc = api
     store.apply(doc, {"type": "plan", "msds_count": 1, "page_count": 1, "sections": [
@@ -222,3 +344,21 @@ def test_retry_sets_aside_review_of_previous_run(api):
     assert client.post(f"/api/documents/{doc}/retry").status_code == 202
     assert store.load_review(doc)["fields"] == {}
     assert list((store.root / doc).glob("review.이전-*.json"))
+
+
+def test_review_after_handoff_republishes_with_reason(api, monkeypatch):
+    """판정으로 넘긴 뒤 칸·항을 검수하면 넘김을 새로 만들어 저장 화면의 '추출값 미검수'가 따라온다 (PostgreSQL 작업만)."""
+    from msds.api.routers.extract import review as review_router
+    client, store, doc = api
+    done(store, doc)
+    calls = []
+    monkeypatch.setattr(review_router, "republish", lambda request, doc_id, reason: calls.append((doc_id, reason)))
+    body = {"msds_index": 0, "path": "product.name", "reviewer": "김"}
+    assert client.put(f"/api/documents/{doc}/review/fields", json={**body, "action": "confirm"}).status_code == 200
+    assert client.put(f"/api/documents/{doc}/review/fields", json={**body, "action": "edit", "value": "새 이름"}).status_code == 200
+    assert client.put(f"/api/documents/{doc}/review/sections",
+                      json={"msds_index": 0, "section": 3, "confirmed": True, "reviewer": "김"}).status_code == 200
+    assert calls == [(doc, "values_reviewed"), (doc, "value_edited"), (doc, "values_reviewed")]
+    # 실패한 요청은 넘기지 않는다
+    assert client.put(f"/api/documents/{doc}/review/fields", json={**body, "path": "nope", "action": "confirm"}).status_code == 404
+    assert len(calls) == 3

@@ -2,14 +2,16 @@
 # 학습한 LoRA를 붙여 vLLM을 띄운다 (평가용, RunPod Pod 안에서 /workspace/to21 기준). 11/04 F
 #   bash finetune/serve_lora.sh <원본 모델> <adapter 폴더>
 #   예: bash finetune/serve_lora.sh Qwen/Qwen3.6-35B-A3B-FP8 finetune/out/to21_lora_qwen36_35b_a3b_v1/adapter
+#   LoRA 여럿(비교용): 뒤에 이름=폴더를 더 적는다. 예: ... <adapter> to21-ft2=<폴더2> to21-ft100=<폴더3>
 # 한 서버가 두 이름을 받는다: <원본 모델>(학습 전)과 to21-ft(학습 후). 같은 서버·같은 정밀도로 전후를 비교한다.
 # 설정은 팀 서버(deploy/runpod/serve_vllm.sh)와 같다(vLLM 0.32.0, 공백 금지 구조화 출력 ADR-017, 이미지 2장). LoRA만 더한다.
 # 먼저: bash deploy/runpod/setup_vllm.sh <원본 모델>   (vLLM을 /workspace/venv에 깔고 원본을 받는다. 처음 한 번 15~25분)
 # 바꿀 수 있는 값(환경변수): HOST(127.0.0.1. PC에서는 ssh 터널로 붙는다) PORT(8000) TP(GPU 수) MAX_MODEL_LEN(49152)
 #   MAX_NUM_SEQS(16) GPU_UTIL(0.90) MM_LIMIT('{"image": 2}', 글 전용 모델(Qwen3-30B-A3B)은 MM_LIMIT= 으로 비운다) NAME(to21-ft)
 # 키: /workspace/vllm_api_key (없으면 새로 만든다). PC .env의 FT_VLLM_API_KEY에 같은 값을 둔다. 채팅·노션·저장소에 적지 않는다.
-set -e
+set -eo pipefail
 MODEL="$1"; ADAPTER="$2"; NAME="${NAME:-to21-ft}"
+shift 2 || true; EXTRA_LORAS=("$@")
 if [ -z "$MODEL" ] || [ ! -f "$ADAPTER/adapter_config.json" ]; then
   echo "사용: bash finetune/serve_lora.sh <원본 모델> <adapter 폴더(adapter_config.json이 있는 곳)>"; exit 1
 fi
@@ -25,11 +27,21 @@ if [ ! -s "$WS/vllm_api_key" ]; then
 fi
 export VLLM_API_KEY=$(cat "$WS/vllm_api_key")   # vLLM은 이 환경변수로 키를 받는다. 인자로 넘기지 않아 ps에 키가 보이지 않는다
 TP="${TP:-$(nvidia-smi -L | wc -l)}"
+# 이미지까지 받는 모델(Qwen3.5·3.6·3.8 계열)은 LoRA 층 이름을 vLLM 이름으로 바꾼 사본을 쓴다(adapter_for_vllm.py).
+# 바꾸지 않으면 vLLM이 오류 없이 불러오지만 어느 층에도 붙지 않는다(11/04 122B 확인)
+ADAPTER=$("$WS/venv/bin/python" "$(dirname "$0")/adapter_for_vllm.py" "$ADAPTER" --base "$MODEL" | tail -1)
+LORAS=("$NAME=$ADAPTER")
+for kv in "${EXTRA_LORAS[@]}"; do
+  n="${kv%%=*}"; d="${kv#*=}"
+  [ -f "$d/adapter_config.json" ] || { echo "LoRA 폴더가 아닙니다: $kv"; exit 1; }
+  d=$("$WS/venv/bin/python" "$(dirname "$0")/adapter_for_vllm.py" "$d" --base "$MODEL" | tail -1)
+  LORAS+=("$n=$d")
+done
 DEFAULT_MM='{"image": 2}'
 MM_LIMIT="${MM_LIMIT-$DEFAULT_MM}"            # 없으면 이미지 2장, 빈 값이면 넣지 않는다(글 전용 모델)
 MM=()
 [ -n "$MM_LIMIT" ] && MM=(--limit-mm-per-prompt "$MM_LIMIT")
-echo "vLLM: $MODEL + LoRA $NAME(r=$RANK, $ADAPTER), GPU $TP장, ${HOST:-127.0.0.1}:${PORT:-8000}"
+echo "vLLM: $MODEL + LoRA ${LORAS[*]} (r=$RANK), GPU $TP장, ${HOST:-127.0.0.1}:${PORT:-8000}"
 exec "$WS/venv/bin/vllm" serve "$MODEL" --trust-remote-code \
   --host "${HOST:-127.0.0.1}" --port "${PORT:-8000}" \
   --tensor-parallel-size "$TP" \
@@ -37,4 +49,4 @@ exec "$WS/venv/bin/vllm" serve "$MODEL" --trust-remote-code \
   --gpu-memory-utilization "${GPU_UTIL:-0.90}" \
   "${MM[@]}" \
   --structured-outputs-config '{"backend": "xgrammar", "disable_any_whitespace": true}' \
-  --enable-lora --max-lora-rank "$RANK" --max-loras 1 --lora-modules "$NAME=$ADAPTER"
+  --enable-lora --max-lora-rank "$RANK" --max-loras "${#LORAS[@]}" --lora-modules "${LORAS[@]}"

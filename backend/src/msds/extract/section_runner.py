@@ -281,7 +281,8 @@ def run_document(doc_id: str, model_tag: str, run_name: str, client=None, *,
     meta_warnings: list[str] = []
     try:
         row = manifest.get(doc_id)
-    except KeyError:
+    except (KeyError, FileNotFoundError):
+        # 공개 저장소에는 data/manifest.csv가 없다(D-47). 서비스로 올린 문서는 어차피 manifest 밖이다
         row = doc_meta_from_pages(doc_id, pages_dir)
         if row is None:
             raise

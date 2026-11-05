@@ -22,12 +22,13 @@ def get_state(request: Request, doc_id: str) -> dict:
     return state
 
 
-def artifact_paths(request: Request, doc_id: str) -> dict | None:
-    """PostgreSQL 작업이면 지금 게시된 시도의 산출물 폴더들. 파일 저장소면 None."""
+def artifact_paths(request: Request, doc_id: str, state: dict | None = None) -> dict | None:
+    """PostgreSQL 작업이면 지금 게시된 시도의 산출물 폴더들. 파일 저장소면 None.
+    이미 읽은 진행 상태(state)를 주면 DB를 다시 읽지 않는다."""
     store = request.app.state.store
     if not hasattr(store, "artifact_paths"):
         return None
-    published = store.artifact_paths(doc_id)
+    published = store.artifact_paths_for(state) if state is not None else store.artifact_paths(doc_id)
     if published is not None:
         return published
     # Unpublished PostgreSQL attempts must never fall back to old files.
@@ -50,7 +51,15 @@ def page_root(request: Request, doc_id: str) -> Path:
 
 def result_paths(request: Request, doc_id: str) -> tuple[Path, Path]:
     """(TO21 결과 파일, 검사 기록 파일)."""
-    published = artifact_paths(request, doc_id)
+    return _result_paths(request, doc_id, artifact_paths(request, doc_id))
+
+
+def result_paths_for(request: Request, state: dict) -> tuple[Path, Path]:
+    """result_paths 를 이미 읽은 진행 상태로 (목록)."""
+    return _result_paths(request, state["id"], artifact_paths(request, state["id"], state))
+
+
+def _result_paths(request: Request, doc_id: str, published: dict | None) -> tuple[Path, Path]:
     if published:
         run = published["runs_dir"] / doc_id
         return run / "outputs" / f"{doc_id}.json", run / "checks" / f"{doc_id}.json"

@@ -118,7 +118,20 @@ def _record_validation(extraction: dict, checks: dict) -> tuple[int, int]:
             sum(row['level'] == '경고' for row in all_rows))
 
 
-def _field_status(record: dict) -> list[dict]:
+def _field_status(record: dict, view: dict) -> list[dict]:
+    """칸별 검수 표시. 칸을 직접 확인·수정한 것에 더해, 항을 '확인 완료'로 둔 항의 나머지 칸도 확인한 것으로 센다.
+    검수 화면(review.build_view)의 확인 칸 수와 같은 기준이다."""
+    marks = {(m['msds_index'], m['field']): m['status'] for m in _marked_fields(record)}
+    for m in view['msds']:
+        for section in m['sections']:
+            if section['confirmed']:
+                for group in section['groups']:
+                    for f in group['fields']:
+                        marks.setdefault((m['msds_index'], f['path']), '확인함')
+    return [{'msds_index': i, 'field': f, 'status': st} for (i, f), st in sorted(marks.items())]
+
+
+def _marked_fields(record: dict) -> list[dict]:
     fields = record.get('fields')
     if not isinstance(fields, dict):
         raise HandoffNotReady('검수 기록의 칸 상태가 올바르지 않습니다')
@@ -233,8 +246,8 @@ def build_handoff(*, job_id: str, handoff_seq: int, reason: str, created_at: str
     failed, retried = _section_checks(checks, run_dir, job_id, len(edited['msds']))
     # The review view selects fields from the original, then overlays edits.
     # A field cleared by review must still count toward the reviewable total.
-    fields_total = review.build_view(extraction, checks, state.get('sections', []),
-                                    review_record)['summary']['fields_total']
+    view = review.build_view(extraction, checks, state.get('sections', []), review_record)
+    fields_total = view['summary']['fields_total']
     payload = {
         'contract': 'handoff/1', 'job_id': job_id, 'handoff_seq': handoff_seq,
         'reason': reason, 'created_at': created_at, 'as_of': as_of,
@@ -248,16 +261,22 @@ def build_handoff(*, job_id: str, handoff_seq: int, reason: str, created_at: str
         'checks': {'validator': {'version': 'v0.6', 'errors': errors, 'warnings': warnings},
                    'failed_sections': failed, 'reextracted_sections': retried,
                    'source_mismatch': _source_mismatch(edited, job_id=job_id, pages_dir=pages_dir)},
-        'field_status': _field_status(review_record),
+        'field_status': _field_status(review_record, view),
         'fields_total': fields_total,
     }
     validate_contract(payload)
     return payload
 
 
+def republish_handoff(store, job_id: str, *, as_of: str, reason: str, schema: str = 'extract') -> dict[str, Any] | None:
+    """판정으로 넘긴 뒤 검수를 더 했으면 넘김을 새로 만든다. 아직 넘기지 않았거나 추출값·칸 표시가 그대로면 만들지 않는다(None)."""
+    return publish_handoff(store, job_id, as_of=as_of, reason=reason, schema=schema, only_if_changed=True)
+
+
 def publish_handoff(store, job_id: str, *, as_of: str, reason: str = 'extraction_done',
-                    schema: str = 'extract') -> dict[str, Any]:
-    """Publish a new immutable sequence for the current completed DB result."""
+                    schema: str = 'extract', only_if_changed: bool = False) -> dict[str, Any] | None:
+    """Publish a new immutable sequence for the current completed DB result.
+    only_if_changed: 넘긴 적이 있고 추출값·칸 표시·칸 수 중 하나라도 바뀌었을 때만 만든다. 아니면 None."""
     saved = ResultStore(store.dsn, schema=schema).get_active(job_id)
     token = saved.get('attempt_token')
     extracted_at = saved.get('extracted_at')
@@ -276,13 +295,18 @@ def publish_handoff(store, job_id: str, *, as_of: str, reason: str = 'extraction
             raise ResultNotReady('추출 결과가 변경되어 전달할 수 없습니다')
         state = job['progress_json']
         record, _ = store._load_review_locked(db, job_id, state)
-        row = db.execute(sql.SQL('SELECT COALESCE(max(handoff_seq), 0) AS seq FROM {} WHERE job_id=%s')
+        row = db.execute(sql.SQL('SELECT handoff_seq AS seq, payload_json FROM {} WHERE job_id=%s ORDER BY handoff_seq DESC LIMIT 1')
                          .format(sql.Identifier(schema, 'handoff')), (job_id,)).fetchone()
-        sequence = row['seq'] + 1
+        if only_if_changed and row is None:
+            return None
+        sequence = (row['seq'] if row else 0) + 1
         payload = build_handoff(job_id=job_id, handoff_seq=sequence, reason=reason, created_at=now_kst(),
                                 as_of=as_of, state=state, extraction=saved['extraction'], checks=saved['checks'],
                                 review_record=record, run_info=run_info, extracted_at=extracted_at,
                                 run_dir=run_dir, pages_dir=artifact['pages_dir'])
+        if only_if_changed and all(payload[k] == row['payload_json'].get(k)
+                                   for k in ('extraction_sha256', 'field_status', 'fields_total')):
+            return None
         db.execute(sql.SQL('''INSERT INTO {} (job_id, handoff_seq, reason, as_of, extraction_sha256,
             payload_json, created_at) VALUES (%s,%s,%s,%s,%s,%s,%s)''').format(sql.Identifier(schema, 'handoff')),
             (job_id, sequence, reason, as_of, payload['extraction_sha256'], Jsonb(payload), payload['created_at']))

@@ -1005,6 +1005,24 @@ def test_pages_meta_run_document_outside_manifest(env):
     assert summary["warnings"] == warnings
 
 
+def test_pages_meta_run_document_without_manifest_file(env, monkeypatch):
+    """manifest.csv가 없는 배포(공개 저장소 clone)에서도 올린 문서는 meta.json으로 추출한다."""
+    orig = manifest.load
+    monkeypatch.setattr(manifest, "load", lambda p=env / "없는_manifest.csv": orig(p))
+    write_outside(env / "pages")
+    run_outside(env)
+    out = read_json(env / "runs" / RUN / "outputs" / f"{OUTSIDE}.json")
+    assert out["doc"]["doc_id"] == OUTSIDE and out["msds"][0]["product"]["name"] == "가상 세정액 B"
+
+
+def test_pages_meta_without_manifest_file_and_meta_raises(env, monkeypatch):
+    orig = manifest.load
+    monkeypatch.setattr(manifest, "load", lambda p=env / "없는_manifest.csv": orig(p))
+    write_outside(env / "pages", meta=None)
+    with pytest.raises(FileNotFoundError):
+        run_outside(env)
+
+
 def test_pages_meta_run_document_without_meta_raises(env):
     write_outside(env / "pages", meta=None)
     with pytest.raises(KeyError, match=OUTSIDE):

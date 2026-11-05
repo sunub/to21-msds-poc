@@ -28,6 +28,12 @@
   ft_base_qwen35_122b: {<<: *ft_qwen36, model: Qwen/Qwen3.5-122B-A10B}
   ft_lora_qwen35_122b: {<<: *ft_qwen36, model: to21-ft}
 
+  # Qwen3.5-122B-A10B FP8 · 서버(B200 한 장): bash finetune/serve_lora.sh Qwen/Qwen3.5-122B-A10B-FP8 <adapter>
+  ft_base_qwen35_122b_fp8: {<<: *ft_qwen36, model: Qwen/Qwen3.5-122B-A10B-FP8}
+  ft_lora_qwen35_122b_fp8: {<<: *ft_qwen36, model: to21-ft}
+  ft_lora2_qwen35_122b_fp8: {<<: *ft_qwen36, model: to21-ft2}       # 2단계(교사 → 개발 골드 절반) LoRA
+  ft_lora100_qwen35_122b_fp8: {<<: *ft_qwen36, model: to21-ft100}   # 1단계 100단계(약 1.3에폭) 중간본
+
   # Qwen3.8-27B · 학생 qwen38 · 서버: MAX_MODEL_LEN=65536 bash finetune/serve_lora.sh Qwen/Qwen3.8-27B <adapter>
   # 모든 항이 JSON이고 출력 한도가 32000이라 입력+출력이 49k를 넘을 수 있어 서버 길이를 늘린다
   ft_base_qwen38: &ft_qwen38

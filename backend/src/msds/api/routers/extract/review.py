@@ -9,6 +9,7 @@ from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel, Field, field_validator, model_validator
 
 from msds.api.routers.extract.deps import done_result
+from msds.api.routers.extract.storage import republish
 from msds.service import review
 from msds.service.store import now_kst
 
@@ -76,6 +77,7 @@ def review_field(request: Request, doc_id: str, body: FieldReview):
         raise HTTPException(404, f"없는 칸: {body.path}") from None
     except ValueError as e:
         raise HTTPException(422, str(e)) from None
+    republish(request, doc_id, "values_reviewed" if body.action == "confirm" else "value_edited")
     return review.build_view(doc, chk, state["sections"], record)
 
 
@@ -96,4 +98,5 @@ def review_section(request: Request, doc_id: str, body: SectionReview):
             now_kst(),
         ),
     )
+    republish(request, doc_id, "values_reviewed")
     return review.build_view(doc, chk, state["sections"], record)

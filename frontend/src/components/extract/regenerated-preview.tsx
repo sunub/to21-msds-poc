@@ -34,7 +34,7 @@ export function RegeneratedPreview({
       }
     >
       <p className="text-sm text-mut print:hidden">
-        추출값만으로 다시 만든 문서입니다. 검수 전이라 원문과 다를 수 있습니다. 항 제목을 누르면 원문이 그 쪽으로 옮겨 갑니다.
+        추출값만으로 다시 만든 문서입니다. 검수 전이라 원문과 다를 수 있습니다. 항 제목을 누르면 원문이 그 페이지로 옮겨 갑니다.
       </p>
       {isPending ? (
         <div aria-hidden="true" className="grid gap-2.5">

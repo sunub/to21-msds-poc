@@ -96,6 +96,9 @@ class DocumentStore:
             path = self.root / doc_id / REVIEW_NAME
             return json.loads(path.read_text(encoding="utf-8")) if path.is_file() else review.empty()
 
+    def review_records(self, states: list[dict]) -> dict[str, dict]:
+        return {s["id"]: self.load_review(s["id"]) for s in states}
+
     def update_review(self, doc_id: str, change: Callable[[dict], None]) -> dict:
         """검수 기록을 읽어 change로 고치고 저장한다. change가 예외를 내면 저장하지 않는다."""
         with self._lock:

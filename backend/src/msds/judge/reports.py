@@ -8,6 +8,7 @@ import tempfile
 import threading
 import unicodedata
 from dataclasses import dataclass
+from datetime import datetime
 from functools import lru_cache
 from pathlib import Path
 from urllib.parse import quote
@@ -17,6 +18,7 @@ from openpyxl import Workbook
 from openpyxl.cell import Cell
 
 from msds.checks.validator import load_to21_module
+from msds.service.regenerated import _NONE, MISSING
 
 from .display import finding_display
 
@@ -107,11 +109,22 @@ def _regenerated_lines(extraction: dict) -> tuple[list[str], str | None]:
         with tempfile.TemporaryDirectory() as folder:
             db = mod.to_db(doc, str(Path(folder) / "msds.db"))
             try:
-                return [str(x) for i in range(len(doc.get("msds") or [])) for x in mod.regenerate(db, i + 1)], None
+                # 화면(service/regenerated)과 같이 스크립트가 찍은 None 을 '값 없음'으로 보인다
+                return [_NONE.sub(MISSING, str(x)) for i in range(len(doc.get("msds") or [])) for x in mod.regenerate(db, i + 1)], None
             finally:
                 db.close()
     except Exception as e:  # 재생성이 안 돼도 판정 표는 내려받을 수 있어야 한다
         return [], type(e).__name__
+
+
+def _when(value) -> str:
+    """리포트에 찍는 시각: ISO 원문(2026-11-04T23:18:45+09:00) 대신 2026-11-04 23:18."""
+    if value is None:
+        return ""
+    try:
+        return datetime.fromisoformat(str(value)).strftime("%Y-%m-%d %H:%M")
+    except ValueError:
+        return str(value)
 
 
 def _regen_failed(error: str) -> str:
@@ -124,7 +137,7 @@ def _cover_lines(data: dict) -> list[str]:
     for r in c["results"]:
         for k, v in r["summary"].items():
             counts[k] = counts.get(k, 0) + v
-    saved = f"저장본 {snap['snapshot_no']} · {snap['saved_by']} · {snap['saved_at']}" if snap else "저장 전 미리 보기"
+    saved = f"저장본 {snap['snapshot_no']} · {snap['saved_by']} · {_when(snap['saved_at'])}" if snap else "저장 전 미리 보기"
     return [f"문서 번호 {c['doc_id']} · 작업 {data['job_id']}", f"원본 파일 {data['handoff']['source']['filename']}", saved,
             f"기준일 {c['as_of']} · 판정 버전 {data['version']} · 지식 {c['knowledge']['provider']} / {c['knowledge']['version']}",
             " · ".join(f"{k} {v}" for k, v in counts.items()), _review_line(data)]
@@ -170,7 +183,7 @@ def to_html(data: dict, include: dict = ALL_INCLUDE) -> str:
     if include["components"]:
         body.append(f"<h2>성분별 요약</h2>{_html_table(_COMPONENT_HEAD, _component_rows(data))}")
     if include["history"]:
-        rows = [[x["at"], x["reviewer"], x["finding_id"], x["action"], x["comment"]] for x in data["events"]]
+        rows = [[_when(x["at"]), x["reviewer"], x["finding_id"], x["action"], x["comment"]] for x in data["events"]]
         edited = "".join(f"<li>{_e(x)}</li>" for x in _edited_fields(data))
         body.append(f"<h2>부록: 검토 이력</h2>{_html_table(['시각', '검토자', '대상', '처리', '의견'], rows)}"
                     f"<h2>부록: 수정한 추출값 칸</h2><ul>{edited or '<li>없음</li>'}</ul>")
@@ -440,7 +453,7 @@ def _pdf_blocks(data: dict, include: dict) -> list:
     if include["history"]:
         blocks.append(_one(_HEADING, "부록: 검토 이력"))
         for x in data["events"]:
-            lines = [f"{x['at']} · {x['reviewer']} · {x['finding_id']} · {x['action']}"]
+            lines = [f"{_when(x['at'])} · {x['reviewer']} · {x['finding_id']} · {x['action']}"]
             lines += [f"의견 {part}" for part in str(x["comment"] or "").splitlines() if part.strip()]
             blocks.append(_Block([(_BODY, _for_font(t)) for t in lines], rule=True))
         if not data["events"]:
@@ -526,7 +539,7 @@ def to_xlsx(data: dict, include: dict = ALL_INCLUDE) -> bytes:
         ws = wb.create_sheet("검토 이력")
         ws.append(["시각", "검토자", "대상", "처리", "의견"])
         for e in data["events"]:
-            _append(ws, [e["at"], e["reviewer"], e["finding_id"], e["action"], e["comment"]])
+            _append(ws, [_when(e["at"]), e["reviewer"], e["finding_id"], e["action"], e["comment"]])
         ws = wb.create_sheet("수정한 칸")
         for field in _edited_fields(data) or ["없음"]:
             _append(ws, [field])

@@ -12,6 +12,7 @@ import {
   documentDetailSchema,
   documentListResponseSchema,
   healthResponseSchema,
+  pageBoxesResponseSchema,
   pageLinesResponseSchema,
   regeneratedResponseSchema,
   resultResponseSchema,
@@ -36,6 +37,7 @@ export const documentKeys = {
   list: (status: DocumentFilter) => [...documentKeys.lists(), status] as const,
   detail: (id: string) => [...documentKeys.all, id] as const,
   lines: (id: string, page: number) => [...documentKeys.detail(id), "lines", page] as const,
+  boxes: (id: string, page: number) => [...documentKeys.detail(id), "boxes", page] as const,
   result: (id: string) => [...documentKeys.detail(id), "result"] as const,
   review: (id: string) => [...documentKeys.detail(id), "review"] as const,
   regenerated: (id: string) => [...documentKeys.detail(id), "regenerated"] as const,
@@ -60,6 +62,8 @@ export const documentListQuery = (status: DocumentFilter = "all") =>
   queryOptions({
     queryKey: documentKeys.list(status),
     queryFn: ({ signal }) => requestJson(documentListResponseSchema, "/api/documents", { query: { status }, signal }),
+    // 검수 진행(document_extras·review_stage)은 다른 화면에서 바뀐다. 목록으로 돌아오면 바로 새로 받는다
+    staleTime: 0,
     refetchInterval: (query) => ((query.state.data?.counts.active ?? 0) > 0 ? LIST_POLL_MS : false),
   });
 
@@ -89,6 +93,14 @@ export const pageLinesQuery = (id: string, page: number) =>
     queryKey: documentKeys.lines(id, page),
     queryFn: ({ signal }) => requestJson(pageLinesResponseSchema, `${doc(id)}/pages/${page}/lines`, { signal }),
     // 전처리가 끝난 쪽의 원문은 바뀌지 않는다
+    staleTime: Infinity,
+  });
+
+/** 5-1. OCR로 읽은 쪽의 글 자리. 원본 PDF 글자 층에서 근거를 못 찾을 때 이 자리를 강조한다 */
+export const pageBoxesQuery = (id: string, page: number) =>
+  queryOptions({
+    queryKey: documentKeys.boxes(id, page),
+    queryFn: ({ signal }) => requestJson(pageBoxesResponseSchema, `${doc(id)}/pages/${page}/boxes`, { signal }),
     staleTime: Infinity,
   });
 
