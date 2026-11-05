@@ -8,7 +8,8 @@
  */
 import type { PDFDocumentProxy, PDFPageProxy } from "pdfjs-dist";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
-import { pdfUrl } from "@/api/documents";
+import { useQuery } from "@tanstack/react-query";
+import { pageBoxesQuery, pdfUrl } from "@/api/documents";
 import { Button, Skeleton } from "@/components/ui";
 import { cn } from "@/lib/cn";
 import { CSS_UNITS, clampScale, matchSpans, resolveScale, stepScale, scrollWithin, zoomPercent, type Highlight, type Zoom } from "@/lib/viewer";
@@ -67,6 +68,8 @@ export function PdfViewer({
   const [drawn, setDrawn] = useState(0);
   // 근거를 받았는데 원본 PDF 글자 층에서 못 찾음 (글꼴이 깨진 PDF·스캔본 등)
   const [missed, setMissed] = useState(false);
+  // 원본 PDF 글자 층에서 못 찾으면 OCR이 읽은 글의 자리로 강조한다 (글꼴이 깨진 PDF·스캔본). 쪽 이미지 픽셀 기준 [x0, y0, x1, y1]
+  const [ocrMarks, setOcrMarks] = useState<{ boxes: number[][]; width: number; height: number } | null>(null);
   const scroller = useRef<HTMLDivElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
   const textLayer = useRef<HTMLDivElement>(null);
@@ -181,6 +184,8 @@ export function PdfViewer({
     };
   }, [current, scale]);
 
+  const ocr = useQuery({ ...pageBoxesQuery(docId, pageNo), enabled: !!highlight });
+
   // 근거 강조. 쪽이나 근거가 바뀔 때만 그 자리로 스크롤한다 (배율만 바꾸면 보던 자리를 지킨다)
   useEffect(() => {
     const layer = textLayer.current;
@@ -192,11 +197,30 @@ export function PdfViewer({
       highlight,
     ).map((i) => spans[i]);
     hits.forEach((s) => s.classList.add("hit"));
-    setMissed(hits.length === 0 && (typeof highlight === "string" ? highlight.trim() !== "" : (highlight?.length ?? 0) > 0));
+    const asked = typeof highlight === "string" ? highlight.trim() !== "" : (highlight?.length ?? 0) > 0;
+    const boxes = ocr.data;
+    const ocrHits =
+      hits.length === 0 && boxes?.width && boxes.height
+        ? matchSpans(boxes.items.map((i) => i.text), highlight).map((i) => boxes.items[i].box)
+        : [];
+    setOcrMarks(ocrHits.length && boxes?.width && boxes.height ? { boxes: ocrHits, width: boxes.width, height: boxes.height } : null);
+    // OCR 기록을 받는 중이면 아직 못 찾았다고 하지 않는다
+    setMissed(asked && hits.length === 0 && ocrHits.length === 0 && !ocr.isFetching);
     const key = `${current?.no}|${JSON.stringify(highlight ?? null)}`;
-    if (hits[0] && scroller.current && scrolledTo.current !== key) scrollWithin(scroller.current, hits[0], "center");
+    if (hits[0] && scroller.current && scrolledTo.current !== key) {
+      scrollWithin(scroller.current, hits[0], "center");
+      scrolledTo.current = key;
+    } else if (!ocrHits.length) scrolledTo.current = key;
+  }, [drawn, highlight, current, ocr.data, ocr.isFetching]);
+
+  // OCR 자리 강조는 그린 뒤에 그 자리로 옮긴다
+  useEffect(() => {
+    const first = scroller.current?.querySelector<HTMLElement>(".ocr-hit");
+    const key = `${current?.no}|${JSON.stringify(highlight ?? null)}`;
+    if (!first || !scroller.current || scrolledTo.current === key) return;
+    scrollWithin(scroller.current, first, "center");
     scrolledTo.current = key;
-  }, [drawn, highlight, current]);
+  }, [ocrMarks, current, highlight]);
 
   // Ctrl/⌘ + 휠: 커서 자리를 중심으로 크게·작게 (브라우저 확대 대신)
   useEffect(() => {
@@ -332,6 +356,19 @@ export function PdfViewer({
         >
           <canvas ref={canvas} aria-label={`원문 ${pageNo}페이지`} role="img" style={{ width, height }} className="block" />
           <div ref={textLayer} className="textLayer" />
+          {ocrMarks?.boxes.map(([x0, y0, x1, y1], i) => (
+            <div
+              key={i}
+              aria-hidden="true"
+              className="ocr-hit pointer-events-none absolute"
+              style={{
+                left: (x0 / ocrMarks.width) * width,
+                top: (y0 / ocrMarks.height) * height,
+                width: ((x1 - x0) / ocrMarks.width) * width,
+                height: ((y1 - y0) / ocrMarks.height) * height,
+              }}
+            />
+          ))}
         </div>
       </div>
     </div>

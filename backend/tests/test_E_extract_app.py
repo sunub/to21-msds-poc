@@ -447,3 +447,25 @@ def test_to_judgment_publishes_values_reviewed_handoff(ctx, monkeypatch):
     r = client.post(f"/api/documents/{doc_id}/to-judgment", json={"reviewer": "홍길동"})
     assert r.status_code == 201 and r.json() == {"job_id": doc_id, "handoff_seq": 2}
     assert calls == [(doc_id, "values_reviewed")]
+
+
+def test_page_ocr_boxes_only_for_pages_read_by_ocr(ctx):
+    """글꼴이 깨졌거나 스캔한 쪽은 원본 PDF 글자 층으로 근거를 찾을 수 없어, OCR이 읽은 글과 자리(쪽 이미지 픽셀)를 준다."""
+    client, store, _, tmp = ctx
+    doc = client.post("/api/documents", params={"filename": "a.pdf"}, content=b"%PDF-1.7").json()["id"]
+    folder = tmp / "pages" / doc
+    folder.mkdir(parents=True)
+    assert client.get(f"/api/documents/{doc}/pages/1/boxes").json() == {"page": 1, "width": None, "height": None, "items": []}
+    (folder / "meta.json").write_text(json.dumps({"pages": [
+        {"page": 1, "width": 1000, "height": 1400, "text_source": "OCR"},
+        {"page": 2, "width": 1000, "height": 1400, "text_source": "텍스트층"}]}), encoding="utf-8")
+    (folder / "item_trace.json").write_text(json.dumps([
+        {"page": 1, "raw_items": [{"text": "가상 제품", "box": [10.0, 20.0, 110.0, 40.0], "confidence": 0.9, "source": "paddle"},
+                                  {"text": "", "box": [0, 0, 1, 1]}]},
+        {"page": 2, "raw_items": [{"text": "글자 층", "box": [1, 2, 3, 4]}]}]), encoding="utf-8")
+    assert client.get(f"/api/documents/{doc}/pages/1/boxes").json() == {
+        "page": 1, "width": 1000, "height": 1400, "items": [{"text": "가상 제품", "box": [10.0, 20.0, 110.0, 40.0]}]}
+    assert client.get(f"/api/documents/{doc}/pages/2/boxes").json()["items"] == []     # 글자 층으로 찾는 쪽
+    assert client.get(f"/api/documents/{doc}/pages/9/boxes").json()["items"] == []
+    (folder / "item_trace.json").write_text("{깨짐", encoding="utf-8")
+    assert client.get(f"/api/documents/{doc}/pages/1/boxes").json()["items"] == []

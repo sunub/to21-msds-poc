@@ -45,3 +45,9 @@
     background-color: color-mix(in srgb, var(--amb) 35%, transparent);
   }
 }
+
+/* 원본 PDF 글자 층이 없거나 깨진 쪽: OCR이 읽은 자리에 같은 색으로 강조한다 */
+.ocr-hit {
+  border-radius: 2px;
+  background-color: color-mix(in srgb, var(--amb) 35%, transparent);
+}

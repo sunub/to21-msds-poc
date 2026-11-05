@@ -76,10 +76,26 @@ test("값을 먼저 찾되, 쪽에 한 번만 나올 때만 쓴다. 아니면 �
   assert.deepEqual(matchSpans(texts, [{ text: "없는 값", once: true }, { text: evidence }]), [0]);
 });
 
-test("칸 근거: 네 글자 이상인 값을 먼저, 그다음 근거 줄", () => {
-  assert.deepEqual(fieldHighlight("가상시 가상로 1", "회사명 : 가상화학"), [{ text: "가상시 가상로 1", once: true }, { text: "회사명 : 가상화학" }]);
-  // 짧은 값(숫자·코드)은 다른 자리에 우연히 한 번 걸릴 수 있어 근거 줄만 쓴다
-  assert.deepEqual(fieldHighlight(20, "증기압 : 20 mmHg (20℃)"), [{ text: "증기압 : 20 mmHg (20℃)" }]);
+test("칸 근거: 근거 줄 안에서 값이 한 번 나오면 값만, 아니면 쪽에 한 번뿐인 값, 그다음 근거 줄", () => {
+  assert.deepEqual(fieldHighlight("가상시 가상로 1", "회사명 : 가상화학"), [
+    { text: "회사명 : 가상화학", focus: "가상시 가상로 1" },
+    { text: "가상시 가상로 1", once: true },
+    { text: "회사명 : 가상화학" },
+  ]);
+  // 짧은 값은 쪽 전체에서 찾지 않고 근거 줄 안에서만 찾는다
+  assert.deepEqual(fieldHighlight(20, "증기압 : 20 mmHg"), [{ text: "증기압 : 20 mmHg", focus: "20" }, { text: "증기압 : 20 mmHg" }]);
   assert.deepEqual(fieldHighlight(true, null), []);
   assert.deepEqual(fieldHighlight(null, "근거"), [{ text: "근거" }]);
 });
+
+test("근거 줄 안의 값만 강조한다. 같은 행의 다른 칸이 같은 근거 줄을 가리켜도 칸마다 다른 곳", () => {
+  const texts = ["가. 회사명 :", "가상화학", "주소 :", "가상시 가상로 1", "전화 :", "000-0000"];
+  const row = "가. 회사명 : 가상화학 주소 : 가상시 가상로 1 전화 : 000-0000";
+  assert.deepEqual(matchSpans(texts, fieldHighlight("가상화학", row)), [1]);
+  assert.deepEqual(matchSpans(texts, fieldHighlight("000-0000", row)), [5]);
+  // 근거 줄 안에 값이 두 번이면 어느 것인지 몰라 근거 줄 전체
+  assert.deepEqual(matchSpans(["값 10", "다른 10"], fieldHighlight("10", "값 10 다른 10")), [0, 1]);
+  // 근거 줄이 쪽에 여러 번이면 값이 든 쪽을 고른다
+  assert.deepEqual(matchSpans(["자료없음", "인화점", "자료없음", "-11 ℃"], fieldHighlight("-11 ℃", "인화점 자료없음 -11 ℃")), [3]);
+});
+
