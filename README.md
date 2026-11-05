@@ -8,7 +8,7 @@
 
 MSDS(물질안전보건자료) PDF → TO21 스키마 v0.6 JSON → 법 기준 정합성 판정 → 사람이 근거를 보고 확정
 
-### 🔗 [온프레미스 배포 데모 바로가기](https://8mypgoxr0il7mu-8080.proxy.runpod.net/)
+### 🔗 [온프레미스 배포 데모 바로가기](https://446x59zf7t5wa1-8080.proxy.runpod.net/)
 
 <sub>Apache · 앱 · DB · vLLM을 한 대의 GPU 서버에 올린 시연 서버입니다 (Basic 인증, 외부 API 없음)</sub>
 
