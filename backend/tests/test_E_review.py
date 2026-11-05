@@ -344,3 +344,21 @@ def test_retry_sets_aside_review_of_previous_run(api):
     assert client.post(f"/api/documents/{doc}/retry").status_code == 202
     assert store.load_review(doc)["fields"] == {}
     assert list((store.root / doc).glob("review.이전-*.json"))
+
+
+def test_review_after_handoff_republishes_with_reason(api, monkeypatch):
+    """판정으로 넘긴 뒤 칸·항을 검수하면 넘김을 새로 만들어 저장 화면의 '추출값 미검수'가 따라온다 (PostgreSQL 작업만)."""
+    from msds.api.routers.extract import review as review_router
+    client, store, doc = api
+    done(store, doc)
+    calls = []
+    monkeypatch.setattr(review_router, "republish", lambda request, doc_id, reason: calls.append((doc_id, reason)))
+    body = {"msds_index": 0, "path": "product.name", "reviewer": "김"}
+    assert client.put(f"/api/documents/{doc}/review/fields", json={**body, "action": "confirm"}).status_code == 200
+    assert client.put(f"/api/documents/{doc}/review/fields", json={**body, "action": "edit", "value": "새 이름"}).status_code == 200
+    assert client.put(f"/api/documents/{doc}/review/sections",
+                      json={"msds_index": 0, "section": 3, "confirmed": True, "reviewer": "김"}).status_code == 200
+    assert calls == [(doc, "values_reviewed"), (doc, "value_edited"), (doc, "values_reviewed")]
+    # 실패한 요청은 넘기지 않는다
+    assert client.put(f"/api/documents/{doc}/review/fields", json={**body, "path": "nope", "action": "confirm"}).status_code == 404
+    assert len(calls) == 3

@@ -10,7 +10,7 @@ from pydantic import BaseModel, Field
 
 from msds.api.routers.extract.deps import get_state, result_paths
 from msds.checks.final_validation import summarize_checks, validate_document
-from msds.service.handoff import extraction_date, publish_handoff
+from msds.service.handoff import HandoffNotReady, extraction_date, publish_handoff, republish_handoff
 from msds.service.results import ResultNotReady, ResultStore
 
 router = APIRouter(tags=["storage"])
@@ -83,14 +83,28 @@ def stored_result(request: Request, doc_id: str):
     }
 
 
-def _publish(store, doc_id: str, reason: str) -> dict:
-    """저장된 결과를 실제 추출 날짜로 판정에 넘긴다."""
+def _as_of(store, doc_id: str) -> str:
+    """판정 기준일은 결과에 기록된 실제 추출 날짜다."""
     saved = ResultStore(store.dsn, schema=store.schema).get_active(doc_id)
     doc = saved.get("extraction") or {}
-    actual = (doc.get("doc", {}).get("extraction") or {}).get("extracted_at")
-    return publish_handoff(
-        store, doc_id, as_of=extraction_date(actual), reason=reason, schema=store.schema
-    )
+    return extraction_date((doc.get("doc", {}).get("extraction") or {}).get("extracted_at"))
+
+
+def _publish(store, doc_id: str, reason: str) -> dict:
+    """저장된 결과를 실제 추출 날짜로 판정에 넘긴다."""
+    return publish_handoff(store, doc_id, as_of=_as_of(store, doc_id), reason=reason, schema=store.schema)
+
+
+def republish(request: Request, doc_id: str, reason: str) -> None:
+    """판정으로 넘긴 문서를 더 검수했으면 넘김을 새로 만든다. 저장 화면의 처리 상태·추출값 검수 수가 판정 쪽 넘김에서 나온다.
+    검수 기록은 이미 저장됐으므로 넘김을 못 만들어도 요청은 성공으로 둔다(다음 검수나 '판정으로 넘기기'에서 다시 만든다)."""
+    store = request.app.state.store
+    if not hasattr(store, "dsn") or not hasattr(store, "schema"):
+        return
+    try:
+        republish_handoff(store, doc_id, as_of=_as_of(store, doc_id), reason=reason, schema=store.schema)
+    except (HandoffNotReady, ResultNotReady) as e:
+        print(f"넘김 다시 만들기 못 함 {doc_id}: {e}")
 
 
 class ToJudgment(BaseModel):
