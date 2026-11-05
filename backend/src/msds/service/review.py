@@ -11,6 +11,7 @@ import copy
 import re
 
 from msds.extract.inputs import EXTRACT_SECTIONS
+from msds.service.code_names import code_name, display_value
 
 SECTION_OF_ROOT = {"meta": 1, "product": 1, "companies": 1, "hazard": 2, "composition": 3, "components": 3,
                    "exposure_limits": 8, "physchem": 9, "toxicity": 11, "cmr": 11, "ecotox": 12, "waste": 15,
@@ -29,11 +30,44 @@ _LABEL = {"msds_no": "MSDS 번호", "doc_code": "문서 코드", "revision_no": 
           "upper_op": "상한 부등호", "value": "값", "unit": "단위", "approx": "약", "cond": "조건",
           "text_value": "값", "prop_code": "항목", "type": "종류", "signal_word": "신호어", "content_note": "함유량 비고",
           "content_basis": "함유량 기준", "trade_secret": "영업비밀", "approval_no": "승인번호",
-          "approval_expiry": "승인 기한", "read_across_cas": "유추 CAS"}
+          "approval_expiry": "승인 기한", "read_across_cas": "유사물질 참조 CAS",
+          # 이름은 TO21 추출스키마 v0.6 의 칸 설명을 따른다. 스키마 키가 화면에 그대로 보이지 않게 한다
+          "department": "담당부서", "postcode": "우편번호", "site": "사업장명", "hours": "운영시간",
+          "use_category_code": "용도분류 코드", "classified": "분류 해당 여부", "group": "유해성 구분",
+          "class_code": "분류", "category": "구분", "effect": "영향 구분", "route_form": "노출 형태",
+          "target_organs": "표적장기", "other_hazards": "기타 유해성", "health": "NFPA 보건", "fire": "NFPA 화재",
+          "reactivity": "NFPA 반응성", "special": "NFPA 특수", "no_hazardous_component": "유해성분 미함유 표기",
+          "standard": "기준 출처", "limit_type": "기준 종류", "kr_basis": "국내 기준 구분", "form": "입자 형태",
+          "notations": "표기", "bio_determinant": "지표 물질", "bio_medium": "시료 매체", "bio_timing": "채취 시기",
+          "temp": "측정 온도", "temp_unit": "온도 단위", "method": "측정 방법", "reference": "기준 물질",
+          "pressure": "압력", "pressure_unit": "압력 단위", "conc_value": "농도", "conc_unit": "농도 단위",
+          "descriptor": "지표", "species": "시험종", "sex": "성별", "duration_value": "노출 시간",
+          "duration_unit": "노출 시간 단위", "physical_form": "흡입 형태", "guideline": "시험 지침",
+          "exposure_type": "노출 형태", "classification": "분류 결과", "converted": "환산값",
+          "mode": "운송 규정", "regulated": "운송 규제 해당", "un_no": "유엔 번호", "shipping_name": "적정 선적명",
+          "hazard_class": "위험성 등급", "sub_risk": "부위험성", "packing_group": "용기등급",
+          "marine_pollutant": "해양오염물질", "ems_fire": "화재 비상조치(EmS)", "ems_spill": "유출 비상조치(EmS)",
+          "basis_raw": "적용 규정 원문", "law": "법령", "item_raw": "규제 항목", "applicable": "해당 여부",
+          "remark": "부가 표기", "country": "국가", "sub_class": "세부 구분", "value_raw": "값 원문",
+          "item": "품명", "water_soluble": "수용성 구분", "grade": "위험등급", "designated": "지정폐기물",
+          "waste_type": "폐기물 종류", "class_raw": "분류 표기", "h_code": "H 코드", "agency": "분류 기관·법령",
+          "mark": "각주 기호", "page_start": "시작 페이지", "page_end": "끝 페이지"}
+# 같은 키라도 놓인 자리(바로 위 키)에 따라 이름이 다르다
+_CONTEXT_LABEL = {("contacts", "type"): "연락처 종류", ("contacts", "value"): "연락처", ("composition", "type"): "물질 구분",
+                  ("p_statements", "type"): "P 유형", ("h_statements", "code"): "H 코드", ("p_statements", "code"): "P 코드",
+                  ("pictograms", "code"): "그림문자 코드", ("product", "code"): "제품 코드", ("h_statements", "system"): "코드 체계",
+                  ("intl_class", "system"): "분류 체계", ("toxicity", "endpoint"): "독성 항목", ("ecotox", "endpoint"): "생태 항목",
+                  ("dangerous_goods", "class"): "위험물 류별", ("cmr", "class"): "분류 등급", ("cmr", "hazard"): "유해성",
+                  ("companies", "role"): "회사 구분"}
+# 값 묶음: 묶음 이름을 앞에 붙인다. 값 자체는 묶음 이름으로
+_BLOCK_LABEL = {"content": "함유량", "cycle": "측정·진단 주기", "qty": "규제 수량", "qty_alt": "규제 수량(병기)",
+                "threshold": "기준 농도", "designated_qty": "지정수량"}
+_BULLET = re.compile(r"^[\s○〇●•·ㆍ\-*]+")
 _ROOT_TITLE = {"meta": "문서 정보", "product": "제품", "companies": "회사", "hazard": "분류와 표지", "composition": "구성",
                "components": "성분", "exposure_limits": "노출 기준", "physchem": "물리화학적 특성", "toxicity": "독성",
                "cmr": "발암성 등", "ecotox": "환경 영향", "waste": "폐기", "transport": "운송",
-               "dangerous_goods": "위험물", "regulations": "규제", "intl_class": "국제 분류"}
+               "dangerous_goods": "위험물", "regulations": "규제", "intl_class": "국제 분류",
+               "narratives": "서술", "extras": "기타 항목"}
 _GROUP_KEYS = ("title_raw", "name", "prop_code", "item_code", "law_code", "item", "code")
 _TOKEN = re.compile(r"([^.\[\]]+)|\[(\d+)\]")
 
@@ -154,21 +188,36 @@ def _walk(value, path: str):
         yield path, value
 
 
+def _statement_key(key) -> str | None:
+    """원문 '〇 | 금지물질 | :' 같은 키에서 표 칸 구분·글머리를 뺀 이름."""
+    text = " ".join(re.sub(r"[|:]", " ", key or "").split())
+    return _BULLET.sub("", text) or None
+
+
 def _label(msds: dict, path: str) -> str:
     leaf = _parts(path)
     if len(leaf) >= 3 and leaf[-1] == "value" and leaf[-3] == "statements":
         statement = _get(msds, path.rsplit(".", 1)[0])
-        return statement.get("key") or "문장"
-    name = next((p for p in reversed(leaf) if isinstance(p, str)), path)
-    label = _LABEL.get(name, name)
-    return f"{_LABEL[leaf[-3]]} {label}" if len(leaf) >= 3 and isinstance(leaf[-3], str) and leaf[-3] in _LABEL else label
+        return _statement_key(statement.get("key")) or "문장"
+    names = [p for p in leaf if isinstance(p, str)]
+    name = names[-1] if names else path
+    container = names[-2] if len(names) >= 2 else None
+    if (container, name) in _CONTEXT_LABEL:
+        return _CONTEXT_LABEL[(container, name)]
+    if container in _BLOCK_LABEL:
+        block = _BLOCK_LABEL[container]
+        return block if name == "value" else f"{block} {_LABEL.get(name, name)}"
+    return _LABEL.get(name, name)
 
 
-def _group_title(item, fallback: str) -> str:
+def _group_title(root: str, item, fallback: str) -> str:
     if isinstance(item, dict):
+        if root in ("toxicity", "ecotox") and item.get("endpoint"):
+            title = code_name(item["endpoint"]) or str(item["endpoint"])
+            return f"{title} · {item['descriptor']}" if item.get("descriptor") else title
         for k in _GROUP_KEYS:
             if item.get(k):
-                return str(item[k])
+                return code_name(item[k]) or str(item[k])
     return fallback
 
 
@@ -212,14 +261,15 @@ def build_view(doc: dict, checks: dict, state_sections: list[dict], record: dict
                 if no not in sections:
                     continue
                 base = f"{root}[{index}]" if index is not None else root
-                group = sections[no]["groups"].setdefault(base, {"path": base, "title": _group_title(item, _ROOT_TITLE.get(root, root)), "fields": []})
+                group = sections[no]["groups"].setdefault(base, {"path": base, "title": _group_title(root, item, _ROOT_TITLE.get(root, root)), "fields": []})
                 for path, value in _walk(item, base):
                     rec = record["fields"].get(_field_key(i, path), {})
                     ev = _evidence_for(evidence, path) or {}
                     full = f"msds[{i}].{path}"
+                    shown = rec["value"] if rec.get("state") == "edited" else value
                     group["fields"].append({
-                        "path": path, "label": _label(msds, path),
-                        "value": rec["value"] if rec.get("state") == "edited" else value,
+                        "path": path, "label": _label(msds, path), "value": shown,
+                        "display": display_value(path.rsplit(".", 1)[-1], shown),
                         "original": rec.get("original"), "state": rec.get("state", "unchecked"),
                         "reviewer": rec.get("reviewer"), "at": rec.get("at"),
                         "page": ev.get("page"), "source_text": ev.get("source_text"),

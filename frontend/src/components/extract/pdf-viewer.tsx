@@ -11,7 +11,7 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState, type Pointer
 import { pdfUrl } from "@/api/documents";
 import { Button, Skeleton } from "@/components/ui";
 import { cn } from "@/lib/cn";
-import { CSS_UNITS, clampScale, matchSpans, resolveScale, stepScale, scrollWithin, zoomPercent, type Zoom } from "@/lib/viewer";
+import { CSS_UNITS, clampScale, matchSpans, resolveScale, stepScale, scrollWithin, zoomPercent, type Highlight, type Zoom } from "@/lib/viewer";
 
 const ASSETS = "/pdfjs";
 const PAD = 16;
@@ -56,7 +56,7 @@ export function PdfViewer({
   onPage: (page: number) => void;
   /** PDF를 연 뒤 전체 쪽 수 */
   onPages?: (total: number) => void;
-  highlight?: string | null;
+  highlight?: Highlight;
   className?: string;
 }) {
   const [pdf, setPdf] = useState<PDFDocumentProxy | null>(null);
@@ -65,6 +65,8 @@ export function PdfViewer({
   const [zoom, setZoomState] = useState<Zoom>(lastZoom);
   const [box, setBox] = useState({ width: 0, height: 0 });
   const [drawn, setDrawn] = useState(0);
+  // 근거를 받았는데 원본 PDF 글자 층에서 못 찾음 (글꼴이 깨진 PDF·스캔본 등)
+  const [missed, setMissed] = useState(false);
   const scroller = useRef<HTMLDivElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
   const textLayer = useRef<HTMLDivElement>(null);
@@ -190,7 +192,8 @@ export function PdfViewer({
       highlight,
     ).map((i) => spans[i]);
     hits.forEach((s) => s.classList.add("hit"));
-    const key = `${current?.no}|${highlight ?? ""}`;
+    setMissed(hits.length === 0 && (typeof highlight === "string" ? highlight.trim() !== "" : (highlight?.length ?? 0) > 0));
+    const key = `${current?.no}|${JSON.stringify(highlight ?? null)}`;
     if (hits[0] && scroller.current && scrolledTo.current !== key) scrollWithin(scroller.current, hits[0], "center");
     scrolledTo.current = key;
   }, [drawn, highlight, current]);
@@ -295,6 +298,11 @@ export function PdfViewer({
           새 창에서 열기 ↗
         </a>
       </div>
+      {missed && (
+        <p role="status" className="m-0 text-sm text-amb-text">
+          원본 PDF에서 이 값의 위치를 찾지 못했습니다. 위의 &quot;추출 텍스트&quot;에서 확인해 주세요.
+        </p>
+      )}
       <div
         ref={scroller}
         tabIndex={0}

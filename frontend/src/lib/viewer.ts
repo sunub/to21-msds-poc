@@ -38,13 +38,19 @@ export function resolveScale(
   return clampScale(Math.min(byWidth, (box.height - pad * 2) / page.height));
 }
 
+/** 강조할 글. 앞에서부터 찾아 처음 걸린 것을 쓴다. once: 쪽에 한 번만 나올 때만 쓴다(짧은 값이 여러 곳에 걸리지 않게) */
+export type HighlightPart = { text: string; once?: boolean };
+export type Highlight = string | readonly HighlightPart[] | null | undefined;
+
 /**
- * 근거 글이 걸친 글 조각 번호. 공백은 무시하고 쪽 글 전체에서 찾는다.
- * 근거 전체가 없으면 줄마다 다시 찾는다 (근거가 여러 줄을 이어 붙인 글일 때). 한 글자짜리는 찾지 않는다.
+ * 근거 글이 걸친 글 조각 번호. 공백과 표 칸 구분(|)은 무시하고 쪽 글 전체에서 찾는다.
+ * 전처리 글은 표 칸 사이에 | 를 넣지만 원본 PDF의 글자 층에는 없다.
+ * 근거 전체가 없으면 줄·칸마다 다시 찾는다 (근거가 여러 줄이나 칸을 이어 붙인 글일 때). 한 글자짜리는 찾지 않는다.
  */
-export function matchSpans(texts: string[], highlight: string | null | undefined): number[] {
+export function matchSpans(texts: string[], highlight: Highlight): number[] {
   if (!highlight) return [];
-  const squash = (s: string) => s.replace(/\s+/g, "");
+  const parts: readonly HighlightPart[] = typeof highlight === "string" ? [{ text: highlight }] : highlight;
+  const squash = (s: string) => s.replace(/[\s|]+/g, "");
   const starts: number[] = [];
   let joined = "";
   for (const t of texts) {
@@ -53,8 +59,10 @@ export function matchSpans(texts: string[], highlight: string | null | undefined
   }
   const find = (needle: string) => {
     const hits = new Set<number>();
-    if (needle.length < 2) return hits;
+    let count = 0;
+    if (needle.length < 2) return { hits, count };
     for (let at = joined.indexOf(needle); at >= 0; at = joined.indexOf(needle, at + 1)) {
+      count += 1;
       const end = at + needle.length;
       texts.forEach((_, i) => {
         const s = starts[i];
@@ -62,13 +70,33 @@ export function matchSpans(texts: string[], highlight: string | null | undefined
         if (e > s && s < end && e > at) hits.add(i);
       });
     }
-    return hits;
+    return { hits, count };
   };
-  let hits = find(squash(highlight));
-  if (hits.size === 0) {
-    hits = new Set(highlight.split(/\n+/).flatMap((line) => [...find(squash(line))]));
+  for (const part of parts) {
+    const whole = find(squash(part.text));
+    if (part.once) {
+      if (whole.count === 1) return [...whole.hits].sort((a, b) => a - b);
+      continue;
+    }
+    let hits = whole.hits;
+    if (hits.size === 0) {
+      hits = new Set(part.text.split(/[\n|]+/).flatMap((piece) => [...find(squash(piece)).hits]));
+    }
+    if (hits.size > 0) return [...hits].sort((a, b) => a - b);
   }
-  return [...hits].sort((a, b) => a - b);
+  return [];
+}
+
+/**
+ * 추출값 칸의 근거 강조. 근거 줄은 칸이 아니라 행(회사·성분 한 건) 단위라 같은 행의 칸이 모두 같은 줄을 가리킨다.
+ * 그래서 값 자체가 쪽에 한 번만 나오면 값을 강조하고, 아니면 근거 줄을 강조한다. 짧은 값은 우연히 걸리므로 쓰지 않는다.
+ */
+export function fieldHighlight(value: string | number | boolean | null, sourceText: string | null): HighlightPart[] {
+  const parts: HighlightPart[] = [];
+  const text = typeof value === "string" ? value.trim() : "";
+  if (text.replace(/\s+/g, "").length >= 4) parts.push({ text, once: true });
+  if (sourceText) parts.push({ text: sourceText });
+  return parts;
 }
 
 /** 쪽 번호 입력 → 범위 안의 쪽. 숫자가 아니면 null */
