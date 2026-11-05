@@ -150,6 +150,23 @@ def test_edit_revalidates_new_value_and_preserves_original(sample, monkeypatch):
     assert payload['field_status'] == [{'msds_index': 0, 'field': 'product.name', 'status': '수정됨'}]
 
 
+def test_section_confirmation_marks_its_fields_confirmed(sample, monkeypatch):
+    """항 확인을 누르면 그 항의 칸은 확인한 것이다. 검수 화면(build_view)과 같은 기준으로 센다."""
+    monkeypatch.setattr(handoff, 'validate_to21', lambda value: [])
+    monkeypatch.setattr(handoff, 'run_to21_validator', lambda value: [])
+    sample['extraction']['msds'][0]['product'].update(uses=['산업용', '시험용'])
+    record = sample['review_record']
+    review.set_field(record, sample['extraction'], 0, 'product.uses[0]', 'edit', '고친 용도', 'r', sample['created_at'])
+    review.set_section(record, 0, 1, True, 'r', sample['created_at'])
+    payload = handoff.build_handoff(**{**sample, 'review_record': record})
+    assert payload['field_status'] == [
+        {'msds_index': 0, 'field': 'product.name', 'status': '확인함'},
+        {'msds_index': 0, 'field': 'product.uses[0]', 'status': '수정됨'},
+        {'msds_index': 0, 'field': 'product.uses[1]', 'status': '확인함'},
+    ]
+    assert payload['fields_total'] == len(payload['field_status']) == 3
+
+
 def test_fields_total_counts_reviewable_fields_across_msds(sample):
     first = sample['extraction']['msds'][0]
     first['product'].update(name_en='', uses=['산업용', '시험용'])
@@ -257,10 +274,21 @@ def test_real_database_serializes_handoff_sequence_and_preserves_rows(sample, tm
         assert all(value['field_status'] == [
             {'msds_index': 0, 'field': 'product.name', 'status': '확인함'},
         ] for value in values)
+        # 검수를 더 하면 넘김을 새로 만든다. 바뀐 것이 없으면 만들지 않는다
+        assert handoff.republish_handoff(store, job_id, as_of=sample['as_of'], reason='values_reviewed', schema=schema) is None
+        store.update_review(job_id, lambda record: review.set_field(
+            record, sample['extraction'], 0, 'product.name', 'reset', None, '검토자', '2026-11-03T12:01:00+09:00'))
+        again = handoff.republish_handoff(store, job_id, as_of=sample['as_of'], reason='values_reviewed', schema=schema)
+        assert again['handoff_seq'] == 3 and again['field_status'] == []
+        # 칸을 하나씩 누르지 않고 항만 확인해도 그 항의 칸은 확인함으로 넘어간다
+        store.update_review(job_id, lambda record: review.set_section(record, 0, 1, True, '검토자', '2026-11-03T12:02:00+09:00'))
+        last = handoff.republish_handoff(store, job_id, as_of=sample['as_of'], reason='values_reviewed', schema=schema)
+        assert last['handoff_seq'] == 4 and last['field_status'] == [{'msds_index': 0, 'field': 'product.name', 'status': '확인함'}]
+        assert handoff.republish_handoff(store, job_id, as_of=sample['as_of'], reason='values_reviewed', schema=schema) is None
         with psycopg.connect(dsn) as db:
             rows = db.execute(sql.SQL('SELECT handoff_seq, extraction_sha256, payload_json FROM {} ORDER BY handoff_seq')
                               .format(sql.Identifier(schema, 'handoff'))).fetchall()
-            assert len(rows) == 2 and rows[0][1] == rows[1][1]
+            assert len(rows) == 4 and len({row[1] for row in rows}) == 1
             assert all(row[2]['fields_total'] == 1 for row in rows)
             with pytest.raises(psycopg.Error) as exc:
                 db.execute(sql.SQL('DELETE FROM {}').format(sql.Identifier(schema, 'handoff')))
