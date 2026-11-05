@@ -34,7 +34,7 @@ MSDS(물질안전보건자료) PDF → TO21 스키마 v0.6 JSON → 법 기준 �
 
 | <a href="https://github.com/sunub"><img src="https://github.com/sunub.png?size=160" width="110" alt="sunub"></a> | <a href="https://github.com/steve0joo"><img src="https://github.com/steve0joo.png?size=160" width="110" alt="steve0joo"></a> | <a href="https://github.com/azeroo0"><img src="https://github.com/azeroo0.png?size=160" width="110" alt="azeroo0"></a> | <a href="https://github.com/nnieun"><img src="https://github.com/nnieun.png?size=160" width="110" alt="nnieun"></a> | <a href="https://github.com/HwangSoon96"><img src="https://github.com/HwangSoon96.png?size=160" width="110" alt="HwangSoon96"></a> | <a href="https://github.com/JINI1018"><img src="https://github.com/JINI1018.png?size=160" width="110" alt="JINI1018"></a> |
 |:-:|:-:|:-:|:-:|:-:|:-:|
-| **최정민<br>(팀장)** | **주세환** | **윤아영** | **김나경** | **황태순** | **김우진** |
+| **최정민<br>(팀장)** | **주세환** | **윤아영** | **김나경** | **최태순** | **김우진** |
 | [@sunub](https://github.com/sunub) | [@steve0joo](https://github.com/steve0joo) | [@azeroo0](https://github.com/azeroo0) | [@nnieun](https://github.com/nnieun) | [@HwangSoon96](https://github.com/HwangSoon96) | [@JINI1018](https://github.com/JINI1018) |
 | <sub>전처리·OCR<br>추출<br>프론트엔드</sub> | <sub>추출<br>모델·평가<br>파인튜닝</sub> | <sub>PM<br>프론트엔드<br>정합성 엔진</sub> | <sub>전처리·OCR<br>추출 백엔드<br>문서·데이터</sub> | <sub>온프레미스 배포<br>정합성 백엔드<br>문서·데이터</sub> | <sub>PM<br>정합성 엔진<br>모델·평가<br>파인튜닝</sub> |
 
@@ -90,7 +90,7 @@ MSDS는 화학제품을 거래할 때 반드시 따라붙는 문서입니다. �
 | | 기업이 겪는 문제 | 해결 방법 | 맡는 쪽 |
 |:-:|---|---|:-:|
 | 1 | **형식이 제각각입니다.** 같은 국가의 문서라도 표와 문단 배치가 회사마다 달라 사람이 읽고 옮겨 적어야 합니다. | 제각각인 PDF에서 값을 TO21 스키마로 옮기고, 값마다 **근거 줄**을 남깁니다. 스캔본과 글자 깨진 PDF는 OCR과 표 복원으로 읽습니다. | AI |
-| 2 | **오류가 항 사이에 숨어 있습니다.** 2항의 분류와 3항의 함량이 안 맞거나, 11항 독성 자료가 2항과 모순됩니다. | 3항의 성분·함량과 지식DB로 **혼합물 분류를 계산**해 2항 기재와 대조하고, 15항 규제 해당 여부도 계산해 비교합니다. | 규칙 엔진 |
+| 2 | **오류가 항 사이에 숨어 있습니다.** 2항의 분류와 3항의 함량이 안 맞거나, 11항 독성 자료가 2항과 모순됩니다. | 3항의 성분·함량과 지식DB로 **혼합물 분류를 계산**해 2항 기재와 대조하고 15항 규제 해당 여부도 계산해 비교합니다. | 규칙 엔진 |
 | 3 | **가장 위험한 건 과소분류입니다.** 위험성을 실제보다 낮게 적은 문서를 놓치면 사용하는 기업에 큰 문제가 생깁니다. | 결과를 일치·불일치·경계·근거부족으로 나누고, **과소분류와 규제 누락은 심각도를 높게** 줘서 먼저 올립니다. | 규칙 엔진 |
 | 4 | **법령은 개정됩니다.** 어느 시점의 기준으로 검증했는지 관리해야 합니다. | 판정마다 **적용한 규칙과 지식DB 버전**을 남깁니다. 규칙표 확정, 지식DB 버전 승인, 법령 개정 반영은 사람이 합니다. | 규칙 엔진 + 사람 |
 | 5 | **범용 AI는 믿고 맡기기 어렵습니다.** 같은 질문에도 답이 달라지고 원문에 없는 값을 지어내며, 국내 법령 검증에 최적화되어 있지 않습니다. | AI는 **읽고 설명만** 하고 유해 여부는 정하지 않습니다. 판정은 규칙 엔진이 내서 같은 입력이면 같은 결과가 나옵니다. | AI + 규칙 엔진 |
