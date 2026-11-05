@@ -1467,6 +1467,20 @@ def test_승인_뒤_의견이_승인_사유와_처리자를_지우지_않는다(
     assert [r["comment"] for r in svc.history(JOB)] == ["메모", "공급사 확인"]
 
 
+def test_의견을_여러_번_더하면_모두_줄_상태에_쌓인다(svc, put, gold25):
+    put(handoff(gold25))
+    svc.drain()
+    svc.add_review(JOB, FID, "의견", "처음 메모", "김검수", 1)
+    svc.add_review(JOB, FID, "예외 승인", "공급사 확인", "김검수", 1)
+    svc.add_review(JOB, FID, "의견", "두 번째 메모", "이검수", 1)
+    s = svc.add_review(JOB, FID, "의견", "세 번째 메모", "박검수", 1)
+    assert [(n["comment"], n["reviewer"]) for n in s["notes"]] == [
+        ("처음 메모", "김검수"), ("두 번째 메모", "이검수"), ("세 번째 메모", "박검수")]
+    assert all(n["at"] for n in s["notes"])
+    assert svc.view(JOB)["reviews"][FID]["notes"] == s["notes"]
+    assert (s["status"], s["comment"]) == ("예외 승인", "공급사 확인")
+
+
 def _pdf_text(content):
     return "".join("".join(page.get_text().split()) for page in pymupdf.open(stream=content, filetype="pdf"))
 

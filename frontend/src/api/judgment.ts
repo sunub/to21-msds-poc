@@ -64,6 +64,8 @@ const reviewStateSchema = z.object({
   stale: z.boolean(),
   /** 이 줄의 마지막 처리 번호. 처리할 때 그대로 돌려보내 다른 검토자의 처리를 모르고 덮지 않게 한다 */
   last_event_id: z.number().nullable().optional(),
+  /** 이 줄에 더한 의견 전부(오래된 것부터). 처리 상태와 comment 는 바꾸지 않는다 */
+  notes: z.array(z.object({ comment: z.string().nullable(), reviewer: z.string().nullable(), at: z.string().nullable() })),
 });
 
 const displaySchema = z.object({
