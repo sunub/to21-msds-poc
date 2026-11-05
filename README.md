@@ -191,6 +191,14 @@ AI는 읽고 설명만 하고, 판정은 규칙 엔진이 내고, 확정은 사�
 - Docker를 못 쓰는 RunPod Pod에서는 compose 대신 `deploy/runpod/app/` 방식으로 같은 구성을 venv와 프로세스로 한 Pod 안에 올립니다(포트만 vLLM 8000, 글자추출 API 8001, PostgreSQL 5433으로 다릅니다).
 - 그림 원본은 [docs/images/](docs/images)의 SVG입니다.
 
+### 배포 구성 (RunPod Pod 한 대)
+
+시연 서버는 RunPod Pod 한 대에 Apache, 앱, 글자추출 API·OCR 워커, vLLM, PostgreSQL을 모두 올린 구성입니다. GPU 한 장을 vLLM(72%)과 OCR 워커가 나눠 쓰고, 모델 호출은 Pod 안(127.0.0.1)에서만 일어납니다.
+
+<p align="center">
+  <img src="docs/images/deployment.png" alt="배포 구성: RunPod Pod 한 대 안의 Apache, app, 글자추출 API, OCR 워커, vLLM, PostgreSQL과 GPU 공유" width="100%">
+</p>
+
 ### 코드 구조
 
 <details>
