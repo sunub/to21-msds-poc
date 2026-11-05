@@ -348,6 +348,8 @@ export const reviewFieldSchema = z.object({
   label: z.string(),
   /** 지금 값 (고쳤으면 고친 값) */
   value: reviewValue,
+  /** 화면에 보일 값. 코드·참거짓을 말로 바꾼 것 (예: TX_ORAL → 급성 독성(경구)). 그대로 보이면 되는 칸은 null */
+  display: z.string().nullable(),
   /** 고치기 전 값. 고치지 않았으면 null */
   original: reviewValue,
   state: z.enum(["unchecked", "confirmed", "edited"]),

@@ -6,7 +6,7 @@ import { pageLinesQuery } from "@/api/documents";
 import type { DocumentDetail } from "@/api/schemas";
 import { Button, Paper, PillTabs, Progress, Skeleton, Spinner } from "@/components/ui";
 import { cn } from "@/lib/cn";
-import { parsePage, scrollWithin } from "@/lib/viewer";
+import { matchSpans, parsePage, scrollWithin, type Highlight } from "@/lib/viewer";
 import { PdfViewer } from "./pdf-viewer";
 
 type Mode = "pdf" | "text";
@@ -30,7 +30,7 @@ export function SourceViewer({
   page: number;
   onPage: (page: number) => void;
   /** 근거 글. 이 글이 들어 있는 곳을 강조한다 (근거에 줄 번호가 없어 글로 찾으므로 같은 글이 여러 곳이면 모두 강조된다) */
-  highlight?: string | null;
+  highlight?: Highlight;
   className?: string;
   /** 제목과 원문 사이에 넣을 쪽 이동, 안내 */
   children?: ReactNode;
@@ -109,7 +109,7 @@ function PageNav({ page, total, onPage }: { page: number; total: number; onPage:
 }
 
 /** 전처리에서 읽은 쪽 글. 전처리가 끝나기 전에는 진행만 보여 준다 */
-function ExtractedText({ doc, page, total, highlight }: { doc: DocumentDetail; page: number; total: number; highlight?: string | null }) {
+function ExtractedText({ doc, page, total, highlight }: { doc: DocumentDetail; page: number; total: number; highlight?: Highlight }) {
   const box = useRef<HTMLDivElement>(null);
   if (page > doc.preprocess.done) {
     return (
@@ -144,7 +144,7 @@ function PageLines({
 }: {
   id: string;
   page: number;
-  highlight?: string | null;
+  highlight?: Highlight;
   /** 스크롤할 칸. 바깥 본문은 움직이지 않는다 */
   box: RefObject<HTMLDivElement | null>;
 }) {
@@ -163,14 +163,16 @@ function PageLines({
     );
   }
   if (isError) return <p className="text-mut">이 페이지의 텍스트를 읽지 못했습니다.</p>;
-  const isHit = (text: string) => !!highlight && text.trim().length > 1 && highlight.includes(text.trim());
-  const first = data.lines.find((l) => isHit(l.text))?.id;
+  // 원본 PDF 보기와 같은 규칙으로 찾는다 (lib/viewer matchSpans)
+  const hits = new Set(matchSpans(data.lines.map((l) => l.text), highlight).map((i) => data.lines[i].id));
+  const isHit = (line: { id: string }) => hits.has(line.id);
+  const first = data.lines.find(isHit)?.id;
   return data.lines.map((line) => (
     <p
       key={line.id}
       ref={line.id === first ? firstHit : undefined}
       data-line-id={line.id}
-      className={cn(isHit(line.text) && "bg-sel")}
+      className={cn(isHit(line) && "bg-sel")}
     >
       {line.text}
     </p>

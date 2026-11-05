@@ -14,6 +14,7 @@ import { cn } from "@/lib/cn";
 import { describeProblem } from "@/lib/problem-text";
 import { setReviewer, useReviewer } from "@/lib/reviewer";
 import { routes } from "@/lib/routes";
+import { fieldHighlight, type Highlight } from "@/lib/viewer";
 
 /**
  * 쓰기 하나의 공통 처리. 같은 문서의 쓰기는 scope 로 차례로 보낸다 (늦게 온 응답이 새 값을 덮지 않게).
@@ -53,11 +54,11 @@ function Values({ doc }: { doc: DocumentDetail }) {
   const { data, isPending, isError, error, refetch } = useQuery(reviewQuery(doc.id));
   const reviewer = useReviewer();
   const [page, setPage] = usePageParam();
-  const [evidence, setEvidence] = useState<string | null>(null);
+  const [evidence, setEvidence] = useState<Highlight>(null);
   const [open, setOpen] = useState<string | null>(null);
 
   const showSource = useCallback(
-    (nextPage: number | null, text: string | null) => {
+    (nextPage: number | null, text: Highlight) => {
       if (nextPage) setPage(nextPage);
       setEvidence(text);
     },
@@ -152,7 +153,7 @@ function SectionBlock({
   open: boolean;
   reviewer: string;
   onToggle: () => void;
-  onSource: (page: number | null, text: string | null) => void;
+  onSource: (page: number | null, text: Highlight) => void;
 }) {
   const confirm = useReviewWrite(docId, (body: SectionReviewRequest) => saveSectionReview(docId, body));
   const { tone, label } = sectionTone(section, open);
@@ -226,7 +227,7 @@ function Problems({
 }: {
   docId: string;
   problems: string[];
-  onSource: (page: number | null, text: string | null) => void;
+  onSource: (page: number | null, text: Highlight) => void;
 }) {
   const [all, setAll] = useState(false);
   const [open, setOpen] = useState<number[]>([]);
@@ -280,7 +281,7 @@ function SourceLines({
   docId: string;
   page: number;
   line: number | null;
-  onSource: (page: number | null, text: string | null) => void;
+  onSource: (page: number | null, text: Highlight) => void;
 }) {
   const { data, isPending, isError } = useQuery(pageLinesQuery(docId, page));
   if (isPending) return <p className="m-0 mt-1 text-xs text-mut">원문을 불러오는 중</p>;
@@ -313,7 +314,7 @@ const FieldRow = memo(function FieldRow({
   msdsIndex: number;
   field: ReviewField;
   reviewer: string;
-  onSource: (page: number | null, text: string | null) => void;
+  onSource: (page: number | null, text: Highlight) => void;
 }) {
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState("");
@@ -326,10 +327,10 @@ const FieldRow = memo(function FieldRow({
       <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
         <span className="w-32 flex-none text-sm break-words text-mut">{field.label}</span>
         <span className="min-w-0 flex-1 basis-40 text-sm break-words">
-          {field.value === null ? <span className="text-mut">값 없음</span> : String(field.value)}
+          {field.value === null ? <span className="text-mut">값 없음</span> : (field.display ?? String(field.value))}
         </span>
         {field.page !== null && (
-          <Button variant="link" className="min-h-0 text-sm" onClick={() => onSource(field.page, field.source_text)}>
+          <Button variant="link" className="min-h-0 text-sm" onClick={() => onSource(field.page, fieldHighlight(field.value, field.source_text))}>
             원문 {field.page}페이지
           </Button>
         )}
