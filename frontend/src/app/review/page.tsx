@@ -1,7 +1,9 @@
 "use client";
 
+import { useQueryClient } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
+import { saveOverviewQuery } from "@/api/save";
 import { ComponentsTab } from "@/components/review/components/components-tab";
 import { HazardTab } from "@/components/review/hazard/hazard-tab";
 import { HistoryTab } from "@/components/review/history/history-tab";
@@ -18,6 +20,20 @@ function ReviewBody({ doc }: { doc: string }) {
   const param = useSearchParams().get("tab");
   const tab: ReviewTab = isReviewTab(param) ? param : "hazard";
   const [guardOpen, setGuardOpen] = useState(false);
+  const client = useQueryClient();
+  // 저장하기: 방금 누른 처리가 아직 서버로 가는 중이거나 화면 판정이 다시 받기 전이면 화면의 건수가 지난 값이다.
+  // 처리 요청이 끝나기를 기다린 뒤 서버(save-overview)의 미검토 수로 정한다. 서버를 못 부르면 화면 건수로 정한다
+  const goSave = async (shown: number) => {
+    let unreviewed = shown;
+    try {
+      for (let waited = 0; client.isMutating() > 0 && waited < 15_000; waited += 100) await new Promise((r) => setTimeout(r, 100));
+      unreviewed = (await client.fetchQuery(saveOverviewQuery(doc))).reviews.unreviewed_ids.length;
+    } catch {
+      // 화면 건수를 쓴다
+    }
+    if (unreviewed > 0) setGuardOpen(true);
+    else router.push(routes.save(doc));
+  };
   // 2항·15항 의견 초안은 다른 탭을 보고 돌아와도 남도록 탭 바깥에 둔다
   const [regulationDrafts, setRegulationDrafts] = useState<Record<string, string>>({});
 
@@ -36,15 +52,15 @@ function ReviewBody({ doc }: { doc: string }) {
       {tab === "values" ? (
         <ValuesPanel docId={doc} />
       ) : tab === "components" ? (
-        <ComponentsTab docId={doc} onSave={(unreviewed) => (unreviewed > 0 ? setGuardOpen(true) : router.push(routes.save(doc)))} />
+        <ComponentsTab docId={doc} onSave={(unreviewed) => void goSave(unreviewed)} />
       ) : tab === "history" ? (
-        <HistoryTab docId={doc} onSave={(unreviewed) => (unreviewed > 0 ? setGuardOpen(true) : router.push(routes.save(doc)))} />
+        <HistoryTab docId={doc} onSave={(unreviewed) => void goSave(unreviewed)} />
       ) : tab === "regulation" ? (
         <RegulationTab
           docId={doc}
           drafts={regulationDrafts}
           onDraft={(id, text) => setRegulationDrafts((prev) => ({ ...prev, [id]: text }))}
-          onSave={(unreviewed) => (unreviewed > 0 ? setGuardOpen(true) : router.push(routes.save(doc)))}
+          onSave={(unreviewed) => void goSave(unreviewed)}
         />
       ) : (
         <HazardTab
