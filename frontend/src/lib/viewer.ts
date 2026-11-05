@@ -38,9 +38,15 @@ export function resolveScale(
   return clampScale(Math.min(byWidth, (box.height - pad * 2) / page.height));
 }
 
-/** 강조할 글. 앞에서부터 찾아 처음 걸린 것을 쓴다. once: 쪽에 한 번만 나올 때만 쓴다(짧은 값이 여러 곳에 걸리지 않게) */
-export type HighlightPart = { text: string; once?: boolean };
+/**
+ * 강조할 글. 앞에서부터 찾아 처음 걸린 것을 쓴다.
+ * once: 쪽에 한 번만 나올 때만 쓴다(짧은 값이 여러 곳에 걸리지 않게).
+ * focus: text(근거 줄)가 걸친 자리 안에서 focus가 꼭 한 번 나오면 그 자리만 쓴다. 아니면 이 항목은 건너뛴다.
+ */
+export type HighlightPart = { text: string; once?: boolean; focus?: string };
 export type Highlight = string | readonly HighlightPart[] | null | undefined;
+
+const squash = (s: string) => s.replace(/[\s|]+/g, "");
 
 /**
  * 근거 글이 걸친 글 조각 번호. 공백과 표 칸 구분(|)은 무시하고 쪽 글 전체에서 찾는다.
@@ -50,51 +56,67 @@ export type Highlight = string | readonly HighlightPart[] | null | undefined;
 export function matchSpans(texts: string[], highlight: Highlight): number[] {
   if (!highlight) return [];
   const parts: readonly HighlightPart[] = typeof highlight === "string" ? [{ text: highlight }] : highlight;
-  const squash = (s: string) => s.replace(/[\s|]+/g, "");
   const starts: number[] = [];
   let joined = "";
   for (const t of texts) {
     starts.push(joined.length);
     joined += squash(t);
   }
-  const find = (needle: string) => {
-    const hits = new Set<number>();
-    let count = 0;
-    if (needle.length < 2) return { hits, count };
-    for (let at = joined.indexOf(needle); at >= 0; at = joined.indexOf(needle, at + 1)) {
-      count += 1;
-      const end = at + needle.length;
-      texts.forEach((_, i) => {
-        const s = starts[i];
-        const e = i + 1 < starts.length ? starts[i + 1] : joined.length;
-        if (e > s && s < end && e > at) hits.add(i);
-      });
-    }
-    return { hits, count };
+  const spansOf = (at: number, end: number) =>
+    texts.flatMap((_, i) => {
+      const s = starts[i];
+      const e = i + 1 < starts.length ? starts[i + 1] : joined.length;
+      return e > s && s < end && e > at ? [i] : [];
+    });
+  /** needle 이 나오는 자리 [시작, 끝) 전부 */
+  const places = (needle: string) => {
+    const out: [number, number][] = [];
+    if (needle.length < 2) return out;
+    for (let at = joined.indexOf(needle); at >= 0; at = joined.indexOf(needle, at + 1)) out.push([at, at + needle.length]);
+    return out;
   };
+  /** 근거 글의 자리. 통째로 없으면 줄·칸마다 */
+  const evidencePlaces = (text: string) => {
+    const whole = places(squash(text));
+    return whole.length ? whole : text.split(/[\n|]+/).flatMap((piece) => places(squash(piece)));
+  };
+  const sorted = (xs: Iterable<number>) => [...new Set(xs)].sort((a, b) => a - b);
   for (const part of parts) {
-    const whole = find(squash(part.text));
-    if (part.once) {
-      if (whole.count === 1) return [...whole.hits].sort((a, b) => a - b);
+    if (part.focus !== undefined) {
+      const needle = squash(part.focus);
+      if (needle.length < 2) continue;
+      // 근거 자리마다 그 안에서 값이 꼭 한 번 나오는지 본다. 그런 자리가 하나뿐일 때만 쓴다
+      const found = evidencePlaces(part.text).flatMap(([at, end]) => {
+        const inside = places(needle).filter(([a, e]) => a >= at && e <= end);
+        return inside.length === 1 ? inside : [];
+      });
+      const unique = new Map(found.map(([a, e]) => [a, e]));
+      if (unique.size === 1) {
+        const [[a, e]] = unique;
+        return spansOf(a, e);
+      }
       continue;
     }
-    let hits = whole.hits;
-    if (hits.size === 0) {
-      hits = new Set(part.text.split(/[\n|]+/).flatMap((piece) => [...find(squash(piece)).hits]));
+    if (part.once) {
+      const at = places(squash(part.text));
+      if (at.length === 1) return spansOf(at[0][0], at[0][1]);
+      continue;
     }
-    if (hits.size > 0) return [...hits].sort((a, b) => a - b);
+    const hits = sorted(evidencePlaces(part.text).flatMap(([a, e]) => spansOf(a, e)));
+    if (hits.length) return hits;
   }
   return [];
 }
 
 /**
  * 추출값 칸의 근거 강조. 근거 줄은 칸이 아니라 행(회사·성분 한 건) 단위라 같은 행의 칸이 모두 같은 줄을 가리킨다.
- * 그래서 값 자체가 쪽에 한 번만 나오면 값을 강조하고, 아니면 근거 줄을 강조한다. 짧은 값은 우연히 걸리므로 쓰지 않는다.
+ * 그래서 근거 줄 안에서 값이 한 번 나오면 값만, 아니면 쪽에 한 번만 나오는 값(네 글자 이상), 그것도 아니면 근거 줄을 강조한다.
  */
 export function fieldHighlight(value: string | number | boolean | null, sourceText: string | null): HighlightPart[] {
+  const text = typeof value === "string" ? value.trim() : typeof value === "number" ? String(value) : "";
   const parts: HighlightPart[] = [];
-  const text = typeof value === "string" ? value.trim() : "";
-  if (text.replace(/\s+/g, "").length >= 4) parts.push({ text, once: true });
+  if (sourceText && squash(text).length >= 2) parts.push({ text: sourceText, focus: text });
+  if (typeof value === "string" && squash(text).length >= 4) parts.push({ text, once: true });
   if (sourceText) parts.push({ text: sourceText });
   return parts;
 }

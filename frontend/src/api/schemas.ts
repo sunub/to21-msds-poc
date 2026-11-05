@@ -262,6 +262,15 @@ export const pageLinesResponseSchema = z.object({
 });
 export type PageLinesResponse = z.infer<typeof pageLinesResponseSchema>;
 
+/** OCR로 읽은 쪽의 글과 자리. box는 쪽 이미지(width×height 픽셀) 기준 [x0, y0, x1, y1]. OCR 쪽이 아니면 items가 비어 있다 */
+export const pageBoxesResponseSchema = z.object({
+  page: pageNo,
+  width: z.number().nullable(),
+  height: z.number().nullable(),
+  items: z.array(z.object({ text: z.string(), box: z.tuple([z.number(), z.number(), z.number(), z.number()]) })),
+});
+export type PageBoxesResponse = z.infer<typeof pageBoxesResponseSchema>;
+
 /* ── 6. GET /api/documents/{id}/result ──────────────────── */
 
 export const sectionRefSchema = z.object({ msds_index: msdsIndex, section: sectionNo });

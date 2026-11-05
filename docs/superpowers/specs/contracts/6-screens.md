@@ -50,6 +50,7 @@
 |---|---|---|
 | 단계 n/4, 쪽 수 확인 중, 전처리 진행, 항별 상태(대기/추출 중/완료/실패), 경고 | `GET /api/documents/{id}` (1~2초 폴링) | 기존 |
 | 원문 쪽 이미지·줄 | `GET …/pages/{n}/image`, `…/pages/{n}/lines` | 기존 |
+| OCR 쪽 근거 자리 | `GET …/pages/{n}/boxes` | 원본 PDF 글자 층에서 근거를 못 찾을 때 |
 | 대기 n번째 · 약 n분 | `queue_fields` | 추가 [A1] |
 | 단계에 `checks`(검증) 추가 | `jobStageSchema`에 `checks`, `stage_total` 4 → 5 | 변경 [A2] (약속 ②) |
 
