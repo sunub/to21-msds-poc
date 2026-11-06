@@ -442,7 +442,7 @@ make test                 # 백엔드와 프론트엔드 시험
 |---|---|
 | Docker가 되는 서버 | [deploy/compose/README.md](deploy/compose/README.md). DB, vLLM, API, 워커, Apache를 compose 한 벌로 띄웁니다 |
 | RunPod Pod | Pod는 Docker를 쓸 수 없어 [deploy/runpod/README.md](deploy/runpod/README.md)의 venv + 프로세스 방식을 씁니다. vLLM은 `scripts/pod_up.py`로 올립니다 |
-| 시연 서버 (온프레미스 배포) | [https://8mypgoxr0il7mu-8080.proxy.runpod.net/](https://8mypgoxr0il7mu-8080.proxy.runpod.net/). RunPod Pod 한 대에 Apache, 앱, DB, vLLM을 모두 올려 회사 GPU 서버 한 대를 대신합니다. 앱에서 모델까지 호출이 Pod 안에서 끝나고 외부 API는 쓰지 않습니다 |
+| 시연 서버 (온프레미스 배포) | [https://lvmekacquif8wh-8080.proxy.runpod.net/](https://lvmekacquif8wh-8080.proxy.runpod.net/). RunPod Pod 한 대에 Apache, 앱, DB, vLLM을 모두 올려 회사 GPU 서버 한 대를 대신합니다. 앱에서 모델까지 호출이 Pod 안에서 끝나고 외부 API는 쓰지 않습니다 |
 | 폐쇄망 | `uv export --no-dev`로 만든 Python 패키지 묶음과 화면 빌드 결과만 반입합니다. 폐쇄망에서 npm을 설치하지 않습니다 |
 
 compose는 `docker compose config`로 문법만 확인했고 이미지를 실제로 빌드해 띄워 본 적은 없습니다.
