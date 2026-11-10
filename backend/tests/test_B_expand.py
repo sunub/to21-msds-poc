@@ -321,6 +321,7 @@ def test_empty_msds_is_valid(no_conventions):
            [(0, n, "missing_section") for n in EXTRACT_SECTIONS]
     m = doc["msds"][0]
     assert list(m) == list(msds_item_schema()["properties"])
+    assert m["meta"].pop("last_revision_date") == "2024-05-01"   # 원문 '최종 개정일자' 줄로 채운다 (source_rules.revision_dates)
     assert all(v is None for v in m["meta"].values())
     assert m["product"]["synonyms"] == [] and m["product"]["name"] is None
     assert m["components"] == [] and m["evidence"] == []

@@ -8,6 +8,8 @@ expand.to_to21이 MSDS마다 expand_msds 뒤, A의 apply_conventions 앞에 부�
 - 개정 횟수: '개정 횟수 … : N' 줄로 meta.revision_no를 정한다. 'N-N'이면 비운다.
 - 메타 값 없음: meta의 글자 칸이 자료없음·해당없음·미기재(공백 무시)이면 비운다.
 - 메타 원문 확인: 제출번호는 형식(^AA\d{5}-\d{10}$)에 맞고 원문에 있을 때만, 첫 작성일·최종 개정일은 원문에 적혀 있을 때만 남긴다.
+- 작성일·개정일 채우기: MSDS 한 건인 문서에서 첫 작성일·최종 개정일이 비었으면 '최초 작성일자'·'최종 개정일자' 줄로 채운다
+  (revision_dates). 16항은 모델을 부르지 않아 16항에만 적힌 날짜를 읽는 곳이 없다.
 - 전화번호: 연락처가 원문에 그대로 없고, 숫자가 같은 원문 조각이 있으면 그 조각으로 바꾼다.
 - 유해성 분류: MSDS 한 건인 문서에서 모델이 hazard.classes를 비웠으면 2항 분류 줄('- 인화성 액체 : 구분2')을
   명세서 5-1 코드표(없으면 13 매핑 시트의 '이름 : 구분 N' 글)로 읽어 채운다. 모델이 쓴 분류는 건드리지 않는다.
@@ -114,6 +116,58 @@ def _meta_in_source(item: dict, lines: list[Line]) -> list[str]:
         if v and re.fullmatch(r"\d{4}-\d{2}-\d{2}", v) and not _date_in(v, lines):
             meta[k] = None
             changes.append(f"meta.{k} {v!r} → None (원문 없음)")
+    return changes
+
+
+# 날짜 꼴: '2010. 03. 30'·'2019-03-08'·'2010년 06월 21일'(연·월·일), '17-10월-2016'(일·월·연)
+_YMD = re.compile(r"(?<!\d)(\d{4})\s*[-./년]\s*(\d{1,2})\s*[-./월]\s*(\d{1,2})(?!\d)")
+_DMY = re.compile(r"(?<!\d)(\d{1,2})\s*-\s*(\d{1,2})\s*월\s*-\s*(\d{4})(?!\d)")
+_DATE_LABELS = {"first_issue_date": re.compile(r"최초\s*작성\s*일"), "last_revision_date": re.compile(r"최종\s*개정\s*일")}
+_NEXT_ITEM = re.compile(r"^\s*(?:[가-하]\s*\.|\d+\s*\))")    # 다음 글머리('다.', '3)')에서 블록이 끝난다
+_DATE_BLOCK_MAX = 15          # 날짜 없는 머리줄 뒤로 볼 줄 수 상한 (M004 개정 이력 13줄)
+
+
+def _dates(text: str) -> list[str]:
+    out = []
+    for m in _YMD.finditer(text):
+        y, mo, d = m.groups()
+        out.append((m.start(), y, mo, d))
+    for m in _DMY.finditer(text):
+        d, mo, y = m.groups()
+        out.append((m.start(), y, mo, d))
+    return [f"{y}-{int(mo):02d}-{int(d):02d}" for _, y, mo, d in sorted(out) if 1 <= int(mo) <= 12 and 1 <= int(d) <= 31]
+
+
+def _labeled_dates(lines: list[Line], label: re.Pattern) -> list[str]:
+    """머리말 줄에서 머리말 뒤의 날짜들. 없으면 다음 글머리 전까지 이어지는 줄의 날짜들. 머리말이 여러 번이면 마지막 것."""
+    found: list[str] = []
+    for i, line in enumerate(lines):
+        m = label.search(line.text)
+        if not m:
+            continue
+        dates = _dates(line.text[m.end():])
+        if not dates:
+            for nxt in lines[i + 1:i + 1 + _DATE_BLOCK_MAX]:
+                if _NEXT_ITEM.match(nxt.text):
+                    break
+                dates += _dates(nxt.text)
+        if dates:
+            found = dates
+    return found
+
+
+def revision_dates(item: dict, lines: list[Line]) -> list[str]:
+    """빈 첫 작성일·최종 개정일을 '최초 작성일자'·'최종 개정일자' 줄의 날짜로 채운다. 첫 작성일은 처음 날짜,
+    최종 개정일은 가장 늦은 날짜(개정 이력이 줄줄이 적힌 꼴, M004)를 쓴다. 모델이 쓴 날짜는 건드리지 않는다.
+    개발 문서 10건의 20칸 중 19칸이 골드와 같고 틀린 칸은 없다 (M004 첫 작성일은 머리말 줄이 비어 채우지 못한다)."""
+    changes, meta = [], item["meta"]
+    for k, label in _DATE_LABELS.items():
+        if meta.get(k):
+            continue
+        dates = _labeled_dates(lines, label)
+        if dates:
+            meta[k] = dates[0] if k == "first_issue_date" else max(dates)
+            changes.append(f"meta.{k} None → {meta[k]!r} (원문 머리말 줄)")
     return changes
 
 
@@ -339,4 +393,5 @@ def apply_source_rules(item: dict, lines: list[Line], single_msds: bool = True) 
     lines는 문서 전체 줄이다. 유해성 분류 채우기는 MSDS가 한 건(single_msds)일 때만 한다."""
     text = "\n".join(l.text for l in lines)
     return (_clear_codes(item, text) + _revision_no(item, lines) + _meta_no_value(item) + _meta_in_source(item, lines)
+            + (revision_dates(item, lines) if single_msds else [])
             + _phones(item, lines, text) + (_classes(item, lines) if single_msds else []))
