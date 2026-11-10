@@ -305,6 +305,15 @@ def fix_cmr_class(rows: list[dict]) -> None:
             r["class"] = c or None
 
 
+def status_from_q(rows: list[dict]) -> None:
+    """독성 행의 상태를 숫자 묶음(q)의 상태에 맞춘다. 개발 골드 10건에서 q 상태가 있는 179행은 모두 둘이 같다
+    (값있음 53, 자료없음 104, 해당없음 22). 값이 있는 q에 모델이 '해당없음'을 적은 일이 있었다 (s10 r2 M004)."""
+    for r in rows:
+        q = r.get("q") or {}
+        if q.get("status"):
+            r["status"] = q["status"]
+
+
 def clear_descriptor_without_value(rows: list[dict]) -> None:
     """값(숫자)이 없는 독성 행의 지표는 상태와 관계없이 '결과기술'이다. 혼합물 급성의 값 없는 행도 같다
     (개발 골드 10건의 숫자 없는 독성 261행 모두. A 규칙이 채우는 'ATE'는 예제 1건에서 온 기본값이라 먼저 채운다).
@@ -738,6 +747,21 @@ def fill_kreach_applicable(regulations: list[dict]) -> None:
             break
 
 
+def product_laws_mix(rows: list[dict]) -> list[dict]:
+    """15항 위험물·폐기물 행은 제품 단위라 모델이 성분을 적었어도 MIX로 둔다 (개발 골드 10건의 위험물·폐기물 19행 모두 MIX,
+    TO21 정합성 설계서 v0.4 29·40장). 성분마다 같은 행을 적어 MIX로 겹치면 처음 행만 남긴다."""
+    out, seen = [], set()
+    for r in rows:
+        if _law_of(r) in _PRODUCT_LAWS:
+            r = {**r, "comp_ref": "MIX"}
+            key = (_law_of(r), r.get("item_code"), r.get("applicable"))
+            if key in seen:
+                continue
+            seen.add(key)
+        out.append(r)
+    return out
+
+
 def _law_of(row: dict) -> str | None:
     """행의 법령. 비면 항목 코드에서 정한다. 항목 코드는 법령 코드로 시작한다 (명세서 5-6, OSH_MEASURE → OSH)."""
     if row.get("law") is not None:
@@ -996,6 +1020,7 @@ def expand_msds(sections: dict[int, dict | None], lines_by_id: dict[str, Line],
             src = src + add_missing_items(src, lines_by_id)      # 모델 행 순서는 그대로 두고 뒤에 더한다
             src = src + dg_row_from_table(src, [r for _, r in rows.get("dangerous_goods", [])])
             src = [_law_level_item(r, lines_by_id) for r in src]
+            src = product_laws_mix(src)
             if src and not any(_law_of(r) == "KREACH" for r in src):   # R18: 화평법 항목이 없는 문서는 미기재 한 행 (골드 6건)
                 src.append({"law": "KREACH", "item_code": None, "applicable": "미기재", "comp_ref": "MIX"})
             src = fill_thresholds(src, lines_by_id)      # 근거 줄의 'N% 이상'으로 기준농도 (ADR-029)
@@ -1007,6 +1032,7 @@ def expand_msds(sections: dict[int, dict | None], lines_by_id: dict[str, Line],
         if key == "cmr":
             fix_cmr_class(item[key])
         if key == "toxicity":
+            status_from_q(item[key])
             clear_descriptor_without_value(item[key])
         if key == "exposure_limits":
             for r in item[key]:

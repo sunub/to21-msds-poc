@@ -1418,3 +1418,23 @@ def test_heading_status_rows():
         ("가상물질 을", "ECO_FISH", "자료없음", "p11:L33"), ("가상물질 갑", "ECO_ALGAE", "자료없음", "p12:L3")]
     have.append({"comp_name": "가상물질 을", "endpoint": "ECO_FISH", "line": "p11:L33"})
     assert len(ex.heading_status_rows("ecotox", have, ["p11:L31", "p12:L3"], lines, comps)) == 1
+
+
+def test_toxicity_status_follows_q_status(no_conventions):
+    """독성 행의 상태는 숫자 묶음(q)의 상태와 같다 (개발 골드 10건에서 q 상태가 있는 179행 모두: 값있음 53, 자료없음 104,
+    해당없음 22). 값이 있는 q에 모델이 '해당없음'을 적은 일이 있었다 (s10 r2 M004 흡입 LC50 6행)."""
+    r = responses()
+    r[11]["toxicity"][0]["status"] = "해당없음"            # q는 '> 2000 mg/kg' (값있음)
+    m, _ = expand_one(r)
+    assert m["toxicity"][0]["q"]["status"] == "값있음" and m["toxicity"][0]["status"] == "값있음"
+
+
+def test_product_laws_always_mix(no_conventions):
+    """15항 위험물·폐기물 행은 제품 단위라 모델이 성분을 적었어도 MIX다 (개발 골드 10건의 위험물·폐기물 19행 모두 MIX,
+    s10 S014에서 성분 번호로 나감). 성분마다 같은 행을 적었으면 한 행만 남긴다."""
+    named = [{"comp_name": name, "comp_cas": None, "law": law, "item_code": code, "applicable": "비해당", "line": "p2:L5"}
+             for name in ("가상물질 갑", "가상물질 을") for law, code in (("DG", "DG_HAZMAT"), ("WASTE", "WASTE_DESIG"))]
+    out = [x for x in reg_rows(named[:2]) if x[0] in ("DG", "WASTE")]
+    assert out == [("DG", "DG_HAZMAT", "비해당", "MIX"), ("WASTE", "WASTE_DESIG", "비해당", "MIX")]
+    out = [x for x in reg_rows(named, single=False) if x[0] in ("DG", "WASTE")]
+    assert out == [("DG", "DG_HAZMAT", "비해당", "MIX"), ("WASTE", "WASTE_DESIG", "비해당", "MIX")]
