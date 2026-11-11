@@ -23,6 +23,7 @@ from collections import Counter, defaultdict
 
 from msds.common.merge import DICTIONARY_VERSION, SCHEMA_VERSION, now_kst
 from msds.common.paths import to21_file
+from msds.checks.regex_codes import normalize_cas, valid_cas_checksum
 from msds.common.schema import load_schema, msds_item_schema
 from msds.extract.inputs import EXTRACT_SECTIONS, SECTION_NOS, Line, line_index, line_parents
 from msds.extract.section_specs import META_REVISION_FIELDS
@@ -248,6 +249,23 @@ def _component_in_line(text: str | None, by_key: dict[str, dict]) -> dict | None
 
 def _any_component(text: str | None, by_key: dict[str, dict]) -> bool:
     return any(_key_in_text(k, text) for k in by_key)
+
+
+def cas_from_misplaced(rows: list[dict]) -> None:
+    """CAS가 빈 성분 행에서 영문명·별칭 칸에 CAS가 있으면 cas_no로 옮긴다. 꼴과 검증 숫자(V01)가 맞고 후보가 하나일 때만.
+    로컬 Q4 모델이 빈 칸이 많은 성분표에서 CAS를 한 칸 앞(별칭)에 적은 일이 있었다 (11/11 llama.cpp, M004 6행).
+    CAS가 비면 성분에 기대는 독성·노출기준·규제 행이 모두 짝을 잃는다."""
+    for r in rows:
+        if r.get("cas_no"):
+            continue
+        found = [(k, v) for k in ("name_en", "synonyms")
+                 for v in (r.get(k) if isinstance(r.get(k), list) else [r.get(k)])
+                 if isinstance(v, str) and valid_cas_checksum(normalize_cas(v))]
+        if len(found) != 1:
+            continue
+        k, v = found[0]
+        r["cas_no"] = normalize_cas(v)
+        r[k] = [x for x in r[k] if x != v] if isinstance(r[k], list) else None
 
 
 def link_components(rows: list[dict], components: list[dict], lines_by_id: dict[str, Line] | None = None) -> list[dict]:
@@ -946,6 +964,7 @@ def expand_msds(sections: dict[int, dict | None], lines_by_id: dict[str, Line],
 
     # 2. TO21 키 순서대로 펼친다. 성분은 다른 행의 comp_ref가 가리키므로 먼저 만든다.
     # 성분표의 합계 행('Total | 100%')과 이름·CAS가 모두 빈 행은 성분이 아니다. 남기면 단일 성분 문서가 두 성분이 된다 (S001)
+    cas_from_misplaced([r for _, r in rows["components"]])
     rows["components"] = [(no, r) for no, r in rows["components"]
                           if r.get("cas_no") or (r.get("name") and not _TOTAL.match(r["name"]))]
     components = _shape(props["components"], [r for _, r in rows["components"]], lines_by_id)

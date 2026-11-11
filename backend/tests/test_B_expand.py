@@ -1439,3 +1439,16 @@ def test_product_laws_always_mix(no_conventions):
     assert out == [("DG", "DG_HAZMAT", "비해당", "MIX"), ("WASTE", "WASTE_DESIG", "비해당", "MIX")]
     out = [x for x in reg_rows(named, single=False) if x[0] in ("DG", "WASTE")]
     assert out == [("DG", "DG_HAZMAT", "비해당", "MIX"), ("WASTE", "WASTE_DESIG", "비해당", "MIX")]
+
+
+def test_cas_moved_from_synonyms_or_name_en():
+    rows = [{"name": "1,3 부타디엔", "name_en": "1,3-BUTADIENE", "synonyms": ["106-99-0"], "cas_no": None},
+            {"name": "부탄", "name_en": "106-97-8", "synonyms": [], "cas_no": None},
+            {"name": "가상 성분", "name_en": None, "synonyms": ["106-99-1"], "cas_no": None},       # 검증 숫자가 틀리면 두기
+            {"name": "두 후보", "name_en": "106-97-8", "synonyms": ["106-99-0"], "cas_no": None},  # 후보가 둘이면 두기
+            {"name": "질소", "name_en": None, "synonyms": ["106-99-0"], "cas_no": "7727-37-9"}]   # 이미 CAS가 있으면 두기
+    ex.cas_from_misplaced(rows)
+    assert (rows[0]["cas_no"], rows[0]["synonyms"]) == ("106-99-0", [])
+    assert (rows[1]["cas_no"], rows[1]["name_en"]) == ("106-97-8", None)
+    assert rows[2]["cas_no"] is None and rows[3]["cas_no"] is None
+    assert rows[4]["cas_no"] == "7727-37-9" and rows[4]["synonyms"] == ["106-99-0"]
