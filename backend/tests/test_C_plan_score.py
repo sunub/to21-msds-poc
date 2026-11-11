@@ -21,6 +21,9 @@ def test_scope_follows_plan_sections():
     assert ps.scope_of("narratives[k=S8_ENG].item_code") == "범위"
     assert ps.scope_of("narratives[k=S7_HANDLING].item_code") == "범위 밖"  # 7항은 추출하지 않는다
     assert ps.scope_of("toxicity[k=MIX|TX_ORAL|LD50|RAT].q") == "범위"
+    assert ps.scope_of("regulations[k=MIX|OSH|OSH_MANAGED|].applicable") == "범위"
+    assert ps.scope_of("regulations[k=71-43-2|INTL|INTL_US|US|미국관리정보].applicable") == "15항 해외·기타"   # D-2
+    assert ps.scope_of("regulations[k=MIX|KR_ETC|||기타법령].applicable") == "15항 해외·기타"
 
 
 def test_engine_cells_are_what_judgment_reads():
@@ -86,3 +89,12 @@ def test_empty_forms_are_the_same_value():
     assert ps.canon({"value": "자료없음", "refs": [], "cond": None, "key": ""}) == {"value": "자료없음"}
     assert ps.canon([]) is None and ps.canon("") is None and ps.canon({"a": None}) is None
     assert ps.canon("자료 없음") == "자료 없음"          # 글자 표기는 그대로 둔다
+
+
+def test_q_compared_on_seven_elements_only():
+    g = {"raw": "해당 없음", "status": "해당없음", "value": None, "dp": 1, "approx": True, "note": "추정치"}
+    p = {"raw": "해당없음", "status": "해당없음", "value": None}
+    assert ps.canon(ps.q_only("toxicity[k=x].q", g)) == ps.canon(ps.q_only("toxicity[k=x].q", p))
+    assert ps.q_only("narratives[k=S8_ENG].statements[k=1]", {"raw": "x", "value": 1}) == {"raw": "x", "value": 1}
+    assert ps.canon(ps.q_only("components[k=x].content", {"value": 5, "unit": "%"})) != \
+        ps.canon(ps.q_only("components[k=x].content", {"value": 5, "unit": "wt%"}))

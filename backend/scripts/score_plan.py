@@ -3,6 +3,7 @@
 주 지표는 기획서 범위 안 칸 정확도와 사람이 고쳐야 할 칸 수다. TO21 채점기 점수는 참고(구 기준)로만 붙인다.
 - 평균은 국문 문서로만 낸다 (기획서 표 1-3: 영문 양식 대응은 범위 밖). 영문 문서는 따로 보인다.
 - T21-025는 평가 평균에 넣지 않는다 (D-3).
+- 15항 해외·기타 규제는 2단계가 판정하지 않아(D-2) 주 지표에서 빼고 따로 보인다.
 - 정확도 = 맞은 칸 / 골드에 값이 있는 칸. 합계는 칸을 모두 더해 낸다(사람이 확인할 칸 기준). 문서 평균도 함께 적는다.
 
 사용법 (backend/에서)
@@ -66,11 +67,14 @@ def score_docs(doc_rows: list[dict], pred_dir: Path, repeat_dir: Path | None) ->
         t = ps.tally(inside)
         e = ps.tally([c for c in inside if c["engine"]])
         rev = ps.tally([c for c in cells if c["scope"] == "16항 참고"])
+        intl = ps.tally([c for c in cells if c["scope"] == "15항 해외·기타"])
         row = {"doc_id": d, "language": r.get("language") or "", "purpose": r.get("purpose") or "",
                "accuracy": t["accuracy"], "gold_n": t["gold_n"], "correct": t["correct"], "wrong": t["wrong"],
                "missing": t["missing"], "extra": t["extra"], "to_fix": t["to_fix"], "unreviewed": t["unreviewed"],
                "engine_accuracy": e["accuracy"], "engine_gold_n": e["gold_n"], "engine_to_fix": e["to_fix"],
                "rev16_correct": rev["correct"], "rev16_gold_n": rev["gold_n"],
+               "intl_accuracy": intl["accuracy"], "intl_gold_n": intl["gold_n"], "intl_correct": intl["correct"],
+               "intl_to_fix": intl["to_fix"],
                "out_of_scope_cells": sum(1 for c in cells if c["scope"] == "범위 밖"),
                "msds_gold": res["msds_count"][0], "msds_pred": res["msds_count"][1],
                "to21_ref": round(score_pair(gold, pred)["weighted"], 1)}
@@ -119,6 +123,8 @@ def write_report(out_dir: Path, title: str, pred: Path, repeat: Path | None, doc
         "wrong": sum(d["wrong"] for d in ko), "missing": sum(d["missing"] for d in ko), "extra": sum(d["extra"] for d in ko),
         "engine_accuracy": _sum(ko, "engine_gold_n", "engine_correct") if ko and "engine_correct" in ko[0] else None,
         "rev16": _sum(ko, "rev16_gold_n", "rev16_correct"),
+        "intl": _sum(ko, "intl_gold_n", "intl_correct"), "intl_gold_n": sum(d["intl_gold_n"] for d in ko),
+        "intl_to_fix": sum(d["intl_to_fix"] for d in ko),
         "to21_ref_mean": _mean([d["to21_ref"] for d in ko]),
         "repeat": _sum(ko, "repeat_total", "repeat_same") if repeat else None,
     }
@@ -151,15 +157,18 @@ def write_report(out_dir: Path, title: str, pred: Path, repeat: Path | None, doc
           f"- **엔진 입력 칸 정확도 {_pct(summary['engine_accuracy'])}** (2단계가 읽는 칸, 고칠 칸 {summary['engine_to_fix']})"]
     if repeat:
         L.append(f"- **재현성(칸 일치) {_pct(summary['repeat'])}** (같은 설정으로 다시 돌린 결과와 범위 안 칸 비교)")
-    L += [f"- 16항 개정 정보(범위 밖, 참고): {_pct(summary['rev16'])}",
+    L += [f"- 15항 해외·기타 규제(따로 셈, D-2로 판정하지 않음): {_pct(summary['intl'])} "
+          f"({summary['intl_gold_n']}칸, 고칠 칸 {summary['intl_to_fix']})",
+          f"- 16항 개정 정보(범위 밖, 참고): {_pct(summary['rev16'])}",
           f"- TO21 채점기(참고, 구 기준): 문서 평균 {summary['to21_ref_mean']:.1f}점" if summary["to21_ref_mean"] is not None else "",
           "", "## 문서별", "",
-          "| 문서 | 칸 정확도 | 골드 칸 | 틀림 | 빠뜨림 | 지어냄 | 고칠 칸 | 엔진 칸 정확도 | 16항 참고 | 재현성 | TO21 참고 |",
-          "|---|---|---|---|---|---|---|---|---|---|---|"]
+          "| 문서 | 칸 정확도 | 골드 칸 | 틀림 | 빠뜨림 | 지어냄 | 고칠 칸 | 엔진 칸 정확도 | 15항 해외·기타 | 16항 참고 | 재현성 | TO21 참고 |",
+          "|---|---|---|---|---|---|---|---|---|---|---|---|"]
     for d in sorted(docs, key=lambda x: (x["language"] != "ko", x["accuracy"] or 0)):
         mark = "" if d["language"] == "ko" else f" ({d['language']}, 평균 제외)"
         L.append(f"| {d['doc_id']}{mark} | {_pct(d['accuracy'])} | {d['gold_n']} | {d['wrong']} | {d['missing']} | "
-                 f"{d['extra']} | {d['to_fix']} | {_pct(d['engine_accuracy'])} | {d['rev16_correct']}/{d['rev16_gold_n']} | "
+                 f"{d['extra']} | {d['to_fix']} | {_pct(d['engine_accuracy'])} | {d['intl_correct']}/{d['intl_gold_n']} | "
+                 f"{d['rev16_correct']}/{d['rev16_gold_n']} | "
                  f"{_pct(d.get('repeat_rate'))} | {d['to21_ref']} |")
     L += ["", "## 항별 (국문 문서, 범위 안)", "", "| 항 | 칸 정확도 | 골드 칸 | 틀림 | 빠뜨림 | 지어냄 | 고칠 칸 |",
           "|---|---|---|---|---|---|---|"]

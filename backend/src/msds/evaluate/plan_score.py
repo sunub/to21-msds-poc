@@ -7,8 +7,10 @@ TO21 점수는 성적표에 참고로만 붙인다.
 - 범위: 1·2·3·8·9·11·12·14·15항과 1항 머리글 관리정보 (D-1). 서술형은 항목 코드(S8_…)의 항 번호로 가른다.
 - 16항 개정 정보(meta.first_issue_date·revision_no·revision_label·last_revision_date)는 범위 밖이라
   '16항 참고'로 따로 센다 (D-1, 기획서 10장 '구조적 미달').
+- 15항 해외·기타 규제(국내 OSH·KREACH·CCA·DG·WASTE 밖의 법령 행)는 추출은 하지만 2단계가 판정하지 않아(D-2)
+  '15항 해외·기타'로 따로 센다. TO21 채점기의 '15항 해외·기타 규제' 항목과 같은 구분이다.
 - 칸: 검수자가 골드를 확정한 단위(기술명세 2.7, align.keyed_flatten). 목록은 순서가 아니라 키로 짝짓고,
-  숫자 묶음(Q)은 한 칸이다. 근거·검사·extras·순번은 칸이 아니다.
+  숫자 묶음(Q)은 한 칸이며 7요소(부등호·값·하한·상한·단위·상태)만 비교한다(기획서 4.3). 근거·검사·extras·순번은 칸이 아니다.
 - 비교는 골드와 같은지만 본다. 표기 정규화나 부분 점수는 기획서에 정한 것이 없어 하지 않는다.
 - 엔진 입력 칸: 2단계가 읽는 칸 (compliance.loader.load_inputs). 2항 분류·신호어·그림문자·H 코드, 3항 조성·성분
   (이름·CAS·함량·영업비밀), 9·11·12항 행, 15항 국내 규제(D-2: 해외 규제는 판정하지 않음)와 위험물.
@@ -16,7 +18,7 @@ TO21 점수는 성적표에 참고로만 붙인다.
 
 함수
 - cells(item)                    msds 항목 하나 → {키 경로: 값} (칸만)
-- scope_of(path)                 '범위' | '16항 참고' | '범위 밖'
+- scope_of(path)                 '범위' | '16항 참고' | '15항 해외·기타' | '범위 밖'
 - is_engine_cell(path)           2단계 입력 칸인지
 - compare_doc(gold, pred, unreviewed)   문서 한 건의 칸 비교 결과
 - cell_agreement(a, b)           두 실행 결과의 칸 일치 (재현성, 기획서 2.3)
@@ -76,9 +78,23 @@ def canon(v):
     return None if v == "" else v
 
 
+Q_FIELDS = ("value", "lower_op", "lower", "upper_op", "upper", "unit", "status")
+# 스키마에서 Q($defs.Q)를 쓰는 칸 이름
+Q_CELLS = {"q", "content", "converted", "cycle", "designated_qty", "qty", "qty_alt", "threshold"}
+
+
+def q_only(path: str, v):
+    """숫자 묶음(Q) 칸은 7요소(부등호·값·하한·상한·단위·상태)만 비교한다 (기획서 4.3, 명세서 6_평가기준 'Q 비교').
+    raw(원문 사본)·approx·dp·note는 비교하지 않는다. 보면 '해당 없음'/'해당없음' 같은 원문 사본 차이나
+    소수 자리 표시가 틀림이 된다 (s10에서 Q 틀림 대부분)."""
+    if isinstance(v, dict) and path.rsplit(".", 1)[-1] in Q_CELLS:
+        return {k: v.get(k) for k in Q_FIELDS}
+    return v
+
+
 def cells(item: dict) -> dict[str, object]:
-    """keyed_flatten 칸 가운데 근거·검사·extras·순번을 뺀 것. 값은 canon으로 맞춘다."""
-    return {p: canon(v) for p, v in keyed_flatten(item)
+    """keyed_flatten 칸 가운데 근거·검사·extras·순번을 뺀 것. Q는 7요소만, 값은 canon으로 맞춘다."""
+    return {p: canon(q_only(p, v)) for p, v in keyed_flatten(item)
             if top_key(p) not in _NOT_CELLS and not p.endswith(".seq")}
 
 
@@ -89,18 +105,27 @@ def section_of(path: str) -> int | None:
     return TOP_SECTION.get(top_key(path))
 
 
+def _law(path: str) -> str | None:
+    """규제 행 키 경로의 법령 (regulations[k=성분|법령|항목|국가…])."""
+    key = _KEY.search(path)
+    parts = key.group(1).split("|") if key else []
+    return parts[1] if len(parts) > 1 else None
+
+
 def scope_of(path: str) -> str:
+    """'범위' | '16항 참고' | '15항 해외·기타' | '범위 밖'.
+    15항 해외·기타 규제(국내 5개 법령 밖)는 추출 범위 안이지만 2단계가 판정하지 않아(D-2) 주 지표와 따로 센다."""
     if path.startswith("meta.") and path.split(".", 1)[1] in REVISION_FIELDS:
         return "16항 참고"
+    if generic(path).startswith("regulations[]") and _law(path) not in DOMESTIC_LAWS:
+        return "15항 해외·기타"
     return "범위" if section_of(path) in SCOPE_SECTIONS else "범위 밖"
 
 
 def is_engine_cell(path: str) -> bool:
     g = generic(path)
     if g.startswith("regulations[]"):
-        key = _KEY.search(path)
-        parts = key.group(1).split("|") if key else []
-        return len(parts) > 1 and parts[1] in DOMESTIC_LAWS
+        return _law(path) in DOMESTIC_LAWS
     return g in _ENGINE_PATHS or g.startswith(_ENGINE_PREFIXES)
 
 
