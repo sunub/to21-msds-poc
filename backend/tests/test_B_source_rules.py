@@ -132,7 +132,7 @@ def test_revision_no_from_line(text, before, after):
     m = item_with(revision_no=before)
     changes = apply_source_rules(m, doc("16. 그 밖의 참고사항", text))
     assert m["meta"]["revision_no"] == after and type(m["meta"]["revision_no"]) is type(after)
-    assert len(changes) == 1
+    assert len([c for c in changes if c.startswith("meta.revision_no")]) == 1   # 같은 줄의 개정일은 revision_dates가 채운다
 
 
 def test_revision_no_multiple_colons_on_line():
@@ -207,9 +207,33 @@ def test_msds_no_must_match_form_and_source(value, kept):
 def test_dates_must_appear_in_source(value, kept):
     """날짜는 원문에 연·월·일이 그 순서(또는 일·월·연 순서)로 적혀 있어야 남는다. 없는 날짜는 모델이 만든 것이다."""
     m = item_with(last_revision_date=value)
-    apply_source_rules(m, doc("최종 개정일자 : 2019. 3. 8", "작성일자 2010년 06월 21일", "Revision date: 21/12/2017",
+    apply_source_rules(m, doc("개정일자 : 2019. 3. 8", "작성일자 2010년 06월 21일", "Revision date: 21/12/2017",
                               "개정일 20230218"))
     assert m["meta"]["last_revision_date"] == (value if kept else None)
+
+
+@pytest.mark.parametrize("lines, first, last", [
+    (("2)최초 작성 일자 : 2010. 03. 30", "3)개정 횟수 및 최종 개정 일자 : 8회, 2016. 06. 17"), "2010-03-30", "2016-06-17"),
+    (("나. 최초 작성일자 | 17-10월-2016", "다. 개정 횟수 및 최종 개정일자 | 18-2월-2023 (08 개정)"), "2016-10-17", "2023-02-18"),
+    (("나. 최초 작성일자", "- 2016-04-12", "다. 개정횟수 및 최종 개정일자", "- 5 회, 2024-01-30", "라. 기타"),
+     "2016-04-12", "2024-01-30"),
+    (("나. 최초 작성일자 :", "다. 개정 횟수 및 최종 개정일자", "0.0.0 : 2000.01.03 제정",     # 개정 이력은 가장 늦은 날짜
+      "1.0.0 : 2017.12.21 개정 (고시 2016.4.6. 개정)", "라. 기타"), None, "2017-12-21"),
+    (("나.최초작성일 2010-06-21", "최종 개정일자", "라.기타"), "2010-06-21", None),   # 빈 칸은 그대로 둔다
+])
+def test_revision_dates_filled_from_labeled_lines(lines, first, last):
+    m = item_with()
+    apply_source_rules(m, doc(*lines))
+    assert (m["meta"]["first_issue_date"], m["meta"]["last_revision_date"]) == (first, last)
+
+
+def test_revision_dates_keep_model_value_and_skip_multi_msds():
+    lines = doc("나. 최초 작성일자 : 2010-06-21", "최종 개정일자 : 2019-03-08")
+    m = item_with(first_issue_date="2010-06-21", last_revision_date=None)
+    apply_source_rules(m, lines, single_msds=False)          # MSDS가 여럿이면 어느 MSDS의 줄인지 몰라 채우지 않는다
+    assert m["meta"]["last_revision_date"] is None
+    apply_source_rules(m, lines)
+    assert m["meta"]["last_revision_date"] == "2019-03-08"
 
 
 # ── 전화번호 ───────────────────────────────────────────

@@ -23,6 +23,7 @@ from collections import Counter, defaultdict
 
 from msds.common.merge import DICTIONARY_VERSION, SCHEMA_VERSION, now_kst
 from msds.common.paths import to21_file
+from msds.checks.regex_codes import normalize_cas, valid_cas_checksum
 from msds.common.schema import load_schema, msds_item_schema
 from msds.extract.inputs import EXTRACT_SECTIONS, SECTION_NOS, Line, line_index, line_parents
 from msds.extract.section_specs import META_REVISION_FIELDS
@@ -250,6 +251,23 @@ def _any_component(text: str | None, by_key: dict[str, dict]) -> bool:
     return any(_key_in_text(k, text) for k in by_key)
 
 
+def cas_from_misplaced(rows: list[dict]) -> None:
+    """CAS가 빈 성분 행에서 영문명·별칭 칸에 CAS가 있으면 cas_no로 옮긴다. 꼴과 검증 숫자(V01)가 맞고 후보가 하나일 때만.
+    로컬 Q4 모델이 빈 칸이 많은 성분표에서 CAS를 한 칸 앞(별칭)에 적은 일이 있었다 (11/11 llama.cpp, M004 6행).
+    CAS가 비면 성분에 기대는 독성·노출기준·규제 행이 모두 짝을 잃는다."""
+    for r in rows:
+        if r.get("cas_no"):
+            continue
+        found = [(k, v) for k in ("name_en", "synonyms")
+                 for v in (r.get(k) if isinstance(r.get(k), list) else [r.get(k)])
+                 if isinstance(v, str) and valid_cas_checksum(normalize_cas(v))]
+        if len(found) != 1:
+            continue
+        k, v = found[0]
+        r["cas_no"] = normalize_cas(v)
+        r[k] = [x for x in r[k] if x != v] if isinstance(r[k], list) else None
+
+
 def link_components(rows: list[dict], components: list[dict], lines_by_id: dict[str, Line] | None = None) -> list[dict]:
     """comp_name·comp_cas를 3항 성분의 seq(글자)인 comp_ref로 바꾼 새 행 목록. CAS 먼저, 다음 이름.
     이름과 CAS가 서로 다른 성분을 가리키면 근거 줄·부모 줄에 적힌 쪽을, 둘 다 안 적혔으면 이름을 따른다
@@ -303,6 +321,15 @@ def fix_cmr_class(rows: list[dict]) -> None:
             r["class"], r["status"] = None, words[_word_key(c)]
         else:
             r["class"] = c or None
+
+
+def status_from_q(rows: list[dict]) -> None:
+    """독성 행의 상태를 숫자 묶음(q)의 상태에 맞춘다. 개발 골드 10건에서 q 상태가 있는 179행은 모두 둘이 같다
+    (값있음 53, 자료없음 104, 해당없음 22). 값이 있는 q에 모델이 '해당없음'을 적은 일이 있었다 (s10 r2 M004)."""
+    for r in rows:
+        q = r.get("q") or {}
+        if q.get("status"):
+            r["status"] = q["status"]
 
 
 def clear_descriptor_without_value(rows: list[dict]) -> None:
@@ -738,6 +765,21 @@ def fill_kreach_applicable(regulations: list[dict]) -> None:
             break
 
 
+def product_laws_mix(rows: list[dict]) -> list[dict]:
+    """15항 위험물·폐기물 행은 제품 단위라 모델이 성분을 적었어도 MIX로 둔다 (개발 골드 10건의 위험물·폐기물 19행 모두 MIX,
+    TO21 정합성 설계서 v0.4 29·40장). 성분마다 같은 행을 적어 MIX로 겹치면 처음 행만 남긴다."""
+    out, seen = [], set()
+    for r in rows:
+        if _law_of(r) in _PRODUCT_LAWS:
+            r = {**r, "comp_ref": "MIX"}
+            key = (_law_of(r), r.get("item_code"), r.get("applicable"))
+            if key in seen:
+                continue
+            seen.add(key)
+        out.append(r)
+    return out
+
+
 def _law_of(row: dict) -> str | None:
     """행의 법령. 비면 항목 코드에서 정한다. 항목 코드는 법령 코드로 시작한다 (명세서 5-6, OSH_MEASURE → OSH)."""
     if row.get("law") is not None:
@@ -922,6 +964,7 @@ def expand_msds(sections: dict[int, dict | None], lines_by_id: dict[str, Line],
 
     # 2. TO21 키 순서대로 펼친다. 성분은 다른 행의 comp_ref가 가리키므로 먼저 만든다.
     # 성분표의 합계 행('Total | 100%')과 이름·CAS가 모두 빈 행은 성분이 아니다. 남기면 단일 성분 문서가 두 성분이 된다 (S001)
+    cas_from_misplaced([r for _, r in rows["components"]])
     rows["components"] = [(no, r) for no, r in rows["components"]
                           if r.get("cas_no") or (r.get("name") and not _TOTAL.match(r["name"]))]
     components = _shape(props["components"], [r for _, r in rows["components"]], lines_by_id)
@@ -996,6 +1039,7 @@ def expand_msds(sections: dict[int, dict | None], lines_by_id: dict[str, Line],
             src = src + add_missing_items(src, lines_by_id)      # 모델 행 순서는 그대로 두고 뒤에 더한다
             src = src + dg_row_from_table(src, [r for _, r in rows.get("dangerous_goods", [])])
             src = [_law_level_item(r, lines_by_id) for r in src]
+            src = product_laws_mix(src)
             if src and not any(_law_of(r) == "KREACH" for r in src):   # R18: 화평법 항목이 없는 문서는 미기재 한 행 (골드 6건)
                 src.append({"law": "KREACH", "item_code": None, "applicable": "미기재", "comp_ref": "MIX"})
             src = fill_thresholds(src, lines_by_id)      # 근거 줄의 'N% 이상'으로 기준농도 (ADR-029)
@@ -1007,6 +1051,7 @@ def expand_msds(sections: dict[int, dict | None], lines_by_id: dict[str, Line],
         if key == "cmr":
             fix_cmr_class(item[key])
         if key == "toxicity":
+            status_from_q(item[key])
             clear_descriptor_without_value(item[key])
         if key == "exposure_limits":
             for r in item[key]:

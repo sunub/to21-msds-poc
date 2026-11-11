@@ -321,6 +321,7 @@ def test_empty_msds_is_valid(no_conventions):
            [(0, n, "missing_section") for n in EXTRACT_SECTIONS]
     m = doc["msds"][0]
     assert list(m) == list(msds_item_schema()["properties"])
+    assert m["meta"].pop("last_revision_date") == "2024-05-01"   # 원문 '최종 개정일자' 줄로 채운다 (source_rules.revision_dates)
     assert all(v is None for v in m["meta"].values())
     assert m["product"]["synonyms"] == [] and m["product"]["name"] is None
     assert m["components"] == [] and m["evidence"] == []
@@ -1418,3 +1419,36 @@ def test_heading_status_rows():
         ("가상물질 을", "ECO_FISH", "자료없음", "p11:L33"), ("가상물질 갑", "ECO_ALGAE", "자료없음", "p12:L3")]
     have.append({"comp_name": "가상물질 을", "endpoint": "ECO_FISH", "line": "p11:L33"})
     assert len(ex.heading_status_rows("ecotox", have, ["p11:L31", "p12:L3"], lines, comps)) == 1
+
+
+def test_toxicity_status_follows_q_status(no_conventions):
+    """독성 행의 상태는 숫자 묶음(q)의 상태와 같다 (개발 골드 10건에서 q 상태가 있는 179행 모두: 값있음 53, 자료없음 104,
+    해당없음 22). 값이 있는 q에 모델이 '해당없음'을 적은 일이 있었다 (s10 r2 M004 흡입 LC50 6행)."""
+    r = responses()
+    r[11]["toxicity"][0]["status"] = "해당없음"            # q는 '> 2000 mg/kg' (값있음)
+    m, _ = expand_one(r)
+    assert m["toxicity"][0]["q"]["status"] == "값있음" and m["toxicity"][0]["status"] == "값있음"
+
+
+def test_product_laws_always_mix(no_conventions):
+    """15항 위험물·폐기물 행은 제품 단위라 모델이 성분을 적었어도 MIX다 (개발 골드 10건의 위험물·폐기물 19행 모두 MIX,
+    s10 S014에서 성분 번호로 나감). 성분마다 같은 행을 적었으면 한 행만 남긴다."""
+    named = [{"comp_name": name, "comp_cas": None, "law": law, "item_code": code, "applicable": "비해당", "line": "p2:L5"}
+             for name in ("가상물질 갑", "가상물질 을") for law, code in (("DG", "DG_HAZMAT"), ("WASTE", "WASTE_DESIG"))]
+    out = [x for x in reg_rows(named[:2]) if x[0] in ("DG", "WASTE")]
+    assert out == [("DG", "DG_HAZMAT", "비해당", "MIX"), ("WASTE", "WASTE_DESIG", "비해당", "MIX")]
+    out = [x for x in reg_rows(named, single=False) if x[0] in ("DG", "WASTE")]
+    assert out == [("DG", "DG_HAZMAT", "비해당", "MIX"), ("WASTE", "WASTE_DESIG", "비해당", "MIX")]
+
+
+def test_cas_moved_from_synonyms_or_name_en():
+    rows = [{"name": "1,3 부타디엔", "name_en": "1,3-BUTADIENE", "synonyms": ["106-99-0"], "cas_no": None},
+            {"name": "부탄", "name_en": "106-97-8", "synonyms": [], "cas_no": None},
+            {"name": "가상 성분", "name_en": None, "synonyms": ["106-99-1"], "cas_no": None},       # 검증 숫자가 틀리면 두기
+            {"name": "두 후보", "name_en": "106-97-8", "synonyms": ["106-99-0"], "cas_no": None},  # 후보가 둘이면 두기
+            {"name": "질소", "name_en": None, "synonyms": ["106-99-0"], "cas_no": "7727-37-9"}]   # 이미 CAS가 있으면 두기
+    ex.cas_from_misplaced(rows)
+    assert (rows[0]["cas_no"], rows[0]["synonyms"]) == ("106-99-0", [])
+    assert (rows[1]["cas_no"], rows[1]["name_en"]) == ("106-97-8", None)
+    assert rows[2]["cas_no"] is None and rows[3]["cas_no"] is None
+    assert rows[4]["cas_no"] == "7727-37-9" and rows[4]["synonyms"] == ["106-99-0"]
