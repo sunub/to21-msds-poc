@@ -94,6 +94,7 @@ export function Dropzone({
         type="file"
         accept={accept}
         disabled={disabled}
+        aria-label={buttonLabel}
         aria-describedby={describedBy}
         tabIndex={-1}
         className="sr-only"

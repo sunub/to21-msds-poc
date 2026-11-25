@@ -1,0 +1,71 @@
+name: Frontend CI
+
+on:
+  push:
+    paths:
+      - "frontend/**"
+      - ".github/workflows/frontend-ci.yml"
+  pull_request:
+    paths:
+      - "frontend/**"
+      - ".github/workflows/frontend-ci.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Typecheck, Test, Build & Security Guard
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: NDA leak guard (no T21- IDs or to21/ paths in frontend)
+        run: |
+          if grep -rnE "(T21-|to21/)" frontend/src frontend/public frontend/docs frontend/README.md; then
+            echo "::error::NDA violation detected in frontend"
+            exit 1
+          fi
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: "10.32.1"
+
+      - name: Setup Node.js 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: "pnpm"
+          cache-dependency-path: frontend/pnpm-lock.yaml
+
+      - name: Install dependencies
+        run: pnpm --dir frontend install --frozen-lockfile
+
+      - name: TypeScript typecheck
+        run: pnpm --dir frontend run typecheck
+
+      - name: Run unit tests (src/lib)
+        run: pnpm --dir frontend run test
+
+      - name: Run validation component tests
+        run: node --test frontend/tests/a2-validation.test.cjs
+
+      - name: Build default air-gapped static export
+        run: pnpm --dir frontend run build
+
+      - name: Verify zero mock code in default air-gapped build
+        run: |
+          if grep -rnE "(합성 샘플 데이터 기반 공개 데모|demoDocumentResponse|seen_event_id 충돌 시뮬레이션)" frontend/out/_next/static/chunks; then
+            echo "::error::Demo mock code leaked into default air-gapped production bundle"
+            exit 1
+          fi
+
+      - name: Build public synthetic demo static export
+        env:
+          NEXT_PUBLIC_DEMO_MODE: "1"
+        run: pnpm --dir frontend run build
+
+      - name: Audit production dependencies (high+)
+        run: pnpm --dir frontend audit --prod --audit-level=high

@@ -46,12 +46,17 @@ export function HazardTable({
         key={f.id}
         selected={isSelected}
         onClick={() => onSelect(f)}
-        aria-label={`${f.label}, MSDS ${d.msds}, 검증 결과 ${d.expected}, ${f.method}, ${verdict}${review ? `, ${review}` : ""}`}
         className={floatRow(isSelected, "max-lg:flex-wrap")}
       >
         <div className={cn(WIDE, "font-bold")}>{f.label}</div>
-        <div className={NARROW}>{d.msds}</div>
-        <div className={WIDE}>{d.expected}</div>
+        <div className={NARROW}>
+          <span className="sr-only">MSDS 기재: </span>
+          {d.msds}
+        </div>
+        <div className={WIDE}>
+          <span className="sr-only">검증 결과: </span>
+          {d.expected}
+        </div>
         <div className={cn(NARROW, "text-sm text-mut")}>{f.method}</div>
         <div className={cn(NARROW, "flex flex-col")}>
           <StatusLabel tone={verdictTone(f)}>{verdict}</StatusLabel>

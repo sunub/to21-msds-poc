@@ -80,14 +80,19 @@ export function RegulationTable({
         key={f.id}
         selected={f.id === selectedId}
         onClick={() => onSelect(f)}
-        aria-label={`${f.law_label ?? ""} ${f.label}, ${d.component ?? "제품"}, MSDS ${d.msds}, 규제DB ${d.expected}, ${verdict}${review ? `, ${review}` : ""}`}
         className={floatRow(f.id === selectedId, "max-lg:flex-wrap")}
       >
         <div className="w-18 flex-none font-medium max-lg:w-full max-lg:text-sm max-lg:text-mut">{f.law_label ?? "—"}</div>
         <div className={cn(CELL, "font-bold")}>{f.label}</div>
         <div className={CELL}>{d.component ?? "제품"}</div>
-        <div className={CELL}>{d.msds}</div>
-        <div className={CELL}>{d.expected}</div>
+        <div className={CELL}>
+          <span className="sr-only">MSDS 기재: </span>
+          {d.msds}
+        </div>
+        <div className={CELL}>
+          <span className="sr-only">규제DB 결과: </span>
+          {d.expected}
+        </div>
         <div className={cn(CELL, "flex flex-col")}>
           <StatusLabel tone={verdictTone(f)}>{verdict}</StatusLabel>
           {review && <span className={cn("text-xs", review === "다시 확인 필요" ? "text-stale" : "text-mut")}>{review}</span>}

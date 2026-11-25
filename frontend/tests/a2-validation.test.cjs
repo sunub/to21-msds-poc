@@ -52,16 +52,25 @@ test("기존 응답에 검사 정보가 없으면 완료를 검증 성공으로 
   assert.equal(validationLabel({ status: "unavailable" }).label, "검증 미확인");
 });
 
-test("검증 오류와 경고를 파싱하고 실제 화면에 건수를 표시한다", () => {
-  const validation = { ...valid, status: "invalid", validator_errors: 8, validator_warnings: 2 };
-  const doc = documentSummarySchema.parse({ ...summary, validation });
-  assert.equal(statusLabel(doc).tone, "danger");
+test("검증 오류와 경고를 파싱하고 실제 화면에 상태와 건수를 표시한다", () => {
+  const valueCheck = { ...valid, status: "invalid", validator_errors: 8, validator_warnings: 2 };
+  const doc = documentSummarySchema.parse({ ...summary, validation: valueCheck });
+  const label = statusLabel(doc);
+  assert.equal(label.tone, "warning");
+  assert.equal(label.label, "값 확인 10건");
+  assert.match(validationLabel(doc.validation).detail, /TO21 오류 8건/);
+  assert.match(validationLabel(doc.validation).detail, /경고 2건/);
   const markup = renderToStaticMarkup(React.createElement(ValidationNotice, { status: "done", counts: doc.counts, validation: doc.validation }));
-  assert.match(markup, /추출값 검증 오류/);
-  assert.match(markup, /TO21 오류 8건/);
-  assert.match(markup, /경고 2건/);
+  assert.match(markup, /값 확인 10건/);
   assert.match(markup, /정합성 판정과는 별도/);
-  assert.match(markup, /role="alert"/);
+  assert.match(markup, /role="status"/);
+
+  const schemaFail = { ...valid, status: "invalid", schema_errors: 1 };
+  const errDoc = documentSummarySchema.parse({ ...summary, validation: schemaFail });
+  assert.equal(statusLabel(errDoc).tone, "danger");
+  const errMarkup = renderToStaticMarkup(React.createElement(ValidationNotice, { status: "done", counts: errDoc.counts, validation: errDoc.validation }));
+  assert.match(errMarkup, /추출 오류/);
+  assert.match(errMarkup, /role="alert"/);
 });
 
 test("완전한 무오류 검사만 성공이고 불일치하거나 미완성이면 성공으로 표시하지 않는다", () => {
