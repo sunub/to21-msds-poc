@@ -7,6 +7,20 @@ import { ApiRequestError, apiUrl, toRequestError } from "./client";
 export type ReportFormat = "html" | "xlsx";
 
 export async function downloadJudgmentReport(id: string, format: ReportFormat) {
+  if (process.env.NEXT_PUBLIC_DEMO_MODE === "1") {
+    const body =
+      format === "html"
+        ? `<!doctype html><html lang="ko"><meta charset="utf-8"><title>${id} 판정 리포트</title><body><h1>${id} 합성 데모 판정 리포트</h1><p>합성 샘플 데이터 기반 공개 데모 출력입니다.</p></body></html>`
+        : "finding_id\tsection\tlabel\tverdict\nm0/F2:HH_SKIN_CORR:-\t2\t피부 부식성/자극성\t불일치\n";
+    const type = format === "html" ? "text/html;charset=utf-8" : "text/tab-separated-values;charset=utf-8";
+    const url = URL.createObjectURL(new Blob([body], { type }));
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `${id}-데모판정리포트.${format}`;
+    link.click();
+    URL.revokeObjectURL(url);
+    return;
+  }
   if (process.env.NODE_ENV === "development") {
     const mock = await import("./judgment-mock");
     if (mock.mockActive()) throw new ApiRequestError(404, "unknown", "Not Found");

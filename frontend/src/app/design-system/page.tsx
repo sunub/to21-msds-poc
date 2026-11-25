@@ -165,7 +165,7 @@ export default function DesignSystemPage() {
           <ul className="m-0 flex list-none flex-col gap-2 p-0">
             {TYPE_SCALE.map((t) => (
               <li key={t.name} className="flex flex-wrap items-baseline gap-4">
-                <span className={`w-72 ${t.cls}`}>CAS 7664-93-9 황산</span>
+                <span className={`w-72 ${t.cls}`}>CAS 0000-00-1 합성 데모 시료 A</span>
                 <code className="text-xs text-mut">{t.name}</code>
               </li>
             ))}
@@ -221,17 +221,17 @@ export default function DesignSystemPage() {
           />
           <Table>
             <TableHead>
-              <span className="w-24">문서</span>
+              <span className="w-32">문서</span>
               <span className="flex-1">물질</span>
               <span className="w-28">상태</span>
             </TableHead>
             {[
-              { id: "T21-M012", name: "황산", tone: "info" as Tone, s: "검수 중" },
-              { id: "T21-S014", name: "수산화나트륨", tone: "success" as Tone, s: "확정" },
-              { id: "T21-S016", name: "톨루엔", tone: "neutral" as Tone, s: "미검수" },
+              { id: "DEMO-CHEM-001", name: "합성 데모 시료 A", tone: "info" as Tone, s: "검수 중" },
+              { id: "DEMO-CHEM-002", name: "합성 데모 시료 B", tone: "success" as Tone, s: "확정" },
+              { id: "DEMO-CHEM-003", name: "합성 데모 시료 C", tone: "neutral" as Tone, s: "미검수" },
             ].map((r, i) => (
               <TableRow key={r.id} selected={i === selected} onClick={() => setSelected(i)}>
-                <span className="w-24 font-mono text-sm">{r.id}</span>
+                <span className="w-32 font-mono text-sm">{r.id}</span>
                 <span className="flex-1">{r.name}</span>
                 <StatusLabel tone={r.tone} className="w-28">
                   {r.s}
@@ -289,7 +289,7 @@ export default function DesignSystemPage() {
           <div className="max-w-xl">
             <Paper className="min-h-0">
               <b>3. 구성성분의 명칭 및 함유량</b>
-              <div>황산 Sulfuric acid 7664-93-9 93~98</div>
+              <div>가상물질 A Demo-Substance-A 0000-00-1 93~98</div>
             </Paper>
           </div>
         </Section>

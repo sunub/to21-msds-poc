@@ -16,7 +16,7 @@ import { isMatch, unreviewedFindings, verdictTone } from "@/lib/regulation";
 import { routes } from "@/lib/routes";
 
 const PAGE_SIZE = 100;
-const DEV = process.env.NODE_ENV === "development";
+const MOCK_ENABLED = process.env.NODE_ENV === "development" || process.env.NEXT_PUBLIC_DEMO_MODE === "1";
 
 const hrefOf = (doc: string, entry: HistoryEntry) => {
   const link = linkOf(entry);
@@ -62,9 +62,9 @@ export function HistoryTab({ docId, onSave }: { docId: string; onSave: (unreview
             <Link href={routes.review(docId, "values")} className={buttonStyles()}>
               추출값 확인
             </Link>
-            {DEV && (
+            {MOCK_ENABLED && (
               <Link href={`${routes.review(docId, "history")}&judgmentMock=ready`} className={buttonStyles({ variant: "outline" })}>
-                개발용 가상 이력 보기
+                가상 이력 보기
               </Link>
             )}
           </div>

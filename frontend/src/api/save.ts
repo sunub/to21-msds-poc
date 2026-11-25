@@ -102,12 +102,33 @@ export type ReportInclude = {
  * 리포트 파일을 받는다. snapshot_no 가 null 이면 지금 판정으로 만든 "저장 전 미리 보기"다.
  * 개발용 대역이 켜져 있으면 파일을 만들 수 없어 연결 전(404)으로 알린다.
  */
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
 export async function fetchReport(
   id: string,
   format: "pdf" | "json" | "html",
   include: ReportInclude,
   snapshotNo: number | null,
 ): Promise<{ blob: Blob; disposition: string | null }> {
+  if (process.env.NEXT_PUBLIC_DEMO_MODE === "1") {
+    if (format === "pdf") {
+      const res = await fetch(`${BASE_PATH}/demo/sample-msds-synthetic.pdf`);
+      return { blob: await res.blob(), disposition: null };
+    }
+    if (format === "json") {
+      const payload = {
+        synthetic_demo: true,
+        notice: "합성 샘플 데이터 기반 공개 데모 출력 (원본 기업 PoC 데이터 미포함)",
+        job_id: id,
+        snapshot_no: snapshotNo,
+        include,
+        exported_at: new Date().toISOString(),
+      };
+      return { blob: new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" }), disposition: null };
+    }
+    const html = `<!doctype html><html lang="ko"><meta charset="utf-8"><title>${id} 데모 리포트</title><body style="font-family:sans-serif;padding:24px"><h1>${id} 합성 데모 리포트 미리 보기</h1><p>합성 샘플 데이터 기반 공개 데모 출력입니다 (원본 기업 PoC 데이터 미포함).</p><p>저장본: ${snapshotNo ?? "저장 전 미리 보기"}</p></body></html>`;
+    return { blob: new Blob([html], { type: "text/html;charset=utf-8" }), disposition: null };
+  }
   if (process.env.NODE_ENV === "development") {
     const mock = await import("./judgment-mock");
     if (mock.mockActive()) throw new ApiRequestError(404, "unknown", "Not Found");

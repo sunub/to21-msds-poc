@@ -10,7 +10,8 @@ import { useSyncExternalStore } from "react";
 const KEY = "msds.reviewer";
 const EVENT = "msds:reviewer";
 
-let memory = "";
+const DEMO_DEFAULT = process.env.NEXT_PUBLIC_DEMO_MODE === "1" ? "데모 검토자" : "";
+let memory = DEMO_DEFAULT;
 
 function read(): string {
   try {
@@ -42,5 +43,5 @@ function subscribe(onChange: () => void) {
 
 /** 지금 검토자 이름. 정적 빌드·첫 그림에서는 빈 값이고, 브라우저에서 저장된 값으로 바뀐다. */
 export function useReviewer() {
-  return useSyncExternalStore(subscribe, read, () => "");
+  return useSyncExternalStore(subscribe, read, () => DEMO_DEFAULT);
 }

@@ -1,8 +1,9 @@
 /*
- * 개발 서버 전용 판정 API 대역. 값은 모두 가상이다 (TO21·HTODB 값을 넣지 않는다, D-47).
+ * 개발 서버·공개 정적 데모(NEXT_PUBLIC_DEMO_MODE=1) 전용 판정 API 대역.
+ * 값은 모두 100% 합성 가상 데이터다 (원본 기업·외부 DB 값을 넣지 않는다, D-47).
  * 계약 전체 모양을 돌려주고 judgment.ts 의 같은 zod 로 확인하므로, 진짜 서버로 바꿔도 화면 코드는 그대로다.
  *
- * 켜기: 주소에 ?judgmentMock=<상황> (탭을 옮겨도 유지). 끄기: ?judgmentMock=off
+ * 켜기: 주소에 ?judgmentMock=<상황> (탭을 옮겨도 유지). 끄기: ?judgmentMock=off (공개 데모 빌드에서는 기본 ready)
  * 상황: ready · none · running · failed · rerun · writing · stale · clean · empty · conflict · savefail · bad · multi
  *       성분별 요약: ready(혼합물, 성분 2) · single(단일물질) · nocomp(판정에 성분 요약 칸이 아직 없음)
  *       이력만 다른 상황: nolog(추출값 이력 없음) · nohistory(판정 이력 없음) · logfail(추출값 이력 500) · nofield(이력 0건) · many(추출값 이력 250건) · badlog(이력 모양 위반)
@@ -10,16 +11,21 @@
 import { ApiRequestError } from "./client";
 
 const KEY = "msds.judgmentMock";
+const DEMO_MODE = process.env.NEXT_PUBLIC_DEMO_MODE === "1";
 
 export function mockScenario(): string | null {
-  if (typeof window === "undefined") return null;
+  if (typeof window === "undefined") return DEMO_MODE ? "ready" : null;
   const param = new URLSearchParams(window.location.search).get("judgmentMock");
   try {
-    if (param === "off") window.sessionStorage.removeItem(KEY);
-    else if (param) window.sessionStorage.setItem(KEY, param);
-    return window.sessionStorage.getItem(KEY);
+    if (param === "off") {
+      window.sessionStorage.removeItem(KEY);
+      return DEMO_MODE ? "ready" : null;
+    }
+    if (param) window.sessionStorage.setItem(KEY, param);
+    return window.sessionStorage.getItem(KEY) ?? (DEMO_MODE ? "ready" : null);
   } catch {
-    return param === "off" ? null : param;
+    if (param === "off") return DEMO_MODE ? "ready" : null;
+    return param ?? (DEMO_MODE ? "ready" : null);
   }
 }
 
@@ -283,7 +289,29 @@ function finding(r: Row, msdsIndex: number) {
 }
 
 /* ── 상태 ── */
-const reviews = new Map<string, unknown>();
+type MockReviewEntry = {
+  status: string;
+  comment: string | null;
+  reviewer: string | null;
+  at: string | null;
+  history_count: number;
+  stale: boolean;
+  last_event_id: number | null;
+  notes: { comment: string | null; reviewer: string | null; at: string | null }[];
+};
+const reviews = new Map<string, MockReviewEntry>();
+const snapshots: {
+  contract: "snapshot/1";
+  job_id: string;
+  snapshot_no: number;
+  handoff_seq: number;
+  version: number;
+  last_review_event_id: number | null;
+  counts: { findings: number; 미검토: number; "불일치 확정": number; "예외 승인": number; 확인: number; "미검수 칸": number };
+  saved_by: string;
+  saved_at: string;
+  note: string | null;
+}[] = [];
 let startedAt = 0;
 let startedFor = "";
 let nextEvent = 1;
@@ -295,6 +323,7 @@ function elapsedMs(scenario: string) {
     startedAt = Date.now();
     handedOff = false;
     reviews.clear();
+    snapshots.length = 0;
     judgmentLog.length = 0;
   }
   return Date.now() - startedAt;
@@ -436,17 +465,81 @@ function judgmentHistory(scenario: string) {
 
 const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
+const emptyVerdictCounts = () => ({ 일치: 0, 불일치: 0, 경계: 0, 근거부족: 0, 경고: 0, 참고: 0, "범위 외": 0 });
+
+function saveOverview(id: string, scenario: string) {
+  const version = status(id, scenario).latest_version || 1;
+  const current = view(id, version, scenario);
+  const total = emptyVerdictCounts();
+  const sec2 = emptyVerdictCounts();
+  const sec15 = emptyVerdictCounts();
+  const unreviewedIds: string[] = [];
+  let confirmedMismatch = 0;
+  let exceptionApproved = 0;
+  let checked = 0;
+  let actionables = 0;
+
+  for (const res of current.consistency.results) {
+    for (const f of res.findings) {
+      const v = f.verdict as keyof typeof total;
+      total[v] += 1;
+      if (f.section === "2") sec2[v] += 1;
+      else sec15[v] += 1;
+      if (["불일치", "경계", "근거부족", "경고"].includes(f.verdict)) {
+        actionables += 1;
+        const r = current.reviews[f.id] as { status: string; stale: boolean } | undefined;
+        if (!r || r.status === "미검토" || r.stale) unreviewedIds.push(f.id);
+        else if (r.status === "불일치 확정") confirmedMismatch += 1;
+        else if (r.status === "예외 승인") exceptionApproved += 1;
+        else if (r.status === "확인") checked += 1;
+      }
+    }
+  }
+
+  return {
+    job_id: id,
+    version,
+    handoff_seq: version,
+    verdicts: { total, by_section: { "2": sec2, "15": sec15 } },
+    reviews: {
+      미검토: unreviewedIds.length,
+      "불일치 확정": confirmedMismatch,
+      "예외 승인": exceptionApproved,
+      확인: checked,
+      unreviewed_ids: unreviewedIds,
+    },
+    values: {
+      state: "일부" as const,
+      model_as_is: 3,
+      confirmed: 7,
+      edited: 1,
+      fields_total: 11,
+    },
+    snapshots: snapshots.filter((s) => s.job_id === id),
+    _actionables: actionables,
+  };
+}
+
 /** path 는 judgment.ts 가 만든 경로. 검토 요청은 요청 본문을 받아 상태에 쌓는다 */
 export async function mockResponse(path: string, init?: RequestInit): Promise<unknown> {
   const scenario = mockScenario() ?? "ready";
-  await wait(200);
+  await wait(120);
   const id = decodeURIComponent((path.split("?")[0].split("/")[3]) ?? "");
   if (path.startsWith("/api/judgments/summary")) {
     const ids = (new URLSearchParams(path.split("?")[1]).get("job_ids") ?? "").split(",").filter(Boolean);
     return ids.map((jobId) => {
       const s = status(jobId, scenario);
-      return { job_id: jobId, state: s.state, latest_version: s.latest_version, unreviewed: TODO.length,
-               saved_snapshot: s.saved_snapshot, saved_at: null, data_grade: "실버" };
+      const jobSnaps = snapshots.filter((sn) => sn.job_id === jobId);
+      const latestSnap = jobSnaps[0] ?? null;
+      return {
+        job_id: jobId,
+        state: s.state,
+        latest_version: s.latest_version,
+        unreviewed: TODO.length,
+        saved_snapshot: latestSnap?.snapshot_no ?? s.saved_snapshot,
+        saved_at: latestSnap?.saved_at ?? null,
+        data_grade: latestSnap ? "골드" : "실버",
+      };
     });
   }
   if (path.endsWith("/to-judgment")) {
@@ -463,15 +556,63 @@ export async function mockResponse(path: string, init?: RequestInit): Promise<un
     if (scenario === "nohistory") throw new ApiRequestError(404, "http_404", "Not Found");
     return judgmentHistory(scenario);
   }
+  if (path.endsWith("/save-overview")) {
+    const { _actionables: _, ...ov } = saveOverview(id, scenario);
+    return ov;
+  }
+  if (path.endsWith("/snapshots")) {
+    await wait(180);
+    if (scenario === "conflict") {
+      throw new ApiRequestError(409, "http_409", "다른 검토자가 먼저 처리했거나 새 판정이 있습니다 (409 충돌 시뮬레이션)");
+    }
+    if (scenario === "savefail") throw new ApiRequestError(500, "http_500", "가상 서버 오류");
+    const body = JSON.parse(String(init?.body)) as { reviewer: string; seen_version: number; note: string | null };
+    const ov = saveOverview(id, scenario);
+    const snapshotNo = snapshots.filter((s) => s.job_id === id).length + 1;
+    const snap = {
+      contract: "snapshot/1" as const,
+      job_id: id,
+      snapshot_no: snapshotNo,
+      handoff_seq: ov.handoff_seq,
+      version: ov.version,
+      last_review_event_id: nextEvent > 1 ? nextEvent - 1 : null,
+      counts: {
+        findings: ov._actionables,
+        미검토: ov.reviews.미검토,
+        "불일치 확정": ov.reviews["불일치 확정"],
+        "예외 승인": ov.reviews["예외 승인"],
+        확인: ov.reviews.확인,
+        "미검수 칸": ov.values.model_as_is,
+      },
+      saved_by: body.reviewer,
+      saved_at: new Date().toISOString(),
+      note: body.note ?? null,
+    };
+    snapshots.unshift(snap);
+    judgmentLog.unshift({
+      at: snap.saved_at,
+      reviewer: body.reviewer,
+      area: "저장",
+      target: `${snapshotNo}번째 저장본`,
+      action: "DB 저장",
+      detail: `판정 버전 ${ov.version} · 미검토 ${ov.reviews.미검토}건`,
+      comment: body.note ?? null,
+    });
+    return snap;
+  }
   if (path.endsWith("/status")) return status(id, scenario);
   if (path.endsWith("/reviews")) {
-    await wait(300);
-    if (scenario === "conflict") throw new ApiRequestError(409, "http_409", "보던 판정보다 새 판정이 있습니다");
+    await wait(180);
+    if (scenario === "conflict") {
+      throw new ApiRequestError(409, "http_409", "다른 검토자가 이 항목을 먼저 처리했습니다 (seen_event_id 충돌 시뮬레이션)");
+    }
     if (scenario === "savefail") throw new ApiRequestError(500, "http_500", "가상 서버 오류");
     const body = JSON.parse(String(init?.body)) as { finding_id: string; action: string; comment: string | null; reviewer: string };
-    const prev = reviews.get(body.finding_id) as { status: string; comment: string | null; notes?: { comment: string | null; reviewer: string | null; at: string | null }[] } | undefined;
+    const prev = reviews.get(body.finding_id);
+    const eventId = nextEvent++;
+    const now = new Date().toISOString();
     judgmentLog.unshift({
-      at: new Date().toISOString(),
+      at: now,
       reviewer: body.reviewer,
       area: body.finding_id.includes("/F2") ? "2항" : "15항",
       target: rowsFor(scenario).find((r) => finding(r, 0).id === body.finding_id)?.label ?? HAZARD_MIX.find((h) => hazardId(h, 0) === body.finding_id)?.label ?? body.finding_id,
@@ -486,13 +627,14 @@ export async function mockResponse(path: string, init?: RequestInit): Promise<un
         status: body.action === "의견" ? (prev?.status ?? "미검토") : body.action,
         comment: body.comment ?? prev?.comment ?? null,
         reviewer: body.reviewer,
-        at: "2026-11-03T09:10:00+09:00",
-        history_count: 1,
+        at: now,
+        history_count: (prev?.history_count ?? 0) + 1,
         stale: false,
-        notes: [...(prev?.notes ?? []), ...(body.action === "의견" ? [{ comment: body.comment, reviewer: body.reviewer, at: "2026-11-03T09:10:00+09:00" }] : [])],
+        last_event_id: eventId,
+        notes: [...(prev?.notes ?? []), ...(body.action === "의견" ? [{ comment: body.comment, reviewer: body.reviewer, at: now }] : [])],
       });
     }
-    return { event_id: nextEvent++, job_id: id, finding_id: body.finding_id, action: body.action, comment: body.comment, reviewer: body.reviewer, at: "2026-11-03T09:10:00+09:00", version: 1, verdict_seen: "불일치" };
+    return { event_id: eventId, job_id: id, finding_id: body.finding_id, action: body.action, comment: body.comment, reviewer: body.reviewer, at: now, version: 1, verdict_seen: "불일치" };
   }
   const version = new URLSearchParams(path.split("?")[1] ?? "").get("version");
   return view(id, Number(version) || status(id, scenario).latest_version || 1, scenario);

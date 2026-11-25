@@ -4,7 +4,8 @@
  * 캐시 키는 documentKeys 한 곳에서 만든다 (무효화할 때 같은 키를 쓰도록).
  */
 import { queryOptions } from "@tanstack/react-query";
-import { apiUrl, isPermanentError, requestJson } from "./client";
+import type { z } from "zod";
+import { ApiContractError, apiUrl, isPermanentError, requestJson } from "./client";
 import {
   FINAL_STATUSES,
   createDocumentParamsSchema,
@@ -28,7 +29,26 @@ import {
 /** 진행 상태를 다시 묻는 간격 */
 const PROGRESS_POLL_MS = 2_000;
 
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 const doc = (id: string) => `/api/documents/${encodeURIComponent(id)}`;
+
+/**
+ * 공개 정적 데모 빌드(NEXT_PUBLIC_DEMO_MODE=1)에서만 합성 문서 대역을 쓴다.
+ * 기본 폐쇄망 빌드에서는 조건이 거짓으로 접혀 대역 코드가 번들에 들어가지 않는다.
+ */
+async function docRequest<S extends z.ZodType>(
+  schema: S,
+  path: string,
+  init?: RequestInit & { query?: Record<string, string> },
+): Promise<z.infer<S>> {
+  if (process.env.NEXT_PUBLIC_DEMO_MODE === "1") {
+    const mock = await import("./demo-documents-mock");
+    const parsed = schema.safeParse(await mock.demoDocumentResponse(path, init));
+    if (!parsed.success) throw new ApiContractError(path, parsed.error.issues);
+    return parsed.data;
+  }
+  return requestJson(schema, path, init);
+}
 
 export const documentKeys = {
   all: ["documents"] as const,
@@ -51,7 +71,7 @@ export const documentKeys = {
 export const healthQuery = () =>
   queryOptions({
     queryKey: ["health"] as const,
-    queryFn: ({ signal }) => requestJson(healthResponseSchema, "/api/health", { signal }),
+    queryFn: ({ signal }) => docRequest(healthResponseSchema, "/api/health", { signal }),
   });
 
 /** 목록을 다시 묻는 간격 (처리 중인 문서가 있을 때만) */
@@ -61,7 +81,7 @@ const LIST_POLL_MS = 5_000;
 export const documentListQuery = (status: DocumentFilter = "all") =>
   queryOptions({
     queryKey: documentKeys.list(status),
-    queryFn: ({ signal }) => requestJson(documentListResponseSchema, "/api/documents", { query: { status }, signal }),
+    queryFn: ({ signal }) => docRequest(documentListResponseSchema, "/api/documents", { query: { status }, signal }),
     // 검수 진행(document_extras·review_stage)은 다른 화면에서 바뀐다. 목록으로 돌아오면 바로 새로 받는다
     staleTime: 0,
     refetchInterval: (query) => ((query.state.data?.counts.active ?? 0) > 0 ? LIST_POLL_MS : false),
@@ -75,7 +95,7 @@ export const documentListQuery = (status: DocumentFilter = "all") =>
 export const documentDetailQuery = (id: string) =>
   queryOptions({
     queryKey: documentKeys.detail(id),
-    queryFn: ({ signal }) => requestJson(documentDetailSchema, doc(id), { signal }),
+    queryFn: ({ signal }) => docRequest(documentDetailSchema, doc(id), { signal }),
     staleTime: 0,
     refetchInterval: (query) => {
       if (isPermanentError(query.state.error)) return false;
@@ -85,13 +105,14 @@ export const documentDetailQuery = (id: string) =>
   });
 
 /** 올린 원본 PDF. 원문 칸이 직접 그린다 */
-export const pdfUrl = (id: string) => apiUrl(`${doc(id)}/pdf`);
+export const pdfUrl = (id: string) =>
+  process.env.NEXT_PUBLIC_DEMO_MODE === "1" ? `${BASE_PATH}/demo/sample-msds-synthetic.pdf` : apiUrl(`${doc(id)}/pdf`);
 
 /** 5. 원문 칸 */
 export const pageLinesQuery = (id: string, page: number) =>
   queryOptions({
     queryKey: documentKeys.lines(id, page),
-    queryFn: ({ signal }) => requestJson(pageLinesResponseSchema, `${doc(id)}/pages/${page}/lines`, { signal }),
+    queryFn: ({ signal }) => docRequest(pageLinesResponseSchema, `${doc(id)}/pages/${page}/lines`, { signal }),
     // 전처리가 끝난 쪽의 원문은 바뀌지 않는다
     staleTime: Infinity,
   });
@@ -100,7 +121,7 @@ export const pageLinesQuery = (id: string, page: number) =>
 export const pageBoxesQuery = (id: string, page: number) =>
   queryOptions({
     queryKey: documentKeys.boxes(id, page),
-    queryFn: ({ signal }) => requestJson(pageBoxesResponseSchema, `${doc(id)}/pages/${page}/boxes`, { signal }),
+    queryFn: ({ signal }) => docRequest(pageBoxesResponseSchema, `${doc(id)}/pages/${page}/boxes`, { signal }),
     staleTime: Infinity,
   });
 
@@ -108,14 +129,14 @@ export const pageBoxesQuery = (id: string, page: number) =>
 export const resultQuery = (id: string) =>
   queryOptions({
     queryKey: documentKeys.result(id),
-    queryFn: ({ signal }) => requestJson(resultResponseSchema, `${doc(id)}/result`, { signal }),
+    queryFn: ({ signal }) => docRequest(resultResponseSchema, `${doc(id)}/result`, { signal }),
   });
 
 /** 끝난 문서의 재생성 MSDS. 끝나기 전에는 409 이므로 status 가 done 일 때만 켠다(enabled). */
 export const regeneratedQuery = (id: string) =>
   queryOptions({
     queryKey: documentKeys.regenerated(id),
-    queryFn: ({ signal }) => requestJson(regeneratedResponseSchema, `${doc(id)}/regenerated`, { signal }),
+    queryFn: ({ signal }) => docRequest(regeneratedResponseSchema, `${doc(id)}/regenerated`, { signal }),
   });
 
 /**
@@ -127,14 +148,14 @@ export const sectionResultQuery = (id: string, msdsIndex: number, section: numbe
   queryOptions({
     queryKey: documentKeys.section(id, msdsIndex, section, reextracted),
     queryFn: ({ signal }) =>
-      requestJson(sectionResultResponseSchema, `${doc(id)}/sections/${msdsIndex}/${section}`, { signal }),
+      docRequest(sectionResultResponseSchema, `${doc(id)}/sections/${msdsIndex}/${section}`, { signal }),
   });
 
 /** 2.2 항별 칸과 검수 기록. 끝나기 전에는 409 이므로 status 가 done 일 때만 켠다(enabled). */
 export const reviewQuery = (id: string) =>
   queryOptions({
     queryKey: documentKeys.review(id),
-    queryFn: ({ signal }) => requestJson(reviewResponseSchema, `${doc(id)}/review`, { signal }),
+    queryFn: ({ signal }) => docRequest(reviewResponseSchema, `${doc(id)}/review`, { signal }),
   });
 
 /* ── 쓰기 ───────────────────────────────────────────────── */
@@ -143,7 +164,7 @@ export const reviewQuery = (id: string) =>
 export function createDocument(file: Blob, params: CreateDocumentParams) {
   const { filename, as_of } = createDocumentParamsSchema.parse(params);
   const query: Record<string, string> = as_of ? { filename, as_of } : { filename };
-  return requestJson(createDocumentResponseSchema, "/api/documents", {
+  return docRequest(createDocumentResponseSchema, "/api/documents", {
     method: "POST",
     headers: { "Content-Type": "application/pdf" },
     body: file,
@@ -153,7 +174,7 @@ export function createDocument(file: Blob, params: CreateDocumentParams) {
 
 /** 7. 실패·멈춘 문서를 처음부터 다시 (그 밖의 상태면 409) */
 export function retryDocument(id: string) {
-  return requestJson(retryResponseSchema, `${doc(id)}/retry`, { method: "POST" });
+  return docRequest(retryResponseSchema, `${doc(id)}/retry`, { method: "POST" });
 }
 
 const jsonBody = (body: unknown) => ({
@@ -164,10 +185,10 @@ const jsonBody = (body: unknown) => ({
 
 /** 칸 하나 확인·수정·되돌림. 바뀐 뒤의 전체 보기를 돌려준다 */
 export function saveFieldReview(id: string, body: FieldReviewRequest) {
-  return requestJson(reviewResponseSchema, `${doc(id)}/review/fields`, jsonBody(body));
+  return docRequest(reviewResponseSchema, `${doc(id)}/review/fields`, jsonBody(body));
 }
 
 /** 항 하나 확인 완료·취소 */
 export function saveSectionReview(id: string, body: SectionReviewRequest) {
-  return requestJson(reviewResponseSchema, `${doc(id)}/review/sections`, jsonBody(body));
+  return docRequest(reviewResponseSchema, `${doc(id)}/review/sections`, jsonBody(body));
 }

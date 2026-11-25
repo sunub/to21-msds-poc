@@ -14,6 +14,9 @@
  */
 import { z } from "zod";
 
+// 엄격한 CSP(script-src 에 'unsafe-eval' 미허용) 환경에서 Zod v4 의 런타임 new Function JIT 프로브를 비활성화한다.
+z.config({ jitless: true });
+
 /* ── 공통 값 ─────────────────────────────────────────────── */
 
 /** 작업 상태. 끝난 상태(done·failed·interrupted)에 이르면 폴링을 멈춘다. */
@@ -279,8 +282,8 @@ export type SectionRef = z.infer<typeof sectionRefSchema>;
 /** 추출이 끝난(status done) 뒤에만 200. 그 전에는 409 */
 export const resultResponseSchema = z.object({
   /**
-   * TO21 v0.6 문서 (expand.to_to21 결과). 실패한 항은 빈 값.
-   * 모양은 TO21 스키마(to21/v0.6, 저장소 밖 D-47)가 정하므로 여기서는 객체인지만 본다.
+   * 외부 v0.6 문서 (expand.to_to21 결과). 실패한 항은 빈 값.
+   * 모양은 외부 스키마 v0.6(저장소 밖 D-47)이 정하므로 여기서는 객체인지만 본다.
    */
   to21: z.record(z.string(), z.unknown()),
   /** 사람이 볼 항: 실패, 검사 문제, 펼치기 문제, 그림문자 대조 불일치 */
