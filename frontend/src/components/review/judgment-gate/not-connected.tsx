@@ -3,8 +3,8 @@ import { buttonStyles } from "@/components/ui";
 import { routes, type ReviewTab } from "@/lib/routes";
 import { JudgmentNotice } from "./notice";
 
-/** 처음 켤 때만 쓰는 대역 안내 링크. 제품 빌드에서는 조건이 거짓이라 빠진다 */
-const DEV = process.env.NODE_ENV === "development";
+/** 개발·공개 데모에서만 쓰는 대역 안내 링크. 기본 온프레미스 제품 빌드에서는 조건이 거짓이라 빠진다 */
+const MOCK_ENABLED = process.env.NODE_ENV === "development" || process.env.NEXT_PUBLIC_DEMO_MODE === "1";
 
 export function NotConnected({ docId, tab, paneTitle, what }: { docId: string; tab: ReviewTab; paneTitle: string; what: string }) {
   return (
@@ -14,9 +14,9 @@ export function NotConnected({ docId, tab, paneTitle, what }: { docId: string; t
         <Link href={routes.review(docId, "values")} className={buttonStyles()}>
           추출값 확인
         </Link>
-        {DEV && (
+        {MOCK_ENABLED && (
           <Link href={`${routes.review(docId, tab)}&judgmentMock=ready`} className={buttonStyles({ variant: "outline" })}>
-            개발용 가상 판정 보기
+            가상 판정 보기
           </Link>
         )}
       </div>

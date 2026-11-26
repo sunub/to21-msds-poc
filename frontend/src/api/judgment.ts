@@ -77,7 +77,7 @@ const displaySchema = z.object({
   source_pages: z.array(z.object({ section: z.number(), page: z.number() })),
 });
 
-/** TO21 수치 묶음(Q). 화면이 함량을 적는 데 쓰는 칸만 본다 */
+/** 수치 묶음(Q). 화면이 함량을 적는 데 쓰는 칸만 본다 */
 const quantitySchema = z.object({
   raw: z.string().nullable().optional(),
   value: z.number().nullable().optional(),
@@ -204,9 +204,9 @@ export type ReviewEventRequest = {
   seen_event_id: number | null;
 };
 
-/** 개발 서버에서 ?judgmentMock=<상황> 을 켜면 대역이 답한다. 제품 빌드에는 대역 코드가 들어가지 않는다 */
+/** 개발 서버(?judgmentMock=<상황>) 또는 공개 데모 빌드(NEXT_PUBLIC_DEMO_MODE=1)에서만 대역이 답한다. 기본 온프레미스 제품 빌드에는 대역 코드가 들어가지 않는다 */
 export async function call<S extends z.ZodType>(schema: S, path: string, init?: RequestInit): Promise<z.infer<S>> {
-  if (process.env.NODE_ENV === "development") {
+  if (process.env.NODE_ENV === "development" || process.env.NEXT_PUBLIC_DEMO_MODE === "1") {
     const mock = await import("./judgment-mock");
     if (mock.mockActive()) {
       const parsed = schema.safeParse(await mock.mockResponse(path, init));

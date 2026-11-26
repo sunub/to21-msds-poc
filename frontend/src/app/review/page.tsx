@@ -41,6 +41,7 @@ function ReviewBody({ doc }: { doc: string }) {
     <div className="flex min-h-0 flex-1 flex-col gap-5">
       <div className="border-b border-line">
         <UnderlineTabs
+          idPrefix="review-tab"
           label="검수 구역"
           items={REVIEW_TABS.map((t) => ({ id: t.id, label: t.label }))}
           value={tab}
@@ -49,26 +50,33 @@ function ReviewBody({ doc }: { doc: string }) {
       </div>
       <DocSummaryLine docId={doc} />
 
-      {tab === "values" ? (
-        <ValuesPanel docId={doc} />
-      ) : tab === "components" ? (
-        <ComponentsTab docId={doc} onSave={(unreviewed) => void goSave(unreviewed)} />
-      ) : tab === "history" ? (
-        <HistoryTab docId={doc} onSave={(unreviewed) => void goSave(unreviewed)} />
-      ) : tab === "regulation" ? (
-        <RegulationTab
-          docId={doc}
-          drafts={regulationDrafts}
-          onDraft={(id, text) => setRegulationDrafts((prev) => ({ ...prev, [id]: text }))}
-          onSave={(unreviewed) => void goSave(unreviewed)}
-        />
-      ) : (
-        <HazardTab
-          docId={doc}
-          drafts={regulationDrafts}
-          onDraft={(id, text) => setRegulationDrafts((prev) => ({ ...prev, [id]: text }))}
-        />
-      )}
+      <div
+        role="tabpanel"
+        id={`review-tab-panel-${tab}`}
+        aria-labelledby={`review-tab-${tab}`}
+        className="flex min-h-0 flex-1 flex-col gap-5"
+      >
+        {tab === "values" ? (
+          <ValuesPanel docId={doc} />
+        ) : tab === "components" ? (
+          <ComponentsTab docId={doc} onSave={(unreviewed) => void goSave(unreviewed)} />
+        ) : tab === "history" ? (
+          <HistoryTab docId={doc} onSave={(unreviewed) => void goSave(unreviewed)} />
+        ) : tab === "regulation" ? (
+          <RegulationTab
+            docId={doc}
+            drafts={regulationDrafts}
+            onDraft={(id, text) => setRegulationDrafts((prev) => ({ ...prev, [id]: text }))}
+            onSave={(unreviewed) => void goSave(unreviewed)}
+          />
+        ) : (
+          <HazardTab
+            docId={doc}
+            drafts={regulationDrafts}
+            onDraft={(id, text) => setRegulationDrafts((prev) => ({ ...prev, [id]: text }))}
+          />
+        )}
+      </div>
 
       <SaveGuardDialog
         open={guardOpen}

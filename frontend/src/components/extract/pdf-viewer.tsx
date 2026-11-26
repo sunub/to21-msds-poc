@@ -14,7 +14,8 @@ import { Button, Skeleton } from "@/components/ui";
 import { cn } from "@/lib/cn";
 import { CSS_UNITS, clampScale, matchSpans, resolveScale, stepScale, scrollWithin, zoomPercent, type Highlight, type Zoom } from "@/lib/viewer";
 
-const ASSETS = "/pdfjs";
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+const ASSETS = `${BASE_PATH}/pdfjs`;
 const PAD = 16;
 
 // 문서마다 한 번만 받는다. 탭을 옮겨도 다시 받지 않는다
@@ -296,7 +297,7 @@ export function PdfViewer({
           −
         </Button>
         <Button
-          aria-label="실제 크기로"
+          aria-label={scale ? `${zoomPercent(scale)}% 실제 크기로` : "- 실제 크기로"}
           title="누르면 100%"
           disabled={!scale}
           onClick={() => setZoom(CSS_UNITS)}
